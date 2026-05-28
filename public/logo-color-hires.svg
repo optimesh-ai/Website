@@ -1,0 +1,16 @@
+<svg viewBox="0 0 4000 4000" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <!-- Background rounded square -->
+  <rect x="400" y="400" width="3200" height="3200" rx="400" fill="none" stroke="#22D3EE" strokeWidth="150" opacity="0.3"/>
+  
+  <!-- Top-left circle (Cyan) -->
+  <circle cx="1400" cy="1400" r="600" fill="#22D3EE"/>
+  
+  <!-- Top-right circle (Purple) -->
+  <circle cx="2600" cy="1400" r="600" fill="#9D4EDD"/>
+  
+  <!-- Bottom-left circle (Magenta) -->
+  <circle cx="1400" cy="2600" r="600" fill="#FF00FF"/>
+  
+  <!-- Bottom-right circle (Cyan) -->
+  <circle cx="2600" cy="2600" r="600" fill="#22D3EE"/>
+</svg>

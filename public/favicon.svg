@@ -1,0 +1,26 @@
+<svg viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="cyanGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#00e6ff;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#8c30e8;stop-opacity:1" />
+    </linearGradient>
+  </defs>
+  
+  <!-- Background -->
+  <rect width="40" height="40" fill="#1a1a22" rx="8"/>
+  
+  <!-- Coverage zones - hexagons -->
+  <polygon points="10,12 14,10 18,12 18,16 14,18 10,16" fill="#00e6ff" opacity="0.3"/>
+  <polygon points="22,12 26,10 30,12 30,16 26,18 22,16" fill="#8c30e8" opacity="0.3"/>
+  <polygon points="10,24 14,22 18,24 18,28 14,30 10,28" fill="#ff00aa" opacity="0.3"/>
+  <polygon points="22,24 26,22 30,24 30,28 26,30 22,28" fill="#00e6ff" opacity="0.3"/>
+  
+  <!-- Central optimization node - bold diamond -->
+  <polygon points="20,16 24,20 20,24 16,20" fill="url(#cyanGrad)"/>
+  
+  <!-- Network connection lines -->
+  <line x1="14" y1="14" x2="18" y2="18" stroke="#00e6ff" stroke-width="1.5" opacity="0.7"/>
+  <line x1="26" y1="14" x2="22" y2="18" stroke="#8c30e8" stroke-width="1.5" opacity="0.7"/>
+  <line x1="14" y1="26" x2="18" y2="22" stroke="#ff00aa" stroke-width="1.5" opacity="0.7"/>
+  <line x1="26" y1="26" x2="22" y2="22" stroke="#00e6ff" stroke-width="1.5" opacity="0.7"/>
+</svg>
