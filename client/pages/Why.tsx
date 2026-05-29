@@ -186,8 +186,8 @@ export default function Why() {
             />
             <DriverCard
               n="02"
-              title="AI is now writing network configurations."
-              body="Copilots are spreading fast through network operations. Almost none ship with a verifier between the model and production."
+              title="AI is writing network configurations."
+              body="Every major copilot in network operations ships without a verifier between the model and production. We are the only platform that built one, pairing AI generation with a forwarding-plane proof before any change reaches production."
             />
             <DriverCard
               n="03"
