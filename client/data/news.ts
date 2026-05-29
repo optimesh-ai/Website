@@ -36,6 +36,31 @@ export const news: NewsItem[] = [
     ],
   },
   {
+    slug: "a16z-speedrun",
+    headline: "A Note on Our a16z Speedrun Decision",
+    date: "2026-04-02",
+    category: "Programs",
+    dek: "Earlier this year, Optimesh Technologies received an offer from a16z Speedrun. After careful thought, we decided not to pursue the program at this time. We are grateful to the team for one of the cleanest processes we have been through.",
+    body: [
+      {
+        type: "p",
+        text: "Earlier this year, Optimesh Technologies was selected for a16z Speedrun, the accelerator Andreessen Horowitz runs for early-stage founders. After careful consideration, we made the difficult decision not to pursue the program at this time.",
+      },
+      {
+        type: "p",
+        text: "Speedrun is excellent. The team, the cohort, and the process were all exceptional, and we want to be clear that the decision had nothing to do with the program itself. The fit for where Optimesh Technologies is right now turned out to be different from what we expected when we applied.",
+      },
+      {
+        type: "p",
+        text: "We are grateful to the a16z team for their time, their conviction, and one of the cleanest, most respectful processes we have been through as founders. The bar they set is the bar we want to hold ourselves to.",
+      },
+      {
+        type: "p",
+        text: "We will keep building. If you operate a network and want to put Optimesh Technologies to work in your environment, we would like to hear from you.",
+      },
+    ],
+  },
+  {
     slug: "angel-round",
     headline: "Optimesh Technologies Raises an Angel Round",
     date: "2026-03-11",

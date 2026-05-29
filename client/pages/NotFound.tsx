@@ -20,7 +20,7 @@ const NotFound = () => {
         <div className="pointer-events-none absolute inset-0 bg-grid bg-grid-fade opacity-70" />
         <Container className="relative flex min-h-[70vh] flex-col items-center justify-center py-32 text-center">
           <p className="font-mono text-sm uppercase tracking-[0.22em] text-primary">
-            404 — no route
+            404, no route
           </p>
           <h1 className="mt-6 text-balance text-5xl font-medium tracking-tight text-foreground sm:text-6xl">
             This path doesn't resolve.

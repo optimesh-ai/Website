@@ -35,12 +35,12 @@ const capabilities = [
   {
     icon: <Route className="h-5 w-5" />,
     title: "Reachability & path analysis",
-    body: "Ask whether one host can reach another and get the exact hops back — including ECMP, MPLS, VXLAN, EVPN, GRE, IPSec and NAT.",
+    body: "Ask whether one host can reach another and get the exact hops back, including ECMP, MPLS, VXLAN, EVPN, GRE, IPSec and NAT.",
   },
   {
     icon: <GitCompare className="h-5 w-5" />,
     title: "Change diffing",
-    body: "Compare the forwarding plane before and after a proposed config edit to see precisely what a change does — not what you hoped it would.",
+    body: "Compare the forwarding plane before and after a proposed config edit to see precisely what a change does, not what you hoped it would.",
   },
   {
     icon: <Radar className="h-5 w-5" />,
@@ -78,7 +78,7 @@ const principles = [
   {
     icon: <Gauge className="h-5 w-5" />,
     title: "Fast enough for CI",
-    body: "Whole-fabric simulation in milliseconds — 345× faster than the industry standard — so validation runs on every commit, not once a quarter.",
+    body: "Whole-fabric simulation in milliseconds, 345× faster than the industry standard, so validation runs on every commit, not once a quarter.",
   },
   {
     icon: <Repeat className="h-5 w-5" />,
@@ -88,7 +88,7 @@ const principles = [
   {
     icon: <ServerCog className="h-5 w-5" />,
     title: "Yours to run",
-    body: "Deploy on-prem or air-gapped. Configs stay on your hardware, zero CVEs, HMAC-signed — nothing ever phones home.",
+    body: "Deploy on-prem or air-gapped. Configs stay on your hardware, zero CVEs, HMAC-signed, nothing ever phones home.",
   },
 ];
 
@@ -119,7 +119,7 @@ export default function Features() {
             >
               Optimesh Technologies is offline network intelligence: simulate the forwarding
               plane across your whole fabric, see exactly what a config change
-              will do, and ship verified fixes — all without touching a live
+              will do, and ship verified fixes, all without touching a live
               device. Two products, one engine, one answer you can trust.
             </p>
 
@@ -157,7 +157,7 @@ export default function Features() {
           <SectionHeading
             eyebrow="What the platform does"
             title="A complete picture of your forwarding plane."
-            description="From low-level simulation to AI-driven remediation, every capability builds on the same deterministic engine — so the answers always agree."
+            description="From low-level simulation to AI-driven remediation, every capability builds on the same deterministic engine, so the answers always agree."
           />
           <div className="mt-14 grid gap-x-8 gap-y-12 sm:grid-cols-2 lg:grid-cols-4">
             {capabilities.map((c, i) => (
@@ -186,7 +186,7 @@ export default function Features() {
         <SectionHeading
           eyebrow="Two products, one engine"
           title="Simulation you can build on. Remediation you can trust."
-          description="Hammerhead is the offline simulator that models how packets move. Config Studio puts that engine to work — diagnosing faults and proving every fix safe before it ever reaches you."
+          description="Hammerhead is the offline simulator that models how packets move. Config Studio puts that engine to work, diagnosing faults and proving every fix safe before it ever reaches you."
         />
 
         <div className="mt-14 grid gap-6 lg:grid-cols-2">
@@ -194,7 +194,7 @@ export default function Features() {
             icon={<Gauge className="h-5 w-5" />}
             name="Hammerhead"
             tagline="Offline forwarding-plane simulator"
-            description="Drop your configs in a directory and ask what a change will do. Hammerhead parses 14 vendor dialects, simulates OSPF, BGP, IS-IS and more, and answers reachability and traceroute queries in milliseconds — as a single static binary."
+            description="Drop your configs in a directory and ask what a change will do. Hammerhead parses 14 vendor dialects, simulates OSPF, BGP, IS-IS and more, and answers reachability and traceroute queries in milliseconds, as a single static binary."
             points={[
               "345× faster than the industry standard, 99.93% FIB parity",
               "Memory-safe by construction, deterministic, audit-ready",
@@ -206,7 +206,7 @@ export default function Features() {
             icon={<ShieldCheck className="h-5 w-5" />}
             name="Config Studio"
             tagline="AI diagnosis & verified remediation"
-            description="When a config breaks, Config Studio runs a four-stage pipeline — sanitize, diagnose, patch, verify — re-simulating each fix in Hammerhead and rejecting anything that drops reachability below 99%, all before a human approves it."
+            description="When a config breaks, Config Studio runs a four-stage pipeline, sanitize, diagnose, patch, verify, re-simulating each fix in Hammerhead and rejecting anything that drops reachability below 99%, all before a human approves it."
             points={[
               "99.6% diagnostic accuracy, time-to-fix under 10 seconds",
               "Minimal CLI diffs, verified against a 32-class taxonomy",
@@ -292,7 +292,7 @@ export default function Features() {
           ))}
         </div>
         <p className="mx-auto mt-12 max-w-2xl text-pretty text-center text-sm leading-relaxed text-muted-foreground">
-          Optimesh Technologies analyzes configuration, not live telemetry — it is not a
+          Optimesh Technologies analyzes configuration, not live telemetry, it is not a
           real-time digital twin. That is exactly what lets it run offline,
           deterministically, and fast enough to gate every change.
         </p>

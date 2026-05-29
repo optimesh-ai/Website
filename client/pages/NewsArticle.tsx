@@ -12,7 +12,7 @@ export default function NewsArticle() {
   const item = slug ? getNewsBySlug(slug) : undefined;
 
   useEffect(() => {
-    if (item) document.title = `${item.headline} — Optimesh Technologies`;
+    if (item) document.title = `${item.headline}, Optimesh Technologies`;
   }, [item]);
 
   if (!item) return <Navigate to="/news" replace />;

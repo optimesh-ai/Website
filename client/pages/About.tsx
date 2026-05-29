@@ -33,7 +33,7 @@ const values = [
   {
     icon: <Lock className="h-5 w-5" />,
     title: "Your network stays yours",
-    body: "Optimesh Technologies runs entirely on your own hardware — on-prem and air-gap ready. Your configs never leave your infrastructure, and nothing phones home.",
+    body: "Optimesh Technologies runs entirely on your own hardware, on-prem and air-gap ready. Your configs never leave your infrastructure, and nothing phones home.",
   },
   {
     icon: <TerminalSquare className="h-5 w-5" />,
@@ -72,7 +72,7 @@ const products = [
     icon: <Gauge className="h-5 w-5" />,
     name: "Hammerhead",
     tagline: "Offline forwarding-plane simulator",
-    body: "Simulate your entire forwarding plane from a directory of configs in milliseconds — 345× faster than the industry standard at 99.93% parity, fully deterministic, with no live device required.",
+    body: "Simulate your entire forwarding plane from a directory of configs in milliseconds, 345× faster than the industry standard at 99.93% parity, fully deterministic, with no live device required.",
     to: "/products/hammerhead",
   },
   {
@@ -110,7 +110,7 @@ export default function About() {
               style={{ animationDelay: "160ms" }}
             >
               Optimesh Technologies builds offline intelligence for network
-              infrastructure — so the engineers who route the world's traffic
+              infrastructure, so the engineers who route the world's traffic
               can know exactly what a change will do before they make it.
             </p>
 
@@ -136,22 +136,22 @@ export default function About() {
             <div className="max-w-2xl space-y-5 text-pretty text-lg leading-relaxed text-muted-foreground">
               <p>
                 Network engineers edit the configs that route the world's
-                traffic — and most of the time, they can't reliably answer the
+                traffic, and most of the time, they can't reliably answer the
                 one question that matters: <span className="text-foreground">
                   what will this change actually do?
                 </span>{" "}
                 The change gets pushed, and everyone hopes for the best.
               </p>
               <p>
-                The tools that promise an answer are slow and heavyweight —
-                Docker, JVMs, servers, minutes of waiting — so they never run
+                The tools that promise an answer are slow and heavyweight.
+                Docker, JVMs, servers, minutes of waiting, so they never run
                 where they're needed: on every change. And once something
                 breaks, the industry offers plenty of detection but almost no
                 remediation. You learn what failed, not how to fix it safely.
               </p>
               <p>
                 We started Optimesh Technologies to close that gap with offline intelligence
-                that is both fast and trustworthy — fast enough to run on every
+                that is both fast and trustworthy, fast enough to run on every
                 commit, and proven enough to bet a production network on.
               </p>
             </div>
@@ -164,7 +164,7 @@ export default function About() {
         <SectionHeading
           eyebrow="Our approach"
           title="Simulate the network. Prove the fix. Touch nothing live."
-          description="Instead of probing live devices, we model them. A directory of configs is enough to reconstruct how a fabric actually forwards packets — and to verify a repair before anyone applies it."
+          description="Instead of probing live devices, we model them. A directory of configs is enough to reconstruct how a fabric actually forwards packets, and to verify a repair before anyone applies it."
         />
         <div className="mt-14 grid gap-6 lg:grid-cols-2">
           {products.map((p, i) => (
@@ -216,7 +216,7 @@ export default function About() {
         <SectionHeading
           eyebrow="Leadership"
           title="Built by people who've shipped at the edge."
-          description="Optimesh Technologies is founded by engineers who've worked where reliability isn't optional — and who've felt how fragile network change still is."
+          description="Optimesh Technologies is founded by engineers who've worked where reliability isn't optional, and who've felt how fragile network change still is."
         />
         <div className="mx-auto mt-14 grid max-w-4xl gap-6 sm:grid-cols-2">
           {founders.map((f, i) => (
@@ -300,7 +300,7 @@ export default function About() {
             <SectionHeading
               eyebrow="How we build"
               title="Trustworthy by construction."
-              description="Correctness isn't a feature we test for at the end — it's the constraint we engineer toward from the start. The result is software you can put in the path of a production change."
+              description="Correctness isn't a feature we test for at the end, it's the constraint we engineer toward from the start. The result is software you can put in the path of a production change."
             />
             <div className="grid gap-4 sm:grid-cols-2">
               <Stat

@@ -1,5 +1,5 @@
 /**
- * Optimesh Technologies Insights — thought-leadership articles by the founders.
+ * Optimesh Technologies Insights, thought-leadership articles by the founders.
  * Body is structured as blocks so the renderer stays consistent with the design system.
  */
 
@@ -51,7 +51,7 @@ export const articles: Article[] = [
   {
     slug: "verifiable-contract-for-every-network-change",
     title: "Toward a Verifiable Contract for Every Network Change",
-    deck: "Software learned to ship changes with tests and types attached. Networks deserve the same — every change carrying a machine-checkable proof that it preserves what matters.",
+    deck: "Software learned to ship changes with tests and types attached. Networks deserve the same, every change carrying a machine-checkable proof that it preserves what matters.",
     author: "chandler",
     date: "2026-05-12",
     readingMinutes: 6,
@@ -78,11 +78,11 @@ export const articles: Article[] = [
       {
         type: "ul",
         items: [
-          "Reachability contracts — these endpoints must reach each other; these must not.",
-          "Isolation and segmentation — tenants, zones, and PCI boundaries stay separate.",
+          "Reachability contracts, these endpoints must reach each other; these must not.",
+          "Isolation and segmentation, tenants, zones, and PCI boundaries stay separate.",
           "Absence of transient loops and blackholes under expected failures.",
-          "Bounded blast radius — no single change or link failure partitions the fabric.",
-          "Policy and compliance posture — the controls an auditor will ask about, checked continuously.",
+          "Bounded blast radius, no single change or link failure partitions the fabric.",
+          "Policy and compliance posture, the controls an auditor will ask about, checked continuously.",
         ],
       },
       {
@@ -105,7 +105,7 @@ export const articles: Article[] = [
       { type: "h2", text: "The frontier" },
       {
         type: "p",
-        text: "This agenda is far from finished, which is exactly why it excites me. The open problems are real: scaling symbolic reachability to internet-scale forwarding tables, verifying stateful and dynamic behavior rather than a static snapshot, composing proofs across administrative domains that do not trust each other, and turning counterexamples into something an on-call engineer can act on at 3 a.m. These are rich academic questions with immediate industrial pull — the rare case where the research frontier and the product roadmap point in the same direction.",
+        text: "This agenda is far from finished, which is exactly why it excites me. The open problems are real: scaling symbolic reachability to internet-scale forwarding tables, verifying stateful and dynamic behavior rather than a static snapshot, composing proofs across administrative domains that do not trust each other, and turning counterexamples into something an on-call engineer can act on at 3 a.m. These are rich academic questions with immediate industrial pull, the rare case where the research frontier and the product roadmap point in the same direction.",
       },
       { type: "h2", text: "What the field is still getting wrong" },
       {
@@ -207,7 +207,7 @@ export const articles: Article[] = [
       { type: "h2", text: "Plausibility is not correctness" },
       {
         type: "p",
-        text: "The failure mode is what keeps me up. A language model will happily produce a configuration that is fluent, well-commented, confident — and subtly wrong in a way that breaks segmentation or blackholes a prefix three hops away. It will then explain its reasoning persuasively. The output looks exactly as trustworthy when it is right as when it is catastrophically wrong. Human reviewers are not calibrated to catch that, because the mistake is not in the line that changed.",
+        text: "The failure mode is what keeps me up. A language model will happily produce a configuration that is fluent, well-commented, confident, and subtly wrong in a way that breaks segmentation or blackholes a prefix three hops away. It will then explain its reasoning persuasively. The output looks exactly as trustworthy when it is right as when it is catastrophically wrong. Human reviewers are not calibrated to catch that, because the mistake is not in the line that changed.",
       },
       {
         type: "quote",
@@ -240,9 +240,9 @@ export const articles: Article[] = [
       {
         type: "ul",
         items: [
-          "Provenance and verification — who or what proposed this change, and what proved it safe.",
-          "On-prem execution — configurations are crown-jewel data and are not leaving the building.",
-          "Determinism — auditors and incident reviewers do not accept the AI said so as a control.",
+          "Provenance and verification, who or what proposed this change, and what proved it safe.",
+          "On-prem execution, configurations are crown-jewel data and are not leaving the building.",
+          "Determinism, auditors and incident reviewers do not accept the AI said so as a control.",
         ],
       },
       {
@@ -267,12 +267,12 @@ export const articles: Article[] = [
       { type: "h2", text: "Probing samples; verification covers" },
       {
         type: "p",
-        text: "Pings, traceroutes, and synthetic probes test the specific paths you happen to try. But the space of possible packets — every source, destination, port, and header combination — is astronomically large. Sampling cannot cover it. And the failures that matter, whether a misconfiguration or an adversary, tend to live in exactly the part of that space you did not think to sample. Testing the paths you imagined is not the same as knowing the network is correct.",
+        text: "Pings, traceroutes, and synthetic probes test the specific paths you happen to try. But the space of possible packets, every source, destination, port, and header combination, is astronomically large. Sampling cannot cover it. And the failures that matter, whether a misconfiguration or an adversary, tend to live in exactly the part of that space you did not think to sample. Testing the paths you imagined is not the same as knowing the network is correct.",
       },
       { type: "h2", text: "The configuration already contains the answer" },
       {
         type: "p",
-        text: "You do not actually need a live device to know how it will forward a packet. The configuration, together with the topology and the protocols in play, determines the routing and forwarding tables. If you faithfully reconstruct the forwarding plane from those inputs, you can answer reachability questions for all packets at once — analytically, rather than one probe at a time.",
+        text: "You do not actually need a live device to know how it will forward a packet. The configuration, together with the topology and the protocols in play, determines the routing and forwarding tables. If you faithfully reconstruct the forwarding plane from those inputs, you can answer reachability questions for all packets at once, analytically, rather than one probe at a time.",
       },
       { type: "h2", text: "Reasoning about sets of packets" },
       {
@@ -286,7 +286,7 @@ export const articles: Article[] = [
       { type: "h2", text: "Offline, deterministic, repeatable" },
       {
         type: "p",
-        text: "Working from a model rather than a live device buys you three things that live probing cannot: determinism, so the same input always yields the same answer; differential analysis, so you can diff two snapshots and see exactly what a change did to the forwarding plane; and the ability to ask about hypotheticals — what happens if this link fails — without breaking anything to find out.",
+        text: "Working from a model rather than a live device buys you three things that live probing cannot: determinism, so the same input always yields the same answer; differential analysis, so you can diff two snapshots and see exactly what a change did to the forwarding plane; and the ability to ask about hypotheticals, what happens if this link fails, without breaking anything to find out.",
       },
       { type: "h2", text: "Where the industry has been going wrong" },
       {
@@ -377,7 +377,7 @@ export const articles: Article[] = [
       { type: "h2", text: "We automated the wrong half first" },
       {
         type: "p",
-        text: "For a decade, automation in networking has mostly meant pushing changes faster — controllers, infrastructure-as-code, orchestration. We optimized the actuator. We did not, to nearly the same degree, optimize the check. The result is a system that can now make mistakes at machine speed and machine scale, which is not obviously progress.",
+        text: "For a decade, automation in networking has mostly meant pushing changes faster, controllers, infrastructure-as-code, orchestration. We optimized the actuator. We did not, to nearly the same degree, optimize the check. The result is a system that can now make mistakes at machine speed and machine scale, which is not obviously progress.",
       },
       { type: "h2", text: "Usually right is not a guarantee" },
       {
@@ -396,11 +396,11 @@ export const articles: Article[] = [
       { type: "h2", text: "The research bet" },
       {
         type: "p",
-        text: "My work at Princeton is on making this verification both sound and fast enough to sit directly in the path of change. The distinction matters enormously. If verification is slow, it degrades into a quarterly audit that catches problems long after they ship. If it runs in milliseconds, it becomes a guardrail on every single change — and that, I am convinced, is the actual unlock for AI-native networking.",
+        text: "My work at Princeton is on making this verification both sound and fast enough to sit directly in the path of change. The distinction matters enormously. If verification is slow, it degrades into a quarterly audit that catches problems long after they ship. If it runs in milliseconds, it becomes a guardrail on every single change, and that, I am convinced, is the actual unlock for AI-native networking.",
       },
       {
         type: "p",
-        text: "So we are not really building a smarter autopilot. Plenty of people are building that. We are building the instrument that tells the autopilot the truth — the layer that makes it safe to let the rest of the stack get as autonomous as it wants to be.",
+        text: "So we are not really building a smarter autopilot. Plenty of people are building that. We are building the instrument that tells the autopilot the truth, the layer that makes it safe to let the rest of the stack get as autonomous as it wants to be.",
       },
     ],
   },

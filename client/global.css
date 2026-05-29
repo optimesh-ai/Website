@@ -4,7 +4,7 @@
 
 @layer base {
   /**
-   * Optimesh Technologies — Light Corporate theme.
+   * Optimesh Technologies, Light Corporate theme.
    * HSL design tokens consumed by tailwind.config.ts.
    * Type system: Schibsted Grotesk (display) / Hanken Grotesk (body) / IBM Plex Mono (technical).
    */
@@ -18,7 +18,7 @@
     --popover: 0 0% 100%;
     --popover-foreground: 222 47% 11%;
 
-    /* Deep cobalt — the single brand accent */
+    /* Deep cobalt, the single brand accent */
     --primary: 222 75% 38%;
     --primary-foreground: 0 0% 100%;
 
@@ -28,7 +28,7 @@
     --muted: 214 32% 95%;
     --muted-foreground: 215 18% 42%;
 
-    /* Verified / success — sparing semantic green (fits the products' verification story) */
+    /* Verified / success, sparing semantic green (fits the products' verification story) */
     --accent: 158 64% 34%;
     --accent-foreground: 0 0% 100%;
     --success: 158 64% 34%;
@@ -93,7 +93,7 @@
 }
 
 @layer components {
-  /* Eyebrow label — mono, tracked-out, used above section headings */
+  /* Eyebrow label, mono, tracked-out, used above section headings */
   .eyebrow {
     @apply font-mono text-xs font-medium uppercase tracking-[0.22em] text-primary;
   }

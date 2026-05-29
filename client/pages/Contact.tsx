@@ -33,7 +33,7 @@ export default function Contact() {
               style={{ animationDelay: "160ms" }}
             >
               Questions about Optimesh Technologies, your network, or partnering with us?
-              We'd genuinely like to hear from you — reach out and you'll get a
+              We'd genuinely like to hear from you, reach out and you'll get a
               real person on the founding team.
             </p>
           </div>
@@ -97,7 +97,7 @@ export default function Contact() {
                 </h2>
                 <p className="mt-1 text-pretty leading-relaxed text-muted-foreground">
                   Where we think network verification and AI-driven operations
-                  are headed — from the founders.
+                  are headed, from the founders.
                 </p>
               </div>
             </div>

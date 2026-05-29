@@ -39,7 +39,7 @@ export function Footer() {
               </span>
             </Link>
             <p className="mt-4 max-w-xs text-sm leading-relaxed text-muted-foreground">
-              Offline network intelligence — simulate the forwarding plane and
+              Offline network intelligence, simulate the forwarding plane and
               ship verified configuration changes with confidence.
             </p>
             <p className="mt-6 font-mono text-xs uppercase tracking-[0.18em] text-muted-foreground">

@@ -213,7 +213,7 @@ export default function Index() {
         <SectionHeading
           eyebrow="The platform"
           title="Two products. One source of truth for your network."
-          description="Hammerhead is the offline simulation engine. Config Studio puts it to work — diagnosing faults and proposing fixes that are proven safe before a human ever sees them."
+          description="Hammerhead is the offline simulation engine. Config Studio puts it to work, diagnosing faults and proposing fixes that are proven safe before a human ever sees them."
         />
 
         <Reveal className="mt-14 grid gap-6 lg:grid-cols-2">
@@ -221,7 +221,7 @@ export default function Index() {
             icon={<Gauge className="h-5 w-5" />}
             name="Hammerhead"
             tagline="Offline forwarding-plane simulator"
-            description="Drop your configs in a directory and ask what a change will do. Hammerhead parses 14 vendor dialects, simulates OSPF, BGP, IS-IS and more, and answers reachability and traceroute queries in milliseconds — as a single static binary."
+            description="Drop your configs in a directory and ask what a change will do. Hammerhead parses 14 vendor dialects, simulates OSPF, BGP, IS-IS and more, and answers reachability and traceroute queries in milliseconds, as a single static binary."
             points={[
               "345× faster than the industry standard, 99.93% FIB parity",
               "CLI, Python SDK, REST API & CI integration",
@@ -233,11 +233,11 @@ export default function Index() {
             icon={<ShieldCheck className="h-5 w-5" />}
             name="Config Studio"
             tagline="AI diagnosis & verified remediation"
-            description="When a config breaks, Config Studio finds the fault, writes the exact CLI patch, and runs it through Hammerhead to prove it restores reachability — all before a human approves it. On your own hardware."
+            description="When a config breaks, Config Studio finds the fault, writes the exact CLI patch, and runs it through Hammerhead to prove it restores reachability, all before a human approves it. On your own hardware."
             points={[
               "99.6% diagnostic accuracy, time-to-fix under 10 seconds",
               "Every patch verified before it's proposed",
-              "On-prem & air-gap ready — no telemetry",
+              "On-prem & air-gap ready, no telemetry",
             ]}
             to="/products/config-studio"
           />
@@ -263,7 +263,7 @@ export default function Index() {
               step="02"
               icon={<CircuitBoard className="h-5 w-5" />}
               title="Diagnose"
-              body="Config Studio compares intended behavior to reality, isolates the misconfigured device, and drafts a minimal CLI patch — not a rewrite."
+              body="Config Studio compares intended behavior to reality, isolates the misconfigured device, and drafts a minimal CLI patch, not a rewrite."
             />
             <StepCard
               step="03"

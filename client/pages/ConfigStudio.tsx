@@ -52,7 +52,7 @@ const pipeline = [
     icon: FileDiff,
     name: "Patch",
     summary:
-      "The model emits a minimal CLI diff — the exact ~3 lines you'd actually type — never a full config rewrite.",
+      "The model emits a minimal CLI diff, the exact ~3 lines you'd actually type, never a full config rewrite.",
     detail: "Minimal diff, not a rewrite",
     tone: "primary" as const,
   },
@@ -89,12 +89,12 @@ const trust = [
   {
     icon: Server,
     title: "Runs on your hardware",
-    body: "Configs are sent only to the operator's configured LLM — OpenAI, Anthropic, or a self-hosted vLLM / Ollama endpoint. Hammerhead runs locally. No telemetry leaves the box.",
+    body: "Configs are sent only to the operator's configured LLM, OpenAI, Anthropic, or a self-hosted vLLM / Ollama endpoint. Hammerhead runs locally. No telemetry leaves the box.",
   },
   {
     icon: Lock,
     title: "Air-gap ready",
-    body: "Point Config Studio at a self-hosted OpenAI-compatible endpoint and it runs fully offline — no code change required.",
+    body: "Point Config Studio at a self-hosted OpenAI-compatible endpoint and it runs fully offline, no code change required.",
   },
   {
     icon: ShieldCheck,
@@ -141,7 +141,7 @@ export default function ConfigStudio() {
           <div className="grid items-center gap-14 lg:grid-cols-[1.02fr_0.98fr]">
             <div>
               <div className="animate-fade-up" style={{ animationDelay: "0ms" }}>
-                <Eyebrow>Config Studio — diagnose &amp; fix</Eyebrow>
+                <Eyebrow>Config Studio, diagnose &amp; fix</Eyebrow>
               </div>
 
               <h1
@@ -155,7 +155,7 @@ export default function ConfigStudio() {
                 className="animate-fade-up mt-6 max-w-xl text-pretty text-lg leading-relaxed text-muted-foreground"
                 style={{ animationDelay: "160ms" }}
               >
-                It assumes you have a broken config and a tired engineer — so it
+                It assumes you have a broken config and a tired engineer, so it
                 finds the fault, writes the exact CLI patch, and proves it
                 restores reachability before you approve it. In seconds.{" "}
                 <span className="font-medium text-foreground">
@@ -214,8 +214,8 @@ export default function ConfigStudio() {
                   </p>
                   <p className="mt-1 text-sm leading-relaxed text-muted-foreground">
                     Suspect device{" "}
-                    <span className="font-mono text-foreground">edge-2</span> —
-                    neighbor ASN mismatch on peer 10.0.4.1.
+                    <span className="font-mono text-foreground">edge-2</span>.
+                    Neighbor ASN mismatch on peer 10.0.4.1.
                   </p>
                 </div>
 
@@ -428,7 +428,7 @@ export default function ConfigStudio() {
                   </p>
                   <p className="text-white/90">
                     <span className="font-mono text-success">studio </span>
-                    Found it — peer ASN mismatch. Patch verified by Hammerhead.
+                    Found it, peer ASN mismatch. Patch verified by Hammerhead.
                   </p>
                 </div>
               </div>
@@ -504,7 +504,7 @@ export default function ConfigStudio() {
         <SectionHeading
           eyebrow="Security &amp; sovereignty"
           title="Your configs never leave your control."
-          description="Config Studio is a FastAPI web app you run yourself. It is built to be trusted with the most sensitive thing in your network — the source of truth."
+          description="Config Studio is a FastAPI web app you run yourself. It is built to be trusted with the most sensitive thing in your network, the source of truth."
         />
 
         <div className="mt-14 grid gap-x-10 gap-y-10 sm:grid-cols-2 lg:grid-cols-3">

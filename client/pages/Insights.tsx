@@ -36,7 +36,7 @@ export default function Insights() {
               style={{ animationDelay: "160ms" }}
             >
               Writing from the Optimesh Technologies founders on network verification, the
-              shift to AI-driven operations, and where the field goes next — from
+              shift to AI-driven operations, and where the field goes next, from
               the research frontier to the operations floor.
             </p>
           </div>

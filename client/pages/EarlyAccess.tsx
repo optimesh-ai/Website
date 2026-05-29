@@ -25,7 +25,7 @@ const partnerBenefits = [
   {
     icon: <Users className="h-5 w-5" />,
     title: "Direct access to the founding team",
-    body: "Talk to the people building Optimesh Technologies — no support queue, no account layers between you and the engineers.",
+    body: "Talk to the people building Optimesh Technologies, no support queue, no account layers between you and the engineers.",
   },
   {
     icon: <Map className="h-5 w-5" />,
@@ -53,7 +53,7 @@ const faqs = [
   {
     question: "What is Optimesh Technologies?",
     answer:
-      "Offline network intelligence. Hammerhead simulates your forwarding plane from a directory of device configurations, and Config Studio diagnoses faults and generates verified fixes — all without touching a live device.",
+      "Offline network intelligence. Hammerhead simulates your forwarding plane from a directory of device configurations, and Config Studio diagnoses faults and generates verified fixes, all without touching a live device.",
   },
   {
     question: "Do I have to change my infrastructure or install agents?",
@@ -63,17 +63,17 @@ const faqs = [
   {
     question: "Which vendors are supported?",
     answer:
-      "14 vendor config dialects, including Cisco (IOS, NX-OS, IOS-XR, ASA), Arista EOS, Juniper Junos, Cumulus/FRR, and more — with automatic detection, so there are no per-vendor flags to manage.",
+      "14 vendor config dialects, including Cisco (IOS, NX-OS, IOS-XR, ASA), Arista EOS, Juniper Junos, Cumulus/FRR, and more, with automatic detection, so there are no per-vendor flags to manage.",
   },
   {
     question: "Does my config data leave my network?",
     answer:
-      "No. Hammerhead runs locally. Config Studio sends configurations only to the LLM you configure — including a self-hosted model — and is air-gap capable with no telemetry.",
+      "No. Hammerhead runs locally. Config Studio sends configurations only to the LLM you configure, including a self-hosted model, and is air-gap capable with no telemetry.",
   },
   {
     question: "Is it a real-time digital twin?",
     answer:
-      "No. Optimesh Technologies analyzes your configurations — the control and forwarding plane — rather than streaming live device telemetry. It's fast, deterministic offline simulation you can run on every change.",
+      "No. Optimesh Technologies analyzes your configurations, the control and forwarding plane, rather than streaming live device telemetry. It's fast, deterministic offline simulation you can run on every change.",
   },
   {
     question: "What does the early-access partnership involve?",
@@ -171,7 +171,7 @@ export default function EarlyAccess() {
                   <CheckCircle2 className="mt-0.5 h-5 w-5 flex-none text-success" />
                   <div>
                     <p className="font-medium text-foreground">
-                      Thanks — you're on the list.
+                      Thanks, you're on the list.
                     </p>
                     <p className="mt-1 text-sm leading-relaxed text-muted-foreground">
                       We'll reach out shortly to talk about getting Optimesh Technologies

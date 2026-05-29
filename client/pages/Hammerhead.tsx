@@ -87,8 +87,8 @@ const protocolGroups: {
     icon: <Route className="h-5 w-5" />,
     title: "Routing protocols",
     items: [
-      "OSPFv2 / v3 — multi-area, stub, NSSA, virtual links",
-      "BGP-4 — route reflection, confederations",
+      "OSPFv2 / v3, multi-area, stub, NSSA, virtual links",
+      "BGP-4, route reflection, confederations",
       "EIGRP",
       "IS-IS L1 / L2",
       "RIPv2",
@@ -109,7 +109,7 @@ const protocolGroups: {
     icon: <Boxes className="h-5 w-5" />,
     title: "Data plane & L2",
     items: [
-      "NAT — static, dynamic, PAT",
+      "NAT, static, dynamic, PAT",
       "Switchport / trunk",
       "STP",
       "Per-VLAN forwarding",
@@ -143,7 +143,7 @@ const differentiators: {
   {
     icon: <Gauge className="h-5 w-5" />,
     title: "345× faster on average",
-    body: "Up to 1,640× at peak versus the industry standard — fast enough to run on every commit instead of once a quarter.",
+    body: "Up to 1,640× at peak versus the industry standard, fast enough to run on every commit instead of once a quarter.",
   },
   {
     icon: <Binary className="h-5 w-5" />,
@@ -153,7 +153,7 @@ const differentiators: {
   {
     icon: <CheckCircle2 className="h-5 w-5" />,
     title: "Fully deterministic output",
-    body: "The same configs always produce the same answer — diffable, reviewable, and safe to gate a merge on.",
+    body: "The same configs always produce the same answer, diffable, reviewable, and safe to gate a merge on.",
   },
   {
     icon: <ShieldCheck className="h-5 w-5" />,
@@ -180,7 +180,7 @@ export default function Hammerhead() {
               <div className="animate-fade-up" style={{ animationDelay: "0ms" }}>
                 <Badge tone="primary">
                   <span className="h-1.5 w-1.5 rounded-full bg-primary" />
-                  Hammerhead — offline simulator
+                  Hammerhead, offline simulator
                 </Badge>
               </div>
 
@@ -188,7 +188,7 @@ export default function Hammerhead() {
                 className="animate-fade-up mt-6 text-balance text-[2.5rem] font-medium leading-[1.05] tracking-tight text-foreground sm:text-5xl lg:text-[3.6rem]"
                 style={{ animationDelay: "80ms" }}
               >
-                Know what a change will do — before you make it.
+                Know what a change will do, before you make it.
               </h1>
 
               <p
@@ -197,7 +197,7 @@ export default function Hammerhead() {
               >
                 Drop your configs in a directory and ask questions. Hammerhead
                 parses 14 vendor dialects, simulates the forwarding plane, and
-                answers reachability and traceroute queries in milliseconds — as
+                answers reachability and traceroute queries in milliseconds, as
                 a single static binary. No Docker, no JVM, no running server, no
                 live device.
               </p>
@@ -294,7 +294,7 @@ export default function Hammerhead() {
         <SectionHeading
           eyebrow="32 CLI subcommands"
           title="One engine, the whole change-validation loop."
-          description="Parse and simulate your fabric, query exactly where packets flow, analyze the impact of failures, and verify compliance — all from one deterministic binary."
+          description="Parse and simulate your fabric, query exactly where packets flow, analyze the impact of failures, and verify compliance, all from one deterministic binary."
         />
 
         <div className="mt-14 grid gap-6 md:grid-cols-2">
@@ -326,8 +326,8 @@ export default function Hammerhead() {
         </div>
 
         <p className="mt-8 text-sm text-muted-foreground">
-          Plus a symbolic BDD headerspace engine for differential reachability —
-          prove that two snapshots forward every packet identically.
+          Plus a symbolic BDD headerspace engine for differential reachability,
+          so you can prove that two snapshots forward every packet identically.
         </p>
       </Section>
 
@@ -337,7 +337,7 @@ export default function Hammerhead() {
           <SectionHeading
             eyebrow="Protocols & data planes"
             title="Models the control and forwarding plane you actually run."
-            description="Hammerhead converges real routing protocols and resolves the data plane down to per-VLAN forwarding — the depth that makes its answers trustworthy."
+            description="Hammerhead converges real routing protocols and resolves the data plane down to per-VLAN forwarding, the depth that makes its answers trustworthy."
           />
 
           <div className="mt-14 grid gap-6 md:grid-cols-3">
@@ -377,7 +377,7 @@ export default function Hammerhead() {
           <SectionHeading
             eyebrow="14 vendor parsers"
             title="Auto-detected. No flags, no adapters."
-            description="A single parser core reads fourteen configuration dialects and identifies each device automatically — drop a mixed-vendor snapshot in and it just works."
+            description="A single parser core reads fourteen configuration dialects and identifies each device automatically, drop a mixed-vendor snapshot in and it just works."
           />
           <div className="grid grid-cols-2 gap-3 sm:grid-cols-3">
             {vendors.map((v) => (
@@ -398,7 +398,7 @@ export default function Hammerhead() {
           <SectionHeading
             eyebrow="Surfaces"
             title="Meets you where you already work."
-            description="The same simulation engine, exposed four ways — pick the one that fits your workflow, or wire up all of them."
+            description="The same simulation engine, exposed four ways, pick the one that fits your workflow, or wire up all of them."
           />
 
           <div className="mt-14 grid gap-8 lg:grid-cols-2 lg:items-start">
@@ -573,7 +573,7 @@ export default function Hammerhead() {
           <div className="relative mx-auto max-w-2xl">
             <Eyebrow className="!text-background/70">Early access</Eyebrow>
             <h2 className="mt-4 text-balance text-3xl font-medium tracking-tight text-background sm:text-4xl md:text-[2.75rem] md:leading-[1.1]">
-              See what your next change does — in milliseconds.
+              See what your next change does, in milliseconds.
             </h2>
             <p className="mt-5 text-pretty text-lg leading-relaxed text-background/70">
               Hammerhead is open and in early access. Point it at your configs,
