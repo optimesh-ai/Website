@@ -175,10 +175,10 @@ export default function Why() {
         <Container className="py-20 md:py-28">
           <SectionHeading
             eyebrow="Why now"
-            title="Three forces are remaking how networks get changed."
+            title="Four forces are remaking how networks get changed."
             description="Each one alone would justify a new category of tooling. Arriving together, they make verification non-optional."
           />
-          <div className="mt-14 grid gap-x-10 gap-y-12 md:grid-cols-3">
+          <div className="mt-14 grid gap-x-10 gap-y-12 md:grid-cols-2 lg:grid-cols-4">
             <DriverCard
               n="01"
               title="AI workloads are reshaping the data center."
@@ -191,6 +191,11 @@ export default function Why() {
             />
             <DriverCard
               n="03"
+              title="Networks are getting more complex, and harder to debug."
+              body="Fabrics carry more layers, more vendors, and more dependencies every year. Connectivity gets less reliable, and the path from incident to root cause keeps getting longer."
+            />
+            <DriverCard
+              n="04"
               title="Regulators and finance want proof."
               body="Compliance and uptime contracts increasingly demand documented evidence that a change was verified, not just approved."
             />
