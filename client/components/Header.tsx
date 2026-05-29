@@ -20,6 +20,7 @@ const products = [
 
 const navLinks = [
   { to: "/features", label: "Platform" },
+  { to: "/insights", label: "Insights" },
   { to: "/about", label: "Company" },
   { to: "/contact", label: "Contact" },
 ];

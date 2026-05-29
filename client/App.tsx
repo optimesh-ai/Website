@@ -11,6 +11,8 @@ import ConfigStudio from "./pages/ConfigStudio";
 import Contact from "./pages/Contact";
 import EarlyAccess from "./pages/EarlyAccess";
 import About from "./pages/About";
+import Insights from "./pages/Insights";
+import Article from "./pages/Article";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -29,6 +31,8 @@ export default function App() {
             <Route path="/products/hammerhead" element={<Hammerhead />} />
             <Route path="/products/config-studio" element={<ConfigStudio />} />
             <Route path="/about" element={<About />} />
+            <Route path="/insights" element={<Insights />} />
+            <Route path="/insights/:slug" element={<Article />} />
             <Route path="/contact" element={<Contact />} />
             <Route path="/early-access" element={<EarlyAccess />} />
             <Route path="/overview" element={<Navigate to="/features" replace />} />

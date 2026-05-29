@@ -14,6 +14,7 @@ const columns = [
     title: "Company",
     links: [
       { to: "/about", label: "About" },
+      { to: "/insights", label: "Insights" },
       { to: "/contact", label: "Contact" },
       { to: "/early-access", label: "Early access" },
     ],

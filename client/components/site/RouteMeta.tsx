@@ -29,6 +29,11 @@ const meta: Record<string, { title: string; description: string }> = {
     description:
       "Optimesh builds fast, trustworthy, offline intelligence for the networks that power the world.",
   },
+  "/insights": {
+    title: "Insights — Optimesh",
+    description:
+      "Writing from the Optimesh founders on network verification, AI-driven operations, and where the field is headed.",
+  },
   "/contact": {
     title: "Contact — Optimesh",
     description: "Get in touch with the Optimesh team.",
@@ -45,6 +50,9 @@ export function RouteMeta() {
 
   useEffect(() => {
     window.scrollTo(0, 0);
+
+    // Article detail pages set their own title/description in the Article component.
+    if (pathname.startsWith("/insights/")) return;
 
     const entry = meta[pathname];
     document.title = entry?.title ?? TAGLINE;

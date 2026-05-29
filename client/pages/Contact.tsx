@@ -1,5 +1,5 @@
 import { Layout } from "@/components/Layout";
-import { Mail, ArrowRight, Github, Rocket } from "lucide-react";
+import { Mail, ArrowRight, BookOpen, Rocket } from "lucide-react";
 import {
   Container,
   Section,
@@ -84,29 +84,31 @@ export default function Contact() {
           </div>
         </div>
 
-        {/* GitHub */}
+        {/* Insights */}
         <div className="mx-auto mt-6 max-w-4xl">
           <div className="flex flex-col items-start justify-between gap-4 rounded-2xl border border-border bg-card p-8 shadow-sm sm:flex-row sm:items-center">
             <div className="flex items-start gap-4">
               <span className="flex h-11 w-11 flex-none items-center justify-center rounded-lg bg-muted text-foreground">
-                <Github className="h-5 w-5" />
+                <BookOpen className="h-5 w-5" />
               </span>
               <div>
                 <h2 className="text-xl font-semibold tracking-tight text-foreground">
-                  Find us on GitHub
+                  Read our thinking
                 </h2>
                 <p className="mt-1 text-pretty leading-relaxed text-muted-foreground">
-                  Follow along with what we're building in the open.
+                  Where we think network verification and AI-driven operations
+                  are headed — from the founders.
                 </p>
               </div>
             </div>
             <ButtonLink
-              href="https://github.com/optimesh-ai"
+              to="/insights"
               variant="secondary"
               size="md"
               className="shrink-0"
             >
-              github.com/optimesh-ai
+              Browse Insights
+              <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-0.5" />
             </ButtonLink>
           </div>
         </div>
