@@ -1,6 +1,7 @@
 import { useLocation } from "react-router-dom";
 import { useEffect } from "react";
 import { Layout } from "@/components/Layout";
+import { ButtonLink, Container } from "@/components/site/primitives";
 import { ArrowRight } from "lucide-react";
 
 const NotFound = () => {
@@ -15,40 +16,33 @@ const NotFound = () => {
 
   return (
     <Layout>
-      <div className="min-h-screen flex items-center justify-center px-4 relative overflow-hidden">
-        {/* Animated background elements */}
-        <div className="absolute inset-0 overflow-hidden">
-          <div className="absolute top-20 left-10 w-72 h-72 bg-spectrum-cyan/5 rounded-full blur-3xl animate-float" />
-          <div className="absolute bottom-20 right-10 w-96 h-96 bg-spectrum-purple/5 rounded-full blur-3xl animate-float" style={{ animationDelay: "2s" }} />
-        </div>
-
-        <div className="relative z-10 text-center max-w-md">
-          <div className="mb-8">
-            <div className="text-8xl font-bold text-spectrum-cyan/30 mb-4">404</div>
-            <div className="h-1 w-24 bg-gradient-to-r from-spectrum-cyan to-spectrum-purple mx-auto mb-6" />
-          </div>
-
-          <h1 className="text-4xl font-bold mb-4 text-foreground">
-            Sector Not Found
-          </h1>
-          <p className="text-foreground/70 mb-8 text-lg">
-            This network zone doesn't exist. Perhaps it's still in development or has been decommissioned.
+      <section className="relative overflow-hidden">
+        <div className="pointer-events-none absolute inset-0 bg-grid bg-grid-fade opacity-70" />
+        <Container className="relative flex min-h-[70vh] flex-col items-center justify-center py-32 text-center">
+          <p className="font-mono text-sm uppercase tracking-[0.22em] text-primary">
+            404 — no route
           </p>
-
-          <div className="space-y-4">
-            <p className="text-sm text-spectrum-cyan font-mono">
-              Route: {location.pathname}
-            </p>
-            <a
-              href="/"
-              className="group inline-flex items-center gap-2 px-8 py-4 bg-spectrum-cyan text-background font-bold rounded-lg hover:shadow-[0_0_30px_rgba(34,211,238,0.4)] transition-all transform hover:scale-105"
-            >
-              Return to Network Hub
-              <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
-            </a>
+          <h1 className="mt-6 text-balance text-5xl font-medium tracking-tight text-foreground sm:text-6xl">
+            This path doesn't resolve.
+          </h1>
+          <p className="mt-5 max-w-md text-pretty text-lg leading-relaxed text-muted-foreground">
+            The page you're looking for isn't in the forwarding table. Let's get
+            you back to a reachable destination.
+          </p>
+          <p className="mt-6 rounded-md border border-border bg-card px-3 py-1.5 font-mono text-xs text-muted-foreground">
+            {location.pathname}
+          </p>
+          <div className="mt-9 flex flex-col gap-3 sm:flex-row">
+            <ButtonLink to="/" variant="primary" size="lg">
+              Back to home
+              <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-0.5" />
+            </ButtonLink>
+            <ButtonLink to="/features" variant="secondary" size="lg">
+              Explore the platform
+            </ButtonLink>
           </div>
-        </div>
-      </div>
+        </Container>
+      </section>
     </Layout>
   );
 };

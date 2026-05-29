@@ -1,168 +1,304 @@
+import { useState } from "react";
 import { Layout } from "@/components/Layout";
-import { Footer } from "@/components/Footer";
-import { CheckCircle2, Mail } from "lucide-react";
-import { BackgroundPaths } from "@/components/ui/background-paths";
+import {
+  ArrowRight,
+  CheckCircle2,
+  Loader2,
+  Users,
+  Map,
+  Wrench,
+  Tag,
+  LifeBuoy,
+} from "lucide-react";
+import {
+  Container,
+  Section,
+  SectionHeading,
+  Eyebrow,
+  Badge,
+  Button,
+} from "@/components/site/primitives";
+
+type Status = "idle" | "loading" | "success" | "error";
+
+const partnerBenefits = [
+  {
+    icon: <Users className="h-5 w-5" />,
+    title: "Direct access to the founding team",
+    body: "Talk to the people building Optimesh — no support queue, no account layers between you and the engineers.",
+  },
+  {
+    icon: <Map className="h-5 w-5" />,
+    title: "Influence over the roadmap",
+    body: "Tell us what your network actually needs. Early partners help decide what we build next.",
+  },
+  {
+    icon: <Wrench className="h-5 w-5" />,
+    title: "Hands-on onboarding",
+    body: "We set Optimesh up against your environment and your configs, so it's useful on day one.",
+  },
+  {
+    icon: <Tag className="h-5 w-5" />,
+    title: "Early-adopter pricing",
+    body: "Favorable terms for the teams who partner with us before general availability.",
+  },
+  {
+    icon: <LifeBuoy className="h-5 w-5" />,
+    title: "Priority support",
+    body: "Questions and issues from early partners go to the front of the line.",
+  },
+];
+
+const faqs = [
+  {
+    question: "What is Optimesh?",
+    answer:
+      "Offline network intelligence. Hammerhead simulates your forwarding plane from a directory of device configurations, and Config Studio diagnoses faults and generates verified fixes — all without touching a live device.",
+  },
+  {
+    question: "Do I have to change my infrastructure or install agents?",
+    answer:
+      "No. Optimesh works from your existing device configurations. It does not require agents on your devices and does not replace your current tooling.",
+  },
+  {
+    question: "Which vendors are supported?",
+    answer:
+      "14 vendor config dialects, including Cisco (IOS, NX-OS, IOS-XR, ASA), Arista EOS, Juniper Junos, Cumulus/FRR, and more — with automatic detection, so there are no per-vendor flags to manage.",
+  },
+  {
+    question: "Does my config data leave my network?",
+    answer:
+      "No. Hammerhead runs locally. Config Studio sends configurations only to the LLM you configure — including a self-hosted model — and is air-gap capable with no telemetry.",
+  },
+  {
+    question: "Is it a real-time digital twin?",
+    answer:
+      "No. Optimesh analyzes your configurations — the control and forwarding plane — rather than streaming live device telemetry. It's fast, deterministic offline simulation you can run on every change.",
+  },
+  {
+    question: "What does the early-access partnership involve?",
+    answer:
+      "We work directly with your network team to deploy Optimesh in your environment, validate it against your infrastructure, and refine the product together.",
+  },
+];
 
 export default function EarlyAccess() {
+  const [email, setEmail] = useState("");
+  const [status, setStatus] = useState<Status>("idle");
+  const [error, setError] = useState("");
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+
+    const trimmed = email.trim();
+    if (!trimmed) {
+      setStatus("error");
+      setError("Please enter your email address.");
+      return;
+    }
+
+    setStatus("loading");
+    setError("");
+
+    try {
+      const res = await fetch("/api/early-access", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ email: trimmed }),
+      });
+
+      if (!res.ok) {
+        let message = "Something went wrong. Please try again.";
+        try {
+          const data = (await res.json()) as { error?: string };
+          if (data?.error) message = data.error;
+        } catch {
+          /* response had no JSON body */
+        }
+        setStatus("error");
+        setError(message);
+        return;
+      }
+
+      setStatus("success");
+    } catch {
+      setStatus("error");
+      setError(
+        "We couldn't reach the server. Please check your connection and try again.",
+      );
+    }
+  };
+
   return (
     <Layout>
-      {/* Hero Section */}
-      <section className="relative min-h-[60vh] flex items-center justify-center px-4 pt-20 sm:pt-0 overflow-hidden bg-[#0a0e1a]">
-        <BackgroundPaths />
-        <div className="absolute top-0 right-0 w-[600px] h-[600px] bg-spectrum-cyan/5 rounded-full blur-[120px]" />
-        <div className="absolute bottom-0 left-0 w-[400px] h-[400px] bg-spectrum-purple/5 rounded-full blur-[100px]" />
-        <div className="absolute bottom-0 left-0 right-0 h-32 bg-gradient-to-b from-transparent to-black z-[1]" />
+      {/* ---------------------------------------------------------------- Hero */}
+      <section className="relative overflow-hidden">
+        <div className="pointer-events-none absolute inset-0 bg-grid bg-grid-fade opacity-70" />
+        <div className="pointer-events-none absolute -top-40 left-1/2 h-[34rem] w-[56rem] -translate-x-1/2 rounded-full bg-primary/5 blur-3xl" />
 
-        <div className="relative z-10 max-w-4xl mx-auto text-center">
-          <p className="text-2xl font-bold tracking-[0.2em] uppercase text-spectrum-cyan mb-6">
-            Early Access
-          </p>
-
-          <h1 className="text-5xl sm:text-6xl font-bold mb-6 leading-tight text-white">
-            Get Early Access
-          </h1>
-          <p className="text-xl sm:text-2xl text-white/75 mb-8 max-w-2xl mx-auto leading-relaxed drop-shadow-[0_1px_8px_rgba(0,0,0,0.8)]">
-            Join the future of network intelligence.
-            <br />
-            Limited invitations available.
-          </p>
-        </div>
-      </section>
-
-      {/* Main Content */}
-      <section className="relative pt-24 pb-36 px-4 bg-black">
-        <div className="max-w-6xl mx-auto">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-start">
-            {/* Left Column - Benefits */}
-            <div>
-              <h2 className="text-3xl font-bold mb-8 text-white">
-                What Early Adopters Get
-              </h2>
-
-              <div className="space-y-4">
-                {[
-                  "Direct access to our founding team",
-                  "Influence the product roadmap",
-                  "Priority support & implementation",
-                  "Custom integration assistance",
-                  "Exclusive founding member status",
-                  "Significant early adopter pricing",
-                  "Beta access to upcoming features",
-                  "Dedicated success manager",
-                ].map((benefit, index) => (
-                  <div key={index} className="flex items-start gap-3">
-                    <CheckCircle2 className="w-5 h-5 text-spectrum-cyan flex-shrink-0 mt-1" />
-                    <span className="text-[#E2E8F0]">{benefit}</span>
-                  </div>
-                ))}
-              </div>
-
+        <Container className="relative pb-20 pt-32 md:pb-24 md:pt-40">
+          <div className="mx-auto max-w-2xl text-center">
+            <div className="animate-fade-up flex justify-center">
+              <Badge tone="primary">
+                <span className="h-1.5 w-1.5 rounded-full bg-primary" />
+                Early access
+              </Badge>
             </div>
 
-            {/* Right Column - Contact Info */}
-            <div>
-              <div className="border border-white/10 rounded-xl p-8 bg-black/40 backdrop-blur-sm">
-                <h3 className="text-2xl font-bold mb-6 text-white">
-                  Contact Information
-                </h3>
-                <div className="space-y-6">
-                  <div className="group relative">
-                    <div className="absolute -inset-0.5 bg-gradient-to-r from-spectrum-cyan/20 to-spectrum-purple/20 rounded-lg blur opacity-0 group-hover:opacity-100 transition duration-500" />
-                    <div className="relative border border-white/10 rounded-lg p-6 bg-[#0a0e1a]">
-                      <div className="flex items-start gap-4">
-                        <div className="w-10 h-10 rounded-lg bg-spectrum-cyan/20 flex items-center justify-center flex-shrink-0">
-                          <Mail className="w-6 h-6 text-spectrum-cyan" />
-                        </div>
-                        <div>
-                          <h4 className="font-bold text-white mb-2">Email</h4>
-                          <a
-                            href="mailto:contact@optimesh.ai"
-                            className="text-spectrum-cyan hover:text-spectrum-cyan/80 transition-colors"
-                          >
-                            contact@optimesh.ai
-                          </a>
-                        </div>
-                      </div>
-                    </div>
+            <h1
+              className="animate-fade-up mt-6 text-balance text-[2.6rem] font-medium leading-[1.05] tracking-tight text-foreground sm:text-5xl md:text-6xl"
+              style={{ animationDelay: "80ms" }}
+            >
+              Get early access to Optimesh.
+            </h1>
+
+            <p
+              className="animate-fade-up mx-auto mt-6 max-w-xl text-pretty text-lg leading-relaxed text-muted-foreground"
+              style={{ animationDelay: "160ms" }}
+            >
+              We're working hands-on with a small group of network teams who are
+              tired of guessing about what a config change will do. Leave your
+              email and we'll be in touch about partnering early.
+            </p>
+
+            {/* --------------------------------------------------------- Form */}
+            <div
+              className="animate-fade-up mx-auto mt-10 max-w-md"
+              style={{ animationDelay: "240ms" }}
+            >
+              {status === "success" ? (
+                <div className="flex items-start gap-3 rounded-xl border border-success/20 bg-success/10 p-6 text-left">
+                  <CheckCircle2 className="mt-0.5 h-5 w-5 flex-none text-success" />
+                  <div>
+                    <p className="font-medium text-foreground">
+                      Thanks — you're on the list.
+                    </p>
+                    <p className="mt-1 text-sm leading-relaxed text-muted-foreground">
+                      We'll reach out shortly to talk about getting Optimesh
+                      running in your environment.
+                    </p>
                   </div>
                 </div>
-              </div>
-
-              <div className="mt-6 p-6 border border-spectrum-cyan/30 bg-spectrum-cyan/5 rounded-lg">
-                <p className="text-sm text-[#E2E8F0]">
-                  <span className="font-semibold text-spectrum-cyan">
-                    Limited Invitations:
-                  </span>{" "}
-                  We're accepting a select number of early access partners.
-                  Apply now to secure your spot.
-                </p>
-              </div>
+              ) : (
+                <form onSubmit={handleSubmit} noValidate>
+                  <div className="flex flex-col gap-3 sm:flex-row">
+                    <label htmlFor="early-access-email" className="sr-only">
+                      Work email
+                    </label>
+                    <input
+                      id="early-access-email"
+                      type="email"
+                      autoComplete="email"
+                      placeholder="you@yourcompany.com"
+                      value={email}
+                      onChange={(e) => {
+                        setEmail(e.target.value);
+                        if (status === "error") {
+                          setStatus("idle");
+                          setError("");
+                        }
+                      }}
+                      disabled={status === "loading"}
+                      aria-invalid={status === "error"}
+                      className="h-11 w-full rounded-lg border border-input bg-background px-4 text-sm text-foreground placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background disabled:opacity-60"
+                    />
+                    <Button
+                      type="submit"
+                      size="md"
+                      disabled={status === "loading"}
+                      className="shrink-0"
+                    >
+                      {status === "loading" ? (
+                        <>
+                          <Loader2 className="h-4 w-4 animate-spin" />
+                          Requesting
+                        </>
+                      ) : (
+                        <>
+                          Request access
+                          <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-0.5" />
+                        </>
+                      )}
+                    </Button>
+                  </div>
+                  {status === "error" && error && (
+                    <p className="mt-3 text-left text-sm text-destructive">
+                      {error}
+                    </p>
+                  )}
+                  <p className="mt-3 text-left text-xs text-muted-foreground">
+                    No spam. We'll only use your email to talk about early
+                    access.
+                  </p>
+                </form>
+              )}
             </div>
           </div>
-        </div>
-
-        {/* Bottom gradient blending into FAQ */}
-        <div className="absolute bottom-0 left-0 right-0 h-32 bg-gradient-to-b from-transparent to-[#0C1220]" />
+        </Container>
       </section>
 
-      {/* FAQ Section */}
-      <section className="relative pt-12 pb-24 px-4 bg-[#0C1220]">
-        <div className="max-w-3xl mx-auto">
-          <h2 className="text-4xl font-bold mb-12 text-center text-white">
-            Frequently Asked Questions
-          </h2>
-
-          <div className="space-y-6">
-            {[
-              {
-                question: "What does Optimesh actually deploy into my environment?",
-                answer:
-                  "A software layer that reads your existing network protocol telemetry. No agents, no hardware, no changes to your current infrastructure. Deployment typically completes in under a day.",
-              },
-              {
-                question: "Do we need to migrate off our current monitoring tools?",
-                answer:
-                  "No. Optimesh sits alongside your existing tooling. It does not require you to remove or replace anything currently in production.",
-              },
-              {
-                question: "Which vendors and hardware does Optimesh support?",
-                answer:
-                  "Optimesh is vendor agnostic. It operates across heterogeneous environments including mixed Cisco, Aruba, Juniper, and Ubiquiti deployments without vendor-specific configuration.",
-              },
-              {
-                question: "How does Optimesh handle network changes we make ourselves?",
-                answer:
-                  "The topology model updates continuously. Any change made to your network is reflected in the model in real time. Configuration drift is flagged automatically.",
-              },
-              {
-                question: "What does the early access partnership involve?",
-                answer:
-                  "We work directly with your network team to deploy Optimesh in your production environment, validate performance against your specific infrastructure, and refine the product based on what we find together.",
-              },
-            ].map((faq, index) => (
-              <div key={index} className="group">
-                <div className="flex gap-4">
-                  <div className="flex-shrink-0">
-                    <div className="w-8 h-8 rounded-full bg-spectrum-cyan/20 flex items-center justify-center">
-                      <span className="text-sm font-bold text-spectrum-cyan">
-                        {index + 1}
-                      </span>
-                    </div>
-                  </div>
-                  <div className="flex-1">
-                    <h4 className="text-lg font-bold text-white mb-2 group-hover:text-spectrum-cyan transition-colors cursor-pointer">
-                      {faq.question}
-                    </h4>
-                    <p className="text-[#E2E8F0]/70 text-base">{faq.answer}</p>
-                  </div>
+      {/* ------------------------------------------------ What partners get */}
+      <section className="border-y border-border bg-card">
+        <Container className="py-20 md:py-28">
+          <SectionHeading
+            eyebrow="The partnership"
+            title="What early partners get"
+            description="Early access is a collaboration, not a waitlist. Here's what working with us looks like."
+          />
+          <div className="mt-14 grid gap-x-10 gap-y-12 sm:grid-cols-2">
+            {partnerBenefits.map((benefit) => (
+              <div key={benefit.title} className="flex gap-4">
+                <span className="flex h-10 w-10 flex-none items-center justify-center rounded-lg bg-primary/10 text-primary">
+                  {benefit.icon}
+                </span>
+                <div>
+                  <h3 className="text-base font-semibold tracking-tight text-foreground">
+                    {benefit.title}
+                  </h3>
+                  <p className="mt-1.5 text-sm leading-relaxed text-muted-foreground">
+                    {benefit.body}
+                  </p>
                 </div>
               </div>
             ))}
           </div>
-        </div>
+        </Container>
       </section>
 
-      <Footer />
+      {/* ----------------------------------------------------------------- FAQ */}
+      <Section className="pb-28">
+        <SectionHeading
+          eyebrow="Questions"
+          title="Frequently asked questions"
+          align="center"
+          className="mx-auto"
+        />
+        <div className="mx-auto mt-14 max-w-3xl divide-y divide-border border-y border-border">
+          {faqs.map((faq) => (
+            <div key={faq.question} className="py-7">
+              <h3 className="text-lg font-semibold tracking-tight text-foreground">
+                {faq.question}
+              </h3>
+              <p className="mt-2 text-pretty leading-relaxed text-muted-foreground">
+                {faq.answer}
+              </p>
+            </div>
+          ))}
+        </div>
+
+        <div className="mx-auto mt-14 max-w-2xl text-center">
+          <p className="text-pretty text-muted-foreground">
+            Have a question that isn't answered here?{" "}
+            <a
+              href="mailto:contact@optimesh.ai"
+              className="font-medium text-primary transition-colors hover:text-primary/80"
+            >
+              Email the team
+            </a>
+            .
+          </p>
+        </div>
+      </Section>
     </Layout>
   );
 }

@@ -1,140 +1,270 @@
 import { Layout } from "@/components/Layout";
-import { Footer } from "@/components/Footer";
-import { BackgroundPaths } from "@/components/ui/background-paths";
-import { Linkedin } from "lucide-react";
+import { Link } from "react-router-dom";
+import {
+  ArrowRight,
+  BadgeCheck,
+  Gauge,
+  Lock,
+  TerminalSquare,
+  ShieldCheck,
+} from "lucide-react";
+import {
+  ButtonLink,
+  Container,
+  Section,
+  SectionHeading,
+  Eyebrow,
+  Stat,
+  Badge,
+} from "@/components/site/primitives";
+
+const values = [
+  {
+    icon: <BadgeCheck className="h-5 w-5" />,
+    title: "Proof over promises",
+    body: "Every answer is validated against ground truth — Batfish and live FRR — and every output is fully deterministic. If the data doesn't support a claim, we don't make it.",
+  },
+  {
+    icon: <Gauge className="h-5 w-5" />,
+    title: "Fast enough to live in CI",
+    body: "Whole-fabric simulation in milliseconds means change validation can run on every commit, not once a quarter. Certainty shouldn't cost you a maintenance window.",
+  },
+  {
+    icon: <Lock className="h-5 w-5" />,
+    title: "Your network stays yours",
+    body: "Optimesh runs entirely on your own hardware — on-prem and air-gap ready. Your configs never leave your infrastructure, and nothing phones home.",
+  },
+  {
+    icon: <TerminalSquare className="h-5 w-5" />,
+    title: "Built for engineers",
+    body: "A single static binary that fits the toolchain you already have — CLI, Python SDK, REST API, and a GitHub Action. No Docker, no JVM, no servers to babysit.",
+  },
+];
+
+const products = [
+  {
+    icon: <Gauge className="h-5 w-5" />,
+    name: "Hammerhead",
+    tagline: "Offline forwarding-plane simulator",
+    body: "Simulate your entire forwarding plane from a directory of configs in milliseconds — 345× faster than Batfish at 99.93% parity, fully deterministic, with no live device required.",
+    to: "/products/hammerhead",
+  },
+  {
+    icon: <ShieldCheck className="h-5 w-5" />,
+    name: "Config Studio",
+    tagline: "AI diagnosis & verified remediation",
+    body: "Uses the Hammerhead engine to diagnose faults and propose fixes that are proven safe before a human ever sees them — a 78.2% fix rate on unseen faults, all on your own hardware.",
+    to: "/products/config-studio",
+  },
+];
 
 export default function About() {
   return (
     <Layout>
-      {/* Hero + Leadership with shared animated background */}
-      <div className="relative overflow-hidden bg-[#0a0e1a]">
-        <BackgroundPaths />
-        <div className="absolute top-0 right-0 w-[600px] h-[600px] bg-spectrum-cyan/5 rounded-full blur-[120px]" />
-        <div className="absolute bottom-0 left-0 w-[400px] h-[400px] bg-spectrum-purple/5 rounded-full blur-[100px]" />
+      {/* ---------------------------------------------------------------- Hero */}
+      <section className="relative overflow-hidden">
+        <div className="pointer-events-none absolute inset-0 bg-grid bg-grid-fade opacity-70" />
+        <div className="pointer-events-none absolute -top-40 left-1/2 h-[34rem] w-[58rem] -translate-x-1/2 rounded-full bg-primary/5 blur-3xl" />
 
-        {/* Hero */}
-        <section className="relative z-10 min-h-[60vh] flex items-center px-4 pt-32 pb-24">
-          <div className="max-w-6xl mx-auto w-full">
-            <p className="text-2xl font-bold tracking-[0.2em] uppercase text-spectrum-cyan mb-6">
-              About
-            </p>
-            <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold leading-tight text-white mb-6">
-              Built by infrastructure experts,
-              <br />
-              <span className="text-white/70 font-normal">
-                for the networks that power the world.
-              </span>
+        <Container className="relative pb-20 pt-32 md:pb-28 md:pt-40">
+          <div className="max-w-3xl">
+            <div className="animate-fade-up" style={{ animationDelay: "0ms" }}>
+              <Badge tone="primary">Company</Badge>
+            </div>
+
+            <h1
+              className="animate-fade-up mt-6 text-balance text-[2.6rem] font-medium leading-[1.06] tracking-tight text-foreground sm:text-6xl lg:text-[3.9rem]"
+              style={{ animationDelay: "80ms" }}
+            >
+              Bring certainty to the networks that run the world.
             </h1>
-            <p className="text-xl sm:text-2xl text-white/90 max-w-3xl leading-relaxed drop-shadow-[0_1px_8px_rgba(0,0,0,0.8)]">
-              Optimesh was founded to close the gap between how critical networks
-              operate and how they're managed.
-            </p>
-          </div>
-        </section>
 
-        {/* Leadership */}
-        <section className="relative z-10 py-24 px-4">
-          <div className="max-w-6xl mx-auto">
-            <p className="text-2xl font-bold tracking-[0.2em] uppercase text-spectrum-cyan mb-12">
-              Leadership
+            <p
+              className="animate-fade-up mt-6 max-w-2xl text-pretty text-lg leading-relaxed text-muted-foreground"
+              style={{ animationDelay: "160ms" }}
+            >
+              Optimesh Technologies builds offline intelligence for network
+              infrastructure — so the engineers who route the world's traffic
+              can know exactly what a change will do before they make it.
             </p>
 
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-              <div className="relative border border-white/10 rounded-xl p-10 hover:border-spectrum-cyan/30 transition-colors bg-black/40 backdrop-blur-sm">
-                <h3 className="text-2xl font-bold text-white mb-1">
-                  Chandler W. Stevenson
-                </h3>
-                <p className="text-spectrum-cyan/80 font-medium mb-6">
-                  CEO & Co-Founder
-                </p>
-                <p className="text-[#E2E8F0] leading-relaxed">
-                  Princeton ECE PhD Student · NSF GRFP Fellow · Formerly SpaceX,
-                  Blue Origin
-                </p>
-                <a
-                  href="https://www.linkedin.com/in/chandler-stevenson-717436202/"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="absolute bottom-4 right-4 text-white hover:text-spectrum-cyan transition-colors"
-                >
-                  <Linkedin className="w-5 h-5" />
-                </a>
-              </div>
+            <p
+              className="animate-fade-up mt-8 font-mono text-xs uppercase tracking-[0.14em] text-muted-foreground"
+              style={{ animationDelay: "240ms" }}
+            >
+              Built by infrastructure experts, for the networks that power the
+              world.
+            </p>
+          </div>
+        </Container>
+      </section>
 
-              <div className="relative border border-white/10 rounded-xl p-10 hover:border-spectrum-cyan/30 transition-colors bg-black/40 backdrop-blur-sm">
-                <h3 className="text-2xl font-bold text-white mb-1">
-                  Vedu Mallela
-                </h3>
-                <p className="text-spectrum-cyan/80 font-medium mb-6">
-                  CTO & Co-Founder
-                </p>
-                <p className="text-[#E2E8F0] leading-relaxed">
-                  Georgia Tech CS · MIT/Harvard NLP Research · TikTok SWE
-                </p>
-                <a
-                  href="https://www.linkedin.com/in/vedu-mallela/"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="absolute bottom-4 right-4 text-white hover:text-spectrum-cyan transition-colors"
-                >
-                  <Linkedin className="w-5 h-5" />
-                </a>
-              </div>
+      {/* ----------------------------------------------------------- Why we exist */}
+      <section className="border-y border-border bg-card">
+        <Container className="py-20 md:py-28">
+          <div className="grid gap-12 lg:grid-cols-[0.9fr_1.1fr] lg:gap-16">
+            <SectionHeading
+              eyebrow="Why we exist"
+              title="Network changes shouldn't be validated by hope."
+            />
+            <div className="max-w-2xl space-y-5 text-pretty text-lg leading-relaxed text-muted-foreground">
+              <p>
+                Network engineers edit the configs that route the world's
+                traffic — and most of the time, they can't reliably answer the
+                one question that matters: <span className="text-foreground">
+                  what will this change actually do?
+                </span>{" "}
+                The change gets pushed, and everyone hopes for the best.
+              </p>
+              <p>
+                The tools that promise an answer are slow and heavyweight —
+                Docker, JVMs, servers, minutes of waiting — so they never run
+                where they're needed: on every change. And once something
+                breaks, the industry offers plenty of detection but almost no
+                remediation. You learn what failed, not how to fix it safely.
+              </p>
+              <p>
+                We started Optimesh to close that gap with offline intelligence
+                that is both fast and trustworthy — fast enough to run on every
+                commit, and proven enough to bet a production network on.
+              </p>
             </div>
           </div>
-        </section>
-        {/* Bottom gradient blending into next section */}
-        <div className="absolute bottom-0 left-0 right-0 h-48 bg-gradient-to-b from-transparent to-[#0C1220] z-20 pointer-events-none" />
-      </div>
+        </Container>
+      </section>
 
-      {/* Core Principles */}
-      <section className="relative py-24 px-4 bg-[#0C1220]">
-        <div className="max-w-6xl mx-auto">
-          <p className="text-2xl font-bold tracking-[0.2em] uppercase text-spectrum-cyan mb-12">
-            Core Principles
-          </p>
+      {/* ---------------------------------------------------------- Our approach */}
+      <Section>
+        <SectionHeading
+          eyebrow="Our approach"
+          title="Simulate the network. Prove the fix. Touch nothing live."
+          description="Instead of probing live devices, we model them. A directory of configs is enough to reconstruct how a fabric actually forwards packets — and to verify a repair before anyone applies it."
+        />
+        <div className="mt-14 grid gap-6 lg:grid-cols-2">
+          {products.map((p, i) => (
+            <Link
+              key={p.name}
+              to={p.to}
+              className="animate-fade-up group flex flex-col rounded-2xl border border-border bg-card p-8 shadow-sm transition-all duration-300 hover:-translate-y-1 hover:border-primary/30 hover:shadow-lg"
+              style={{ animationDelay: `${i * 80}ms` }}
+            >
+              <div className="flex items-center gap-3">
+                <span className="flex h-10 w-10 items-center justify-center rounded-lg bg-primary/10 text-primary">
+                  {p.icon}
+                </span>
+                <div>
+                  <h3 className="text-xl font-semibold tracking-tight text-foreground">
+                    {p.name}
+                  </h3>
+                  <p className="font-mono text-xs uppercase tracking-[0.14em] text-muted-foreground">
+                    {p.tagline}
+                  </p>
+                </div>
+              </div>
+              <p className="mt-5 text-pretty leading-relaxed text-muted-foreground">
+                {p.body}
+              </p>
+              <span className="mt-7 inline-flex items-center gap-1.5 font-medium text-primary">
+                Learn more
+                <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
+              </span>
+            </Link>
+          ))}
+        </div>
+      </Section>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-            <div className="space-y-3">
-              <h3 className="text-2xl font-bold text-white">
-                We build for operators, not observers.
+      {/* ------------------------------------------------------------- Stat band */}
+      <section className="border-y border-border bg-card">
+        <Container className="py-12">
+          <div className="grid grid-cols-2 gap-x-6 gap-y-10 md:grid-cols-4">
+            <Stat value="345×" label="Faster than Batfish" sub="fully deterministic" />
+            <Stat value="99.93%" label="Forwarding-plane parity" sub="vs. Batfish & live FRR" />
+            <Stat value="14" label="Network vendors" sub="auto-detected" />
+            <Stat value="78.2%" label="Fix rate on unseen faults" sub="every patch pre-verified" />
+          </div>
+        </Container>
+      </section>
+
+      {/* --------------------------------------------------------- Our principles */}
+      <Section>
+        <SectionHeading
+          eyebrow="What we believe"
+          title="The principles behind everything we ship."
+          align="center"
+          className="mx-auto"
+        />
+        <div className="mx-auto mt-14 grid max-w-5xl gap-6 sm:grid-cols-2">
+          {values.map((v, i) => (
+            <div
+              key={v.title}
+              className="animate-fade-up rounded-xl border border-border bg-card p-7 shadow-sm transition-all duration-300 hover:-translate-y-0.5 hover:border-primary/30 hover:shadow-md"
+              style={{ animationDelay: `${i * 70}ms` }}
+            >
+              <span className="flex h-10 w-10 items-center justify-center rounded-lg bg-primary/10 text-primary">
+                {v.icon}
+              </span>
+              <h3 className="mt-5 text-lg font-semibold tracking-tight text-foreground">
+                {v.title}
               </h3>
-              <p className="text-lg text-[#E2E8F0] leading-relaxed">
-                Optimesh is not a dashboard. It is a system that acts. We measure success by whether your team had to respond to fewer incidents, not by how many metrics we can display.
+              <p className="mt-2 text-pretty text-sm leading-relaxed text-muted-foreground">
+                {v.body}
               </p>
             </div>
+          ))}
+        </div>
+      </Section>
 
-            <div className="space-y-3">
-              <h3 className="text-2xl font-bold text-white">
-                The network already has the answers.
-              </h3>
-              <p className="text-lg text-[#E2E8F0] leading-relaxed">
-                Your infrastructure is continuously broadcasting its own state through protocol telemetry. We read it. No spreadsheets, no CMDB, no onboarding project required.
-              </p>
+      {/* ------------------------------------------------------------- Engineering */}
+      <section className="border-t border-border bg-card">
+        <Container className="py-20 md:py-28">
+          <div className="grid gap-12 lg:grid-cols-[1.1fr_0.9fr] lg:items-center lg:gap-16">
+            <SectionHeading
+              eyebrow="How we build"
+              title="Trustworthy by construction."
+              description="Correctness isn't a feature we test for at the end — it's the constraint we engineer toward from the start. The result is software you can put in the path of a production change."
+            />
+            <div className="grid gap-4 sm:grid-cols-2">
+              <Stat value="1,450+" label="Tests in the engine" sub="run on every build" />
+              <Stat value="0" label="Lines of unsafe code" sub="no shortcuts" />
+              <Stat value="ms" label="Whole-fabric simulation" sub="not minutes" />
+              <Stat value="100%" label="Offline & deterministic" sub="no telemetry" />
             </div>
+          </div>
+        </Container>
+      </section>
 
-            <div className="space-y-3">
-              <h3 className="text-2xl font-bold text-white">
-                We do not touch your network without your approval.
-              </h3>
-              <p className="text-lg text-[#E2E8F0] leading-relaxed">
-                Every recommended action requires explicit human sign-off. Trust is built through accuracy over time, not assumed on day one.
-              </p>
-            </div>
-
-            <div className="space-y-3">
-              <h3 className="text-2xl font-bold text-white">
-                We stand behind our numbers.
-              </h3>
-              <p className="text-lg text-[#E2E8F0] leading-relaxed">
-                Our models are validated against real production networks. We publish results. If the data does not support a claim, we do not make it.
-              </p>
+      {/* --------------------------------------------------------------- CTA */}
+      <Section className="pb-28">
+        <div className="relative overflow-hidden rounded-2xl border border-border bg-foreground px-8 py-16 text-center md:px-16 md:py-20">
+          <div className="pointer-events-none absolute inset-0 bg-grid opacity-[0.07]" />
+          <div className="relative mx-auto max-w-2xl">
+            <Eyebrow className="!text-background/70">Early access</Eyebrow>
+            <h2 className="mt-4 text-balance text-3xl font-medium tracking-tight text-background sm:text-4xl md:text-[2.75rem] md:leading-[1.1]">
+              Help us build the future of network intelligence.
+            </h2>
+            <p className="mt-5 text-pretty text-lg leading-relaxed text-background/70">
+              We're working with a small group of network teams who are tired of
+              guessing. If that sounds like yours, we'd like to hear from you.
+            </p>
+            <div className="mt-9 flex flex-col justify-center gap-3 sm:flex-row">
+              <ButtonLink
+                to="/early-access"
+                size="lg"
+                className="bg-background text-foreground hover:bg-background/90"
+              >
+                Request early access
+                <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-0.5" />
+              </ButtonLink>
+              <Link
+                to="/contact"
+                className="inline-flex h-12 items-center justify-center rounded-lg border border-background/25 px-6 text-[0.95rem] font-medium text-background transition-colors hover:bg-background/10"
+              >
+                Talk to the team
+              </Link>
             </div>
           </div>
         </div>
-      </section>
-
-      <Footer />
+      </Section>
     </Layout>
   );
 }

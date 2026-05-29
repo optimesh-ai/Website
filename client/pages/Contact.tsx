@@ -1,64 +1,120 @@
 import { Layout } from "@/components/Layout";
-import { Footer } from "@/components/Footer";
-import { Mail } from "lucide-react";
-import { Suspense, lazy } from "react";
-
-const NeuralBackground = lazy(
-  () => import("@/components/ui/flow-field-background")
-);
+import { Mail, ArrowRight, Github, Rocket } from "lucide-react";
+import {
+  Container,
+  Section,
+  Eyebrow,
+  ButtonLink,
+  ArrowLink,
+  Badge,
+} from "@/components/site/primitives";
 
 export default function Contact() {
   return (
     <Layout>
-      <div className="relative min-h-screen bg-black flex flex-col">
-        {/* Full-page flow field */}
-        <Suspense fallback={<div className="fixed inset-0 bg-black" />}>
-          <NeuralBackground
-            className="fixed inset-0 opacity-50"
-            color="#aaaaaa"
-            trailOpacity={0.12}
-            particleCount={500}
-            speed={0.8}
-          />
-        </Suspense>
+      {/* ---------------------------------------------------------------- Hero */}
+      <section className="relative overflow-hidden">
+        <div className="pointer-events-none absolute inset-0 bg-grid bg-grid-fade opacity-70" />
+        <div className="pointer-events-none absolute -top-40 left-1/2 h-[34rem] w-[56rem] -translate-x-1/2 rounded-full bg-primary/5 blur-3xl" />
 
-        {/* Centered content */}
-        <div className="relative z-10 flex-1 flex items-center justify-center px-4">
-          <div className="max-w-lg w-full">
-            <h1 className="text-5xl sm:text-6xl font-bold mb-4 leading-tight tracking-tighter text-white drop-shadow-2xl text-center">
-              Get in Touch
+        <Container className="relative pb-16 pt-32 md:pb-20 md:pt-40">
+          <div className="mx-auto max-w-2xl text-center">
+            <div className="animate-fade-up flex justify-center">
+              <Badge tone="primary">Contact</Badge>
+            </div>
+            <h1
+              className="animate-fade-up mt-6 text-balance text-[2.6rem] font-medium leading-[1.05] tracking-tight text-foreground sm:text-5xl md:text-6xl"
+              style={{ animationDelay: "80ms" }}
+            >
+              Get in touch
             </h1>
-            <p className="text-xl text-white/60 text-center mb-10 max-w-xl mx-auto">
-              Interested in what we're building? We'd love to hear from you.
-              Contact our team to learn more about Optimesh.
+            <p
+              className="animate-fade-up mx-auto mt-6 max-w-xl text-pretty text-lg leading-relaxed text-muted-foreground"
+              style={{ animationDelay: "160ms" }}
+            >
+              Questions about Optimesh, your network, or partnering with us?
+              We'd genuinely like to hear from you — reach out and you'll get a
+              real person on the founding team.
             </p>
+          </div>
+        </Container>
+      </section>
 
-            <div className="group relative">
-              <div className="absolute -inset-0.5 bg-gradient-to-r from-white/10 to-white/5 rounded-lg blur opacity-0 group-hover:opacity-100 transition duration-500" />
-              <div className="relative bg-black/60 backdrop-blur-sm border border-white/[0.08] rounded-lg p-8 hover:border-white/20 transition-colors">
-                <div className="flex items-start gap-4">
-                  <div className="w-11 h-11 rounded-full border border-white/20 bg-white/[0.06] flex items-center justify-center flex-shrink-0">
-                    <Mail className="w-5 h-5 text-white/80" />
-                  </div>
-                  <div>
-                    <h3 className="text-2xl font-bold text-white mb-2">
-                      Email
-                    </h3>
-                    <a
-                      href="mailto:contact@optimesh.ai"
-                      className="text-lg text-white/70 hover:text-white transition-colors"
-                    >
-                      contact@optimesh.ai
-                    </a>
-                  </div>
-                </div>
-              </div>
+      {/* ------------------------------------------------------------- Cards */}
+      <Section className="pb-28 pt-4">
+        <div className="mx-auto grid max-w-4xl gap-6 md:grid-cols-2">
+          {/* Email */}
+          <div className="flex flex-col rounded-2xl border border-border bg-card p-8 shadow-sm">
+            <span className="flex h-11 w-11 items-center justify-center rounded-lg bg-primary/10 text-primary">
+              <Mail className="h-5 w-5" />
+            </span>
+            <h2 className="mt-6 text-xl font-semibold tracking-tight text-foreground">
+              Email us
+            </h2>
+            <p className="mt-2 text-pretty leading-relaxed text-muted-foreground">
+              The fastest way to reach the team. We read every message and
+              usually reply within a business day.
+            </p>
+            <div className="mt-6">
+              <ArrowLink href="mailto:contact@optimesh.ai">
+                contact@optimesh.ai
+              </ArrowLink>
+            </div>
+          </div>
+
+          {/* Early access */}
+          <div className="flex flex-col rounded-2xl border border-primary/30 bg-primary/[0.04] p-8 shadow-sm">
+            <span className="flex h-11 w-11 items-center justify-center rounded-lg bg-primary/10 text-primary">
+              <Rocket className="h-5 w-5" />
+            </span>
+            <h2 className="mt-6 text-xl font-semibold tracking-tight text-foreground">
+              Want product access?
+            </h2>
+            <p className="mt-2 text-pretty leading-relaxed text-muted-foreground">
+              We're partnering with a small group of network teams. If you'd
+              like to run Optimesh against your own environment, request early
+              access.
+            </p>
+            <div className="mt-6">
+              <ButtonLink to="/early-access" variant="primary" size="md">
+                Request early access
+                <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-0.5" />
+              </ButtonLink>
             </div>
           </div>
         </div>
 
-        <Footer />
-      </div>
+        {/* GitHub */}
+        <div className="mx-auto mt-6 max-w-4xl">
+          <div className="flex flex-col items-start justify-between gap-4 rounded-2xl border border-border bg-card p-8 shadow-sm sm:flex-row sm:items-center">
+            <div className="flex items-start gap-4">
+              <span className="flex h-11 w-11 flex-none items-center justify-center rounded-lg bg-muted text-foreground">
+                <Github className="h-5 w-5" />
+              </span>
+              <div>
+                <h2 className="text-xl font-semibold tracking-tight text-foreground">
+                  Find us on GitHub
+                </h2>
+                <p className="mt-1 text-pretty leading-relaxed text-muted-foreground">
+                  Follow along with what we're building in the open.
+                </p>
+              </div>
+            </div>
+            <ButtonLink
+              href="https://github.com/optimesh-ai"
+              variant="secondary"
+              size="md"
+              className="shrink-0"
+            >
+              github.com/optimesh-ai
+            </ButtonLink>
+          </div>
+        </div>
+
+        <div className="mx-auto mt-12 max-w-4xl text-center">
+          <Eyebrow>Built for the networks that power the world</Eyebrow>
+        </div>
+      </Section>
     </Layout>
   );
 }
