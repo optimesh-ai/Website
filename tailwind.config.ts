@@ -15,7 +15,13 @@ export default {
     extend: {
       fontFamily: {
         sans: ["'Hanken Grotesk'", "ui-sans-serif", "system-ui", "sans-serif"],
-        serif: ["Newsreader", "ui-serif", "Georgia", "serif"],
+        display: [
+          "'Schibsted Grotesk'",
+          "'Hanken Grotesk'",
+          "ui-sans-serif",
+          "system-ui",
+          "sans-serif",
+        ],
         mono: ["'IBM Plex Mono'", "ui-monospace", "SFMono-Regular", "monospace"],
       },
       colors: {

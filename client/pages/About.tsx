@@ -7,6 +7,7 @@ import {
   Lock,
   TerminalSquare,
   ShieldCheck,
+  Linkedin,
 } from "lucide-react";
 import {
   ButtonLink,
@@ -38,6 +39,31 @@ const values = [
     icon: <TerminalSquare className="h-5 w-5" />,
     title: "Built for engineers",
     body: "A single static binary that fits the toolchain you already have — CLI, Python SDK, REST API, and a GitHub Action. No Docker, no JVM, no servers to babysit.",
+  },
+];
+
+const founders = [
+  {
+    name: "Chandler W. Stevenson",
+    title: "CEO & Co-Founder",
+    initials: "CS",
+    credentials: [
+      "Princeton ECE PhD candidate",
+      "NSF GRFP Fellow",
+      "Formerly SpaceX & Blue Origin",
+    ],
+    linkedin: "https://www.linkedin.com/in/chandler-stevenson-717436202/",
+  },
+  {
+    name: "Vedu Mallela",
+    title: "CTO & Co-Founder",
+    initials: "VM",
+    credentials: [
+      "Georgia Tech CS",
+      "MIT / Harvard NLP research",
+      "Formerly TikTok",
+    ],
+    linkedin: "https://www.linkedin.com/in/vedu-mallela/",
   },
 ];
 
@@ -185,8 +211,61 @@ export default function About() {
         </Container>
       </section>
 
-      {/* --------------------------------------------------------- Our principles */}
+      {/* ------------------------------------------------------------- Founders */}
       <Section>
+        <SectionHeading
+          eyebrow="Leadership"
+          title="Built by people who've shipped at the edge."
+          description="Optimesh is founded by engineers who've worked where reliability isn't optional — and who've felt how fragile network change still is."
+        />
+        <div className="mx-auto mt-14 grid max-w-4xl gap-6 sm:grid-cols-2">
+          {founders.map((f, i) => (
+            <div
+              key={f.name}
+              className="animate-fade-up flex flex-col rounded-2xl border border-border bg-card p-8 shadow-sm"
+              style={{ animationDelay: `${i * 80}ms` }}
+            >
+              <div className="flex items-center gap-4">
+                <span className="flex h-14 w-14 flex-none items-center justify-center rounded-full bg-primary/10 font-mono text-lg font-medium text-primary">
+                  {f.initials}
+                </span>
+                <div className="min-w-0">
+                  <h3 className="text-lg font-semibold tracking-tight text-foreground">
+                    {f.name}
+                  </h3>
+                  <p className="font-mono text-xs uppercase tracking-[0.14em] text-primary">
+                    {f.title}
+                  </p>
+                </div>
+              </div>
+              <ul className="mt-6 space-y-2">
+                {f.credentials.map((c) => (
+                  <li
+                    key={c}
+                    className="flex items-start gap-2.5 text-sm text-muted-foreground"
+                  >
+                    <span className="mt-1.5 h-1.5 w-1.5 flex-none rounded-full bg-success" />
+                    {c}
+                  </li>
+                ))}
+              </ul>
+              <a
+                href={f.linkedin}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="mt-7 inline-flex items-center gap-2 text-sm font-medium text-muted-foreground transition-colors hover:text-primary"
+                aria-label={`${f.name} on LinkedIn`}
+              >
+                <Linkedin className="h-4 w-4" />
+                LinkedIn
+              </a>
+            </div>
+          ))}
+        </div>
+      </Section>
+
+      {/* --------------------------------------------------------- Our principles */}
+      <Section className="border-t border-border">
         <SectionHeading
           eyebrow="What we believe"
           title="The principles behind everything we ship."

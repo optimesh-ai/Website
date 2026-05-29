@@ -6,7 +6,7 @@
   /**
    * Optimesh — Light Corporate theme.
    * HSL design tokens consumed by tailwind.config.ts.
-   * Type system: Newsreader (serif display) / Hanken Grotesk (grotesk body) / IBM Plex Mono (technical).
+   * Type system: Schibsted Grotesk (display) / Hanken Grotesk (body) / IBM Plex Mono (technical).
    */
   :root {
     --background: 210 40% 99%;
@@ -69,12 +69,11 @@
 
   body {
     @apply bg-background text-foreground font-sans;
-    font-feature-settings: "ss01", "cv01", "cv11";
   }
 
   h1, h2, h3, h4 {
-    @apply font-serif;
-    font-optical-sizing: auto;
+    @apply font-display;
+    letter-spacing: -0.02em;
   }
 
   :where(p, span, li, h1, h2, h3, h4, h5, h6, a, button, label, td, th) {
