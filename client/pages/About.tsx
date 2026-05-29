@@ -205,7 +205,7 @@ export default function About() {
           <div className="grid grid-cols-2 gap-x-6 gap-y-10 md:grid-cols-4">
             <Stat value="345×" label="Faster than the industry standard" sub="fully deterministic" />
             <Stat value="99.93%" label="Forwarding-plane parity" sub="vs. the industry standard & live FRR" />
-            <Stat value="14" label="Network vendors" sub="auto-detected" />
+            <Stat value="100%" label="On-prem and air-gap" sub="your configs never leave your network" />
             <Stat value="<10s" label="Time to fix" sub="diagnose, patch, verify" />
           </div>
         </Container>

@@ -196,7 +196,7 @@ export default function Hammerhead() {
                 style={{ animationDelay: "160ms" }}
               >
                 Drop your configs in a directory and ask questions. Hammerhead
-                parses 14 vendor dialects, simulates the forwarding plane, and
+                parses every major network vendor, simulates the forwarding plane, and
                 answers reachability and traceroute queries in milliseconds, as
                 a single static binary. No Docker, no JVM, no running server, no
                 live device.
@@ -232,7 +232,7 @@ export default function Hammerhead() {
                 className="w-full max-w-lg"
                 lines={[
                   { prompt: "$", text: "hammerhead simulate ./configs" },
-                  { text: "parsed 1,280 devices · 14 vendors", muted: true },
+                  { text: "parsed 1,280 devices · auto-detected", muted: true },
                   { text: "built FIB · 798,720 routes · 279ms", muted: true },
                   { text: "" },
                   {
@@ -271,9 +271,9 @@ export default function Hammerhead() {
               sub="matches the industry standard at scale"
             />
             <Stat
-              value="14"
-              label="Vendors supported"
-              sub="auto-detected, no per-device flags"
+              value="0"
+              label="Per-device flags"
+              sub="automatic detection across every major network OS"
             />
             <Stat
               value="<1s"
@@ -375,9 +375,9 @@ export default function Hammerhead() {
       <Section>
         <div className="grid gap-12 lg:grid-cols-[0.85fr_1.15fr] lg:items-center">
           <SectionHeading
-            eyebrow="14 vendor parsers"
+            eyebrow="every major vendor"
             title="Auto-detected. No flags, no adapters."
-            description="A single parser core reads fourteen configuration dialects and identifies each device automatically, drop a mixed-vendor snapshot in and it just works."
+            description="A single parser core reads every major network vendor and identifies each device automatically, drop a mixed-vendor snapshot in and it just works."
           />
           <div className="grid grid-cols-2 gap-3 sm:grid-cols-3">
             {vendors.map((v) => (

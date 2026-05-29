@@ -291,9 +291,9 @@ export default function ConfigStudio() {
               sub="every fix re-simulated"
             />
             <Stat
-              value="14"
-              label="Vendors supported"
-              sub="auto-detected"
+              value="Every"
+              label="Major network vendor"
+              sub="hardware and vendor agnostic"
             />
             <Stat
               value="0"

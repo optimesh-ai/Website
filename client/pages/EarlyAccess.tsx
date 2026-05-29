@@ -63,7 +63,7 @@ const faqs = [
   {
     question: "Which vendors are supported?",
     answer:
-      "14 vendor config dialects, including Cisco (IOS, NX-OS, IOS-XR, ASA), Arista EOS, Juniper Junos, Cumulus/FRR, and more, with automatic detection, so there are no per-vendor flags to manage.",
+      "every major network vendor, including Cisco (IOS, NX-OS, IOS-XR, ASA), Arista EOS, Juniper Junos, Cumulus/FRR, and more, with automatic detection, so there are no per-vendor flags to manage.",
   },
   {
     question: "Does my config data leave my network?",

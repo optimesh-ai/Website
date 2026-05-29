@@ -137,7 +137,7 @@ export default function Whitepaper() {
             <P>
               Hammerhead ingests a directory of device configurations and detects
               each vendor dialect automatically, with no per-file flags. It
-              currently parses fourteen formats, including Cisco IOS, NX-OS,
+              currently parses every major network vendor, including Cisco IOS, NX-OS,
               IOS-XR and ASA, Arista EOS, Juniper Junos, Cumulus and FRR, FortiOS,
               PAN-OS, SONiC, F5 BIG-IP, A10 ACOS, Check Point Gaia, and Linux
               iptables. Parsing normalizes these dialects into a single internal

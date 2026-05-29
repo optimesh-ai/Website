@@ -17,7 +17,7 @@ const meta: Record<string, { title: string; description: string }> = {
   "/products/hammerhead": {
     title: "Hammerhead, Offline network simulator | Optimesh Technologies",
     description:
-      "Know what a config change will do before you make it. Hammerhead parses 14 vendors and simulates the forwarding plane in milliseconds, 345× faster than the industry standard, at 99.93% parity.",
+      "Know what a config change will do before you make it. Hammerhead parses every major network vendor and simulates the forwarding plane in milliseconds, 345× faster than the industry standard, at 99.93% parity.",
   },
   "/products/config-studio": {
     title: "Config Studio, AI diagnosis & verified fixes | Optimesh Technologies",

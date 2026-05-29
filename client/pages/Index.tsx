@@ -142,7 +142,7 @@ export default function Index() {
                 className="w-full max-w-lg"
                 lines={[
                   { prompt: "$", text: "hammerhead simulate ./configs" },
-                  { text: "parsed 1,280 devices · 14 vendors", muted: true },
+                  { text: "parsed 1,280 devices · auto-detected", muted: true },
                   { text: "built FIB · 798,720 routes · 279ms", muted: true },
                   { prompt: "$", text: "hammerhead reachability \\" },
                   { text: "    --from edge-1 --to db-core", muted: true },
@@ -183,9 +183,9 @@ export default function Index() {
               sub="diagnose, patch, and verify"
             />
             <Stat
-              value={<CountUp to={14} />}
-              label="Vendors supported"
-              sub="auto-detected, no per-device flags"
+              value={<CountUp to={100} suffix="%" />}
+              label="On-prem and air-gap"
+              sub="your configs never leave your network"
             />
           </Reveal>
         </Container>
@@ -221,7 +221,7 @@ export default function Index() {
             icon={<Gauge className="h-5 w-5" />}
             name="Hammerhead"
             tagline="Offline forwarding-plane simulator"
-            description="Drop your configs in a directory and ask what a change will do. Hammerhead parses 14 vendor dialects, simulates OSPF, BGP, IS-IS and more, and answers reachability and traceroute queries in milliseconds, as a single static binary."
+            description="Drop your configs in a directory and ask what a change will do. Hammerhead parses every major network vendor, simulates OSPF, BGP, IS-IS and more, and answers reachability and traceroute queries in milliseconds, as a single static binary."
             points={[
               "345× faster than the industry standard, 99.93% FIB parity",
               "CLI, Python SDK, REST API & CI integration",

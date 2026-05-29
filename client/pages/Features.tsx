@@ -30,7 +30,7 @@ const capabilities = [
   {
     icon: <Network className="h-5 w-5" />,
     title: "Forwarding-plane simulation",
-    body: "Parse 14 vendor dialects, converge OSPF, BGP, IS-IS, EIGRP and RIP, and build the full FIB for your fabric in milliseconds.",
+    body: "Parse every major network vendor, converge OSPF, BGP, IS-IS, EIGRP and RIP, and build the full FIB for your fabric in milliseconds.",
   },
   {
     icon: <Route className="h-5 w-5" />,
@@ -140,7 +140,7 @@ export default function Features() {
               className="animate-fade-up mt-8 flex flex-wrap gap-2.5"
               style={{ animationDelay: "320ms" }}
             >
-              <Badge tone="primary">14 vendor parsers</Badge>
+              <Badge tone="primary">Vendor agnostic</Badge>
               <Badge tone="primary">CLI · SDK · REST · CI</Badge>
               <Badge tone="success">
                 <span className="h-1.5 w-1.5 rounded-full bg-success" />
@@ -194,7 +194,7 @@ export default function Features() {
             icon={<Gauge className="h-5 w-5" />}
             name="Hammerhead"
             tagline="Offline forwarding-plane simulator"
-            description="Drop your configs in a directory and ask what a change will do. Hammerhead parses 14 vendor dialects, simulates OSPF, BGP, IS-IS and more, and answers reachability and traceroute queries in milliseconds, as a single static binary."
+            description="Drop your configs in a directory and ask what a change will do. Hammerhead parses every major network vendor, simulates OSPF, BGP, IS-IS and more, and answers reachability and traceroute queries in milliseconds, as a single static binary."
             points={[
               "345× faster than the industry standard, 99.93% FIB parity",
               "Memory-safe by construction, deterministic, audit-ready",
@@ -253,7 +253,7 @@ export default function Features() {
               title="ci · pull-request gate"
               lines={[
                 { prompt: "$", text: "hammerhead simulate ./configs --diff HEAD~1" },
-                { text: "parsed 1,280 devices · 14 vendors", muted: true },
+                { text: "parsed 1,280 devices · auto-detected", muted: true },
                 { text: "reachability delta: 3 paths changed", muted: true },
                 { text: "" },
                 { prompt: "$", text: "config-studio verify --min-reachability 0.99" },
