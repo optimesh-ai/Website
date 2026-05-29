@@ -30,100 +30,100 @@ const verticals = [
   {
     icon: <Factory className="h-5 w-5" />,
     name: "Manufacturing",
-    body: "Control networks where a configuration change can halt a production line worth millions of dollars an hour. Optimesh Technologies verifies every change against a digital twin of the plant network before it touches the floor.",
+    body: "Control networks where a config change can halt a production line worth millions an hour. Verified against a digital twin before it touches the floor.",
   },
   {
     icon: <Server className="h-5 w-5" />,
     name: "Datacenters",
-    body: "AI fabrics, multi-tenant hosting, and multi-region failover all hinge on the forwarding plane behaving exactly as designed. We prove it on every change, in milliseconds, with no live device required.",
+    body: "AI fabrics, multi-tenant hosting, multi-region failover. Every change proven against the forwarding plane in milliseconds.",
   },
   {
     icon: <HeartPulse className="h-5 w-5" />,
     name: "Hospitals",
-    body: "Where network outages translate directly into patient impact. Optimesh Technologies gives clinical and IT teams continuous, signed evidence that segmentation and connectivity hold on every change.",
+    body: "Where outages translate directly into patient impact. Continuous, signed evidence that segmentation and connectivity hold.",
   },
   {
     icon: <GraduationCap className="h-5 w-5" />,
     name: "Universities",
-    body: "Heterogeneous, multi-tenant fabrics that carry research and campus operations side by side. The verification methods academia helped pioneer, packaged for the team that runs the campus.",
+    body: "Heterogeneous, multi-tenant fabrics carrying research and campus operations side by side. Verification, packaged for the team that runs the campus.",
   },
 ];
 
 const impact = [
   {
     icon: <CheckCircle2 className="h-5 w-5" />,
-    title: "Ship changes with measurable confidence.",
-    body: "Pre-merge proof that a configuration change preserves reachability, segmentation, and policy. The reviewer no longer has to imagine three hops ahead.",
+    title: "Ship changes with confidence.",
+    body: "Pre-merge proof that a change preserves reachability, segmentation, and policy. Reviewers stop guessing three hops out.",
   },
   {
     icon: <Network className="h-5 w-5" />,
     title: "Prevent outages before they happen.",
-    body: "The silent route leak, the ACL mismatch, the BGP neighbor typo. Every change is re-simulated, and anything that drops reachability is rejected before a human sees it.",
+    body: "Every proposed change is re-simulated. Anything that drops reachability is rejected before a human sees it.",
   },
   {
     icon: <Sparkles className="h-5 w-5" />,
     title: "Gate AI-driven changes.",
-    body: "Let copilots draft anything they like. Nothing reaches production until a forwarding-plane verifier has proved it preserves the properties the network is supposed to have.",
+    body: "Let copilots draft anything. Nothing reaches production until a forwarding-plane verifier has proved it safe.",
   },
   {
     icon: <Microscope className="h-5 w-5" />,
     title: "Prove compliance continuously.",
-    body: "Evidence aligned to CIS, PCI, and SOC 2 on every change. Auditors get a signed log of what was checked, not a reconstruction from configuration after the fact.",
+    body: "Signed, continuous evidence for CIS, PCI, and SOC 2. Auditors get a log of what was checked, not a reconstruction.",
   },
 ];
 
 const otherApproaches = [
   {
     name: "Legacy verification tools",
-    does: "Reason carefully about configuration. Correct in principle.",
+    does: "Reason about configuration. Correct in principle.",
     misses:
-      "Heavyweight and server-bound, with multi-minute analysis times. Teams reserve them for quarterly audits, so the findings arrive long after the change that broke things.",
+      "Heavyweight and server-bound. Teams reserve them for quarterly audits, so findings arrive long after the change that broke things.",
   },
   {
-    name: "Intent-based networking platforms",
-    does: "Automate change. Provide a clean interface for declaring what the network should do.",
+    name: "Intent-based networking",
+    does: "Automate change. Give you a clean interface for declaring intent.",
     misses:
-      "Conflate orchestration with proof. They describe what you wanted; they do not prove the running configuration delivers it. Confident push is not the same as verified change.",
+      "Conflate orchestration with proof. They describe what you wanted, not whether the running configuration delivers it.",
   },
   {
-    name: "Monitoring and observability suites",
-    does: "Detect, alert, and visualize what is happening on the live network.",
+    name: "Monitoring and observability",
+    does: "Detect and alert on what is happening on the live network.",
     misses:
-      "Cannot say anything about the next change. They report breakage after it occurs, by which point the cost has already been paid.",
+      "Cannot say anything about the next change. By the time they report breakage, the cost has been paid.",
   },
   {
     name: "AI copilots and config assistants",
-    does: "Generate plausible configurations and explanations very quickly.",
+    does: "Generate plausible configurations and explanations quickly.",
     misses:
-      "Ship without a verification gate between the model and production. A persuasive explanation is not a proof of safety, and configuration files are an unusually convenient prompt-injection vector.",
+      "Ship without a verifier between the model and production. A persuasive explanation is not a proof of safety.",
   },
 ];
 
 const moat = [
   {
     icon: <Gauge className="h-5 w-5" />,
-    title: "Speed turns verification into a routine guardrail.",
-    body: "Roughly 345 times faster than industry-standard analysis is not just a benchmark. It is the difference between a quarterly audit and a check that runs on every change.",
+    title: "Speed turns verification into a routine.",
+    body: "345× faster than industry-standard analysis. The difference between a quarterly audit and a check on every change.",
   },
   {
     icon: <ShieldCheck className="h-5 w-5" />,
     title: "Soundness, not vibes.",
-    body: "99.93% cross-validated accuracy against industry-standard analysis and a live routing stack. Determinism by construction, with reproducible results across runs.",
+    body: "99.93% cross-validated accuracy. Determinism by construction.",
   },
   {
     icon: <Sparkles className="h-5 w-5" />,
     title: "AI-native by design.",
-    body: "Config Studio is one of the first widely deployable systems where every AI-proposed change is proved safe by a forwarding-plane verifier before a human approves it.",
+    body: "Every AI-proposed change is proved safe by a forwarding-plane verifier before a human ever approves it.",
   },
   {
     icon: <Lock className="h-5 w-5" />,
     title: "Runs where customers run.",
-    body: "On-prem, air-gap, no telemetry. Configuration files never leave the network. This is the only deployment model serious infrastructure buyers will accept.",
+    body: "On-prem, air-gap, no telemetry. The only deployment model serious infrastructure buyers will accept.",
   },
   {
     icon: <Microscope className="h-5 w-5" />,
     title: "Roots in formal methods.",
-    body: "Our research lineage runs through the foundational network verification work of the 2010s. We are operationalizing that lineage at production speed, not catching up to it.",
+    body: "A research lineage built on the foundational network verification work of the 2010s, operationalized at production speed.",
   },
 ];
 
@@ -150,13 +150,9 @@ export default function Why() {
               className="animate-fade-up mt-6 max-w-2xl text-pretty text-lg leading-relaxed text-muted-foreground"
               style={{ animationDelay: "160ms" }}
             >
-              Optimesh Technologies is building the platform that lets networks
-              run themselves, safely. Software first, hardware next. We are
-              building for the data centers powering modern AI, the carriers
-              that move the world's traffic, and the orbital networks coming on
-              top of them. Every layer of modern infrastructure has its safety
-              net. Networks are the last system of consequence still operated
-              without one. That changes here.
+              The verification platform that prevents network outages before
+              they happen. Software now. Hardware next. Built for the networks
+              that cannot afford to fail.
             </p>
             <div
               className="animate-fade-up mt-9 flex flex-col gap-3 sm:flex-row"
@@ -186,17 +182,17 @@ export default function Why() {
             <DriverCard
               n="01"
               title="AI workloads are reshaping the data center."
-              body="GPU fabrics are being built and rebuilt at a pace that has no precedent. The cost of a single misconfiguration now cascades across thousands of accelerators and millions of dollars of training time."
+              body="GPU fabrics are being built and rebuilt at unprecedented speed. A single misconfiguration cascades across thousands of accelerators."
             />
             <DriverCard
               n="02"
               title="AI is now writing network configurations."
-              body="Copilots in network operations are spreading fast. Almost none of them ship with a verifier between the model and production. The industry is wiring an autopilot into systems it cannot yet audit."
+              body="Copilots are spreading fast through network operations. Almost none ship with a verifier between the model and production."
             />
             <DriverCard
               n="03"
               title="Regulators and finance want proof."
-              body="Compliance frameworks and uptime-linked contracts are increasingly demanding documented evidence that a change was verified, not just approved. The era of trust-me change management is closing."
+              body="Compliance and uptime contracts increasingly demand documented evidence that a change was verified, not just approved."
             />
           </div>
         </Container>
@@ -207,7 +203,7 @@ export default function Why() {
         <SectionHeading
           eyebrow="Where the existing answers fall short"
           title="What other approaches do, and what they miss."
-          description="The market has tried to solve pieces of this problem for two decades. Each approach is useful, and none of them, individually or together, closes the gap."
+          description="The market has tried for two decades. None of these approaches closes the gap, alone or together."
         />
         <div className="mt-14 grid gap-6 md:grid-cols-2">
           {otherApproaches.map((a) => (
@@ -295,25 +291,25 @@ export default function Why() {
         <SectionHeading
           eyebrow="What we are building"
           title="A platform for autonomous networking. In horizons."
-          description="The first horizon is shipping today. The next two are how Optimesh Technologies becomes the durable infrastructure layer for autonomous network operations."
+          description="The first horizon ships today. The next two are how we get to the durable infrastructure layer for autonomous network operations."
         />
         <div className="mt-14 grid gap-6 md:grid-cols-3">
           <RoadmapCard
             horizon="Now"
             title="Software"
-            body="Hammerhead simulates the forwarding plane offline. Config Studio diagnoses configuration faults and ships verified fixes. Both run on a customer's own hardware today."
+            body="Hammerhead simulates the forwarding plane offline. Config Studio diagnoses faults and ships verified fixes. Both run on customer hardware today."
             tone="primary"
           />
           <RoadmapCard
             horizon="Next"
             title="Hardware"
-            body="Purpose-built appliances and silicon co-designed with the verifier, so autonomous network operations are not bottlenecked by general-purpose hosts. The verification engine moves into the network itself."
+            body="Purpose-built appliances and silicon co-designed with the verifier. The verification engine moves into the network itself."
             tone="muted"
           />
           <RoadmapCard
             horizon="Then"
             title="Orbital"
-            body="Verification and remediation for satellite constellations and compute-in-space. The networks that cannot tolerate an outage are exactly the networks we are built for."
+            body="Verification and remediation for satellite constellations and compute-in-space. The networks that cannot tolerate an outage."
             tone="muted"
           />
         </div>
@@ -403,9 +399,7 @@ export default function Why() {
               If you operate, invest in, or buy network infrastructure, we should talk.
             </h2>
             <p className="mt-5 text-pretty text-lg leading-relaxed text-background/70">
-              The shift toward verifiable network change is going to happen with
-              or without any one company. We intend to be the company that makes
-              it happen.
+              Verifiable network change is happening. We intend to be the company that makes it routine.
             </p>
             <div className="mt-9 flex flex-col justify-center gap-3 sm:flex-row">
               <ButtonLink
