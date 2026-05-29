@@ -20,6 +20,7 @@ const products = [
 
 const navLinks = [
   { to: "/features", label: "Platform" },
+  { to: "/why-optimesh", label: "Why us" },
   { to: "/insights", label: "Insights" },
   { to: "/about", label: "Company" },
   { to: "/contact", label: "Contact" },

@@ -36,31 +36,6 @@ export const news: NewsItem[] = [
     ],
   },
   {
-    slug: "a16z-speedrun",
-    headline: "Optimesh Accepted to a16z Speedrun",
-    date: "2026-04-02",
-    category: "Programs",
-    dek: "We are joining a16z's Speedrun program to accelerate our work on fast, verifiable intelligence for network operations.",
-    body: [
-      {
-        type: "p",
-        text: "Optimesh has been accepted into a16z Speedrun, the accelerator Andreessen Horowitz runs for early-stage founders.",
-      },
-      {
-        type: "p",
-        text: "Our mission is a focused one. We want to make it possible to know what a network change will do before it ships. Speedrun gives us the capital, the mentorship, and the network to move toward that goal faster.",
-      },
-      {
-        type: "p",
-        text: "We are grateful for the conviction in what we are building, and we are looking forward to working alongside the other teams in the cohort.",
-      },
-      {
-        type: "p",
-        text: "If you want to follow along or partner with us early, request access and we will be in touch.",
-      },
-    ],
-  },
-  {
     slug: "angel-round",
     headline: "Optimesh Raises an Angel Round",
     date: "2026-03-11",

@@ -55,7 +55,9 @@ export function NewsTicker() {
             onClick={() => setIndex(i)}
             className={cn(
               "h-1.5 w-1.5 rounded-full transition-colors",
-              i === index ? "bg-primary" : "bg-border hover:bg-muted-foreground/50",
+              i === index
+                ? "bg-primary animate-pulse-soft"
+                : "bg-border hover:bg-muted-foreground/50",
             )}
           />
         ))}

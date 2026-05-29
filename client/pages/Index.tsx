@@ -8,6 +8,12 @@ import {
   TerminalSquare,
   Network,
   CircuitBoard,
+  Cpu,
+  Cloud,
+  Radio,
+  Landmark,
+  GraduationCap,
+  Shield,
 } from "lucide-react";
 import {
   ButtonLink,
@@ -21,6 +27,8 @@ import {
   CodeBlock,
 } from "@/components/site/primitives";
 import { NewsTicker } from "@/components/site/NewsTicker";
+import { Reveal } from "@/components/site/Reveal";
+import { CountUp } from "@/components/site/CountUp";
 
 const vendors = [
   "Cisco IOS",
@@ -45,7 +53,7 @@ export default function Index() {
       {/* ---------------------------------------------------------------- Hero */}
       <section className="relative overflow-hidden">
         <div className="pointer-events-none absolute inset-0 bg-grid bg-grid-fade opacity-70" />
-        <div className="pointer-events-none absolute -top-40 left-1/2 h-[36rem] w-[60rem] -translate-x-1/2 rounded-full bg-primary/5 blur-3xl" />
+        <div className="pointer-events-none absolute -top-40 left-1/2 h-[36rem] w-[60rem] -translate-x-1/2 animate-drift rounded-full bg-primary/5 blur-3xl" />
 
         <Container className="relative pb-20 pt-32 md:pb-28 md:pt-40">
           <div className="grid items-center gap-14 lg:grid-cols-[1.05fr_0.95fr]">
@@ -132,12 +140,28 @@ export default function Index() {
       {/* --------------------------------------------------------- Stat band */}
       <section className="border-y border-border bg-card">
         <Container className="py-12">
-          <div className="grid grid-cols-2 gap-x-6 gap-y-10 md:grid-cols-4">
-            <Stat value="345×" label="Faster than the industry standard" sub="1,640× at peak" />
-            <Stat value="99.93%" label="Forwarding-plane parity" sub="across 52 datasets" />
-            <Stat value="14" label="Network vendors" sub="auto-detected" />
-            <Stat value="279ms" label="To simulate 798,720 routes" sub="single binary" />
-          </div>
+          <Reveal className="grid grid-cols-2 gap-x-6 gap-y-10 md:grid-cols-4">
+            <Stat
+              value={<><CountUp to={345} />×</>}
+              label="Faster than the industry standard"
+              sub="1,640× at peak"
+            />
+            <Stat
+              value={<CountUp to={99.93} decimals={2} suffix="%" />}
+              label="Forwarding-plane parity"
+              sub="across 52 datasets"
+            />
+            <Stat
+              value={<CountUp to={14} />}
+              label="Network vendors"
+              sub="auto-detected"
+            />
+            <Stat
+              value={<CountUp to={279} suffix="ms" />}
+              label="To simulate 798,720 routes"
+              sub="single binary"
+            />
+          </Reveal>
         </Container>
       </section>
 
@@ -149,7 +173,7 @@ export default function Index() {
           description="Hammerhead is the offline simulation engine. Config Studio puts it to work — diagnosing faults and proposing fixes that are proven safe before a human ever sees them."
         />
 
-        <div className="mt-14 grid gap-6 lg:grid-cols-2">
+        <Reveal className="mt-14 grid gap-6 lg:grid-cols-2">
           <ProductCard
             icon={<Gauge className="h-5 w-5" />}
             name="Hammerhead"
@@ -174,7 +198,7 @@ export default function Index() {
             ]}
             to="/products/config-studio"
           />
-        </div>
+        </Reveal>
       </Section>
 
       {/* --------------------------------------------------------- How it works */}
@@ -207,6 +231,52 @@ export default function Index() {
           </div>
         </Container>
       </section>
+
+      {/* --------------------------------------------------------- Verticals */}
+      <Section>
+        <SectionHeading
+          eyebrow="Built for"
+          title="The networks that matter most."
+          description="Optimesh is vendor- and topology-agnostic, but the operational problem looks distinct in every market we serve."
+        />
+        <div className="mt-14 grid gap-x-8 gap-y-12 sm:grid-cols-2 lg:grid-cols-3">
+          <Vertical
+            icon={<Cpu className="h-5 w-5" />}
+            name="AI datacenters & GPU fabrics"
+            body="Where a misrouted flow can starve a multimillion-dollar training run."
+          />
+          <Vertical
+            icon={<Cloud className="h-5 w-5" />}
+            name="Hyperscale cloud"
+            body="Multi-tenant networks where tenant isolation is a hard contract."
+          />
+          <Vertical
+            icon={<Radio className="h-5 w-5" />}
+            name="Telecom & ISPs"
+            body="Routing changes that touch millions of subscribers and propagate across BGP."
+          />
+          <Vertical
+            icon={<Landmark className="h-5 w-5" />}
+            name="Financial services"
+            body="Regulated environments where downtime and segmentation breaches are unacceptable."
+          />
+          <Vertical
+            icon={<GraduationCap className="h-5 w-5" />}
+            name="Universities & research"
+            body="Heterogeneous, multi-tenant fabrics that need the formal tools academia pioneered."
+          />
+          <Vertical
+            icon={<Shield className="h-5 w-5" />}
+            name="Public sector & defense"
+            body="Air-gap and on-prem environments where data sovereignty is non-negotiable."
+          />
+        </div>
+        <div className="mt-12">
+          <ArrowLink to="/why-optimesh">
+            See where we fit and why we win
+          </ArrowLink>
+        </div>
+      </Section>
 
       {/* ----------------------------------------------------------- Vendors */}
       <Section>
@@ -374,6 +444,30 @@ function StepCard({
         {title}
       </h3>
       <p className="mt-2 text-sm leading-relaxed text-muted-foreground">{body}</p>
+    </div>
+  );
+}
+
+function Vertical({
+  icon,
+  name,
+  body,
+}: {
+  icon: React.ReactNode;
+  name: string;
+  body: string;
+}) {
+  return (
+    <div>
+      <span className="flex h-10 w-10 items-center justify-center rounded-lg bg-primary/10 text-primary">
+        {icon}
+      </span>
+      <h3 className="mt-4 text-base font-semibold tracking-tight text-foreground">
+        {name}
+      </h3>
+      <p className="mt-2 text-sm leading-relaxed text-muted-foreground">
+        {body}
+      </p>
     </div>
   );
 }

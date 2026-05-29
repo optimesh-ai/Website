@@ -43,6 +43,11 @@ const meta: Record<string, { title: string; description: string }> = {
     description:
       "A technical overview of Hammerhead and Config Studio: offline forwarding-plane verification and AI-driven, verified config remediation.",
   },
+  "/why-optimesh": {
+    title: "Why Optimesh — The verification layer for the AI-era network",
+    description:
+      "Why network verification is becoming non-optional, where competing approaches fall short, the verticals we serve (AI datacenters, hyperscale cloud, telecom, financial services, universities, public sector), and how Optimesh is positioned to win.",
+  },
   "/contact": {
     title: "Contact — Optimesh",
     description: "Get in touch with the Optimesh team.",

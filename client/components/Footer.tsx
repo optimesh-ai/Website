@@ -15,6 +15,7 @@ const columns = [
     title: "Company",
     links: [
       { to: "/about", label: "About" },
+      { to: "/why-optimesh", label: "Why us" },
       { to: "/insights", label: "Insights" },
       { to: "/news", label: "News" },
       { to: "/contact", label: "Contact" },

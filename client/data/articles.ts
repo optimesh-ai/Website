@@ -96,59 +96,93 @@ export const articles: Article[] = [
       { type: "h2", text: "Why this is suddenly possible" },
       {
         type: "p",
-        text: "Two forces are converging. The first is that AI is generating more changes, faster, than human review can absorb — so the old safeguard of careful manual inspection is quietly breaking. The second is that verification has finally become fast enough to run inline, at the latency of a linter rather than a quarterly audit. The missing ingredient was never the math; it was speed. Sound verification you can run on every change is what turns a guarantee from an academic luxury into an operational habit. That is the core of my research, and it is what we built into Hammerhead.",
+        text: "Two forces are converging. The first is that AI is generating more changes, faster, than human review can absorb, so the old safeguard of careful manual inspection is quietly breaking. The second is that verification has finally become fast enough to run inline, at the latency of a linter rather than a quarterly audit. The missing ingredient was never the math. It was speed. Sound verification you can run on every change is what turns a guarantee from an academic luxury into an operational habit. That is the core of my research, and it is what we built into Hammerhead.",
+      },
+      {
+        type: "p",
+        text: "The intellectual lineage is older than networking. Necula's proof-carrying code (POPL 1997) established the principle that an artifact can travel with a checkable certificate of its safety. Verified compilers like CompCert (Leroy, CACM 2009) and verified operating systems like seL4 (Klein et al., SOSP 2009) then showed that the approach scales to systems we already trust with billions of dollars and human lives. Networks are next.",
       },
       { type: "h2", text: "The frontier" },
       {
         type: "p",
         text: "This agenda is far from finished, which is exactly why it excites me. The open problems are real: scaling symbolic reachability to internet-scale forwarding tables, verifying stateful and dynamic behavior rather than a static snapshot, composing proofs across administrative domains that do not trust each other, and turning counterexamples into something an on-call engineer can act on at 3 a.m. These are rich academic questions with immediate industrial pull — the rare case where the research frontier and the product roadmap point in the same direction.",
       },
+      { type: "h2", text: "What the field is still getting wrong" },
       {
         type: "p",
-        text: "I think we will look back on push-and-pray the way we look back on writing code without version control: a phase we survived, not a practice we defend. The change that cannot prove itself will simply not ship. We are building the layer that makes that normal.",
+        text: "Several vendors now market intent-based or policy-driven networking as if it were verification. It is not. Telling the system what you want is a useful interface. Proving that the running configuration actually delivers it is a different problem, and one most platforms quietly punt on. The same confusion shows up around continuous monitoring, which watches the network but cannot make any guarantee about the next change. The work ahead is to make a real proof routine, not to keep marketing change orchestration under a more reassuring name.",
+      },
+      {
+        type: "p",
+        text: "I think we will look back on push-and-pray the way we look back on writing code without version control. A phase we survived, not a practice we defend. The change that cannot prove itself will simply not ship. We are building the layer that makes that normal.",
+      },
+      { type: "h2", text: "References" },
+      {
+        type: "ul",
+        items: [
+          "Necula, G. C. Proof-Carrying Code. POPL 1997.",
+          "Leroy, X. Formal Verification of a Realistic Compiler (CompCert). CACM 52(7), 2009.",
+          "Klein, G. et al. seL4: Formal Verification of an OS Kernel. SOSP 2009.",
+          "Kazemian, P., Varghese, G., and McKeown, N. Header Space Analysis. NSDI 2012.",
+          "Beckett, R., Gupta, A., Mahajan, R., and Walker, D. A General Approach to Network Configuration Verification. SIGCOMM 2017.",
+        ],
       },
     ],
   },
   {
     slug: "real-cost-of-a-bad-push",
     title: "The Real Cost of a Bad Push",
-    deck: "An outage isn't a line on a status page. It's revenue, trust, and a very long night — and the math makes network verification one of the easiest decisions in infrastructure.",
+    deck: "An outage is not a line on a status page. It is revenue, trust, and a very long night. After enough customer conversations, the math makes verification one of the easiest decisions in infrastructure.",
     author: "vedu",
     date: "2026-03-18",
-    readingMinutes: 5,
-    tags: ["Industry", "Operations", "Economics"],
+    readingMinutes: 6,
+    tags: ["Industry", "Customer conversations", "Economics"],
     body: [
       {
         type: "p",
-        text: "If you have operated a large network, you know the shape of a bad day. A routine change goes out, dashboards stay green for ninety seconds, and then a region falls off the map. The cost of that moment is not the engineering hour it takes to revert. It is everything that happens in between.",
+        text: "After enough conversations with infrastructure teams, the shape of a bad day becomes painfully familiar. A routine change goes out, dashboards stay green for ninety seconds, and then a region falls off the map. The cost of that moment is not the engineering hour it takes to revert. It is everything that happens in between.",
       },
       { type: "h2", text: "The cost is nonlinear" },
       {
         type: "p",
-        text: "At small scale, an outage is an annoyance. At scale, the cost curve bends sharply: lost transactions, SLA penalties, support load, and the slow, expensive erosion of trust that does not show up on any one quarter's books. When a single config push can touch traffic for hundreds of millions of people, the asymmetry between the effort to make a change and the damage it can do is staggering.",
+        text: "At small scale, an outage is an annoyance. At large scale the curve bends sharply. Lost transactions, SLA penalties, support load, and the slow erosion of trust that does not show up on any one quarter's books. A single configuration push can take down service for hundreds of millions of users. The Meta global outage of October 2021, the Rogers Communications outage of July 2022, and a long line of BGP route-leak incidents stretching back to the 2008 YouTube hijack share the same root cause. A configuration change that no one had proved was safe.",
       },
-      { type: "h2", text: "You don't pay for the fix — you pay for the find" },
+      { type: "h2", text: "You do not pay for the fix. You pay for the find." },
       {
         type: "p",
-        text: "Here is the part outsiders underestimate: most of your mean-time-to-recovery is diagnosis, not repair. The change that broke things usually looks obviously fine in the diff. So the team ends up bisecting configurations across a fabric, hop by hop, under pressure, while the clock runs. The fix is one line. Finding the line is the night.",
+        text: "Most of the recovery time in those incidents was diagnosis, not repair. The change that broke things usually looks obviously fine in the diff. The team ends up bisecting configuration across a fabric, hop by hop, under pressure, while the clock runs. The fix is one line. Finding the line is the night.",
+      },
+      { type: "h2", text: "What teams keep getting wrong" },
+      {
+        type: "p",
+        text: "In the conversations we have, a few habits keep showing up around how networks get operated.",
+      },
+      {
+        type: "ul",
+        items: [
+          "Verification is treated as a tooling cost, when it is closer to insurance against the next major incident.",
+          "Pre-merge checks for configuration are rare. Most teams find the problem after the change has already been applied.",
+          "Audits look at the configurations that survived. They miss the changes that should have been blocked.",
+          "Network compliance gets reconstructed after the fact for an auditor, instead of enforced on every change.",
+        ],
       },
       {
         type: "quote",
-        text: "Nobody budgets for the outage they didn't have. That's exactly why verification has been underfunded — and exactly why that's about to flip.",
+        text: "Nobody budgets for the outage they didn't have. That is exactly why verification has been underfunded, and exactly why that is about to flip.",
       },
       { type: "h2", text: "Prevention is absurdly cheap by comparison" },
       {
         type: "p",
-        text: "Catching a bad change before it merges costs milliseconds of compute. Catching it in production costs an incident bridge, a postmortem, and a dent in customer trust. Framed as a trade, it is not close — you are exchanging a rare, catastrophic, unbudgeted cost for a constant, tiny, predictable one. Finance teams understand that trade instantly once you put it in those terms.",
+        text: "Catching a bad change before it merges costs milliseconds of compute. Catching it in production costs an incident bridge, a postmortem, and a dent in customer trust. As a trade it is not close. You are exchanging a rare, catastrophic, unbudgeted cost for a constant, tiny, predictable one. Finance teams understand that trade instantly once you put it in those terms.",
       },
       { type: "h2", text: "CI for networks is the unlock" },
       {
         type: "p",
-        text: "The reason we never did this before is that verification used to be slow and heavy, so it lived outside the workflow. When it becomes fast and scriptable, it moves into the pipeline: every proposed change to the network gets a reachability and segmentation check before a human approves it, the same way every code change gets a test run. That is the whole game.",
+        text: "Verification used to be slow and heavy, so it lived outside the workflow. When it becomes fast and scriptable, it moves into the pipeline. Every proposed change to the network gets a reachability and segmentation check before a human approves it, the same way every code change gets a test run. That is the whole game.",
       },
       {
         type: "p",
-        text: "I increasingly think the push for this will not come only from network engineering. It will come from finance and security, who are tired of writing checks for preventable downtime and signing off on changes nobody could prove were safe. Verifiable change is quietly becoming an uptime and compliance requirement, not a nice-to-have.",
+        text: "The pressure for this will not come only from network engineering. It will come from finance and security, who are tired of writing checks for preventable downtime and signing off on changes nobody could prove were safe. Verifiable change is quietly becoming an uptime and compliance requirement, not a nice-to-have.",
       },
     ],
   },
@@ -179,10 +213,24 @@ export const articles: Article[] = [
         type: "quote",
         text: "In two years, did a model verify this change? will be a line item in every change-management process and every audit.",
       },
-      { type: "h2", text: "You don't slow the model down — you verify it" },
+      { type: "h2", text: "You do not slow the model down. You verify it." },
       {
         type: "p",
-        text: "The enterprise answer is not to ban the copilot. It is the same pattern software already learned: let the model generate freely, but gate its output behind an automated check that does not care how confident the author was. For code, that gate is tests and types. For networks, it is a forwarding-plane verifier that can prove the change preserves reachability and isolation before anyone applies it.",
+        text: "The enterprise answer is not to ban the copilot. It is the same pattern software already learned. Let the model generate freely, but gate its output behind an automated check that does not care how confident the author was. For code, that gate is tests and types. For networks, it is a forwarding-plane verifier that can prove the change preserves reachability and isolation before anyone applies it.",
+      },
+      { type: "h2", text: "What companies are getting wrong right now" },
+      {
+        type: "p",
+        text: "A few patterns are common in the pilots we are hearing about. None of them are unfixable, and all of them are easier to fix early than late.",
+      },
+      {
+        type: "ul",
+        items: [
+          "Wiring an LLM into runbooks without a verification gate between its output and production. OWASP's Top 10 for LLM applications places prompt injection at the top of the list, and configuration files are an unusually convenient injection vector.",
+          "Treating model confidence as a substitute for forwarding-plane evidence. A persuasive explanation is not a proof.",
+          "Logging the prompt and the reply, but not the proof of safety. Auditors and incident reviewers need to reconstruct why a change was approved, not just what was said.",
+          "Shipping AI copilots that bypass the same controls human-written changes go through, in the name of speed.",
+        ],
       },
       { type: "h2", text: "What buyers will actually demand" },
       {
@@ -229,7 +277,7 @@ export const articles: Article[] = [
       { type: "h2", text: "Reasoning about sets of packets" },
       {
         type: "p",
-        text: "This is where formal methods meet networking, and where my research sits. Instead of reasoning about individual packets, we reason about equivalence classes of them — sets of headers that the network treats identically — using symbolic representations such as binary decision diagrams. That lets us compute reachability over the entire packet space and answer questions like whether any packet can cross from one zone into another, not merely whether the ten we tested could.",
+        text: "This is where formal methods meet networking, and where my own research sits. Instead of reasoning about individual packets, we reason about equivalence classes of them, sets of headers that the network treats identically, using symbolic representations such as binary decision diagrams. The lineage runs through a decade of academic work. It begins with header space analysis (Kazemian, Varghese, and McKeown, NSDI 2012) and the data-plane SAT encoding behind Anteater (Mai et al., SIGCOMM 2011), and continues through real-time invariant checking (Khurshid et al., NSDI 2013) and SMT-based control-plane verification (Beckett et al., SIGCOMM 2017). The common thread is that you compute reachability over the entire packet space, instead of the handful of probes a human happened to send.",
       },
       {
         type: "quote",
@@ -240,52 +288,76 @@ export const articles: Article[] = [
         type: "p",
         text: "Working from a model rather than a live device buys you three things that live probing cannot: determinism, so the same input always yields the same answer; differential analysis, so you can diff two snapshots and see exactly what a change did to the forwarding plane; and the ability to ask about hypotheticals — what happens if this link fails — without breaking anything to find out.",
       },
+      { type: "h2", text: "Where the industry has been going wrong" },
+      {
+        type: "p",
+        text: "The same substitution shows up in conversation after conversation with research groups and operators. Continuous monitoring gets treated as if it were verification. So does intent-based networking, which automates change but does not actually prove anything about the running system. These tools are useful, but they are not the same thing. Monitoring reports what is happening, intent-based systems describe what was supposed to happen, and only verification can answer what is true for every packet across the fabric.",
+      },
       {
         type: "p",
         text: "None of this is an argument against monitoring. Monitoring watches the present and is irreplaceable for it. Verification guarantees the future. They are complements, and our industry has spent twenty years building one of them and skipping the other. We are building the half that got skipped.",
+      },
+      { type: "h2", text: "References" },
+      {
+        type: "ul",
+        items: [
+          "Kazemian, P., Varghese, G., and McKeown, N. Header Space Analysis: Static Checking for Networks. NSDI 2012.",
+          "Mai, H. et al. Debugging the Data Plane with Anteater. SIGCOMM 2011.",
+          "Khurshid, A., Zou, X., Zhou, W., Caesar, M., and Godfrey, P. B. VeriFlow: Verifying Network-Wide Invariants in Real Time. NSDI 2013.",
+          "Beckett, R., Gupta, A., Mahajan, R., and Walker, D. A General Approach to Network Configuration Verification. SIGCOMM 2017.",
+        ],
       },
     ],
   },
   {
     slug: "holding-my-breath",
-    title: "I Spent Years Pushing Config Changes and Holding My Breath",
-    deck: "Every network engineer knows the feeling: you hit enter on a change you're 95% sure about, and you watch the dashboards. We've quietly normalized something insane.",
+    title: "What Network Engineers Keep Telling Me About 2 a.m.",
+    deck: "Spend a few months on calls with network teams and the same dread keeps showing up. An engineer pushes a one-line config change they have made a hundred times, then sits and watches dashboards. We have quietly normalized something insane.",
     author: "vedu",
     date: "2025-11-06",
     readingMinutes: 5,
-    tags: ["Industry", "Operations", "Culture"],
+    tags: ["Industry", "Customer conversations", "Culture"],
     body: [
       {
         type: "p",
-        text: "It is 2 a.m. The maintenance window opened ten minutes ago. The change is one line — a BGP neighbor adjustment you have made a hundred times. You stage it, take a breath, and hit enter. Then you sit and watch the dashboards, because the truth is you do not actually know what just happened. If you have run a large network, you know exactly the feeling I am describing.",
+        text: "When most of your week is spent on calls with infrastructure teams, you start to hear the same opening to every story. It is past midnight. The change window has just opened. The engineer pushes a one-line edit they have made a hundred times. Then they sit and watch dashboards, because the honest truth is that they do not know what just happened.",
       },
       { type: "h2", text: "The dirty secret of network operations" },
       {
         type: "p",
-        text: "We test software relentlessly. Unit tests, integration tests, CI that blocks a merge over a failing assertion on a button color. And then we ship changes to the network those applications run on based on intuition and a peer skimming a diff. The test plan for the most critical system in the building is, functionally, production traffic.",
+        text: "The companies we talk to test their software relentlessly. Unit tests, integration tests, build pipelines that block a merge over a failing assertion on a button color. Then in the same building, network changes go out based on intuition and a peer skimming a diff. The test plan for the most critical system in the company is, in effect, production traffic.",
       },
-      { type: "h2", text: "Why we under-verify" },
+      { type: "h2", text: "What teams keep getting wrong" },
       {
         type: "p",
-        text: "It is not that network engineers are reckless. It is that the tools meant to give us confidence were too slow and too heavy to fit into the moment when we needed them. Nobody is going to spin up a model and wait several minutes to validate a routine change during a narrow window at 2 a.m. So we leaned on runbooks, muscle memory, and hope.",
+        text: "A consistent set of habits keeps showing up across these conversations.",
       },
-      { type: "h2", text: "Review doesn't catch what matters" },
+      {
+        type: "ul",
+        items: [
+          "Treating monitoring as a substitute for verification. Dashboards report that something is broken. They cannot tell you that nothing will be broken by the next change.",
+          "Trusting that a human reading a CLI diff will catch reachability bugs three hops away. People are not built to simulate fabrics in their heads.",
+          "Reserving heavyweight verification tools for quarterly audits, so the findings arrive months after the change that broke things.",
+          "Confusing intent-based or controller-driven workflows with verification. Pushing a change confidently is not the same as proving it preserves anything.",
+        ],
+      },
+      { type: "h2", text: "Why teams under-verified for so long" },
       {
         type: "p",
-        text: "And peer review, the safeguard we lean on hardest, is weakest exactly where it counts. A human reading a CLI diff cannot trace reachability across a fabric in their head. The change looks fine because the bug is not in the line you changed — it is an emergent consequence three hops away, in the interaction between this edit and a policy someone wrote two years ago.",
+        text: "It is not that network engineers are reckless. The tools meant to give them confidence were too slow and too heavy to fit into the moment when they actually needed one. Nobody spins up a JVM-backed analysis server and waits several minutes during a narrow window at 2 a.m. So teams leaned on runbooks, muscle memory, and hope.",
       },
       {
         type: "quote",
-        text: "We had better CI for our website's CSS than for the network the entire product ran on.",
+        text: "We had better CI for our website's CSS than for the network the entire product ran on. (A customer, recently.)",
       },
-      { type: "h2", text: "What changed my mind" },
+      { type: "h2", text: "What changes the picture" },
       {
         type: "p",
-        text: "The thing that flipped my thinking was watching what happens when verification gets fast enough to run on every change — seconds, not a meeting. The culture changes with it. A change earns a green check before it merges instead of a postmortem after it breaks. The dread goes away, not because you got braver, but because you finally have a real answer to what will this do.",
+        text: "Once verification becomes fast enough to run on every change, the same thing keeps coming back in these conversations. The dread goes away. Not because anyone got braver. Because there is finally a real answer to the question, what will this do.",
       },
       {
         type: "p",
-        text: "This is the same transition software went through fifteen years ago, when continuous integration stopped being exotic and became table stakes. Networks are one of the last critical systems still operated without that safety net. Having lived the 2 a.m. version, I am very motivated to be part of ending it.",
+        text: "We are watching the same transition software went through fifteen years ago, when continuous integration stopped being exotic and became table stakes. Networks are one of the last critical systems still operated without that safety net. Listening to the teams living that gap every day is what convinces us it is about to close.",
       },
     ],
   },
@@ -315,7 +387,7 @@ export const articles: Article[] = [
       { type: "h2", text: "Verification as the trust substrate" },
       {
         type: "p",
-        text: "The discipline I borrow from is formal methods and programming languages, where there is a well-worn principle: do not trust the generator, check the artifact. A compiler can be wildly sophisticated; the type checker that vets its output does not have to trust any of that sophistication. A verifier that can deterministically answer whether a configuration preserves a set of invariants is what lets us safely hand more authority to automation.",
+        text: "The discipline I borrow from is formal methods and programming languages, where there is a well-worn principle. Do not trust the generator. Check the artifact. The pattern goes back to translation validation (Pnueli, Siegel, and Singerman, TACAS 1998) and underwrites verified-compiler work like CompCert (Leroy, CACM 2009). A compiler can be wildly sophisticated, and the type checker that vets its output does not have to trust any of that sophistication. A verifier that can deterministically answer whether a configuration preserves a set of invariants is what lets us safely hand more authority to automation.",
       },
       {
         type: "quote",

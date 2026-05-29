@@ -16,6 +16,7 @@ import Article from "./pages/Article";
 import News from "./pages/News";
 import NewsArticle from "./pages/NewsArticle";
 import Whitepaper from "./pages/Whitepaper";
+import Why from "./pages/Why";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -39,6 +40,7 @@ export default function App() {
             <Route path="/news" element={<News />} />
             <Route path="/news/:slug" element={<NewsArticle />} />
             <Route path="/whitepaper" element={<Whitepaper />} />
+            <Route path="/why-optimesh" element={<Why />} />
             <Route path="/contact" element={<Contact />} />
             <Route path="/early-access" element={<EarlyAccess />} />
             <Route path="/overview" element={<Navigate to="/features" replace />} />
