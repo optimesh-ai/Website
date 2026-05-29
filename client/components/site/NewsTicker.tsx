@@ -26,24 +26,24 @@ export function NewsTicker() {
     <div
       onMouseEnter={() => setPaused(true)}
       onMouseLeave={() => setPaused(false)}
-      className="mx-auto flex max-w-3xl items-center gap-4 rounded-full border border-border bg-card px-4 py-3 shadow-sm sm:px-5"
+      className="mx-auto flex max-w-4xl items-center gap-5 rounded-full border border-border bg-card px-5 py-4 shadow-sm sm:px-6"
     >
-      <span className="flex-none rounded-full bg-primary/10 px-3 py-1 font-mono text-xs font-medium uppercase tracking-[0.16em] text-primary">
+      <span className="flex-none rounded-full bg-primary/10 px-3.5 py-1.5 font-mono text-[0.78rem] font-semibold uppercase tracking-[0.18em] text-primary">
         News
       </span>
 
       <Link
         to={`/news/${item.slug}`}
         key={item.slug}
-        className="group flex min-w-0 flex-1 animate-fade-in items-center gap-3"
+        className="group flex min-w-0 flex-1 animate-fade-in items-center gap-4"
       >
         <span className="hidden flex-none font-mono text-sm text-muted-foreground sm:inline">
           {formatDate(item.date)}
         </span>
-        <span className="truncate text-base font-medium text-foreground transition-colors group-hover:text-primary">
+        <span className="flex-1 truncate text-base font-medium text-foreground transition-colors group-hover:text-primary sm:text-lg">
           {item.headline}
         </span>
-        <ArrowUpRight className="h-4 w-4 flex-none text-muted-foreground transition-colors group-hover:text-primary" />
+        <ArrowUpRight className="h-5 w-5 flex-none text-muted-foreground transition-colors group-hover:text-primary" />
       </Link>
 
       <div className="hidden flex-none items-center gap-2 sm:flex">

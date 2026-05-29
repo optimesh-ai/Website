@@ -141,7 +141,7 @@ export default function Index() {
 
       {/* ---------------------------------------------------------- News ticker */}
       <div className="border-t border-border bg-card/60">
-        <Container className="py-3.5">
+        <Container className="py-5">
           <NewsTicker />
         </Container>
       </div>
