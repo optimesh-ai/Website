@@ -8,6 +8,7 @@ const columns = [
       { to: "/products/hammerhead", label: "Hammerhead" },
       { to: "/products/config-studio", label: "Config Studio" },
       { to: "/features", label: "Platform" },
+      { to: "/whitepaper", label: "White paper" },
     ],
   },
   {
@@ -15,6 +16,7 @@ const columns = [
     links: [
       { to: "/about", label: "About" },
       { to: "/insights", label: "Insights" },
+      { to: "/news", label: "News" },
       { to: "/contact", label: "Contact" },
       { to: "/early-access", label: "Early access" },
     ],

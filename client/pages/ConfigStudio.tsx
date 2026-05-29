@@ -440,7 +440,7 @@ export default function ConfigStudio() {
                     /changes
                   </h3>
                   <p className="font-mono text-xs uppercase tracking-[0.14em] text-muted-foreground">
-                    GitHub PR gating
+                    Pull-request gating
                   </p>
                 </div>
               </div>

@@ -13,6 +13,9 @@ import EarlyAccess from "./pages/EarlyAccess";
 import About from "./pages/About";
 import Insights from "./pages/Insights";
 import Article from "./pages/Article";
+import News from "./pages/News";
+import NewsArticle from "./pages/NewsArticle";
+import Whitepaper from "./pages/Whitepaper";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -33,6 +36,9 @@ export default function App() {
             <Route path="/about" element={<About />} />
             <Route path="/insights" element={<Insights />} />
             <Route path="/insights/:slug" element={<Article />} />
+            <Route path="/news" element={<News />} />
+            <Route path="/news/:slug" element={<NewsArticle />} />
+            <Route path="/whitepaper" element={<Whitepaper />} />
             <Route path="/contact" element={<Contact />} />
             <Route path="/early-access" element={<EarlyAccess />} />
             <Route path="/overview" element={<Navigate to="/features" replace />} />

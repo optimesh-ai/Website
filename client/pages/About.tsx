@@ -23,7 +23,7 @@ const values = [
   {
     icon: <BadgeCheck className="h-5 w-5" />,
     title: "Proof over promises",
-    body: "Every answer is validated against ground truth — Batfish and live FRR — and every output is fully deterministic. If the data doesn't support a claim, we don't make it.",
+    body: "Every answer is validated against ground truth — the industry standard and live FRR — and every output is fully deterministic. If the data doesn't support a claim, we don't make it.",
   },
   {
     icon: <Gauge className="h-5 w-5" />,
@@ -38,7 +38,7 @@ const values = [
   {
     icon: <TerminalSquare className="h-5 w-5" />,
     title: "Built for engineers",
-    body: "A single static binary that fits the toolchain you already have — CLI, Python SDK, REST API, and a GitHub Action. No Docker, no JVM, no servers to babysit.",
+    body: "A single static binary that fits the toolchain you already have: CLI, Python SDK, REST API, and a CI integration. No Docker, no JVM, no servers to babysit.",
   },
 ];
 
@@ -72,7 +72,7 @@ const products = [
     icon: <Gauge className="h-5 w-5" />,
     name: "Hammerhead",
     tagline: "Offline forwarding-plane simulator",
-    body: "Simulate your entire forwarding plane from a directory of configs in milliseconds — 345× faster than Batfish at 99.93% parity, fully deterministic, with no live device required.",
+    body: "Simulate your entire forwarding plane from a directory of configs in milliseconds — 345× faster than the industry standard at 99.93% parity, fully deterministic, with no live device required.",
     to: "/products/hammerhead",
   },
   {
@@ -203,8 +203,8 @@ export default function About() {
       <section className="border-y border-border bg-card">
         <Container className="py-12">
           <div className="grid grid-cols-2 gap-x-6 gap-y-10 md:grid-cols-4">
-            <Stat value="345×" label="Faster than Batfish" sub="fully deterministic" />
-            <Stat value="99.93%" label="Forwarding-plane parity" sub="vs. Batfish & live FRR" />
+            <Stat value="345×" label="Faster than the industry standard" sub="fully deterministic" />
+            <Stat value="99.93%" label="Forwarding-plane parity" sub="vs. the industry standard & live FRR" />
             <Stat value="14" label="Network vendors" sub="auto-detected" />
             <Stat value="78.2%" label="Fix rate on unseen faults" sub="every patch pre-verified" />
           </div>

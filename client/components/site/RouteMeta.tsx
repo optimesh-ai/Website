@@ -7,7 +7,7 @@ const meta: Record<string, { title: string; description: string }> = {
   "/": {
     title: "Optimesh — Validate every network change before it ships",
     description:
-      "Offline network intelligence. Hammerhead simulates your forwarding plane 345× faster than Batfish; Config Studio diagnoses faults and generates verified fixes — on your own hardware.",
+      "Offline network intelligence. Hammerhead simulates your forwarding plane 345× faster than the industry standard; Config Studio diagnoses faults and generates verified fixes, on your own hardware.",
   },
   "/features": {
     title: "Platform — Optimesh",
@@ -17,7 +17,7 @@ const meta: Record<string, { title: string; description: string }> = {
   "/products/hammerhead": {
     title: "Hammerhead — Offline network simulator | Optimesh",
     description:
-      "Know what a config change will do before you make it. Hammerhead parses 14 vendors and simulates the forwarding plane in milliseconds — 345× faster than Batfish, 99.93% parity.",
+      "Know what a config change will do before you make it. Hammerhead parses 14 vendors and simulates the forwarding plane in milliseconds, 345× faster than the industry standard, at 99.93% parity.",
   },
   "/products/config-studio": {
     title: "Config Studio — AI diagnosis & verified fixes | Optimesh",
@@ -33,6 +33,15 @@ const meta: Record<string, { title: string; description: string }> = {
     title: "Insights — Optimesh",
     description:
       "Writing from the Optimesh founders on network verification, AI-driven operations, and where the field is headed.",
+  },
+  "/news": {
+    title: "News — Optimesh",
+    description: "Milestones, programs, and announcements from Optimesh.",
+  },
+  "/whitepaper": {
+    title: "White paper — Optimesh",
+    description:
+      "A technical overview of Hammerhead and Config Studio: offline forwarding-plane verification and AI-driven, verified config remediation.",
   },
   "/contact": {
     title: "Contact — Optimesh",
@@ -51,8 +60,8 @@ export function RouteMeta() {
   useEffect(() => {
     window.scrollTo(0, 0);
 
-    // Article detail pages set their own title/description in the Article component.
-    if (pathname.startsWith("/insights/")) return;
+    // Detail pages (articles, news) set their own title/description.
+    if (pathname.startsWith("/insights/") || pathname.startsWith("/news/")) return;
 
     const entry = meta[pathname];
     document.title = entry?.title ?? TAGLINE;

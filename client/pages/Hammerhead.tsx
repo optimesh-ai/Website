@@ -1,4 +1,5 @@
 import { Layout } from "@/components/Layout";
+import { Link } from "react-router-dom";
 import {
   ArrowRight,
   Gauge,
@@ -142,7 +143,7 @@ const differentiators: {
   {
     icon: <Gauge className="h-5 w-5" />,
     title: "345× faster on average",
-    body: "Up to 1,640× at peak versus Batfish — fast enough to run on every commit instead of once a quarter.",
+    body: "Up to 1,640× at peak versus the industry standard — fast enough to run on every commit instead of once a quarter.",
   },
   {
     icon: <Binary className="h-5 w-5" />,
@@ -157,7 +158,7 @@ const differentiators: {
   {
     icon: <ShieldCheck className="h-5 w-5" />,
     title: "Clean, auditable codebase",
-    body: "Written in Rust with zero unsafe code and 1,450+ tests. Validated against Batfish and live FRR ground truth.",
+    body: "Written in Rust with zero unsafe code and 1,450+ tests. Validated against the industry standard and live FRR ground truth.",
   },
 ];
 
@@ -209,12 +210,8 @@ export default function Hammerhead() {
                   Request access
                   <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-0.5" />
                 </ButtonLink>
-                <ButtonLink
-                  href="https://github.com/optimesh-ai/hammerhead"
-                  variant="secondary"
-                  size="lg"
-                >
-                  View on GitHub
+                <ButtonLink to="/whitepaper" variant="secondary" size="lg">
+                  Read the white paper
                 </ButtonLink>
               </div>
 
@@ -249,7 +246,7 @@ export default function Hammerhead() {
                   { text: "" },
                   { text: "R1 → R2 → R3   DELIVERED  (3 hops)" },
                   {
-                    text: "verified vs Batfish + live FRR · 99.93%",
+                    text: "verified vs the industry standard + live FRR · 99.93%",
                     muted: true,
                   },
                 ]}
@@ -263,7 +260,7 @@ export default function Hammerhead() {
       <section className="border-y border-border bg-card">
         <Container className="py-12">
           <div className="grid grid-cols-2 gap-x-6 gap-y-10 md:grid-cols-5">
-            <Stat value="345×" label="Faster than Batfish" sub="1,640× at peak" />
+            <Stat value="345×" label="Faster than the industry standard" sub="1,640× at peak" />
             <Stat
               value="99.93%"
               label="FIB-entry parity"
@@ -456,22 +453,25 @@ export default function Hammerhead() {
               />
             </div>
 
-            {/* GitHub Action */}
+            {/* CI pipeline */}
             <div className="flex flex-col gap-4">
               <SurfaceHeader
                 icon={<GitPullRequest className="h-5 w-5" />}
-                title="GitHub Action"
+                title="CI pipeline"
                 sub="Gate merges on a FIB diff"
               />
               <CodeBlock
                 title="ci.yml"
                 lines={[
-                  { text: "on:" },
-                  { text: "  pull_request:", muted: true },
-                  { text: "    paths: ['configs/**']", muted: true },
+                  { text: "on: pull_request" },
+                  { text: "  paths: ['configs/**']", muted: true },
                   { text: "steps:" },
-                  { text: "  - uses: optimesh-ai/hammerhead@v1", muted: true },
-                  { text: "    with: { gate: true }", muted: true },
+                  {
+                    text: "  - run: hammerhead simulate ./configs \\",
+                    muted: true,
+                  },
+                  { text: "      --diff origin/main --gate", muted: true },
+                  { text: "  reachability preserved · merge ok" },
                 ]}
               />
             </div>
@@ -490,9 +490,7 @@ export default function Hammerhead() {
                 change validation, config drift, and ACL / firewall walkthroughs.
               </p>
             </div>
-            <ArrowLink href="https://github.com/optimesh-ai/hammerhead">
-              Browse the repo
-            </ArrowLink>
+            <ArrowLink to="/whitepaper">Read the white paper</ArrowLink>
           </div>
         </Container>
       </section>
@@ -500,9 +498,9 @@ export default function Hammerhead() {
       {/* ----------------------------------------------- Why it's different */}
       <Section>
         <SectionHeading
-          eyebrow="vs. Batfish"
+          eyebrow="vs. the industry standard"
           title="Why teams move off the JVM."
-          description="Hammerhead matches Batfish's answers to 99.93% FIB-entry parity — then makes them fast, portable, and reproducible enough to belong in your pipeline."
+          description="Hammerhead matches industry-standard analysis to 99.93% FIB-entry parity, then makes it fast, portable, and reproducible enough to belong in your pipeline."
         />
 
         <div className="mt-14 grid gap-x-10 gap-y-12 sm:grid-cols-2">
@@ -531,7 +529,7 @@ export default function Hammerhead() {
             <TrustItem
               icon={<ShieldCheck className="h-5 w-5" />}
               title="Validated twice over"
-              body="Cross-checked against Batfish and live FRR 8.4.1 ground truth across 52 datasets."
+              body="Cross-checked against the industry standard and live FRR 8.4.1 ground truth across 52 datasets."
             />
             <TrustItem
               icon={<CheckCircle2 className="h-5 w-5" />}
@@ -574,12 +572,12 @@ export default function Hammerhead() {
                 Request access
                 <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-0.5" />
               </ButtonLink>
-              <a
-                href="https://github.com/optimesh-ai/hammerhead"
+              <Link
+                to="/whitepaper"
                 className="inline-flex h-12 items-center justify-center rounded-lg border border-background/25 px-6 text-[0.95rem] font-medium text-background transition-colors hover:bg-background/10"
               >
-                View on GitHub
-              </a>
+                Read the white paper
+              </Link>
             </div>
           </div>
         </div>

@@ -20,6 +20,7 @@ import {
   Badge,
   CodeBlock,
 } from "@/components/site/primitives";
+import { NewsTicker } from "@/components/site/NewsTicker";
 
 const vendors = [
   "Cisco IOS",
@@ -121,11 +122,18 @@ export default function Index() {
         </Container>
       </section>
 
+      {/* ---------------------------------------------------------- News ticker */}
+      <div className="border-t border-border bg-card/60">
+        <Container className="py-3.5">
+          <NewsTicker />
+        </Container>
+      </div>
+
       {/* --------------------------------------------------------- Stat band */}
       <section className="border-y border-border bg-card">
         <Container className="py-12">
           <div className="grid grid-cols-2 gap-x-6 gap-y-10 md:grid-cols-4">
-            <Stat value="345×" label="Faster than Batfish" sub="1,640× at peak" />
+            <Stat value="345×" label="Faster than the industry standard" sub="1,640× at peak" />
             <Stat value="99.93%" label="Forwarding-plane parity" sub="across 52 datasets" />
             <Stat value="14" label="Network vendors" sub="auto-detected" />
             <Stat value="279ms" label="To simulate 798,720 routes" sub="single binary" />
@@ -148,8 +156,8 @@ export default function Index() {
             tagline="Offline forwarding-plane simulator"
             description="Drop your configs in a directory and ask what a change will do. Hammerhead parses 14 vendor dialects, simulates OSPF, BGP, IS-IS and more, and answers reachability and traceroute queries in milliseconds — as a single static binary."
             points={[
-              "345× faster than Batfish, 99.93% FIB parity",
-              "CLI, Python SDK, REST API & GitHub Action",
+              "345× faster than the industry standard, 99.93% FIB parity",
+              "CLI, Python SDK, REST API & CI integration",
               "Deterministic, no Docker or JVM, no live device",
             ]}
             to="/products/hammerhead"
@@ -239,12 +247,12 @@ export default function Index() {
             <Feature
               icon={<ShieldCheck className="h-5 w-5" />}
               title="Proven, not promised"
-              body="Answers are validated against Batfish and live FRR ground truth, and every output is fully deterministic."
+              body="Answers are validated against the industry standard and live FRR ground truth, and every output is fully deterministic."
             />
             <Feature
               icon={<TerminalSquare className="h-5 w-5" />}
               title="Meets you where you work"
-              body="A single binary, a Python SDK, a REST API, and a GitHub Action — drop it into the toolchain you already have."
+              body="A single binary, a Python SDK, a REST API, and a CI integration that drops into the toolchain you already have."
             />
             <Feature
               icon={<GitPullRequest className="h-5 w-5" />}

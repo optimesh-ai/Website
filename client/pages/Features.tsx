@@ -60,7 +60,7 @@ const capabilities = [
   {
     icon: <Plug className="h-5 w-5" />,
     title: "Integrations",
-    body: "A CLI, a Python SDK, a REST API, a GitHub Action and Jupyter — drop the platform into the toolchain your team already runs.",
+    body: "A CLI, a Python SDK, a REST API, a CI integration and Jupyter, so the platform drops into the toolchain your team already runs.",
   },
   {
     icon: <Lock className="h-5 w-5" />,
@@ -78,7 +78,7 @@ const principles = [
   {
     icon: <Gauge className="h-5 w-5" />,
     title: "Fast enough for CI",
-    body: "Whole-fabric simulation in milliseconds — 345× faster than Batfish — so validation runs on every commit, not once a quarter.",
+    body: "Whole-fabric simulation in milliseconds — 345× faster than the industry standard — so validation runs on every commit, not once a quarter.",
   },
   {
     icon: <Repeat className="h-5 w-5" />,
@@ -196,9 +196,9 @@ export default function Features() {
             tagline="Offline forwarding-plane simulator"
             description="Drop your configs in a directory and ask what a change will do. Hammerhead parses 14 vendor dialects, simulates OSPF, BGP, IS-IS and more, and answers reachability and traceroute queries in milliseconds — as a single static binary."
             points={[
-              "345× faster than Batfish, 99.93% FIB parity",
+              "345× faster than the industry standard, 99.93% FIB parity",
               "1,450+ tests, deterministic, no unsafe code",
-              "CLI, Python SDK, REST API, GitHub Action & Jupyter",
+              "CLI, Python SDK, REST API, CI integration & Jupyter",
             ]}
             to="/products/hammerhead"
           />
@@ -225,7 +225,7 @@ export default function Features() {
               <SectionHeading
                 eyebrow="Integrations & workflow"
                 title="Meets your network where it already lives."
-                description="The same engine ships as a CLI, a Python SDK, a REST API, a GitHub Action and a Jupyter kernel. Gate risky pull requests automatically or explore your fabric interactively — no live device required."
+                description="The same engine ships as a CLI, a Python SDK, a REST API, a CI integration and a Jupyter kernel. Gate risky pull requests automatically or explore your fabric interactively, with no live device required."
               />
               <ul className="mt-8 space-y-3">
                 {[
@@ -250,7 +250,7 @@ export default function Features() {
             </div>
 
             <CodeBlock
-              title="github action · pr gate"
+              title="ci · pull-request gate"
               lines={[
                 { prompt: "$", text: "hammerhead simulate ./configs --diff HEAD~1" },
                 { text: "parsed 1,280 devices · 14 vendors", muted: true },
