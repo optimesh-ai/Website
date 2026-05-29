@@ -7,6 +7,7 @@ export interface NewsItem {
   category: string;
   dek: string;
   body: Block[];
+  link?: { label: string; href: string };
 }
 
 export const news: NewsItem[] = [
@@ -16,6 +17,10 @@ export const news: NewsItem[] = [
     date: "2026-04-22",
     category: "Programs",
     dek: "Optimesh Technologies has joined NVIDIA Inception, gaining access to technical resources and a community of AI-first startups.",
+    link: {
+      label: "Learn more about NVIDIA Inception",
+      href: "https://www.nvidia.com/en-us/startups/",
+    },
     body: [
       {
         type: "p",
@@ -41,6 +46,10 @@ export const news: NewsItem[] = [
     date: "2026-04-02",
     category: "Programs",
     dek: "Earlier this year, Optimesh Technologies received an offer from a16z Speedrun. After careful thought, we decided not to pursue the program at this time. We are grateful to the team for one of the cleanest processes we have been through.",
+    link: {
+      label: "Learn more about a16z Speedrun",
+      href: "https://a16z.com/speedrun/",
+    },
     body: [
       {
         type: "p",

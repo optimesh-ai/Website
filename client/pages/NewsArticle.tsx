@@ -1,7 +1,7 @@
 import { useEffect } from "react";
 import { Link, Navigate, useParams } from "react-router-dom";
 import { Layout } from "@/components/Layout";
-import { ArrowLeft, ArrowRight } from "lucide-react";
+import { ArrowLeft, ArrowRight, ArrowUpRight } from "lucide-react";
 import { ButtonLink, Container } from "@/components/site/primitives";
 import { Prose } from "@/components/site/Prose";
 import { getNewsBySlug } from "@/data/news";
@@ -50,6 +50,20 @@ export default function NewsArticle() {
       <Container className="pb-16">
         <article className="mx-auto max-w-3xl text-lg">
           <Prose blocks={item.body} />
+
+          {item.link && (
+            <a
+              href={item.link.href}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="group mt-10 flex items-center justify-between gap-4 rounded-xl border border-border bg-card px-5 py-4 transition-colors hover:border-primary/30"
+            >
+              <span className="text-sm font-medium text-foreground transition-colors group-hover:text-primary">
+                {item.link.label}
+              </span>
+              <ArrowUpRight className="h-4 w-4 flex-none text-muted-foreground transition-colors group-hover:text-primary" />
+            </a>
+          )}
 
           <div className="mt-12 flex flex-col items-start gap-4 border-t border-border pt-8 sm:flex-row sm:items-center sm:justify-between">
             <p className="text-pretty text-muted-foreground">

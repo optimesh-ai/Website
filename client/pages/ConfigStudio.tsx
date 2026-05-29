@@ -118,17 +118,6 @@ const trust = [
   },
 ];
 
-const vendors = [
-  { name: "Cisco IOS" },
-  { name: "Cisco IOS-XE" },
-  { name: "Cisco IOS-XR" },
-  { name: "Cisco NX-OS" },
-  { name: "Juniper Junos" },
-  { name: "Arista EOS" },
-  { name: "Nokia SR Linux" },
-  { name: "FRR" },
-];
-
 export default function ConfigStudio() {
   return (
     <Layout>
@@ -528,29 +517,6 @@ export default function ConfigStudio() {
           })}
         </div>
       </Section>
-
-      {/* ------------------------------------------------------------ Vendors */}
-      <section className="border-t border-border bg-card">
-        <Container className="py-20 md:py-28">
-          <div className="grid gap-12 lg:grid-cols-[0.85fr_1.15fr] lg:items-center">
-            <SectionHeading
-              eyebrow="Vendor coverage"
-              title="Hardware and vendor agnostic."
-              description="Config Studio reads and patches every major network configuration language with the same engine. Heterogeneous fabrics, multi-vendor deployments, and air-gapped environments are first-class, not afterthoughts."
-            />
-            <div className="grid grid-cols-2 gap-3 sm:grid-cols-3">
-              {vendors.map((v) => (
-                <div
-                  key={v.name}
-                  className="rounded-lg border border-border bg-background px-4 py-3 font-mono text-sm text-foreground/80 transition-colors hover:border-primary/30 hover:text-foreground"
-                >
-                  {v.name}
-                </div>
-              ))}
-            </div>
-          </div>
-        </Container>
-      </section>
 
       {/* ----------------------------------------------- Adversarial robustness */}
       <Section>

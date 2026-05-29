@@ -137,11 +137,10 @@ export default function Whitepaper() {
             <P>
               Hammerhead ingests a directory of device configurations and detects
               each vendor dialect automatically, with no per-file flags. It
-              currently parses every major network vendor, including Cisco IOS, NX-OS,
-              IOS-XR and ASA, Arista EOS, Juniper Junos, Cumulus and FRR, FortiOS,
-              PAN-OS, SONiC, F5 BIG-IP, A10 ACOS, Check Point Gaia, and Linux
-              iptables. Parsing normalizes these dialects into a single internal
-              model so that later stages are vendor-independent.
+              covers every major network vendor in production today, and
+              normalizes their configuration languages into a single internal
+              model so that every later stage of the engine is fully
+              vendor-independent.
             </P>
 
             <H3>2.2 Protocol simulation</H3>
@@ -262,11 +261,10 @@ export default function Whitepaper() {
             <H3>3.3 Vendor and hardware coverage</H3>
             <P>
               Config Studio is hardware and vendor agnostic. The same engine
-              diagnoses and patches every major network configuration language,
-              including Cisco IOS, IOS-XE, IOS-XR and NX-OS, Juniper Junos,
-              Arista EOS, Nokia SR Linux, and FRR. Heterogeneous fabrics,
-              multi-vendor deployments, and air-gapped environments are
-              first-class, not afterthoughts.
+              diagnoses and patches every major network configuration language
+              in production today. Heterogeneous fabrics, multi-vendor
+              deployments, and air-gapped environments are first-class, not
+              afterthoughts.
             </P>
 
             <H3>3.4 A digital twin of the network</H3>

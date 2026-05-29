@@ -63,7 +63,7 @@ const faqs = [
   {
     question: "Which vendors are supported?",
     answer:
-      "every major network vendor, including Cisco (IOS, NX-OS, IOS-XR, ASA), Arista EOS, Juniper Junos, Cumulus/FRR, and more, with automatic detection, so there are no per-vendor flags to manage.",
+      "Optimesh Technologies is hardware and vendor agnostic. The same engine parses every major network vendor with automatic detection, so there are no per-vendor flags to manage.",
   },
   {
     question: "Does my config data leave my network?",

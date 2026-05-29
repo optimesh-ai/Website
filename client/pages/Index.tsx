@@ -55,23 +55,6 @@ const principles = [
   },
 ];
 
-const vendors = [
-  "Cisco IOS",
-  "NX-OS",
-  "IOS-XR",
-  "Cisco ASA",
-  "Arista EOS",
-  "Juniper Junos",
-  "Cumulus / FRR",
-  "FortiOS",
-  "PAN-OS",
-  "SONiC",
-  "F5 BIG-IP",
-  "A10 ACOS",
-  "Check Point Gaia",
-  "Linux iptables",
-];
-
 export default function Index() {
   return (
     <Layout>
@@ -331,27 +314,6 @@ export default function Index() {
           </div>
         </Container>
       </section>
-
-      {/* ----------------------------------------------------------- Vendors */}
-      <Section>
-        <div className="grid gap-12 lg:grid-cols-[0.85fr_1.15fr] lg:items-center">
-          <SectionHeading
-            eyebrow="Vendor coverage"
-            title="Every major network vendor. One engine."
-            description="Hardware and vendor agnostic by design. One parser reads them all, with automatic detection. No flags, no per-vendor adapters, no special integrations to maintain."
-          />
-          <div className="grid grid-cols-2 gap-3 sm:grid-cols-3">
-            {vendors.map((v) => (
-              <div
-                key={v}
-                className="rounded-lg border border-border bg-card px-4 py-3 font-mono text-sm text-foreground/80 transition-colors hover:border-primary/30 hover:text-foreground"
-              >
-                {v}
-              </div>
-            ))}
-          </div>
-        </div>
-      </Section>
 
       {/* --------------------------------------------------------- Differentiators */}
       <section className="border-t border-border bg-card">

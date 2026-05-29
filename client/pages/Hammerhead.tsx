@@ -118,23 +118,6 @@ const protocolGroups: {
   },
 ];
 
-const vendors = [
-  "Cisco IOS",
-  "NX-OS",
-  "IOS-XR",
-  "Cisco ASA",
-  "Arista EOS",
-  "Juniper Junos",
-  "Cumulus / FRR",
-  "FortiOS",
-  "PAN-OS",
-  "SONiC",
-  "F5 BIG-IP",
-  "A10 ACOS",
-  "Check Point Gaia",
-  "Linux iptables",
-];
-
 const differentiators: {
   icon: React.ReactNode;
   title: string;
@@ -370,27 +353,6 @@ export default function Hammerhead() {
           </div>
         </Container>
       </section>
-
-      {/* ------------------------------------------------------- Vendor coverage */}
-      <Section>
-        <div className="grid gap-12 lg:grid-cols-[0.85fr_1.15fr] lg:items-center">
-          <SectionHeading
-            eyebrow="every major vendor"
-            title="Auto-detected. No flags, no adapters."
-            description="A single parser core reads every major network vendor and identifies each device automatically, drop a mixed-vendor snapshot in and it just works."
-          />
-          <div className="grid grid-cols-2 gap-3 sm:grid-cols-3">
-            {vendors.map((v) => (
-              <div
-                key={v}
-                className="rounded-lg border border-border bg-card px-4 py-3 font-mono text-sm text-foreground/80 transition-colors hover:border-primary/30 hover:text-foreground"
-              >
-                {v}
-              </div>
-            ))}
-          </div>
-        </div>
-      </Section>
 
       {/* ------------------------------------------------------------ Surfaces */}
       <section className="border-y border-border bg-card">
