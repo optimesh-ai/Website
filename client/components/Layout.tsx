@@ -1,14 +1,18 @@
 import { Header } from "./Header";
+import { Footer } from "./Footer";
 
 interface LayoutProps {
   children: React.ReactNode;
+  /** Set false for pages that render their own footer (rare). */
+  footer?: boolean;
 }
 
-export function Layout({ children }: LayoutProps) {
+export function Layout({ children, footer = true }: LayoutProps) {
   return (
-    <div className="min-h-screen bg-background">
+    <div className="flex min-h-screen flex-col bg-background">
       <Header />
-      <main className="pt-20">{children}</main>
+      <main className="flex-1">{children}</main>
+      {footer && <Footer />}
     </div>
   );
 }

@@ -1,169 +1,396 @@
 import { Layout } from "@/components/Layout";
-import { Footer } from "@/components/Footer";
 import { Link } from "react-router-dom";
-import { ArrowRight, Network, Zap, TrendingDown } from "lucide-react";
-import { Suspense, lazy } from "react";
+import {
+  ArrowRight,
+  GitPullRequest,
+  Gauge,
+  ShieldCheck,
+  TerminalSquare,
+  Network,
+  CircuitBoard,
+} from "lucide-react";
+import {
+  ButtonLink,
+  ArrowLink,
+  Container,
+  Section,
+  SectionHeading,
+  Eyebrow,
+  Stat,
+  Badge,
+  CodeBlock,
+} from "@/components/site/primitives";
 
-const NeuralBackground = lazy(
-  () => import("@/components/ui/flow-field-background")
-);
-
-const DottedSurface = lazy(
-  () => import("@/components/ui/dotted-surface")
-);
+const vendors = [
+  "Cisco IOS",
+  "NX-OS",
+  "IOS-XR",
+  "Cisco ASA",
+  "Arista EOS",
+  "Juniper Junos",
+  "Cumulus / FRR",
+  "FortiOS",
+  "PAN-OS",
+  "SONiC",
+  "F5 BIG-IP",
+  "A10 ACOS",
+  "Check Point Gaia",
+  "Linux iptables",
+];
 
 export default function Index() {
   return (
     <Layout>
-      {/* Hero Section */}
-      <section className="relative min-h-screen flex items-center justify-center px-4 pt-20 sm:pt-0 pb-72 bg-black overflow-hidden">
-        {/* Flow Field Background */}
-        <Suspense
-          fallback={<div className="absolute inset-0 bg-black" />}
-        >
-          <NeuralBackground
-            className="absolute inset-0 opacity-50"
-            color="#aaaaaa"
-            trailOpacity={0.12}
-            particleCount={500}
-            speed={0.8}
-          />
-        </Suspense>
+      {/* ---------------------------------------------------------------- Hero */}
+      <section className="relative overflow-hidden">
+        <div className="pointer-events-none absolute inset-0 bg-grid bg-grid-fade opacity-70" />
+        <div className="pointer-events-none absolute -top-40 left-1/2 h-[36rem] w-[60rem] -translate-x-1/2 rounded-full bg-primary/5 blur-3xl" />
 
-        {/* Gradient overlays for depth */}
-        {/* Top fade */}
-        <div className="absolute top-0 left-0 right-0 h-32 z-[1] pointer-events-none bg-gradient-to-b from-black to-transparent" />
-        {/* Bottom fade */}
-        <div className="absolute bottom-0 left-0 right-0 h-[50%] z-[1] pointer-events-none bg-gradient-to-t from-black via-black/80 to-transparent" />
-
-        <div className="relative z-10 max-w-4xl mx-auto text-center">
-          <h1 className="text-5xl md:text-7xl lg:text-8xl font-bold tracking-tighter text-white mb-6 drop-shadow-2xl">
-            The Future of <br />
-            <span className="text-transparent bg-clip-text bg-gradient-to-b from-white to-white/70">
-              Network Intelligence.
-            </span>
-          </h1>
-
-          <p className="text-xl sm:text-2xl text-foreground/70 mb-4 max-w-2xl mx-auto leading-relaxed backdrop-blur-[2px]">
-            Optimesh builds digital twins of network infrastructure to identify
-            failure points, optimize router placement, and design more resilient
-            networks.
-          </p>
-
-          <div className="flex flex-col sm:flex-row gap-4 justify-center mb-6">
-            <Link
-              to="/contact"
-              className="group inline-flex px-8 py-4 bg-gradient-to-r from-[#22D3EE] via-[#06B6D4] to-[#0891B2] text-background font-bold rounded-lg hover:shadow-[0_0_30px_rgba(6,182,212,0.4)] transition-all transform hover:scale-105"
-            >
-              <div className="flex items-center gap-2 justify-center">
-                Get in Touch
-                <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
+        <Container className="relative pb-20 pt-32 md:pb-28 md:pt-40">
+          <div className="grid items-center gap-14 lg:grid-cols-[1.05fr_0.95fr]">
+            <div>
+              <div
+                className="animate-fade-up"
+                style={{ animationDelay: "0ms" }}
+              >
+                <Badge tone="primary">
+                  <span className="h-1.5 w-1.5 rounded-full bg-primary" />
+                  Now in early access
+                </Badge>
               </div>
-            </Link>
-            <Link
-              to="/early-access"
-              className="inline-flex px-8 py-4 border border-[#06B6D4]/50 text-[#22D3EE] font-bold rounded-lg hover:bg-[#06B6D4]/10 backdrop-blur-sm transition-colors"
-            >
-              Join Early Access
-            </Link>
-          </div>
 
-          <p className="text-base text-foreground/50 font-mono">
-            Built by infrastructure experts, for the networks that power the world.
-          </p>
-        </div>
-      </section>
+              <h1
+                className="animate-fade-up mt-6 text-balance text-[2.6rem] font-medium leading-[1.05] tracking-tight text-foreground sm:text-6xl lg:text-[4.1rem]"
+                style={{ animationDelay: "80ms" }}
+              >
+                Validate every network change before it ships.
+              </h1>
 
-      {/* Network Optimization + CTA — continuous dotted surface */}
-      <div className="relative overflow-hidden bg-black -mt-56">
-        <Suspense fallback={null}>
-          <DottedSurface speed={0.03} />
-        </Suspense>
+              <p
+                className="animate-fade-up mt-6 max-w-xl text-pretty text-lg leading-relaxed text-muted-foreground"
+                style={{ animationDelay: "160ms" }}
+              >
+                Optimesh builds offline intelligence for network
+                infrastructure. Simulate the forwarding plane across 14 vendors,
+                find what a config change will actually do, and ship verified
+                fixes — without touching a live device.
+              </p>
 
-        {/* Network Optimization Section */}
-        <section className="relative z-10 pt-8 pb-24 px-4">
-          <div className="max-w-6xl mx-auto">
-            <div className="text-center mb-16">
-              <h2 className="text-5xl sm:text-6xl lg:text-7xl font-bold mb-4 tracking-tight">
-                <span className="text-white">
-                  Network Optimization at Scale
-                </span>
-              </h2>
-              <p className="text-foreground/70 text-lg max-w-2xl mx-auto">
-                We're building something different. Get early access today.
+              <div
+                className="animate-fade-up mt-9 flex flex-col gap-3 sm:flex-row"
+                style={{ animationDelay: "240ms" }}
+              >
+                <ButtonLink to="/early-access" variant="primary" size="lg">
+                  Request access
+                  <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-0.5" />
+                </ButtonLink>
+                <ButtonLink to="/products/hammerhead" variant="secondary" size="lg">
+                  Explore the platform
+                </ButtonLink>
+              </div>
+
+              <p
+                className="animate-fade-up mt-8 font-mono text-xs uppercase tracking-[0.14em] text-muted-foreground"
+                style={{ animationDelay: "320ms" }}
+              >
+                Built by infrastructure experts, for the networks that power the
+                world.
               </p>
             </div>
 
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-              <CapabilityCard
-                icon={<Network className="w-5 h-5" />}
-                title="Intelligent Placement"
-                description="Cutting-edge algorithms that rethink how networks are built and deployed."
-              />
-              <CapabilityCard
-                icon={<Zap className="w-5 h-5" />}
-                title="Real-Time Intelligence"
-                description="Predictive capabilities that anticipate network needs before they arise."
-              />
-              <CapabilityCard
-                icon={<TrendingDown className="w-5 h-5" />}
-                title="Cost Optimization"
-                description="Reducing network deployment and operational expenses without compromise."
+            <div
+              className="animate-fade-up lg:justify-self-end"
+              style={{ animationDelay: "260ms" }}
+            >
+              <CodeBlock
+                title="hammerhead"
+                className="w-full max-w-lg"
+                lines={[
+                  { prompt: "$", text: "hammerhead simulate ./configs" },
+                  { text: "parsed 1,280 devices · 14 vendors", muted: true },
+                  { text: "built FIB · 798,720 routes · 279ms", muted: true },
+                  { prompt: "$", text: "hammerhead reachability \\" },
+                  { text: "    --from edge-1 --to db-core", muted: true },
+                  { text: "" },
+                  { text: "REACHABLE  via 4 hops  (ECMP ×2)" },
+                  { text: "verified against 52 datasets · 99.93%", muted: true },
+                ]}
               />
             </div>
           </div>
-        </section>
+        </Container>
+      </section>
 
-        {/* CTA Section */}
-        <section id="contact" className="relative z-10 py-24 px-4">
-          {/* Gradient overlay fading dots to black */}
-          <div className="absolute -top-24 left-0 right-0 bottom-0 bg-gradient-to-b from-transparent via-black/70 to-black z-0 pointer-events-none" />
-          <div className="relative z-10 max-w-3xl mx-auto text-center">
-            <h2 className="text-4xl sm:text-5xl font-bold mb-6">
-              <span className="text-white">
-                Join the Revolution
-              </span>
-            </h2>
-            <p className="text-foreground/70 text-xl mb-8">
-              We're in stealth mode, building the next generation of intelligent
-              network infrastructure. Get early access to Optimesh.
-            </p>
-            <Link
-              to="/early-access"
-              className="group inline-flex px-8 py-4 bg-white text-black font-bold rounded-lg hover:shadow-[0_0_30px_rgba(255,255,255,0.3)] transition-all transform hover:scale-105"
-            >
-              <div className="flex items-center gap-2 justify-center">
-                Request Early Access
-                <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
-              </div>
-            </Link>
+      {/* --------------------------------------------------------- Stat band */}
+      <section className="border-y border-border bg-card">
+        <Container className="py-12">
+          <div className="grid grid-cols-2 gap-x-6 gap-y-10 md:grid-cols-4">
+            <Stat value="345×" label="Faster than Batfish" sub="1,640× at peak" />
+            <Stat value="99.93%" label="Forwarding-plane parity" sub="across 52 datasets" />
+            <Stat value="14" label="Network vendors" sub="auto-detected" />
+            <Stat value="279ms" label="To simulate 798,720 routes" sub="single binary" />
           </div>
-        </section>
-      </div>
+        </Container>
+      </section>
 
-      <Footer />
+      {/* ----------------------------------------------------------- Products */}
+      <Section>
+        <SectionHeading
+          eyebrow="The platform"
+          title="Two products. One source of truth for your network."
+          description="Hammerhead is the offline simulation engine. Config Studio puts it to work — diagnosing faults and proposing fixes that are proven safe before a human ever sees them."
+        />
+
+        <div className="mt-14 grid gap-6 lg:grid-cols-2">
+          <ProductCard
+            icon={<Gauge className="h-5 w-5" />}
+            name="Hammerhead"
+            tagline="Offline forwarding-plane simulator"
+            description="Drop your configs in a directory and ask what a change will do. Hammerhead parses 14 vendor dialects, simulates OSPF, BGP, IS-IS and more, and answers reachability and traceroute queries in milliseconds — as a single static binary."
+            points={[
+              "345× faster than Batfish, 99.93% FIB parity",
+              "CLI, Python SDK, REST API & GitHub Action",
+              "Deterministic, no Docker or JVM, no live device",
+            ]}
+            to="/products/hammerhead"
+          />
+          <ProductCard
+            icon={<ShieldCheck className="h-5 w-5" />}
+            name="Config Studio"
+            tagline="AI diagnosis & verified remediation"
+            description="When a config breaks, Config Studio finds the fault, writes the exact CLI patch, and runs it through Hammerhead to prove it restores reachability — all before a human approves it. On your own hardware."
+            points={[
+              "78.2% fix rate on unseen fault classes",
+              "Every patch verified before it's proposed",
+              "On-prem & air-gap ready — no telemetry",
+            ]}
+            to="/products/config-studio"
+          />
+        </div>
+      </Section>
+
+      {/* --------------------------------------------------------- How it works */}
+      <section className="border-t border-border bg-card">
+        <Container className="py-20 md:py-28">
+          <SectionHeading
+            eyebrow="How it works"
+            title="Simulate. Diagnose. Verify."
+            description="A closed loop that turns a directory of configs into a guarantee about how your network behaves."
+          />
+          <div className="mt-14 grid gap-6 md:grid-cols-3">
+            <StepCard
+              step="01"
+              icon={<Network className="h-5 w-5" />}
+              title="Simulate"
+              body="Hammerhead parses every device, runs protocol convergence, and builds the forwarding tables for your whole fabric in milliseconds."
+            />
+            <StepCard
+              step="02"
+              icon={<CircuitBoard className="h-5 w-5" />}
+              title="Diagnose"
+              body="Config Studio compares intended behavior to reality, isolates the misconfigured device, and drafts a minimal CLI patch — not a rewrite."
+            />
+            <StepCard
+              step="03"
+              icon={<ShieldCheck className="h-5 w-5" />}
+              title="Verify"
+              body="Every proposed fix is re-simulated. If it doesn't restore reachability, it never reaches you. Gate it on a PR or approve it in one click."
+            />
+          </div>
+        </Container>
+      </section>
+
+      {/* ----------------------------------------------------------- Vendors */}
+      <Section>
+        <div className="grid gap-12 lg:grid-cols-[0.85fr_1.15fr] lg:items-center">
+          <SectionHeading
+            eyebrow="Vendor coverage"
+            title="Speaks your network's languages."
+            description="One engine parses fourteen configuration dialects with automatic detection — no flags, no per-vendor adapters to maintain."
+          />
+          <div className="grid grid-cols-2 gap-3 sm:grid-cols-3">
+            {vendors.map((v) => (
+              <div
+                key={v}
+                className="rounded-lg border border-border bg-card px-4 py-3 font-mono text-sm text-foreground/80 transition-colors hover:border-primary/30 hover:text-foreground"
+              >
+                {v}
+              </div>
+            ))}
+          </div>
+        </div>
+      </Section>
+
+      {/* --------------------------------------------------------- Differentiators */}
+      <section className="border-t border-border bg-card">
+        <Container className="py-20 md:py-28">
+          <SectionHeading
+            eyebrow="Why Optimesh"
+            title="Engineered for the people who keep packets moving."
+            align="center"
+            className="mx-auto"
+          />
+          <div className="mx-auto mt-14 grid max-w-5xl gap-x-10 gap-y-12 sm:grid-cols-2">
+            <Feature
+              icon={<Gauge className="h-5 w-5" />}
+              title="Fast enough to live in CI"
+              body="Whole-fabric simulation in milliseconds means change validation can run on every commit, not once a quarter."
+            />
+            <Feature
+              icon={<ShieldCheck className="h-5 w-5" />}
+              title="Proven, not promised"
+              body="Answers are validated against Batfish and live FRR ground truth, and every output is fully deterministic."
+            />
+            <Feature
+              icon={<TerminalSquare className="h-5 w-5" />}
+              title="Meets you where you work"
+              body="A single binary, a Python SDK, a REST API, and a GitHub Action — drop it into the toolchain you already have."
+            />
+            <Feature
+              icon={<GitPullRequest className="h-5 w-5" />}
+              title="Yours to run"
+              body="On-prem and air-gap ready. Your configs stay on your hardware; nothing phones home."
+            />
+          </div>
+        </Container>
+      </section>
+
+      {/* --------------------------------------------------------------- CTA */}
+      <Section className="pb-28">
+        <div className="relative overflow-hidden rounded-2xl border border-border bg-foreground px-8 py-16 text-center md:px-16 md:py-20">
+          <div className="pointer-events-none absolute inset-0 bg-grid opacity-[0.07]" />
+          <div className="relative mx-auto max-w-2xl">
+            <Eyebrow className="!text-background/70">Early access</Eyebrow>
+            <h2 className="mt-4 text-balance text-3xl font-medium tracking-tight text-background sm:text-4xl md:text-[2.75rem] md:leading-[1.1]">
+              Bring certainty to your next network change.
+            </h2>
+            <p className="mt-5 text-pretty text-lg leading-relaxed text-background/70">
+              We're working with a small group of network teams who are tired of
+              guessing. If that's you, let's talk.
+            </p>
+            <div className="mt-9 flex flex-col justify-center gap-3 sm:flex-row">
+              <ButtonLink
+                to="/early-access"
+                size="lg"
+                className="bg-background text-foreground hover:bg-background/90"
+              >
+                Request early access
+                <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-0.5" />
+              </ButtonLink>
+              <Link
+                to="/contact"
+                className="inline-flex h-12 items-center justify-center rounded-lg border border-background/25 px-6 text-[0.95rem] font-medium text-background transition-colors hover:bg-background/10"
+              >
+                Talk to the team
+              </Link>
+            </div>
+          </div>
+        </div>
+      </Section>
     </Layout>
   );
 }
 
-function CapabilityCard({
+function ProductCard({
+  icon,
+  name,
+  tagline,
+  description,
+  points,
+  to,
+}: {
+  icon: React.ReactNode;
+  name: string;
+  tagline: string;
+  description: string;
+  points: string[];
+  to: string;
+}) {
+  return (
+    <Link
+      to={to}
+      className="group flex flex-col rounded-2xl border border-border bg-card p-8 shadow-sm transition-all duration-300 hover:-translate-y-1 hover:border-primary/30 hover:shadow-lg"
+    >
+      <div className="flex items-center gap-3">
+        <span className="flex h-10 w-10 items-center justify-center rounded-lg bg-primary/10 text-primary">
+          {icon}
+        </span>
+        <div>
+          <h3 className="text-xl font-semibold tracking-tight text-foreground">
+            {name}
+          </h3>
+          <p className="font-mono text-xs uppercase tracking-[0.14em] text-muted-foreground">
+            {tagline}
+          </p>
+        </div>
+      </div>
+      <p className="mt-5 text-pretty leading-relaxed text-muted-foreground">
+        {description}
+      </p>
+      <ul className="mt-6 space-y-2.5">
+        {points.map((p) => (
+          <li key={p} className="flex items-start gap-2.5 text-sm text-foreground/80">
+            <span className="mt-1.5 h-1.5 w-1.5 flex-none rounded-full bg-success" />
+            {p}
+          </li>
+        ))}
+      </ul>
+      <span className="mt-7 inline-flex items-center gap-1.5 font-medium text-primary">
+        Learn more
+        <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
+      </span>
+    </Link>
+  );
+}
+
+function StepCard({
+  step,
   icon,
   title,
-  description,
+  body,
+}: {
+  step: string;
+  icon: React.ReactNode;
+  title: string;
+  body: string;
+}) {
+  return (
+    <div className="relative rounded-xl border border-border bg-background p-7">
+      <div className="flex items-center justify-between">
+        <span className="flex h-10 w-10 items-center justify-center rounded-lg bg-primary/10 text-primary">
+          {icon}
+        </span>
+        <span className="font-mono text-sm text-muted-foreground">{step}</span>
+      </div>
+      <h3 className="mt-5 text-lg font-semibold tracking-tight text-foreground">
+        {title}
+      </h3>
+      <p className="mt-2 text-sm leading-relaxed text-muted-foreground">{body}</p>
+    </div>
+  );
+}
+
+function Feature({
+  icon,
+  title,
+  body,
 }: {
   icon: React.ReactNode;
   title: string;
-  description: string;
+  body: string;
 }) {
   return (
-    <div className="group relative">
-      <div className="absolute -inset-0.5 bg-gradient-to-r from-white/10 to-white/5 rounded-xl blur opacity-0 group-hover:opacity-100 transition duration-500" />
-      <div className="relative bg-card border border-white/[0.08] rounded-xl p-8 hover:border-white/20 transition-colors">
-        <div className="w-11 h-11 rounded-full border border-white/20 bg-white/[0.06] flex items-center justify-center mb-5 text-white/80 group-hover:bg-white/10 group-hover:border-white/30 transition-all">
-          {icon}
-        </div>
-        <h3 className="text-xl font-semibold mb-2 text-white tracking-tight">{title}</h3>
-        <p className="text-white/50 text-sm leading-relaxed">{description}</p>
+    <div className="flex gap-4">
+      <span className="flex h-10 w-10 flex-none items-center justify-center rounded-lg bg-primary/10 text-primary">
+        {icon}
+      </span>
+      <div>
+        <h3 className="text-base font-semibold tracking-tight text-foreground">
+          {title}
+        </h3>
+        <p className="mt-1.5 text-sm leading-relaxed text-muted-foreground">
+          {body}
+        </p>
       </div>
     </div>
   );
