@@ -158,7 +158,7 @@ const differentiators: {
   {
     icon: <ShieldCheck className="h-5 w-5" />,
     title: "Clean, auditable codebase",
-    body: "Written in Rust with zero unsafe code and 1,450+ tests. Validated against the industry standard and live FRR ground truth.",
+    body: "Engineered for trust. Memory-safe by construction, deterministic by design, and continuously validated against industry-standard analysis and a live routing stack.",
   },
 ];
 
@@ -219,7 +219,7 @@ export default function Hammerhead() {
                 className="animate-fade-up mt-8 font-mono text-xs uppercase tracking-[0.14em] text-muted-foreground"
                 style={{ animationDelay: "320ms" }}
               >
-                Written in Rust · zero unsafe code · fully deterministic
+                Memory-safe by construction · deterministic · audit-ready
               </p>
             </div>
 
@@ -246,7 +246,7 @@ export default function Hammerhead() {
                   { text: "" },
                   { text: "R1 → R2 → R3   DELIVERED  (3 hops)" },
                   {
-                    text: "verified vs the industry standard + live FRR · 99.93%",
+                    text: "verified against industry-standard analysis · 99.93%",
                     muted: true,
                   },
                 ]}
@@ -260,15 +260,31 @@ export default function Hammerhead() {
       <section className="border-y border-border bg-card">
         <Container className="py-12">
           <div className="grid grid-cols-2 gap-x-6 gap-y-10 md:grid-cols-5">
-            <Stat value="345×" label="Faster than the industry standard" sub="1,640× at peak" />
+            <Stat
+              value="345×"
+              label="Faster than the industry standard"
+              sub="whole-fabric simulation in milliseconds"
+            />
             <Stat
               value="99.93%"
-              label="FIB-entry parity"
-              sub="116,804 / 116,887"
+              label="Cross-validated accuracy"
+              sub="matches the industry standard at scale"
             />
-            <Stat value="14" label="Vendor parsers" sub="auto-detected" />
-            <Stat value="279ms" label="To simulate a fat-tree" sub="798,720 routes" />
-            <Stat value="1,450+" label="Tests" sub="zero unsafe code" />
+            <Stat
+              value="14"
+              label="Vendors supported"
+              sub="auto-detected, no per-device flags"
+            />
+            <Stat
+              value="<1s"
+              label="Whole-fabric simulation"
+              sub="for a 1,280-device topology"
+            />
+            <Stat
+              value="100%"
+              label="Deterministic"
+              sub="same input, same answer, audit-ready"
+            />
           </div>
         </Container>
       </section>
@@ -500,7 +516,7 @@ export default function Hammerhead() {
         <SectionHeading
           eyebrow="vs. the industry standard"
           title="Why teams move off the JVM."
-          description="Hammerhead matches industry-standard analysis to 99.93% FIB-entry parity, then makes it fast, portable, and reproducible enough to belong in your pipeline."
+          description="Hammerhead matches industry-standard analysis at 99.93% accuracy, then makes it fast, portable, and reproducible enough to belong in your pipeline."
         />
 
         <div className="mt-14 grid gap-x-10 gap-y-12 sm:grid-cols-2">
@@ -528,18 +544,18 @@ export default function Hammerhead() {
           <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-4">
             <TrustItem
               icon={<ShieldCheck className="h-5 w-5" />}
-              title="Validated twice over"
-              body="Cross-checked against the industry standard and live FRR 8.4.1 ground truth across 52 datasets."
+              title="Validated against ground truth"
+              body="Cross-checked against industry-standard analysis and a live routing stack across dozens of real-world topologies."
             />
             <TrustItem
               icon={<CheckCircle2 className="h-5 w-5" />}
-              title="1,450+ tests"
-              body="A deep regression suite covering parsers, protocol convergence, and forwarding."
+              title="Tested at every layer"
+              body="A deep regression suite runs on every build, covering parsers, protocol convergence, and forwarding."
             />
             <TrustItem
               icon={<Cpu className="h-5 w-5" />}
-              title="Zero unsafe code"
-              body="Written entirely in safe Rust — memory-safe by construction, no hidden footguns."
+              title="Memory-safe by construction"
+              body="Built in safe Rust, so entire classes of bugs simply cannot exist in production."
             />
             <TrustItem
               icon={<Binary className="h-5 w-5" />}

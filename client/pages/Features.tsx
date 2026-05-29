@@ -65,7 +65,7 @@ const capabilities = [
   {
     icon: <Lock className="h-5 w-5" />,
     title: "Security & determinism",
-    body: "A single static binary with deterministic output, on-prem and air-gap ready, no telemetry, no Docker or JVM, no unsafe code.",
+    body: "A single static binary with deterministic output, on-prem and air-gap ready. Memory-safe by construction, no telemetry, no servers to babysit.",
   },
 ];
 
@@ -83,7 +83,7 @@ const principles = [
   {
     icon: <Repeat className="h-5 w-5" />,
     title: "Deterministic & proven",
-    body: "Same configs, same answer, every time. Outputs are validated to 99.93% forwarding-plane parity across 52 datasets.",
+    body: "Same configs, same answer, every time. Cross-validated against industry-standard analysis at 99.93% accuracy, with reproducible results across runs.",
   },
   {
     icon: <ServerCog className="h-5 w-5" />,
@@ -197,7 +197,7 @@ export default function Features() {
             description="Drop your configs in a directory and ask what a change will do. Hammerhead parses 14 vendor dialects, simulates OSPF, BGP, IS-IS and more, and answers reachability and traceroute queries in milliseconds — as a single static binary."
             points={[
               "345× faster than the industry standard, 99.93% FIB parity",
-              "1,450+ tests, deterministic, no unsafe code",
+              "Memory-safe by construction, deterministic, audit-ready",
               "CLI, Python SDK, REST API, CI integration & Jupyter",
             ]}
             to="/products/hammerhead"

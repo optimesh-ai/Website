@@ -108,7 +108,7 @@ const moat = [
   {
     icon: <ShieldCheck className="h-5 w-5" />,
     title: "Soundness, not vibes.",
-    body: "99.93% forwarding-plane parity validated against industry-standard analysis and live routing ground truth. Determinism by construction, with reproducible results across runs.",
+    body: "99.93% cross-validated accuracy against industry-standard analysis and a live routing stack. Determinism by construction, with reproducible results across runs.",
   },
   {
     icon: <Sparkles className="h-5 w-5" />,
@@ -354,7 +354,7 @@ export default function Why() {
             <Stat
               value={<CountUp to={99.93} decimals={2} suffix="%" />}
               label="Forwarding-plane parity"
-              sub="across 52 datasets"
+              sub="against industry-standard analysis"
             />
             <Stat
               value={<CountUp to={99.6} decimals={1} suffix="%" />}

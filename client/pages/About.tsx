@@ -23,7 +23,7 @@ const values = [
   {
     icon: <BadgeCheck className="h-5 w-5" />,
     title: "Proof over promises",
-    body: "Every answer is validated against ground truth — the industry standard and live FRR — and every output is fully deterministic. If the data doesn't support a claim, we don't make it.",
+    body: "Every answer is validated against industry-standard analysis and a live routing stack, and every output is fully deterministic. If the data doesn't support a claim, we don't make it.",
   },
   {
     icon: <Gauge className="h-5 w-5" />,
@@ -303,10 +303,26 @@ export default function About() {
               description="Correctness isn't a feature we test for at the end — it's the constraint we engineer toward from the start. The result is software you can put in the path of a production change."
             />
             <div className="grid gap-4 sm:grid-cols-2">
-              <Stat value="1,450+" label="Tests in the engine" sub="run on every build" />
-              <Stat value="0" label="Lines of unsafe code" sub="no shortcuts" />
-              <Stat value="ms" label="Whole-fabric simulation" sub="not minutes" />
-              <Stat value="100%" label="Offline & deterministic" sub="no telemetry" />
+              <Stat
+                value="100%"
+                label="Deterministic"
+                sub="same input, same answer, audit-ready"
+              />
+              <Stat
+                value="100%"
+                label="On-prem and air-gap"
+                sub="your configs never leave your network"
+              />
+              <Stat
+                value="0"
+                label="Telemetry sent"
+                sub="we do not collect your data"
+              />
+              <Stat
+                value="0"
+                label="Live devices touched"
+                sub="all analysis is offline by design"
+              />
             </div>
           </div>
         </Container>

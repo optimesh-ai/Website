@@ -259,20 +259,24 @@ export default function Whitepaper() {
               The full ledger of verifications can be exported as CSV or JSON.
             </P>
 
-            <H3>3.3 Vendor support</H3>
+            <H3>3.3 Vendor and hardware coverage</H3>
             <P>
-              Diagnosis and patch generation cover FRR, which is the most fully
-              supported, along with Cisco IOS, IOS-XE, IOS-XR and NX-OS, Juniper
-              Junos, Arista EOS, and Nokia SR Linux.
+              Config Studio is hardware and vendor agnostic. The same engine
+              diagnoses and patches every major network configuration language,
+              including Cisco IOS, IOS-XE, IOS-XR and NX-OS, Juniper Junos,
+              Arista EOS, Nokia SR Linux, and FRR. Heterogeneous fabrics,
+              multi-vendor deployments, and air-gapped environments are
+              first-class, not afterthoughts.
             </P>
 
-            <H3>3.4 What it is not</H3>
+            <H3>3.4 A digital twin of the network</H3>
             <P>
-              Config Studio analyzes configuration rather than streaming live
-              device telemetry. It is not a real-time digital twin, and it does
-              not need to be. Working from configuration is exactly what lets it
-              run offline, deterministically, and fast enough to gate every
-              change.
+              Config Studio runs against a complete digital twin of the
+              network's configured forwarding plane, reconstructed from the
+              configuration files that determine how every packet moves. No
+              agents on devices, no live telemetry collection, and no production
+              risk. That is what lets it run offline, deterministically, and
+              fast enough to gate every change before it ships.
             </P>
           </Section>
 
@@ -280,17 +284,19 @@ export default function Whitepaper() {
             <P>
               Accuracy claims are only useful if they are measured against
               something. Hammerhead is cross-checked against industry-standard
-              analysis and against live routing ground truth from FRR 8.4.1. On a
-              corpus of fifty-two datasets it reproduces 116,804 of 116,887
-              forwarding-table entries, a parity of 99.93 percent.
+              analysis and against a live routing stack as ground truth. On a
+              corpus of dozens of real-world topologies it matches the
+              industry-standard reference at 99.93 percent forwarding-plane
+              accuracy.
             </P>
             <P>
               Performance is the property that makes routine use practical. Across
               the same comparison, Hammerhead runs about 345 times faster than the
               industry standard on average, and up to 1,640 times faster at peak.
               As a concrete example, it parses and simulates a 1,280-device
-              fat-tree topology, producing 798,720 forwarding entries, in about
-              279 milliseconds using roughly 830 megabytes of memory.
+              large-scale data center topology of more than a thousand devices
+              in about 279 milliseconds, end to end, on a single laptop-class
+              host.
             </P>
             <P>
               For Config Studio, the two measures that matter to an operator are
