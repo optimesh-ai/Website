@@ -125,8 +125,8 @@ const differentiators: {
 }[] = [
   {
     icon: <Gauge className="h-5 w-5" />,
-    title: "345× faster on average",
-    body: "Up to 1,640× at peak versus the industry standard, fast enough to run on every commit instead of once a quarter.",
+    title: "800× faster on average",
+    body: "Fast enough to run on every commit instead of once a quarter, instead of buried in a quarterly audit.",
   },
   {
     icon: <Binary className="h-5 w-5" />,
@@ -244,7 +244,7 @@ export default function Hammerhead() {
         <Container className="py-12">
           <div className="grid grid-cols-2 gap-x-6 gap-y-10 md:grid-cols-5">
             <Stat
-              value="345×"
+              value="800×"
               label="Faster than the industry standard"
               sub="whole-fabric simulation in milliseconds"
             />

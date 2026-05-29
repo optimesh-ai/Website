@@ -289,8 +289,8 @@ export default function Whitepaper() {
             </P>
             <P>
               Performance is the property that makes routine use practical. Across
-              the same comparison, Hammerhead runs about 345 times faster than the
-              industry standard on average, and up to 1,640 times faster at peak.
+              the same comparison, Hammerhead runs about 800 times faster than the
+              industry standard on average.
               As a concrete example, it parses and simulates a 1,280-device
               large-scale data center topology of more than a thousand devices
               in about 279 milliseconds, end to end, on a single laptop-class

@@ -29,10 +29,10 @@ export const authors: Record<AuthorKey, Author> = {
   },
   vedu: {
     name: "Vedu Mallela",
-    role: "CTO & Co-Founder · formerly TikTok",
+    role: "CTO & Co-Founder · currently at TikTok",
     initials: "VM",
     linkedin: "https://www.linkedin.com/in/vedu-mallela/",
-    bio: "Vedu studied CS at Georgia Tech, did NLP research with MIT and Harvard collaborators, and built and operated systems at TikTok scale before co-founding Optimesh Technologies.",
+    bio: "Vedu studied CS at Georgia Tech and did NLP research with MIT and Harvard collaborators. He is currently building systems at TikTok scale while co-founding Optimesh Technologies.",
   },
 };
 

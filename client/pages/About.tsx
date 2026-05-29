@@ -61,7 +61,7 @@ const founders = [
     credentials: [
       "Georgia Tech CS",
       "MIT / Harvard NLP research",
-      "Formerly TikTok",
+      "Currently at TikTok",
     ],
     linkedin: "https://www.linkedin.com/in/vedu-mallela/",
   },
@@ -72,7 +72,7 @@ const products = [
     icon: <Gauge className="h-5 w-5" />,
     name: "Hammerhead",
     tagline: "Offline forwarding-plane simulator",
-    body: "Simulate your entire forwarding plane from a directory of configs in milliseconds, 345× faster than the industry standard at 99.93% parity, fully deterministic, with no live device required.",
+    body: "Simulate your entire forwarding plane from a directory of configs in milliseconds, 800× faster than the industry standard at 99.93% parity, fully deterministic, with no live device required.",
     to: "/products/hammerhead",
   },
   {
@@ -203,7 +203,7 @@ export default function About() {
       <section className="border-y border-border bg-card">
         <Container className="py-12">
           <div className="grid grid-cols-2 gap-x-6 gap-y-10 md:grid-cols-4">
-            <Stat value="345×" label="Faster than the industry standard" sub="fully deterministic" />
+            <Stat value="800×" label="Faster than the industry standard" sub="fully deterministic" />
             <Stat value="99.93%" label="Forwarding-plane parity" sub="vs. the industry standard & live FRR" />
             <Stat value="100%" label="On-prem and air-gap" sub="your configs never leave your network" />
             <Stat value="<10s" label="Time to fix" sub="diagnose, patch, verify" />

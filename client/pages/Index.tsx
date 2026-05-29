@@ -151,7 +151,7 @@ export default function Index() {
         <Container className="py-12">
           <Reveal className="grid grid-cols-2 gap-x-6 gap-y-10 md:grid-cols-4">
             <Stat
-              value={<><CountUp to={345} />×</>}
+              value={<><CountUp to={800} />×</>}
               label="Faster than the industry standard"
               sub="whole-fabric simulation in milliseconds"
             />
@@ -206,7 +206,7 @@ export default function Index() {
             tagline="Offline forwarding-plane simulator"
             description="Drop your configs in a directory and ask what a change will do. Hammerhead parses every major network vendor, simulates OSPF, BGP, IS-IS and more, and answers reachability and traceroute queries in milliseconds, as a single static binary."
             points={[
-              "345× faster than the industry standard, 99.93% FIB parity",
+              "800× faster than the industry standard, 99.93% FIB parity",
               "CLI, Python SDK, REST API & CI integration",
               "Deterministic, no Docker or JVM, no live device",
             ]}

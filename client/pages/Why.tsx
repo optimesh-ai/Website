@@ -103,7 +103,7 @@ const moat = [
   {
     icon: <Gauge className="h-5 w-5" />,
     title: "Speed turns verification into a routine.",
-    body: "345× faster than industry-standard analysis. The difference between a quarterly audit and a check on every change.",
+    body: "800× faster than industry-standard analysis. The difference between a quarterly audit and a check on every change.",
   },
   {
     icon: <ShieldCheck className="h-5 w-5" />,
@@ -343,7 +343,7 @@ export default function Why() {
 
           <Reveal className="mt-16 grid grid-cols-2 gap-x-6 gap-y-10 border-t border-border pt-12 md:grid-cols-4">
             <Stat
-              value={<><CountUp to={345} />×</>}
+              value={<><CountUp to={800} />×</>}
               label="Faster verification"
               sub="vs. industry standard"
             />
