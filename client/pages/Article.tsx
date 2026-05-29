@@ -16,7 +16,7 @@ export default function Article() {
   const article = slug ? getArticleBySlug(slug) : undefined;
 
   useEffect(() => {
-    if (article) document.title = `${article.title} — Optimesh`;
+    if (article) document.title = `${article.title} — Optimesh Technologies`;
   }, [article]);
 
   if (!article) return <Navigate to="/insights" replace />;

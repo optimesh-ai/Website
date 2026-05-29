@@ -4,7 +4,7 @@ import { cn } from "@/lib/utils";
 import { ArrowRight } from "lucide-react";
 
 /* ----------------------------------------------------------------------------
- * Optimesh marketing primitives — shared across all pages.
+ * Optimesh Technologies marketing primitives — shared across all pages.
  * Light corporate system: serif display, grotesk body, mono technical accents.
  * -------------------------------------------------------------------------- */
 

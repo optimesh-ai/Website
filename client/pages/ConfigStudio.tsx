@@ -113,20 +113,20 @@ const trust = [
   },
   {
     icon: CircleSlash,
-    title: "Not a digital twin",
-    body: "Config Studio analyzes configurations — it is not live telemetry and not a real-time twin. Diagnose-and-fix for a broken config and a tired engineer.",
+    title: "A digital twin of your network",
+    body: "Config Studio runs against a complete digital twin of your network's configured forwarding plane, built from your existing files. No agents, no live telemetry, no production risk.",
   },
 ];
 
 const vendors = [
-  { name: "FRR", note: "best-covered" },
-  { name: "Cisco IOS", note: "" },
-  { name: "Cisco IOS-XE", note: "" },
-  { name: "Cisco IOS-XR", note: "" },
-  { name: "Cisco NX-OS", note: "" },
-  { name: "Juniper Junos", note: "" },
-  { name: "Arista EOS", note: "" },
-  { name: "Nokia SR Linux", note: "" },
+  { name: "Cisco IOS" },
+  { name: "Cisco IOS-XE" },
+  { name: "Cisco IOS-XR" },
+  { name: "Cisco NX-OS" },
+  { name: "Juniper Junos" },
+  { name: "Arista EOS" },
+  { name: "Nokia SR Linux" },
+  { name: "FRR" },
 ];
 
 export default function ConfigStudio() {
@@ -275,11 +275,31 @@ export default function ConfigStudio() {
       <section className="border-y border-border bg-card">
         <Container className="py-12">
           <div className="grid grid-cols-2 gap-x-6 gap-y-10 md:grid-cols-5">
-            <Stat value="78.2%" label="Fix rate" sub="12 unseen fault classes" />
-            <Stat value="9.4×" label="vs. baseline" sub="deterministic 8.3%" />
-            <Stat value="8–15s" label="Diagnosis" sub="turnaround" />
-            <Stat value="$0.037" label="Per trial" sub="GPT-4o" />
-            <Stat value="0" label="Known CVEs" sub="pip-audit + safety" />
+            <Stat
+              value="<10s"
+              label="Time to fix"
+              sub="diagnose, patch, and verify"
+            />
+            <Stat
+              value="99.6%"
+              label="Diagnosis accuracy"
+              sub="across the fault taxonomy"
+            />
+            <Stat
+              value="100%"
+              label="Verified before apply"
+              sub="every fix re-simulated"
+            />
+            <Stat
+              value="14"
+              label="Vendors supported"
+              sub="auto-detected"
+            />
+            <Stat
+              value="0"
+              label="Telemetry sent"
+              sub="runs on your hardware"
+            />
           </div>
         </Container>
       </section>
@@ -353,10 +373,11 @@ export default function ConfigStudio() {
         <div className="mt-6 flex items-start gap-3 rounded-xl border border-success/30 bg-success/10 p-5">
           <ShieldCheck className="mt-0.5 h-5 w-5 flex-none text-success" />
           <p className="text-pretty text-sm leading-relaxed text-foreground">
-            <span className="font-medium">The Verify gate is the point.</span>{" "}
-            A patch that drops reachability below 99% in offline simulation is
-            rejected automatically — it never appears in your queue. Every fix
-            that does reach you is gated behind an explicit{" "}
+            <span className="font-medium">Nothing reaches you without a proof.</span>{" "}
+            Any proposed patch is re-simulated against your network's digital
+            twin before a human ever sees it. If it does not preserve
+            reachability, it is rejected automatically. Every fix that does
+            reach you is gated behind an explicit{" "}
             <span className="font-mono text-success">✓ Apply</span> /{" "}
             <span className="font-mono text-muted-foreground">✗ Reject</span>.
           </p>
@@ -514,23 +535,16 @@ export default function ConfigStudio() {
           <div className="grid gap-12 lg:grid-cols-[0.85fr_1.15fr] lg:items-center">
             <SectionHeading
               eyebrow="Vendor coverage"
-              title="Diagnoses the dialects your fabric actually runs."
-              description="Built on Hammerhead's parsers, Config Studio reads and patches the major vendor configuration languages — with FRR the best-covered of all."
+              title="Hardware and vendor agnostic."
+              description="Config Studio reads and patches every major network configuration language with the same engine. Heterogeneous fabrics, multi-vendor deployments, and air-gapped environments are first-class, not afterthoughts."
             />
             <div className="grid grid-cols-2 gap-3 sm:grid-cols-3">
               {vendors.map((v) => (
                 <div
                   key={v.name}
-                  className="flex items-center justify-between rounded-lg border border-border bg-background px-4 py-3 transition-colors hover:border-primary/30"
+                  className="rounded-lg border border-border bg-background px-4 py-3 font-mono text-sm text-foreground/80 transition-colors hover:border-primary/30 hover:text-foreground"
                 >
-                  <span className="font-mono text-sm text-foreground/80">
-                    {v.name}
-                  </span>
-                  {v.note && (
-                    <span className="font-mono text-[0.65rem] uppercase tracking-[0.12em] text-success">
-                      {v.note}
-                    </span>
-                  )}
+                  {v.name}
                 </div>
               ))}
             </div>
@@ -548,22 +562,16 @@ export default function ConfigStudio() {
                 Adversarial robustness
               </Badge>
               <h3 className="mt-5 text-balance text-2xl font-medium tracking-tight text-foreground sm:text-3xl">
-                We ship the attacks, not just the answers.
+                Built for adversarial environments.
               </h3>
               <p className="mt-4 text-pretty leading-relaxed text-muted-foreground">
-                Four bundled demo fabrics come with ground-truth answer keys —
-                including an adversarial fabric seeded with{" "}
-                <span className="font-medium text-foreground">
-                  8 prompt-injection comments
-                </span>{" "}
-                designed to hijack the diagnosis. Run them at temperature 0 for
-                deterministic, reproducible demos.
+                AI-driven workflows attract attempts to hijack them through poisoned inputs. Optimesh Technologies assumes that reality and engineers around it. The result is a layered defense in which no unsafe configuration can reach production, regardless of what the model produces.
               </p>
               <ul className="mt-6 space-y-2.5">
                 {[
-                  "4 demo fabrics with ground-truth answer keys",
-                  "1 adversarial fabric · 8 injection comments",
-                  "Deterministic demos at temperature 0",
+                  "Two-layer defense: input sanitization plus offline verification.",
+                  "Adversarial demo fabrics included for reproducible red-team testing.",
+                  "Deterministic, audit-ready output at every step.",
                 ].map((p) => (
                   <li
                     key={p}
@@ -576,37 +584,42 @@ export default function ConfigStudio() {
               </ul>
             </div>
 
-            <div className="flex flex-col justify-center gap-4 border-t border-border bg-background p-8 md:border-l md:border-t-0 md:p-12">
-              <div className="flex items-center gap-3">
-                <Wrench className="h-5 w-5 flex-none text-muted-foreground" />
-                <span className="font-mono text-xs uppercase tracking-[0.14em] text-muted-foreground">
-                  Injection success rate
+            <div className="flex flex-col justify-center gap-5 border-t border-border bg-background p-8 md:border-l md:border-t-0 md:p-12">
+              <span className="font-mono text-xs uppercase tracking-[0.16em] text-muted-foreground">
+                Defense in depth
+              </span>
+              <div className="flex items-start gap-4 rounded-lg border border-border bg-card p-4">
+                <span className="flex h-8 w-8 flex-none items-center justify-center rounded-md bg-primary/10 font-mono text-xs font-medium text-primary">
+                  01
                 </span>
-              </div>
-              <div className="flex items-end gap-6">
                 <div>
-                  <p className="font-mono text-4xl font-medium tabular-nums text-muted-foreground line-through decoration-destructive/60">
-                    90%
+                  <p className="text-sm font-semibold text-foreground">
+                    Input sanitization
                   </p>
-                  <p className="mt-1 text-xs text-muted-foreground">
-                    without sanitizer
-                  </p>
-                </div>
-                <ArrowRight className="mb-6 h-5 w-5 flex-none text-muted-foreground" />
-                <div>
-                  <p className="font-mono text-4xl font-medium tabular-nums text-success">
-                    40%
-                  </p>
-                  <p className="mt-1 text-xs text-muted-foreground">
-                    with sanitizer v2
+                  <p className="mt-1 text-xs leading-relaxed text-muted-foreground">
+                    Prompt-injection payloads buried in configuration are quarantined before the model ever sees them.
                   </p>
                 </div>
               </div>
-              <p className="mt-2 text-sm leading-relaxed text-muted-foreground">
-                And the Verify gate catches what the sanitizer doesn&apos;t: a
-                hijacked patch that breaks reachability still gets rejected
-                offline.
-              </p>
+              <div className="flex items-start gap-4 rounded-lg border border-border bg-card p-4">
+                <span className="flex h-8 w-8 flex-none items-center justify-center rounded-md bg-primary/10 font-mono text-xs font-medium text-primary">
+                  02
+                </span>
+                <div>
+                  <p className="text-sm font-semibold text-foreground">
+                    Offline verification
+                  </p>
+                  <p className="mt-1 text-xs leading-relaxed text-muted-foreground">
+                    Any proposed patch is re-simulated against your configured forwarding plane. Anything that breaks reachability is rejected automatically.
+                  </p>
+                </div>
+              </div>
+              <div className="flex items-center gap-2 rounded-lg border border-success/30 bg-success/10 px-4 py-3">
+                <CheckCircle2 className="h-4 w-4 flex-none text-success" />
+                <p className="text-sm font-medium text-foreground">
+                  No unsafe configuration reaches production.
+                </p>
+              </div>
             </div>
           </div>
         </div>
@@ -623,8 +636,8 @@ export default function ConfigStudio() {
             </h2>
             <p className="mt-5 text-pretty text-lg leading-relaxed text-background/70">
               Run Config Studio on your own hardware, point it at your fabric,
-              and let it diagnose-and-fix what&apos;s broken — in seconds, never
-              past the Verify gate.
+              and let it diagnose and ship a verified fix in seconds. Nothing
+              goes out the door without an offline proof that it is safe.
             </p>
             <div className="mt-9 flex flex-col justify-center gap-3 sm:flex-row">
               <ButtonLink

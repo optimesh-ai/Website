@@ -25,7 +25,7 @@ const partnerBenefits = [
   {
     icon: <Users className="h-5 w-5" />,
     title: "Direct access to the founding team",
-    body: "Talk to the people building Optimesh — no support queue, no account layers between you and the engineers.",
+    body: "Talk to the people building Optimesh Technologies — no support queue, no account layers between you and the engineers.",
   },
   {
     icon: <Map className="h-5 w-5" />,
@@ -35,7 +35,7 @@ const partnerBenefits = [
   {
     icon: <Wrench className="h-5 w-5" />,
     title: "Hands-on onboarding",
-    body: "We set Optimesh up against your environment and your configs, so it's useful on day one.",
+    body: "We set Optimesh Technologies up against your environment and your configs, so it's useful on day one.",
   },
   {
     icon: <Tag className="h-5 w-5" />,
@@ -51,14 +51,14 @@ const partnerBenefits = [
 
 const faqs = [
   {
-    question: "What is Optimesh?",
+    question: "What is Optimesh Technologies?",
     answer:
       "Offline network intelligence. Hammerhead simulates your forwarding plane from a directory of device configurations, and Config Studio diagnoses faults and generates verified fixes — all without touching a live device.",
   },
   {
     question: "Do I have to change my infrastructure or install agents?",
     answer:
-      "No. Optimesh works from your existing device configurations. It does not require agents on your devices and does not replace your current tooling.",
+      "No. Optimesh Technologies works from your existing device configurations. It does not require agents on your devices and does not replace your current tooling.",
   },
   {
     question: "Which vendors are supported?",
@@ -73,12 +73,12 @@ const faqs = [
   {
     question: "Is it a real-time digital twin?",
     answer:
-      "No. Optimesh analyzes your configurations — the control and forwarding plane — rather than streaming live device telemetry. It's fast, deterministic offline simulation you can run on every change.",
+      "No. Optimesh Technologies analyzes your configurations — the control and forwarding plane — rather than streaming live device telemetry. It's fast, deterministic offline simulation you can run on every change.",
   },
   {
     question: "What does the early-access partnership involve?",
     answer:
-      "We work directly with your network team to deploy Optimesh in your environment, validate it against your infrastructure, and refine the product together.",
+      "We work directly with your network team to deploy Optimesh Technologies in your environment, validate it against your infrastructure, and refine the product together.",
   },
 ];
 
@@ -149,7 +149,7 @@ export default function EarlyAccess() {
               className="animate-fade-up mt-6 text-balance text-[2.6rem] font-medium leading-[1.05] tracking-tight text-foreground sm:text-5xl md:text-6xl"
               style={{ animationDelay: "80ms" }}
             >
-              Get early access to Optimesh.
+              Get early access to Optimesh Technologies.
             </h1>
 
             <p
@@ -174,7 +174,7 @@ export default function EarlyAccess() {
                       Thanks — you're on the list.
                     </p>
                     <p className="mt-1 text-sm leading-relaxed text-muted-foreground">
-                      We'll reach out shortly to talk about getting Optimesh
+                      We'll reach out shortly to talk about getting Optimesh Technologies
                       running in your environment.
                     </p>
                   </div>

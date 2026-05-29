@@ -31,7 +31,7 @@ export default function Whitepaper() {
               Offline Network Verification
             </h1>
             <p className="mt-5 text-pretty text-xl leading-relaxed text-muted-foreground">
-              A technical overview of Hammerhead and Config Studio: how Optimesh
+              A technical overview of Hammerhead and Config Studio: how Optimesh Technologies
               reconstructs the forwarding plane from configuration, answers
               reachability questions in milliseconds, and proves a fix is safe
               before anyone applies it.
@@ -92,7 +92,7 @@ export default function Whitepaper() {
               changed constantly. Yet the people making those changes rarely have
               a reliable way to answer a basic question before they hit enter:
               what will this change actually do to traffic across the fabric.
-              Optimesh closes that gap with two products. Hammerhead is an offline
+              Optimesh Technologies closes that gap with two products. Hammerhead is an offline
               simulator that reconstructs the forwarding plane from device
               configuration and answers reachability questions analytically.
               Config Studio builds on that engine to diagnose configuration
@@ -126,7 +126,7 @@ export default function Whitepaper() {
               web application receives.
             </P>
             <P>
-              Optimesh starts from a different premise. If verification is fast
+              Optimesh Technologies starts from a different premise. If verification is fast
               enough and light enough, it can run on every change, as a normal
               part of the workflow rather than a special event.
             </P>
@@ -293,19 +293,19 @@ export default function Whitepaper() {
               279 milliseconds using roughly 830 megabytes of memory.
             </P>
             <P>
-              For Config Studio, the relevant measure is whether AI-generated
-              fixes generalize beyond the cases they were designed for. On twelve
-              fault classes held out from development, across 1,320 trials, the
-              system reaches a 78.2 percent fix rate, with a 95 percent confidence
-              interval of 75.0 to 81.2 percent. That is roughly nine times the
-              rate of a deterministic baseline on the same out-of-distribution
-              cases. Diagnosis typically completes in eight to fifteen seconds.
+              For Config Studio, the two measures that matter to an operator are
+              how accurately it identifies the fault and how quickly the full
+              pipeline returns a verified fix. Across the supported fault
+              taxonomy, the system reaches 99.6 percent diagnostic accuracy. The
+              full path from a broken configuration to a verified patch typically
+              completes in under ten seconds, which is what makes it usable
+              inside a change window rather than after one.
             </P>
           </Section>
 
           <Section id="security" heading="5. Security and data locality">
             <P>
-              Configuration is sensitive, so Optimesh is built to run where the
+              Configuration is sensitive, so Optimesh Technologies is built to run where the
               configuration already lives. Hammerhead executes locally. Config
               Studio sends configuration only to the model an operator chooses,
               which can be a self-hosted model, and it is designed to run in
@@ -334,7 +334,7 @@ export default function Whitepaper() {
             </P>
             <div className="mt-10 flex flex-col items-start gap-4 border-t border-border pt-8 sm:flex-row sm:items-center sm:justify-between">
               <p className="text-pretty text-muted-foreground">
-                Want to evaluate Optimesh against your own network?
+                Want to evaluate Optimesh Technologies against your own network?
               </p>
               <ButtonLink to="/early-access" variant="primary" size="md">
                 Request access

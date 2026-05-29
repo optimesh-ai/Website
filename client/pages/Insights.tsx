@@ -35,7 +35,7 @@ export default function Insights() {
               className="animate-fade-up mt-6 max-w-2xl text-pretty text-lg leading-relaxed text-muted-foreground"
               style={{ animationDelay: "160ms" }}
             >
-              Writing from the Optimesh founders on network verification, the
+              Writing from the Optimesh Technologies founders on network verification, the
               shift to AI-driven operations, and where the field goes next — from
               the research frontier to the operations floor.
             </p>

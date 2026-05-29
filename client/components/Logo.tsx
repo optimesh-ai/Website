@@ -1,7 +1,7 @@
 import { cn } from "@/lib/utils";
 
 /**
- * Optimesh mark — an optimized mesh: peripheral nodes routed through a
+ * Optimesh Technologies mark — an optimized mesh: peripheral nodes routed through a
  * central hub, with the shortest path emphasized. Monochrome (currentColor).
  */
 export function Logo({ className }: { className?: string }) {

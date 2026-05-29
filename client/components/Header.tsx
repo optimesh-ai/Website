@@ -59,7 +59,7 @@ export function Header() {
             <Logo className="h-7 w-7" />
           </span>
           <span className="text-lg font-semibold tracking-tight text-foreground">
-            Optimesh
+            Optimesh Technologies
           </span>
         </Link>
 

@@ -33,7 +33,7 @@ const values = [
   {
     icon: <Lock className="h-5 w-5" />,
     title: "Your network stays yours",
-    body: "Optimesh runs entirely on your own hardware — on-prem and air-gap ready. Your configs never leave your infrastructure, and nothing phones home.",
+    body: "Optimesh Technologies runs entirely on your own hardware — on-prem and air-gap ready. Your configs never leave your infrastructure, and nothing phones home.",
   },
   {
     icon: <TerminalSquare className="h-5 w-5" />,
@@ -79,7 +79,7 @@ const products = [
     icon: <ShieldCheck className="h-5 w-5" />,
     name: "Config Studio",
     tagline: "AI diagnosis & verified remediation",
-    body: "Uses the Hammerhead engine to diagnose faults and propose fixes that are proven safe before a human ever sees them — a 78.2% fix rate on unseen faults, all on your own hardware.",
+    body: "Uses the Hammerhead engine to diagnose faults and propose fixes that are proven safe before a human ever sees them. 99.6% diagnostic accuracy, with a typical time to fix of under 10 seconds, all on your own hardware.",
     to: "/products/config-studio",
   },
 ];
@@ -150,7 +150,7 @@ export default function About() {
                 remediation. You learn what failed, not how to fix it safely.
               </p>
               <p>
-                We started Optimesh to close that gap with offline intelligence
+                We started Optimesh Technologies to close that gap with offline intelligence
                 that is both fast and trustworthy — fast enough to run on every
                 commit, and proven enough to bet a production network on.
               </p>
@@ -206,7 +206,7 @@ export default function About() {
             <Stat value="345×" label="Faster than the industry standard" sub="fully deterministic" />
             <Stat value="99.93%" label="Forwarding-plane parity" sub="vs. the industry standard & live FRR" />
             <Stat value="14" label="Network vendors" sub="auto-detected" />
-            <Stat value="78.2%" label="Fix rate on unseen faults" sub="every patch pre-verified" />
+            <Stat value="<10s" label="Time to fix" sub="diagnose, patch, verify" />
           </div>
         </Container>
       </section>
@@ -216,7 +216,7 @@ export default function About() {
         <SectionHeading
           eyebrow="Leadership"
           title="Built by people who've shipped at the edge."
-          description="Optimesh is founded by engineers who've worked where reliability isn't optional — and who've felt how fragile network change still is."
+          description="Optimesh Technologies is founded by engineers who've worked where reliability isn't optional — and who've felt how fragile network change still is."
         />
         <div className="mx-auto mt-14 grid max-w-4xl gap-6 sm:grid-cols-2">
           {founders.map((f, i) => (

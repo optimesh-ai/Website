@@ -21,7 +21,7 @@ export default function News() {
               className="animate-fade-up mt-6 text-balance text-[2.6rem] font-medium leading-[1.06] tracking-tight text-foreground sm:text-6xl"
               style={{ animationDelay: "80ms" }}
             >
-              What's new at Optimesh.
+              What's new at Optimesh Technologies.
             </h1>
             <p
               className="animate-fade-up mt-6 max-w-2xl text-pretty text-lg leading-relaxed text-muted-foreground"

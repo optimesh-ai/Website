@@ -35,7 +35,7 @@ export function Footer() {
                 <Logo className="h-7 w-7" />
               </span>
               <span className="text-lg font-semibold tracking-tight text-foreground">
-                Optimesh
+                Optimesh Technologies
               </span>
             </Link>
             <p className="mt-4 max-w-xs text-sm leading-relaxed text-muted-foreground">
@@ -43,7 +43,7 @@ export function Footer() {
               ship verified configuration changes with confidence.
             </p>
             <p className="mt-6 font-mono text-xs uppercase tracking-[0.18em] text-muted-foreground">
-              The Future of Network Intelligence
+              Making network engineering safe and autonomous
             </p>
           </div>
 

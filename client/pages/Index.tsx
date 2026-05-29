@@ -8,12 +8,10 @@ import {
   TerminalSquare,
   Network,
   CircuitBoard,
-  Cpu,
-  Cloud,
-  Radio,
-  Landmark,
+  Factory,
+  Server,
+  HeartPulse,
   GraduationCap,
-  Shield,
 } from "lucide-react";
 import {
   ButtonLink,
@@ -72,17 +70,14 @@ export default function Index() {
                 className="animate-fade-up mt-6 text-balance text-[2.6rem] font-medium leading-[1.05] tracking-tight text-foreground sm:text-6xl lg:text-[4.1rem]"
                 style={{ animationDelay: "80ms" }}
               >
-                Validate every network change before it ships.
+                Making network engineering safe and autonomous.
               </h1>
 
               <p
                 className="animate-fade-up mt-6 max-w-xl text-pretty text-lg leading-relaxed text-muted-foreground"
                 style={{ animationDelay: "160ms" }}
               >
-                Optimesh builds offline intelligence for network
-                infrastructure. Simulate the forwarding plane across 14 vendors,
-                find what a config change will actually do, and ship verified
-                fixes — without touching a live device.
+                Optimesh Technologies is the platform for autonomous network operations. Our software verifies every configuration change before it ships and proves every AI-proposed fix safe before a human sees it. Hardware is next. We are building for the data centers running modern AI, and for the orbital networks running on top of them.
               </p>
 
               <div
@@ -144,22 +139,22 @@ export default function Index() {
             <Stat
               value={<><CountUp to={345} />×</>}
               label="Faster than the industry standard"
-              sub="1,640× at peak"
+              sub="whole-fabric simulation in milliseconds"
             />
             <Stat
-              value={<CountUp to={99.93} decimals={2} suffix="%" />}
-              label="Forwarding-plane parity"
-              sub="across 52 datasets"
+              value={<CountUp to={99.6} decimals={1} suffix="%" />}
+              label="Diagnosis accuracy"
+              sub="on real-world configuration faults"
+            />
+            <Stat
+              value={<><span aria-hidden>&lt;</span><CountUp to={10} />s</>}
+              label="Time to fix"
+              sub="diagnose, patch, and verify"
             />
             <Stat
               value={<CountUp to={14} />}
-              label="Network vendors"
-              sub="auto-detected"
-            />
-            <Stat
-              value={<CountUp to={279} suffix="ms" />}
-              label="To simulate 798,720 routes"
-              sub="single binary"
+              label="Vendors supported"
+              sub="auto-detected, no per-device flags"
             />
           </Reveal>
         </Container>
@@ -192,7 +187,7 @@ export default function Index() {
             tagline="AI diagnosis & verified remediation"
             description="When a config breaks, Config Studio finds the fault, writes the exact CLI patch, and runs it through Hammerhead to prove it restores reachability — all before a human approves it. On your own hardware."
             points={[
-              "78.2% fix rate on unseen fault classes",
+              "99.6% diagnostic accuracy, time-to-fix under 10 seconds",
               "Every patch verified before it's proposed",
               "On-prem & air-gap ready — no telemetry",
             ]}
@@ -237,38 +232,28 @@ export default function Index() {
         <SectionHeading
           eyebrow="Built for"
           title="The networks that matter most."
-          description="Optimesh is vendor- and topology-agnostic, but the operational problem looks distinct in every market we serve."
+          description="Optimesh Technologies is vendor- and topology-agnostic, but the operational problem looks distinct in every market we serve."
         />
-        <div className="mt-14 grid gap-x-8 gap-y-12 sm:grid-cols-2 lg:grid-cols-3">
+        <div className="mt-14 grid gap-x-8 gap-y-12 sm:grid-cols-2 lg:grid-cols-4">
           <Vertical
-            icon={<Cpu className="h-5 w-5" />}
-            name="AI datacenters & GPU fabrics"
-            body="Where a misrouted flow can starve a multimillion-dollar training run."
+            icon={<Factory className="h-5 w-5" />}
+            name="Manufacturing"
+            body="Where a config change to the control network can halt a production line worth millions of dollars an hour."
           />
           <Vertical
-            icon={<Cloud className="h-5 w-5" />}
-            name="Hyperscale cloud"
-            body="Multi-tenant networks where tenant isolation is a hard contract."
+            icon={<Server className="h-5 w-5" />}
+            name="Datacenters"
+            body="AI fabrics, multi-tenant hosting, and multi-region failover that depend on the forwarding plane behaving exactly as designed."
           />
           <Vertical
-            icon={<Radio className="h-5 w-5" />}
-            name="Telecom & ISPs"
-            body="Routing changes that touch millions of subscribers and propagate across BGP."
-          />
-          <Vertical
-            icon={<Landmark className="h-5 w-5" />}
-            name="Financial services"
-            body="Regulated environments where downtime and segmentation breaches are unacceptable."
+            icon={<HeartPulse className="h-5 w-5" />}
+            name="Hospitals"
+            body="Networks where outages translate directly into patient impact. Continuous evidence that segmentation and connectivity hold."
           />
           <Vertical
             icon={<GraduationCap className="h-5 w-5" />}
-            name="Universities & research"
-            body="Heterogeneous, multi-tenant fabrics that need the formal tools academia pioneered."
-          />
-          <Vertical
-            icon={<Shield className="h-5 w-5" />}
-            name="Public sector & defense"
-            body="Air-gap and on-prem environments where data sovereignty is non-negotiable."
+            name="Universities"
+            body="Heterogeneous, multi-tenant fabrics carrying research and campus operations side by side, verified on every change."
           />
         </div>
         <div className="mt-12">
@@ -303,7 +288,7 @@ export default function Index() {
       <section className="border-t border-border bg-card">
         <Container className="py-20 md:py-28">
           <SectionHeading
-            eyebrow="Why Optimesh"
+            eyebrow="Why Optimesh Technologies"
             title="Engineered for the people who keep packets moving."
             align="center"
             className="mx-auto"

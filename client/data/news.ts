@@ -12,14 +12,14 @@ export interface NewsItem {
 export const news: NewsItem[] = [
   {
     slug: "nvidia-inception",
-    headline: "Optimesh Accepted to the NVIDIA Inception Program",
+    headline: "Optimesh Technologies Accepted to the NVIDIA Inception Program",
     date: "2026-04-22",
     category: "Programs",
-    dek: "Optimesh has joined NVIDIA Inception, gaining access to technical resources and a community of AI-first startups.",
+    dek: "Optimesh Technologies has joined NVIDIA Inception, gaining access to technical resources and a community of AI-first startups.",
     body: [
       {
         type: "p",
-        text: "Optimesh has been accepted into NVIDIA Inception, the program NVIDIA runs to support startups building with accelerated computing and AI.",
+        text: "Optimesh Technologies has been accepted into NVIDIA Inception, the program NVIDIA runs to support startups building with accelerated computing and AI.",
       },
       {
         type: "p",
@@ -31,20 +31,20 @@ export const news: NewsItem[] = [
       },
       {
         type: "p",
-        text: "We will share more as the work progresses. If you operate a network and want to put Optimesh to work in your environment, we would like to hear from you.",
+        text: "We will share more as the work progresses. If you operate a network and want to put Optimesh Technologies to work in your environment, we would like to hear from you.",
       },
     ],
   },
   {
     slug: "angel-round",
-    headline: "Optimesh Raises an Angel Round",
+    headline: "Optimesh Technologies Raises an Angel Round",
     date: "2026-03-11",
     category: "Funding",
     dek: "New backing from angels and operators to build the verification layer for AI-driven networks.",
     body: [
       {
         type: "p",
-        text: "We have closed an angel round to accelerate Optimesh's mission of bringing fast, trustworthy, offline intelligence to network infrastructure.",
+        text: "We have closed an angel round to accelerate Optimesh Technologies's mission of bringing fast, trustworthy, offline intelligence to network infrastructure.",
       },
       {
         type: "p",
@@ -56,7 +56,7 @@ export const news: NewsItem[] = [
       },
       {
         type: "p",
-        text: "There is more to come. If running Optimesh against your own environment sounds useful, request early access.",
+        text: "There is more to come. If running Optimesh Technologies against your own environment sounds useful, request early access.",
       },
     ],
   },

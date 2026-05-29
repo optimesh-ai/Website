@@ -1,5 +1,5 @@
 /**
- * Optimesh Insights — thought-leadership articles by the founders.
+ * Optimesh Technologies Insights — thought-leadership articles by the founders.
  * Body is structured as blocks so the renderer stays consistent with the design system.
  */
 
@@ -32,7 +32,7 @@ export const authors: Record<AuthorKey, Author> = {
     role: "CTO & Co-Founder · formerly TikTok",
     initials: "VM",
     linkedin: "https://www.linkedin.com/in/vedu-mallela/",
-    bio: "Vedu studied CS at Georgia Tech, did NLP research with MIT and Harvard collaborators, and built and operated systems at TikTok scale before co-founding Optimesh.",
+    bio: "Vedu studied CS at Georgia Tech, did NLP research with MIT and Harvard collaborators, and built and operated systems at TikTok scale before co-founding Optimesh Technologies.",
   },
 };
 
@@ -59,7 +59,7 @@ export const articles: Article[] = [
     body: [
       {
         type: "p",
-        text: "I want to describe the future I am building toward, because it clarifies almost everything we do at Optimesh: a world of proof-carrying network changes, where no change reaches a production fabric without evidence that it preserves the properties the network is supposed to have.",
+        text: "I want to describe the future I am building toward, because it clarifies almost everything we do at Optimesh Technologies: a world of proof-carrying network changes, where no change reaches a production fabric without evidence that it preserves the properties the network is supposed to have.",
       },
       { type: "h2", text: "A change is a hypothesis" },
       {

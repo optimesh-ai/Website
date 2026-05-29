@@ -12,7 +12,7 @@ export default function NewsArticle() {
   const item = slug ? getNewsBySlug(slug) : undefined;
 
   useEffect(() => {
-    if (item) document.title = `${item.headline} — Optimesh`;
+    if (item) document.title = `${item.headline} — Optimesh Technologies`;
   }, [item]);
 
   if (!item) return <Navigate to="/news" replace />;
@@ -53,7 +53,7 @@ export default function NewsArticle() {
 
           <div className="mt-12 flex flex-col items-start gap-4 border-t border-border pt-8 sm:flex-row sm:items-center sm:justify-between">
             <p className="text-pretty text-muted-foreground">
-              Want to put Optimesh to work in your network?
+              Want to put Optimesh Technologies to work in your network?
             </p>
             <ButtonLink to="/early-access" variant="primary" size="md">
               Request access

@@ -2,12 +2,10 @@ import { Layout } from "@/components/Layout";
 import { Link } from "react-router-dom";
 import {
   ArrowRight,
-  Cpu,
-  Cloud,
-  Radio,
-  Landmark,
+  Factory,
+  Server,
+  HeartPulse,
   GraduationCap,
-  Shield,
   Sparkles,
   Network,
   Gauge,
@@ -30,34 +28,24 @@ import { CountUp } from "@/components/site/CountUp";
 
 const verticals = [
   {
-    icon: <Cpu className="h-5 w-5" />,
-    name: "AI datacenters & GPU fabrics",
-    body: "Where a misrouted flow can starve a multimillion-dollar training run. Optimesh proves the fabric forwards correctly before silicon spins up, and on every change after.",
+    icon: <Factory className="h-5 w-5" />,
+    name: "Manufacturing",
+    body: "Control networks where a configuration change can halt a production line worth millions of dollars an hour. Optimesh Technologies verifies every change against a digital twin of the plant network before it touches the floor.",
   },
   {
-    icon: <Cloud className="h-5 w-5" />,
-    name: "Hyperscale cloud",
-    body: "Multi-tenant networks where tenant isolation is a hard contract. Every proposed change can be checked for segmentation and reachability before it merges.",
+    icon: <Server className="h-5 w-5" />,
+    name: "Datacenters",
+    body: "AI fabrics, multi-tenant hosting, and multi-region failover all hinge on the forwarding plane behaving exactly as designed. We prove it on every change, in milliseconds, with no live device required.",
   },
   {
-    icon: <Radio className="h-5 w-5" />,
-    name: "Telecommunications & ISPs",
-    body: "Production routing changes touch millions of subscribers and propagate across BGP. Optimesh simulates the change offline and gates it before it touches the wire.",
-  },
-  {
-    icon: <Landmark className="h-5 w-5" />,
-    name: "Financial services",
-    body: "Heavily regulated environments where downtime and segmentation breaches are not acceptable outcomes. Continuous, signed evidence that policy holds on every change.",
+    icon: <HeartPulse className="h-5 w-5" />,
+    name: "Hospitals",
+    body: "Where network outages translate directly into patient impact. Optimesh Technologies gives clinical and IT teams continuous, signed evidence that segmentation and connectivity hold on every change.",
   },
   {
     icon: <GraduationCap className="h-5 w-5" />,
-    name: "Universities & research networks",
-    body: "Complex, heterogeneous, multi-tenant environments. The formal methods the academic community pioneered, finally packaged for the operations team that runs the campus.",
-  },
-  {
-    icon: <Shield className="h-5 w-5" />,
-    name: "Public sector & defense",
-    body: "Environments where data sovereignty is non-negotiable. Optimesh runs entirely on the customer's hardware, on-prem or air-gapped, with no telemetry leaving the network.",
+    name: "Universities",
+    body: "Heterogeneous, multi-tenant fabrics that carry research and campus operations side by side. The verification methods academia helped pioneer, packaged for the team that runs the campus.",
   },
 ];
 
@@ -150,23 +138,25 @@ export default function Why() {
         <Container className="relative pb-20 pt-32 md:pb-24 md:pt-40">
           <div className="max-w-3xl">
             <div className="animate-fade-up">
-              <Badge tone="primary">Why Optimesh</Badge>
+              <Badge tone="primary">Why Optimesh Technologies</Badge>
             </div>
             <h1
               className="animate-fade-up mt-6 text-balance text-[2.6rem] font-medium leading-[1.06] tracking-tight text-foreground sm:text-6xl lg:text-[4rem]"
               style={{ animationDelay: "80ms" }}
             >
-              Building the verification layer for the AI-era network.
+              Making network engineering safe and autonomous.
             </h1>
             <p
               className="animate-fade-up mt-6 max-w-2xl text-pretty text-lg leading-relaxed text-muted-foreground"
               style={{ animationDelay: "160ms" }}
             >
-              Every layer of modern infrastructure has its safety net. Compilers
-              have type checkers, applications have CI, kernels have formal
-              verification. Networks are the last system of consequence still
-              operated without one. Optimesh is the company building it, and the
-              market is bending toward us.
+              Optimesh Technologies is building the platform that lets networks
+              run themselves, safely. Software first, hardware next. We are
+              building for the data centers powering modern AI, the carriers
+              that move the world's traffic, and the orbital networks coming on
+              top of them. Every layer of modern infrastructure has its safety
+              net. Networks are the last system of consequence still operated
+              without one. That changes here.
             </p>
             <div
               className="animate-fade-up mt-9 flex flex-col gap-3 sm:flex-row"
@@ -250,7 +240,7 @@ export default function Why() {
         <Container className="py-20 md:py-28">
           <SectionHeading
             eyebrow="Customer impact"
-            title="What teams do with Optimesh."
+            title="What teams do with Optimesh Technologies."
             description="The product is technical. The outcomes are not."
           />
           <div className="mt-14 grid gap-x-10 gap-y-12 md:grid-cols-2">
@@ -277,7 +267,7 @@ export default function Why() {
       <Section>
         <SectionHeading
           eyebrow="Who we build for"
-          title="Where Optimesh fits."
+          title="Where Optimesh Technologies fits."
           description="The product is vendor- and topology-agnostic, but the operational problem looks distinct in each market we serve."
         />
         <div className="mt-14 grid gap-6 md:grid-cols-2 lg:grid-cols-3">
@@ -297,6 +287,35 @@ export default function Why() {
               </p>
             </div>
           ))}
+        </div>
+      </Section>
+
+      {/* ----------------------------------------------------------------- Roadmap */}
+      <Section>
+        <SectionHeading
+          eyebrow="What we are building"
+          title="A platform for autonomous networking. In horizons."
+          description="The first horizon is shipping today. The next two are how Optimesh Technologies becomes the durable infrastructure layer for autonomous network operations."
+        />
+        <div className="mt-14 grid gap-6 md:grid-cols-3">
+          <RoadmapCard
+            horizon="Now"
+            title="Software"
+            body="Hammerhead simulates the forwarding plane offline. Config Studio diagnoses configuration faults and ships verified fixes. Both run on a customer's own hardware today."
+            tone="primary"
+          />
+          <RoadmapCard
+            horizon="Next"
+            title="Hardware"
+            body="Purpose-built appliances and silicon co-designed with the verifier, so autonomous network operations are not bottlenecked by general-purpose hosts. The verification engine moves into the network itself."
+            tone="muted"
+          />
+          <RoadmapCard
+            horizon="Then"
+            title="Orbital"
+            body="Verification and remediation for satellite constellations and compute-in-space. The networks that cannot tolerate an outage are exactly the networks we are built for."
+            tone="muted"
+          />
         </div>
       </Section>
 
@@ -338,14 +357,14 @@ export default function Why() {
               sub="across 52 datasets"
             />
             <Stat
-              value={<CountUp to={14} />}
-              label="Vendor parsers"
-              sub="auto-detected"
+              value={<CountUp to={99.6} decimals={1} suffix="%" />}
+              label="Diagnostic accuracy"
+              sub="across the fault taxonomy"
             />
             <Stat
-              value={<CountUp to={78.2} decimals={1} suffix="%" />}
-              label="Fix rate on unseen faults"
-              sub="every patch pre-verified"
+              value={<><span aria-hidden>&lt;</span><CountUp to={10} />s</>}
+              label="Time to fix"
+              sub="diagnose, patch, and verify"
             />
           </Reveal>
         </Container>
@@ -408,6 +427,38 @@ export default function Why() {
         </div>
       </Section>
     </Layout>
+  );
+}
+
+function RoadmapCard({
+  horizon,
+  title,
+  body,
+  tone,
+}: {
+  horizon: string;
+  title: string;
+  body: string;
+  tone: "primary" | "muted";
+}) {
+  const horizonClasses =
+    tone === "primary"
+      ? "bg-primary/10 text-primary"
+      : "bg-muted text-muted-foreground";
+  return (
+    <div className="rounded-2xl border border-border bg-card p-7 shadow-sm">
+      <span
+        className={`inline-flex rounded-full px-2.5 py-0.5 font-mono text-[0.7rem] uppercase tracking-[0.16em] ${horizonClasses}`}
+      >
+        {horizon}
+      </span>
+      <h3 className="mt-4 text-xl font-semibold tracking-tight text-foreground">
+        {title}
+      </h3>
+      <p className="mt-3 text-sm leading-relaxed text-muted-foreground">
+        {body}
+      </p>
+    </div>
   );
 }
 

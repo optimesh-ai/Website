@@ -32,7 +32,7 @@ export default function Contact() {
               className="animate-fade-up mx-auto mt-6 max-w-xl text-pretty text-lg leading-relaxed text-muted-foreground"
               style={{ animationDelay: "160ms" }}
             >
-              Questions about Optimesh, your network, or partnering with us?
+              Questions about Optimesh Technologies, your network, or partnering with us?
               We'd genuinely like to hear from you — reach out and you'll get a
               real person on the founding team.
             </p>
@@ -72,7 +72,7 @@ export default function Contact() {
             </h2>
             <p className="mt-2 text-pretty leading-relaxed text-muted-foreground">
               We're partnering with a small group of network teams. If you'd
-              like to run Optimesh against your own environment, request early
+              like to run Optimesh Technologies against your own environment, request early
               access.
             </p>
             <div className="mt-6">

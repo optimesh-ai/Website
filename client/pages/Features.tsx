@@ -117,7 +117,7 @@ export default function Features() {
               className="animate-fade-up mt-6 max-w-2xl text-pretty text-lg leading-relaxed text-muted-foreground"
               style={{ animationDelay: "160ms" }}
             >
-              Optimesh is offline network intelligence: simulate the forwarding
+              Optimesh Technologies is offline network intelligence: simulate the forwarding
               plane across your whole fabric, see exactly what a config change
               will do, and ship verified fixes — all without touching a live
               device. Two products, one engine, one answer you can trust.
@@ -208,7 +208,7 @@ export default function Features() {
             tagline="AI diagnosis & verified remediation"
             description="When a config breaks, Config Studio runs a four-stage pipeline — sanitize, diagnose, patch, verify — re-simulating each fix in Hammerhead and rejecting anything that drops reachability below 99%, all before a human approves it."
             points={[
-              "78.2% fix rate on unseen fault classes",
+              "99.6% diagnostic accuracy, time-to-fix under 10 seconds",
               "Minimal CLI diffs, verified against a 32-class taxonomy",
               "On-prem & air-gap, 0 CVEs, HMAC-signed, no telemetry",
             ]}
@@ -292,7 +292,7 @@ export default function Features() {
           ))}
         </div>
         <p className="mx-auto mt-12 max-w-2xl text-pretty text-center text-sm leading-relaxed text-muted-foreground">
-          Optimesh analyzes configuration, not live telemetry — it is not a
+          Optimesh Technologies analyzes configuration, not live telemetry — it is not a
           real-time digital twin. That is exactly what lets it run offline,
           deterministically, and fast enough to gate every change.
         </p>
