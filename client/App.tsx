@@ -3,6 +3,7 @@ import { Toaster as Sonner } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
+import { RouteMeta } from "@/components/site/RouteMeta";
 import Index from "./pages/Index";
 import Features from "./pages/Features";
 import Hammerhead from "./pages/Hammerhead";
@@ -21,6 +22,7 @@ export default function App() {
         <Toaster />
         <Sonner />
         <BrowserRouter>
+          <RouteMeta />
           <Routes>
             <Route path="/" element={<Index />} />
             <Route path="/features" element={<Features />} />
