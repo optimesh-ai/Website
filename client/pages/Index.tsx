@@ -28,6 +28,33 @@ import { NewsTicker } from "@/components/site/NewsTicker";
 import { Reveal } from "@/components/site/Reveal";
 import { CountUp } from "@/components/site/CountUp";
 
+const principles = [
+  {
+    title: "First-principles engineering",
+    body: "We design from physics, formal methods, and clear problem statements. Industry convention is an input, not the answer.",
+  },
+  {
+    title: "Verified by default",
+    body: "Every claim we make ships with a proof. Every change we propose has been re-simulated against your network before you see it.",
+  },
+  {
+    title: "Correctness before everything else",
+    body: "Correctness is the constraint we engineer toward. Speed, breadth, and polish come after we have a guarantee we can defend.",
+  },
+  {
+    title: "Small team, senior bench",
+    body: "We hire builders who have shipped at scale. Engineers ship code. Founders take customer calls.",
+  },
+  {
+    title: "Customer-pulled, not roadmap-pushed",
+    body: "Early partners shape what we build next. We talk to operators every week, and the roadmap reflects what real network teams need.",
+  },
+  {
+    title: "Open research, closed deployments",
+    body: "We publish what we learn so the field moves forward. Your data never leaves your network so your business stays yours.",
+  },
+];
+
 const vendors = [
   "Cisco IOS",
   "NX-OS",
@@ -67,17 +94,21 @@ export default function Index() {
               </div>
 
               <h1
-                className="animate-fade-up mt-6 text-balance text-[2.6rem] font-medium leading-[1.05] tracking-tight text-foreground sm:text-6xl lg:text-[4.1rem]"
+                className="animate-fade-up mt-6 text-balance text-[2.8rem] font-medium leading-[1.02] tracking-[-0.03em] text-foreground sm:text-6xl lg:text-[5rem]"
                 style={{ animationDelay: "80ms" }}
               >
-                Making network engineering safe and autonomous.
+                Validate every network change before it ships.
               </h1>
 
               <p
-                className="animate-fade-up mt-6 max-w-xl text-pretty text-lg leading-relaxed text-muted-foreground"
+                className="animate-fade-up mt-7 max-w-xl text-pretty text-lg leading-relaxed text-muted-foreground"
                 style={{ animationDelay: "160ms" }}
               >
-                Optimesh Technologies is the platform for autonomous network operations. Our software verifies every configuration change before it ships and proves every AI-proposed fix safe before a human sees it. Hardware is next. We are building for the data centers running modern AI, and for the orbital networks running on top of them.
+                Optimesh Technologies is the network verification platform that
+                prevents outages before they happen. Simulate the forwarding
+                plane across every major vendor, prove exactly what a
+                configuration change will do, and ship verified fixes with
+                confidence. All on your own hardware.
               </p>
 
               <div
@@ -156,6 +187,23 @@ export default function Index() {
               label="Vendors supported"
               sub="auto-detected, no per-device flags"
             />
+          </Reveal>
+        </Container>
+      </section>
+
+      {/* ----------------------------------------------------------- Mission */}
+      <section className="relative overflow-hidden bg-foreground py-24 md:py-36">
+        <div className="pointer-events-none absolute inset-0 bg-grid opacity-[0.06]" />
+        <Container className="relative">
+          <Reveal className="mx-auto max-w-4xl text-center">
+            <p className="font-mono text-xs font-medium uppercase tracking-[0.24em] text-background/60">
+              Our mission
+            </p>
+            <p className="mt-6 text-balance text-3xl font-medium tracking-[-0.025em] text-background sm:text-4xl md:text-[3.25rem] md:leading-[1.06]">
+              Network outages should not be a fact of life. Optimesh Technologies
+              is building the verification layer that prevents them, before they
+              ever reach a customer, a patient, or a production line.
+            </p>
           </Reveal>
         </Container>
       </section>
@@ -262,6 +310,27 @@ export default function Index() {
           </ArrowLink>
         </div>
       </Section>
+
+      {/* ----------------------------------------------------------- How we work */}
+      <section className="border-y border-border bg-card">
+        <Container className="py-20 md:py-28">
+          <SectionHeading
+            eyebrow="How we work"
+            title="Six principles. Visible in everything we ship."
+            description="Optimesh Technologies is an engineering company first. These are the rules we hold ourselves to."
+          />
+          <div className="mt-14 grid gap-x-12 gap-y-12 md:grid-cols-2">
+            {principles.map((p, i) => (
+              <Principle
+                key={p.title}
+                n={String(i + 1).padStart(2, "0")}
+                title={p.title}
+                body={p.body}
+              />
+            ))}
+          </div>
+        </Container>
+      </section>
 
       {/* ----------------------------------------------------------- Vendors */}
       <Section>
@@ -429,6 +498,30 @@ function StepCard({
         {title}
       </h3>
       <p className="mt-2 text-sm leading-relaxed text-muted-foreground">{body}</p>
+    </div>
+  );
+}
+
+function Principle({
+  n,
+  title,
+  body,
+}: {
+  n: string;
+  title: string;
+  body: string;
+}) {
+  return (
+    <div className="flex gap-6">
+      <span className="flex-none pt-1 font-mono text-sm font-medium tabular-nums text-primary">
+        {n}
+      </span>
+      <div>
+        <h3 className="text-xl font-semibold tracking-tight text-foreground">
+          {title}
+        </h3>
+        <p className="mt-3 leading-relaxed text-muted-foreground">{body}</p>
+      </div>
     </div>
   );
 }

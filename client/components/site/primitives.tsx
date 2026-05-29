@@ -72,7 +72,7 @@ export function SectionHeading({
       )}
     >
       {eyebrow && <Eyebrow className="mb-4">{eyebrow}</Eyebrow>}
-      <h2 className="text-balance text-3xl font-medium tracking-tight text-foreground sm:text-4xl md:text-[2.75rem] md:leading-[1.08]">
+      <h2 className="text-balance text-4xl font-medium tracking-[-0.025em] text-foreground sm:text-5xl md:text-[3.4rem] md:leading-[1.04]">
         {title}
       </h2>
       {description && (
@@ -203,7 +203,7 @@ export function Stat({
 }) {
   return (
     <div className={cn("flex flex-col", className)}>
-      <span className="font-mono text-4xl font-medium tabular-nums tracking-tight text-foreground sm:text-5xl">
+      <span className="font-mono text-5xl font-medium tabular-nums tracking-[-0.04em] text-foreground sm:text-6xl md:text-[4.25rem] md:leading-none">
         {value}
       </span>
       <span className="mt-3 text-sm font-medium text-foreground">{label}</span>

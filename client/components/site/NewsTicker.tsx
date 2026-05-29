@@ -26,27 +26,27 @@ export function NewsTicker() {
     <div
       onMouseEnter={() => setPaused(true)}
       onMouseLeave={() => setPaused(false)}
-      className="mx-auto flex max-w-2xl items-center gap-3 rounded-full border border-border bg-card px-3 py-2 shadow-sm sm:px-4"
+      className="mx-auto flex max-w-3xl items-center gap-4 rounded-full border border-border bg-card px-4 py-3 shadow-sm sm:px-5"
     >
-      <span className="flex-none rounded-full bg-primary/10 px-2.5 py-0.5 font-mono text-[0.65rem] font-medium uppercase tracking-[0.16em] text-primary">
+      <span className="flex-none rounded-full bg-primary/10 px-3 py-1 font-mono text-xs font-medium uppercase tracking-[0.16em] text-primary">
         News
       </span>
 
       <Link
         to={`/news/${item.slug}`}
         key={item.slug}
-        className="group flex min-w-0 flex-1 animate-fade-in items-center gap-2"
+        className="group flex min-w-0 flex-1 animate-fade-in items-center gap-3"
       >
-        <span className="hidden flex-none font-mono text-xs text-muted-foreground sm:inline">
+        <span className="hidden flex-none font-mono text-sm text-muted-foreground sm:inline">
           {formatDate(item.date)}
         </span>
-        <span className="truncate text-sm font-medium text-foreground transition-colors group-hover:text-primary">
+        <span className="truncate text-base font-medium text-foreground transition-colors group-hover:text-primary">
           {item.headline}
         </span>
-        <ArrowUpRight className="h-3.5 w-3.5 flex-none text-muted-foreground transition-colors group-hover:text-primary" />
+        <ArrowUpRight className="h-4 w-4 flex-none text-muted-foreground transition-colors group-hover:text-primary" />
       </Link>
 
-      <div className="hidden flex-none items-center gap-1.5 sm:flex">
+      <div className="hidden flex-none items-center gap-2 sm:flex">
         {items.map((it, i) => (
           <button
             key={it.slug}
@@ -54,7 +54,7 @@ export function NewsTicker() {
             aria-label={`Show: ${it.headline}`}
             onClick={() => setIndex(i)}
             className={cn(
-              "h-1.5 w-1.5 rounded-full transition-colors",
+              "h-2 w-2 rounded-full transition-colors",
               i === index
                 ? "bg-primary animate-pulse-soft"
                 : "bg-border hover:bg-muted-foreground/50",

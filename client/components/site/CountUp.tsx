@@ -1,8 +1,10 @@
 import { useEffect, useRef, useState } from "react";
-import { useInView, useReducedMotion } from "framer-motion";
+import { useReducedMotion } from "framer-motion";
 
 /**
- * Counts up from 0 to `to` once the element is scrolled into view.
+ * Counts up from 0 to `to`. Uses an IntersectionObserver so below-fold
+ * stats start animating when they enter view, but falls back to running
+ * immediately for above-fold elements so visitors never see a stale "0".
  * Respects prefers-reduced-motion (jumps straight to the final value).
  */
 export function CountUp({
@@ -21,7 +23,6 @@ export function CountUp({
   duration?: number;
 }) {
   const ref = useRef<HTMLSpanElement>(null);
-  const inView = useInView(ref, { once: true, margin: "-80px" });
   const reduce = useReducedMotion();
   const [value, setValue] = useState(reduce ? to : 0);
 
@@ -30,18 +31,48 @@ export function CountUp({
       setValue(to);
       return;
     }
-    if (!inView) return;
-    const start = performance.now();
     let raf = 0;
-    const tick = (now: number) => {
-      const t = Math.min(1, (now - start) / (duration * 1000));
-      const eased = 1 - Math.pow(1 - t, 3);
-      setValue(eased * to);
-      if (t < 1) raf = requestAnimationFrame(tick);
+    let started = false;
+    const start = () => {
+      if (started) return;
+      started = true;
+      const t0 = performance.now();
+      const tick = (now: number) => {
+        const t = Math.min(1, (now - t0) / (duration * 1000));
+        const eased = 1 - Math.pow(1 - t, 3);
+        setValue(eased * to);
+        if (t < 1) raf = requestAnimationFrame(tick);
+      };
+      raf = requestAnimationFrame(tick);
     };
-    raf = requestAnimationFrame(tick);
-    return () => cancelAnimationFrame(raf);
-  }, [inView, to, duration, reduce]);
+
+    if (!ref.current || typeof IntersectionObserver === "undefined") {
+      start();
+      return;
+    }
+    const rect = ref.current.getBoundingClientRect();
+    const inViewAlready =
+      rect.top < (window.innerHeight || document.documentElement.clientHeight) &&
+      rect.bottom > 0;
+    if (inViewAlready) {
+      start();
+      return;
+    }
+    const io = new IntersectionObserver(
+      (entries) => {
+        if (entries.some((e) => e.isIntersecting)) {
+          start();
+          io.disconnect();
+        }
+      },
+      { threshold: 0.1 },
+    );
+    io.observe(ref.current);
+    return () => {
+      io.disconnect();
+      cancelAnimationFrame(raf);
+    };
+  }, [to, duration, reduce]);
 
   const display = (() => {
     const n =
