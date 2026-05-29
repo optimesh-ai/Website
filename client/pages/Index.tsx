@@ -337,8 +337,8 @@ export default function Index() {
         <div className="grid gap-12 lg:grid-cols-[0.85fr_1.15fr] lg:items-center">
           <SectionHeading
             eyebrow="Vendor coverage"
-            title="Speaks your network's languages."
-            description="One engine parses fourteen configuration dialects with automatic detection — no flags, no per-vendor adapters to maintain."
+            title="Every major network vendor. One engine."
+            description="Hardware and vendor agnostic by design. One parser reads them all, with automatic detection. No flags, no per-vendor adapters, no special integrations to maintain."
           />
           <div className="grid grid-cols-2 gap-3 sm:grid-cols-3">
             {vendors.map((v) => (
