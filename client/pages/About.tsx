@@ -302,7 +302,7 @@ export default function About() {
               title="Trustworthy by construction."
               description="Correctness isn't a feature we test for at the end, it's the constraint we engineer toward from the start. The result is software you can put in the path of a production change."
             />
-            <div className="grid gap-4 sm:grid-cols-2">
+            <div className="grid gap-4 sm:grid-cols-3">
               <Stat
                 value="100%"
                 label="Deterministic"
@@ -317,11 +317,6 @@ export default function About() {
                 value="0"
                 label="Telemetry sent"
                 sub="we do not collect your data"
-              />
-              <Stat
-                value="0"
-                label="Live devices touched"
-                sub="all analysis is offline by design"
               />
             </div>
           </div>
