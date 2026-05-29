@@ -30,28 +30,28 @@ import { CountUp } from "@/components/site/CountUp";
 
 const principles = [
   {
-    title: "First-principles engineering",
-    body: "We design from physics, formal methods, and clear problem statements. Industry convention is an input, not the answer.",
+    title: "Question the requirements first.",
+    body: "Every constraint we accept has to come from physics or from the customer, not from industry habit. The wrong requirement is more expensive than the wrong answer.",
   },
   {
-    title: "Verified by default",
-    body: "Every claim we make ships with a proof. Every change we propose has been re-simulated against your network before you see it.",
+    title: "The best feature is the one we deleted.",
+    body: "Every flag, every option, every dependency has to justify itself. Less surface area, less drift, fewer ways for a network change to surprise you.",
   },
   {
-    title: "Correctness before everything else",
-    body: "Correctness is the constraint we engineer toward. Speed, breadth, and polish come after we have a guarantee we can defend.",
+    title: "Test the way it ships. Ship the way it tested.",
+    body: "The system we verify against is the system that runs in production. We do not take shortcuts between the model and the deployment.",
   },
   {
-    title: "Small team, senior bench",
-    body: "We hire builders who have shipped at scale. Engineers ship code. Founders take customer calls.",
+    title: "Cycle time is a feature.",
+    body: "The fastest way to ship reliable software is to make every cycle short. Parse fast, simulate fast, verify fast, learn fast, repeat.",
   },
   {
-    title: "Customer-pulled, not roadmap-pushed",
-    body: "Early partners shape what we build next. We talk to operators every week, and the roadmap reflects what real network teams need.",
+    title: "Built by the people you'll talk to.",
+    body: "Founders take customer calls. Engineers ship the code. There is no support queue between you and the people who wrote it.",
   },
   {
-    title: "Open research, closed deployments",
-    body: "We publish what we learn so the field moves forward. Your data never leaves your network so your business stays yours.",
+    title: "Publish the science. Protect the data.",
+    body: "What we learn about verification, we put back into the field. What you give us about your network never leaves your hardware.",
   },
 ];
 
@@ -316,8 +316,8 @@ export default function Index() {
         <Container className="py-20 md:py-28">
           <SectionHeading
             eyebrow="How we work"
-            title="Six principles. Visible in everything we ship."
-            description="Optimesh Technologies is an engineering company first. These are the rules we hold ourselves to."
+            title="How we build."
+            description="A few of the habits we hold ourselves to. Shaped, in part, by time one of our co-founders spent at SpaceX, where shipping something that mostly works is not a viable outcome."
           />
           <div className="mt-14 grid gap-x-12 gap-y-12 md:grid-cols-2">
             {principles.map((p, i) => (
