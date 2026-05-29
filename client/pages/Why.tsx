@@ -196,8 +196,8 @@ export default function Why() {
             />
             <DriverCard
               n="04"
-              title="Regulators and finance want proof."
-              body="Compliance and uptime contracts increasingly demand documented evidence that a change was verified, not just approved."
+              title="Enterprises deserve proof."
+              body="The companies that bet their business on the network deserve more than promises. They deserve documented, signed evidence that every change was verified before it shipped."
             />
           </div>
         </Container>
