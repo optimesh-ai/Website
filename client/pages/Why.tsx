@@ -13,6 +13,9 @@ import {
   Lock,
   Microscope,
   CheckCircle2,
+  Check,
+  X,
+  Minus,
 } from "lucide-react";
 import {
   ButtonLink,
@@ -69,33 +72,6 @@ const impact = [
     icon: <Microscope className="h-5 w-5" />,
     title: "Prove compliance continuously.",
     body: "Signed, continuous evidence for CIS, PCI, and SOC 2. Auditors get a log of what was checked, not a reconstruction.",
-  },
-];
-
-const otherApproaches = [
-  {
-    name: "Legacy verification tools",
-    does: "Reason about configuration. Correct in principle.",
-    misses:
-      "Heavyweight and server-bound. Teams reserve them for quarterly audits, so findings arrive long after the change that broke things.",
-  },
-  {
-    name: "Intent-based networking",
-    does: "Automate change. Give you a clean interface for declaring intent.",
-    misses:
-      "Conflate orchestration with proof. They describe what you wanted, not whether the running configuration delivers it.",
-  },
-  {
-    name: "Monitoring and observability",
-    does: "Detect and alert on what is happening on the live network.",
-    misses:
-      "Cannot say anything about the next change. By the time they report breakage, the cost has been paid.",
-  },
-  {
-    name: "AI copilots and config assistants",
-    does: "Generate plausible configurations and explanations quickly.",
-    misses:
-      "Ship without a verifier between the model and production. A persuasive explanation is not a proof of safety.",
   },
 ];
 
@@ -210,29 +186,66 @@ export default function Why() {
           title="What other approaches do, and what they miss."
           description="The market has tried for two decades. None of these approaches closes the gap, alone or together."
         />
-        <div className="mt-14 grid gap-6 md:grid-cols-2">
-          {otherApproaches.map((a) => (
-            <div
-              key={a.name}
-              className="rounded-2xl border border-border bg-card p-7 shadow-sm"
-            >
-              <h3 className="text-lg font-semibold tracking-tight text-foreground">
-                {a.name}
-              </h3>
-              <p className="mt-4 font-mono text-[0.7rem] uppercase tracking-[0.16em] text-primary">
-                What they do
-              </p>
-              <p className="mt-2 text-pretty text-sm leading-relaxed text-muted-foreground">
-                {a.does}
-              </p>
-              <p className="mt-5 font-mono text-[0.7rem] uppercase tracking-[0.16em] text-destructive">
-                What they miss
-              </p>
-              <p className="mt-2 text-pretty text-sm leading-relaxed text-muted-foreground">
-                {a.misses}
-              </p>
-            </div>
-          ))}
+        <div className="mt-14 overflow-x-auto rounded-2xl border border-border bg-card shadow-sm">
+          <table className="w-full text-left text-sm">
+            <thead>
+              <tr className="border-b border-border">
+                <th className="px-6 py-5 font-mono text-[0.7rem] font-medium uppercase tracking-[0.16em] text-muted-foreground">
+                  Approach
+                </th>
+                {[
+                  "Prevents the bad change",
+                  "Runs at CI speed",
+                  "Verifies AI output",
+                  "Runs on your hardware",
+                ].map((h) => (
+                  <th
+                    key={h}
+                    className="px-4 py-5 text-center font-mono text-[0.7rem] font-medium uppercase tracking-[0.16em] text-muted-foreground"
+                  >
+                    {h}
+                  </th>
+                ))}
+              </tr>
+            </thead>
+            <tbody>
+              {[
+                { name: "Monitoring & observability", cells: ["no", "no", "no", "partial"] },
+                { name: "Legacy verification tools", cells: ["partial", "no", "no", "partial"] },
+                { name: "Intent-based networking", cells: ["partial", "partial", "no", "partial"] },
+                { name: "AI copilots & config assistants", cells: ["no", "partial", "no", "no"] },
+                {
+                  name: "Optimesh Technologies",
+                  cells: ["yes", "yes", "yes", "yes"],
+                  highlight: true,
+                },
+              ].map((row) => (
+                <tr
+                  key={row.name}
+                  className={
+                    row.highlight
+                      ? "bg-primary/[0.04] border-t border-primary/20"
+                      : "border-t border-border"
+                  }
+                >
+                  <td
+                    className={
+                      row.highlight
+                        ? "px-6 py-5 font-semibold text-primary"
+                        : "px-6 py-5 font-medium text-foreground"
+                    }
+                  >
+                    {row.name}
+                  </td>
+                  {row.cells.map((cell, i) => (
+                    <td key={i} className="px-4 py-5 text-center">
+                      <Mark v={cell as "yes" | "partial" | "no"} />
+                    </td>
+                  ))}
+                </tr>
+              ))}
+            </tbody>
+          </table>
         </div>
       </Section>
 
@@ -427,6 +440,18 @@ export default function Why() {
       </Section>
     </Layout>
   );
+}
+
+function Mark({ v }: { v: "yes" | "partial" | "no" }) {
+  if (v === "yes")
+    return (
+      <Check className="mx-auto h-5 w-5 text-success" strokeWidth={2.5} />
+    );
+  if (v === "no")
+    return (
+      <X className="mx-auto h-5 w-5 text-destructive/70" strokeWidth={2.5} />
+    );
+  return <Minus className="mx-auto h-5 w-5 text-muted-foreground/60" />;
 }
 
 function RoadmapCard({

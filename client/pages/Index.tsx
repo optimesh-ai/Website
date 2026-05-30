@@ -260,6 +260,55 @@ export default function Index() {
         </Reveal>
       </Section>
 
+      {/* ------------------------------------------------------------- Day 1 */}
+      <Section>
+        <SectionHeading
+          eyebrow="Day 1"
+          title="Three steps to running on every change."
+          description="No agents. No rip-and-replace. Most teams gate their first PR within a day."
+        />
+        <div className="mt-14 grid gap-6 md:grid-cols-3">
+          {[
+            {
+              n: "01",
+              title: "Point at your configs.",
+              body: "A directory or a git repo. Auto-detection handles every vendor.",
+              code: "$ hammerhead simulate ./configs",
+            },
+            {
+              n: "02",
+              title: "Wire into your pipeline.",
+              body: "One CLI call in your CI. No rip-and-replace.",
+              code: "ci: hammerhead verify --gate",
+            },
+            {
+              n: "03",
+              title: "Gate every change.",
+              body: "Verdicts on every PR. Anything that breaks reachability is rejected.",
+              code: "✓ verified · safe to merge",
+            },
+          ].map((s) => (
+            <div
+              key={s.n}
+              className="rounded-2xl border border-border bg-card p-7 shadow-sm"
+            >
+              <span className="rounded-md bg-primary/10 px-2 py-0.5 font-mono text-xs font-medium text-primary">
+                {s.n}
+              </span>
+              <h3 className="mt-5 text-lg font-semibold tracking-tight text-foreground">
+                {s.title}
+              </h3>
+              <p className="mt-2 text-sm leading-relaxed text-muted-foreground">
+                {s.body}
+              </p>
+              <pre className="mt-5 overflow-x-auto rounded-lg bg-foreground px-3 py-2.5 font-mono text-xs text-white/85">
+                <code>{s.code}</code>
+              </pre>
+            </div>
+          ))}
+        </div>
+      </Section>
+
       {/* --------------------------------------------------------- How it works */}
       <section className="border-t border-border bg-card">
         <Container className="py-20 md:py-28">
