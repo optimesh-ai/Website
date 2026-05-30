@@ -42,7 +42,7 @@ export const news: NewsItem[] = [
   },
   {
     slug: "a16z-speedrun",
-    headline: "A Note on Our a16z Speedrun Decision",
+    headline: "Accepted to a16z Speedrun, and Why We Chose Our Own Path",
     date: "2026-05-07",
     category: "Programs",
     dek: "Earlier this year, Optimesh Technologies received an offer from a16z Speedrun. After careful thought, we decided not to pursue the program at this time. We are grateful to the team for one of the cleanest processes we have been through.",
