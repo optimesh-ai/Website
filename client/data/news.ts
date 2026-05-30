@@ -45,7 +45,7 @@ export const news: NewsItem[] = [
     headline: "Accepted to a16z Speedrun, and Why We Chose Our Own Path",
     date: "2026-05-07",
     category: "Programs",
-    dek: "Earlier this year, Optimesh Technologies received an offer from a16z Speedrun. After careful thought, we decided not to pursue the program at this time. We are grateful to the team for one of the cleanest processes we have been through.",
+    dek: "We were grateful to be selected, and equally grateful for one of the cleanest accelerator processes we have been through. Here is why we ultimately chose to take our own path.",
     link: {
       label: "Learn more about a16z Speedrun",
       href: "https://a16z.com/speedrun/",
@@ -53,11 +53,11 @@ export const news: NewsItem[] = [
     body: [
       {
         type: "p",
-        text: "Earlier this year, Optimesh Technologies was selected for a16z Speedrun, the accelerator Andreessen Horowitz runs for early-stage founders. After careful consideration, we made the difficult decision not to pursue the program at this time.",
+        text: "When the offer came, we were heads-down on the work that defines this stage of the company: shipping the first version of the platform, opening conversations with the operators who will use it, and recruiting the team that will scale it. A structured program, however good, would have meant changing operating mode at exactly the wrong moment.",
       },
       {
         type: "p",
-        text: "Speedrun is excellent. The team, the cohort, and the process were all exceptional, and we want to be clear that the decision had nothing to do with the program itself. The fit for where Optimesh Technologies is right now turned out to be different from what we expected when we applied.",
+        text: "Speedrun itself is excellent. The team, the cohort, and the process were all exceptional, and we want to be clear that the decision had nothing to do with the program. The fit for where Optimesh Technologies is right now turned out to be different from what we expected when we applied.",
       },
       {
         type: "p",
