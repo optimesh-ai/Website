@@ -75,6 +75,29 @@ const impact = [
   },
 ];
 
+const compareCriteria = [
+  "Prevents the bad change",
+  "Runs at CI speed",
+  "Verifies AI output",
+  "Runs on your hardware",
+] as const;
+
+const compareRows: {
+  name: string;
+  cells: ("yes" | "partial" | "no")[];
+  highlight?: boolean;
+}[] = [
+  { name: "Monitoring & observability", cells: ["no", "no", "no", "partial"] },
+  { name: "Legacy verification tools", cells: ["partial", "no", "no", "partial"] },
+  { name: "Intent-based networking", cells: ["partial", "partial", "no", "partial"] },
+  { name: "AI copilots & config assistants", cells: ["no", "partial", "no", "no"] },
+  {
+    name: "Optimesh Technologies",
+    cells: ["yes", "yes", "yes", "yes"],
+    highlight: true,
+  },
+];
+
 const moat = [
   {
     icon: <Gauge className="h-5 w-5" />,
@@ -186,19 +209,50 @@ export default function Why() {
           title="What other approaches do, and what they miss."
           description="The market has tried for two decades. None of these approaches closes the gap, alone or together."
         />
-        <div className="mt-14 overflow-x-auto rounded-2xl border border-border bg-card shadow-sm">
+        {/* Mobile: stacked cards (one per approach) */}
+        <div className="mt-12 grid gap-4 md:hidden">
+          {compareRows.map((row) => (
+            <div
+              key={row.name}
+              className={
+                row.highlight
+                  ? "rounded-2xl border border-primary/30 bg-primary/[0.04] p-5 shadow-sm"
+                  : "rounded-2xl border border-border bg-card p-5 shadow-sm"
+              }
+            >
+              <h3
+                className={
+                  row.highlight
+                    ? "text-base font-semibold tracking-tight text-primary"
+                    : "text-base font-semibold tracking-tight text-foreground"
+                }
+              >
+                {row.name}
+              </h3>
+              <ul className="mt-4 space-y-2.5">
+                {compareCriteria.map((c, i) => (
+                  <li
+                    key={c}
+                    className="flex items-center justify-between gap-3 text-sm"
+                  >
+                    <span className="text-muted-foreground">{c}</span>
+                    <Mark v={row.cells[i]} />
+                  </li>
+                ))}
+              </ul>
+            </div>
+          ))}
+        </div>
+
+        {/* Desktop: comparison table */}
+        <div className="mt-14 hidden overflow-x-auto rounded-2xl border border-border bg-card shadow-sm md:block">
           <table className="w-full text-left text-sm">
             <thead>
               <tr className="border-b border-border">
                 <th className="px-6 py-5 font-mono text-[0.7rem] font-medium uppercase tracking-[0.16em] text-muted-foreground">
                   Approach
                 </th>
-                {[
-                  "Prevents the bad change",
-                  "Runs at CI speed",
-                  "Verifies AI output",
-                  "Runs on your hardware",
-                ].map((h) => (
+                {compareCriteria.map((h) => (
                   <th
                     key={h}
                     className="px-4 py-5 text-center font-mono text-[0.7rem] font-medium uppercase tracking-[0.16em] text-muted-foreground"
@@ -209,17 +263,7 @@ export default function Why() {
               </tr>
             </thead>
             <tbody>
-              {[
-                { name: "Monitoring & observability", cells: ["no", "no", "no", "partial"] },
-                { name: "Legacy verification tools", cells: ["partial", "no", "no", "partial"] },
-                { name: "Intent-based networking", cells: ["partial", "partial", "no", "partial"] },
-                { name: "AI copilots & config assistants", cells: ["no", "partial", "no", "no"] },
-                {
-                  name: "Optimesh Technologies",
-                  cells: ["yes", "yes", "yes", "yes"],
-                  highlight: true,
-                },
-              ].map((row) => (
+              {compareRows.map((row) => (
                 <tr
                   key={row.name}
                   className={
@@ -239,7 +283,7 @@ export default function Why() {
                   </td>
                   {row.cells.map((cell, i) => (
                     <td key={i} className="px-4 py-5 text-center">
-                      <Mark v={cell as "yes" | "partial" | "no"} />
+                      <Mark v={cell} />
                     </td>
                   ))}
                 </tr>
