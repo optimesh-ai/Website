@@ -23,22 +23,22 @@ const values = [
   {
     icon: <BadgeCheck className="h-5 w-5" />,
     title: "Proof over promises",
-    body: "Every answer is validated against industry-standard analysis and a live routing stack, and every output is fully deterministic. If the data doesn't support a claim, we don't make it.",
+    body: "Cross-validated against industry-standard analysis and a live routing stack. Every output deterministic. If the data doesn't support the claim, we don't make it.",
   },
   {
     icon: <Gauge className="h-5 w-5" />,
     title: "Fast enough to live in CI",
-    body: "Whole-fabric simulation in milliseconds means change validation can run on every commit, not once a quarter. Certainty shouldn't cost you a maintenance window.",
+    body: "Whole-fabric simulation in milliseconds. Validation runs on every commit, not once a quarter.",
   },
   {
     icon: <Lock className="h-5 w-5" />,
     title: "Your network stays yours",
-    body: "Optimesh Technologies runs entirely on your own hardware, on-prem and air-gap ready. Your configs never leave your infrastructure, and nothing phones home.",
+    body: "Runs entirely on your hardware. On-prem and air-gap ready. Your configs never leave the network.",
   },
   {
     icon: <TerminalSquare className="h-5 w-5" />,
     title: "Built for engineers",
-    body: "A single static binary that fits the toolchain you already have: CLI, Python SDK, REST API, and a CI integration. No Docker, no JVM, no servers to babysit.",
+    body: "A single static binary. CLI, SDK, REST API, CI integration. No Docker, no JVM, no servers to babysit.",
   },
 ];
 
@@ -72,14 +72,14 @@ const products = [
     icon: <Gauge className="h-5 w-5" />,
     name: "Hammerhead",
     tagline: "Offline forwarding-plane simulator",
-    body: "Simulate your entire forwarding plane from a directory of configs in milliseconds, 800× faster than the industry standard at 99.93% parity, fully deterministic, with no live device required.",
+    body: "Simulate your forwarding plane from a directory of configs in milliseconds. 800× faster than the industry standard at 99.93% parity, deterministic, no live device required.",
     to: "/products/hammerhead",
   },
   {
     icon: <ShieldCheck className="h-5 w-5" />,
     name: "Config Studio",
     tagline: "AI diagnosis & verified remediation",
-    body: "Uses the Hammerhead engine to diagnose faults and propose fixes that are proven safe before a human ever sees them. 99.6% diagnostic accuracy and a 99% reduction in MTTR, all on your own hardware.",
+    body: "Diagnose faults and propose fixes proven safe in Hammerhead before a human sees them. 99.6% accuracy, 99% MTTR reduction, all on your own hardware.",
     to: "/products/config-studio",
   },
 ];
@@ -109,9 +109,9 @@ export default function About() {
               className="animate-fade-up mt-6 max-w-2xl text-pretty text-lg leading-relaxed text-muted-foreground"
               style={{ animationDelay: "160ms" }}
             >
-              Optimesh Technologies builds offline intelligence for network
-              infrastructure, so the engineers who route the world's traffic
-              can know exactly what a change will do before they make it.
+              Optimesh Technologies builds offline intelligence so the engineers
+              routing the world's traffic know exactly what a change will do
+              before they make it.
             </p>
 
             <p
@@ -135,24 +135,19 @@ export default function About() {
             />
             <div className="max-w-2xl space-y-5 text-pretty text-lg leading-relaxed text-muted-foreground">
               <p>
-                Network engineers edit the configs that route the world's
-                traffic, and most of the time, they can't reliably answer the
-                one question that matters: <span className="text-foreground">
+                Network engineers ship the configs that route the world's
+                traffic, and most of the time they can't answer the one
+                question that matters:{" "}
+                <span className="text-foreground">
                   what will this change actually do?
                 </span>{" "}
-                The change gets pushed, and everyone hopes for the best.
+                The change goes out, and everyone hopes.
               </p>
               <p>
-                The tools that promise an answer are slow and heavyweight.
-                Docker, JVMs, servers, minutes of waiting, so they never run
-                where they're needed: on every change. And once something
-                breaks, the industry offers plenty of detection but almost no
-                remediation. You learn what failed, not how to fix it safely.
-              </p>
-              <p>
-                We started Optimesh Technologies to close that gap with offline intelligence
-                that is both fast and trustworthy, fast enough to run on every
-                commit, and proven enough to bet a production network on.
+                Existing tools are too slow to live in that workflow. We built
+                Optimesh Technologies to close the gap with offline intelligence
+                fast enough to run on every commit, and proven enough to bet a
+                production network on.
               </p>
             </div>
           </div>
@@ -164,7 +159,7 @@ export default function About() {
         <SectionHeading
           eyebrow="Our approach"
           title="Simulate the network. Prove the fix. Touch nothing live."
-          description="Instead of probing live devices, we model them. A directory of configs is enough to reconstruct how a fabric actually forwards packets, and to verify a repair before anyone applies it."
+          description="Instead of probing live devices, we model them. A directory of configs is enough to know how a fabric forwards packets and to prove a repair safe before anyone applies it."
         />
         <div className="mt-14 grid gap-6 lg:grid-cols-2">
           {products.map((p, i) => (
@@ -216,7 +211,7 @@ export default function About() {
         <SectionHeading
           eyebrow="Leadership"
           title="Built by people who've shipped at the edge."
-          description="Optimesh Technologies is founded by engineers who've worked where reliability isn't optional, and who've felt how fragile network change still is."
+          description="Founded by engineers who've worked where reliability isn't optional and felt how fragile network change still is."
         />
         <div className="mx-auto mt-14 grid max-w-4xl gap-6 sm:grid-cols-2">
           {founders.map((f, i) => (
@@ -300,7 +295,7 @@ export default function About() {
             <SectionHeading
               eyebrow="How we build"
               title="Trustworthy by construction."
-              description="Correctness isn't a feature we test for at the end, it's the constraint we engineer toward from the start. The result is software you can put in the path of a production change."
+              description="Correctness isn't tested for at the end. It's the constraint we engineer toward from the start."
             />
             <div className="grid gap-4 sm:grid-cols-3">
               <Stat

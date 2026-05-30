@@ -45,22 +45,19 @@ const capabilityGroups: {
   {
     icon: <Network className="h-5 w-5" />,
     group: "Parse & simulate",
-    blurb:
-      "Read a directory of raw configs, run protocol convergence, and build per-device routing and forwarding tables.",
+    blurb: "Read raw configs. Run protocol convergence. Build the routing and forwarding tables.",
     commands: ["parse", "simulate", "rib", "fib"],
   },
   {
     icon: <Search className="h-5 w-5" />,
     group: "Query",
-    blurb:
-      "Ask where a packet goes. Reachability, hop-by-hop traceroutes, NQE-style path joins, and IP ownership lookups.",
+    blurb: "Ask where a packet goes. Reachability, traceroutes, path joins, IP ownership.",
     commands: ["reachability", "traceroute", "nqe path joins", "find-ip"],
   },
   {
     icon: <GitCompare className="h-5 w-5" />,
     group: "Analyze",
-    blurb:
-      "Diff snapshots, detect loops, scan for single points of failure, measure blast radius, and audit ACLs.",
+    blurb: "Diff snapshots. Detect loops. Scan for single points of failure. Audit ACLs.",
     commands: [
       "diff",
       "loops",
@@ -72,8 +69,7 @@ const capabilityGroups: {
   {
     icon: <ShieldCheck className="h-5 w-5" />,
     group: "Verify",
-    blurb:
-      "Check configs against a YAML compliance DSL with ready-made CIS, PCI, and SOC 2 templates.",
+    blurb: "Check configs against a YAML compliance DSL. CIS, PCI, and SOC 2 templates included.",
     commands: ["policy-check", "CIS / PCI / SOC2 templates"],
   },
 ];
@@ -126,22 +122,22 @@ const differentiators: {
   {
     icon: <Gauge className="h-5 w-5" />,
     title: "800× faster on average",
-    body: "Fast enough to run on every commit instead of once a quarter, instead of buried in a quarterly audit.",
+    body: "Fast enough to run on every commit, not once a quarter.",
   },
   {
     icon: <Binary className="h-5 w-5" />,
     title: "A single static binary",
-    body: "No Docker, no JVM, no running server, no live device. Drop in the binary and point it at a directory.",
+    body: "No Docker, no JVM, no server, no live device. Drop in the binary and point it at a directory.",
   },
   {
     icon: <CheckCircle2 className="h-5 w-5" />,
     title: "Fully deterministic output",
-    body: "The same configs always produce the same answer, diffable, reviewable, and safe to gate a merge on.",
+    body: "Same configs, same answer. Diffable, reviewable, safe to gate a merge on.",
   },
   {
     icon: <ShieldCheck className="h-5 w-5" />,
     title: "Clean, auditable codebase",
-    body: "Engineered for trust. Memory-safe by construction, deterministic by design, and continuously validated against industry-standard analysis and a live routing stack.",
+    body: "Memory-safe by construction. Continuously validated against industry-standard analysis and a live routing stack.",
   },
 ];
 
@@ -178,11 +174,10 @@ export default function Hammerhead() {
                 className="animate-fade-up mt-6 max-w-xl text-pretty text-lg leading-relaxed text-muted-foreground"
                 style={{ animationDelay: "160ms" }}
               >
-                Drop your configs in a directory and ask questions. Hammerhead
-                parses every major network vendor, simulates the forwarding plane, and
-                answers reachability and traceroute queries in milliseconds, as
-                a single static binary. No Docker, no JVM, no running server, no
-                live device.
+                Drop your configs in a directory and ask. Hammerhead parses
+                every major vendor, simulates the forwarding plane, and answers
+                reachability queries in milliseconds. One static binary, no
+                Docker, no JVM, no live device.
               </p>
 
               <div
@@ -277,7 +272,7 @@ export default function Hammerhead() {
         <SectionHeading
           eyebrow="32 CLI subcommands"
           title="One engine, the whole change-validation loop."
-          description="Parse and simulate your fabric, query exactly where packets flow, analyze the impact of failures, and verify compliance, all from one deterministic binary."
+          description="Parse, simulate, query, analyze, verify. One deterministic binary."
         />
 
         <div className="mt-14 grid gap-6 md:grid-cols-2">
@@ -320,7 +315,7 @@ export default function Hammerhead() {
           <SectionHeading
             eyebrow="Protocols & data planes"
             title="Models the control and forwarding plane you actually run."
-            description="Hammerhead converges real routing protocols and resolves the data plane down to per-VLAN forwarding, the depth that makes its answers trustworthy."
+            description="Real routing convergence resolved down to per-VLAN forwarding. That is what makes the answers trustworthy."
           />
 
           <div className="mt-14 grid gap-6 md:grid-cols-3">
@@ -360,7 +355,7 @@ export default function Hammerhead() {
           <SectionHeading
             eyebrow="Surfaces"
             title="Meets you where you already work."
-            description="The same simulation engine, exposed four ways, pick the one that fits your workflow, or wire up all of them."
+            description="One engine, four surfaces. Pick the one that fits your workflow, or wire up all of them."
           />
 
           <div className="mt-14 grid gap-8 lg:grid-cols-2 lg:items-start">
@@ -478,7 +473,7 @@ export default function Hammerhead() {
         <SectionHeading
           eyebrow="vs. the industry standard"
           title="Why teams move off the JVM."
-          description="Hammerhead matches industry-standard analysis at 99.93% accuracy, then makes it fast, portable, and reproducible enough to belong in your pipeline."
+          description="Matches industry-standard analysis at 99.93% accuracy. Fast, portable, and reproducible enough to belong in your pipeline."
         />
 
         <div className="mt-14 grid gap-x-10 gap-y-12 sm:grid-cols-2">

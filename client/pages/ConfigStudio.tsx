@@ -34,8 +34,8 @@ const pipeline = [
     icon: Search,
     name: "Sanitize",
     summary:
-      "22 always-on regex heuristics strip prompt-injection attempts hidden in config comments before the model ever sees them.",
-    detail: "Sanitizer v2 cuts injection success 90% → 40%",
+      "Always-on heuristics strip prompt-injection attempts hidden in config comments before the model ever sees them.",
+    detail: "Quarantines injection payloads before diagnosis",
     tone: "primary" as const,
   },
   {
@@ -43,7 +43,7 @@ const pipeline = [
     icon: Bot,
     name: "Diagnose",
     summary:
-      "An LLM classifies against a 32-class fault taxonomy and returns the fault class, the suspect device, a confidence score, and its rationale.",
+      "Classifies the fault against a 32-class taxonomy. Returns the fault, the suspect device, and its reasoning.",
     detail: "BGP down · OSPF mismatch · route-map blackhole · VLAN · ACL · MTU",
     tone: "primary" as const,
   },
@@ -52,7 +52,7 @@ const pipeline = [
     icon: FileDiff,
     name: "Patch",
     summary:
-      "The model emits a minimal CLI diff, the exact ~3 lines you'd actually type, never a full config rewrite.",
+      "Emits a minimal CLI diff. The exact lines you would have typed, never a full rewrite.",
     detail: "Minimal diff, not a rewrite",
     tone: "primary" as const,
   },
@@ -61,7 +61,7 @@ const pipeline = [
     icon: ShieldCheck,
     name: "Verify",
     summary:
-      "Hammerhead re-simulates the patched network offline. Any patch that drops reachability below 99% is rejected before a human ever sees it.",
+      "Hammerhead re-simulates the patched network offline. Anything that drops reachability is rejected before a human sees it.",
     detail: "Gated behind explicit ✓ Apply / ✗ Reject",
     tone: "success" as const,
   },
@@ -89,17 +89,17 @@ const trust = [
   {
     icon: Server,
     title: "Runs on your hardware",
-    body: "Configs are sent only to the operator's configured LLM, OpenAI, Anthropic, or a self-hosted vLLM / Ollama endpoint. Hammerhead runs locally. No telemetry leaves the box.",
+    body: "Configs go only to the LLM you configure: OpenAI, Anthropic, or a self-hosted endpoint. Hammerhead runs locally. No telemetry leaves the box.",
   },
   {
     icon: Lock,
     title: "Air-gap ready",
-    body: "Point Config Studio at a self-hosted OpenAI-compatible endpoint and it runs fully offline, no code change required.",
+    body: "Point Config Studio at a self-hosted OpenAI-compatible endpoint. It runs fully offline. No code change required.",
   },
   {
     icon: ShieldCheck,
-    title: "0 CVEs, 304 assertions",
-    body: "A 304-assertion test suite and a clean pip-audit + safety scan (0 known CVEs) ship with every build.",
+    title: "Hardened security posture",
+    body: "Clean dependency audit on every build. Zero known CVEs across the supply chain.",
   },
   {
     icon: Lock,
@@ -109,12 +109,12 @@ const trust = [
   {
     icon: ShieldAlert,
     title: "Anti-injection sanitizer",
-    body: "22 always-on heuristics quarantine prompt-injection payloads buried in config comments before diagnosis begins.",
+    body: "Always-on heuristics quarantine prompt-injection payloads buried in config comments before diagnosis begins.",
   },
   {
     icon: CircleSlash,
     title: "A digital twin of your network",
-    body: "Config Studio runs against a complete digital twin of your network's configured forwarding plane, built from your existing files. No agents, no live telemetry, no production risk.",
+    body: "A complete digital twin of your network's configured forwarding plane, built from your existing files. No agents, no live telemetry, no production risk.",
   },
 ];
 
@@ -144,8 +144,7 @@ export default function ConfigStudio() {
                 className="animate-fade-up mt-6 max-w-xl text-pretty text-lg leading-relaxed text-muted-foreground"
                 style={{ animationDelay: "160ms" }}
               >
-                It assumes you have a broken config and a tired engineer, so it
-                finds the fault, writes the exact CLI patch, and proves it
+                Finds the fault, writes the exact CLI patch, and proves it
                 restores reachability before you approve it. In seconds.{" "}
                 <span className="font-medium text-foreground">
                   On your own hardware.
@@ -298,7 +297,7 @@ export default function ConfigStudio() {
         <SectionHeading
           eyebrow="The safety pipeline"
           title="Four stages between a broken config and a human."
-          description="Every diagnosis flows left to right through the same gauntlet. Nothing reaches you until Hammerhead has re-simulated the fix and proved it holds."
+          description="Every diagnosis flows left to right. Nothing reaches you until Hammerhead has re-simulated the fix and proved it holds."
         />
 
         <div className="mt-14 grid gap-4 lg:grid-cols-4">
@@ -379,7 +378,7 @@ export default function ConfigStudio() {
           <SectionHeading
             eyebrow="Two surfaces"
             title="Ask it live, or gate it on every commit."
-            description="The same diagnose → patch → verify engine, exposed two ways: an interactive chat for the engineer at the keyboard, and an automated PR gate for the whole team."
+            description="One engine, two surfaces. An interactive chat for the engineer at the keyboard, and an automated PR gate for the whole team."
           />
 
           <div className="mt-14 grid gap-6 lg:grid-cols-2">
@@ -493,7 +492,7 @@ export default function ConfigStudio() {
         <SectionHeading
           eyebrow="Security &amp; sovereignty"
           title="Your configs never leave your control."
-          description="Config Studio is a FastAPI web app you run yourself. It is built to be trusted with the most sensitive thing in your network, the source of truth."
+          description="Config Studio runs entirely on your hardware. Built to be trusted with the most sensitive thing in your network."
         />
 
         <div className="mt-14 grid gap-x-10 gap-y-10 sm:grid-cols-2 lg:grid-cols-3">
