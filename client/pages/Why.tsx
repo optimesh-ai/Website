@@ -210,33 +210,33 @@ export default function Why() {
           description="The market has tried for two decades. None of these approaches closes the gap, alone or together."
         />
         {/* Mobile: stacked cards (one per approach) */}
-        <div className="mt-12 grid gap-4 md:hidden">
+        <div className="mt-10 grid gap-3 md:hidden">
           {compareRows.map((row) => (
             <div
               key={row.name}
               className={
                 row.highlight
-                  ? "rounded-2xl border border-primary/30 bg-primary/[0.04] p-5 shadow-sm"
-                  : "rounded-2xl border border-border bg-card p-5 shadow-sm"
+                  ? "rounded-xl border border-primary/30 bg-primary/[0.04] p-4 shadow-sm"
+                  : "rounded-xl border border-border bg-card p-4 shadow-sm"
               }
             >
               <h3
                 className={
                   row.highlight
-                    ? "text-base font-semibold tracking-tight text-primary"
-                    : "text-base font-semibold tracking-tight text-foreground"
+                    ? "text-sm font-semibold tracking-tight text-primary"
+                    : "text-sm font-semibold tracking-tight text-foreground"
                 }
               >
                 {row.name}
               </h3>
-              <ul className="mt-4 space-y-2.5">
+              <ul className="mt-3 divide-y divide-border/60">
                 {compareCriteria.map((c, i) => (
                   <li
                     key={c}
-                    className="flex items-center justify-between gap-3 text-sm"
+                    className="flex items-center justify-between gap-3 py-1.5 text-[0.82rem]"
                   >
                     <span className="text-muted-foreground">{c}</span>
-                    <Mark v={row.cells[i]} />
+                    <MarkSmall v={row.cells[i]} />
                   </li>
                 ))}
               </ul>
@@ -496,6 +496,14 @@ function Mark({ v }: { v: "yes" | "partial" | "no" }) {
       <X className="mx-auto h-5 w-5 text-destructive/70" strokeWidth={2.5} />
     );
   return <Minus className="mx-auto h-5 w-5 text-muted-foreground/60" />;
+}
+
+function MarkSmall({ v }: { v: "yes" | "partial" | "no" }) {
+  if (v === "yes")
+    return <Check className="h-4 w-4 flex-none text-success" strokeWidth={2.5} />;
+  if (v === "no")
+    return <X className="h-4 w-4 flex-none text-destructive/70" strokeWidth={2.5} />;
+  return <Minus className="h-4 w-4 flex-none text-muted-foreground/60" />;
 }
 
 function RoadmapCard({
