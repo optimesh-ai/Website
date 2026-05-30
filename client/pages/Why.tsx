@@ -363,9 +363,9 @@ export default function Why() {
               sub="across the fault taxonomy"
             />
             <Stat
-              value={<><span aria-hidden>&lt;</span><CountUp to={10} />s</>}
-              label="Time to fix"
-              sub="diagnose, patch, and verify"
+              value={<><span aria-hidden>&lt;</span><CountUp to={5} /> min</>}
+              label="Mean time to recovery"
+              sub="incident detected to verified fix"
             />
           </Reveal>
         </Container>

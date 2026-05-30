@@ -298,12 +298,14 @@ export default function Whitepaper() {
             </P>
             <P>
               For Config Studio, the two measures that matter to an operator are
-              how accurately it identifies the fault and how quickly the full
-              pipeline returns a verified fix. Across the supported fault
-              taxonomy, the system reaches 99.6 percent diagnostic accuracy. The
-              full path from a broken configuration to a verified patch typically
-              completes in under ten seconds, which is what makes it usable
-              inside a change window rather than after one.
+              how accurately the system identifies the fault and how quickly the
+              network is back to a known-good state. Across the supported fault
+              taxonomy, the system reaches 99.6 percent diagnostic accuracy.
+              Mean time to recovery, measured from incident detected to verified
+              fix applied, typically lands under five minutes in practice. The
+              AI pipeline itself runs in seconds; the remaining time is the
+              human review and the controlled apply that any responsible
+              operator wants in the loop.
             </P>
           </Section>
 

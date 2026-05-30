@@ -265,9 +265,9 @@ export default function ConfigStudio() {
         <Container className="py-12">
           <div className="grid grid-cols-2 gap-x-6 gap-y-10 md:grid-cols-5">
             <Stat
-              value="<10s"
-              label="Time to fix"
-              sub="diagnose, patch, and verify"
+              value="<5 min"
+              label="Mean time to recovery"
+              sub="incident detected to verified fix"
             />
             <Stat
               value="99.6%"

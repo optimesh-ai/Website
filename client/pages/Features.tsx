@@ -208,7 +208,7 @@ export default function Features() {
             tagline="AI diagnosis & verified remediation"
             description="When a config breaks, Config Studio runs a four-stage pipeline, sanitize, diagnose, patch, verify, re-simulating each fix in Hammerhead and rejecting anything that drops reachability below 99%, all before a human approves it."
             points={[
-              "99.6% diagnostic accuracy, time-to-fix under 10 seconds",
+              "99.6% diagnostic accuracy, MTTR under 5 minutes",
               "Minimal CLI diffs, verified against a 32-class taxonomy",
               "On-prem & air-gap, 0 CVEs, HMAC-signed, no telemetry",
             ]}

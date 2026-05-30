@@ -79,7 +79,7 @@ const products = [
     icon: <ShieldCheck className="h-5 w-5" />,
     name: "Config Studio",
     tagline: "AI diagnosis & verified remediation",
-    body: "Uses the Hammerhead engine to diagnose faults and propose fixes that are proven safe before a human ever sees them. 99.6% diagnostic accuracy, with a typical time to fix of under 10 seconds, all on your own hardware.",
+    body: "Uses the Hammerhead engine to diagnose faults and propose fixes that are proven safe before a human ever sees them. 99.6% diagnostic accuracy, with mean time to recovery under 5 minutes, all on your own hardware.",
     to: "/products/config-studio",
   },
 ];
@@ -206,7 +206,7 @@ export default function About() {
             <Stat value="800×" label="Faster than the industry standard" sub="fully deterministic" />
             <Stat value="99.93%" label="Forwarding-plane parity" sub="vs. the industry standard & live FRR" />
             <Stat value="100%" label="On-prem and air-gap" sub="your configs never leave your network" />
-            <Stat value="<10s" label="Time to fix" sub="diagnose, patch, verify" />
+            <Stat value="<5 min" label="Mean time to recovery" sub="incident detected to verified fix" />
           </div>
         </Container>
       </section>
