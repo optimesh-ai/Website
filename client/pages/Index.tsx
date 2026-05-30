@@ -32,27 +32,27 @@ import { CountUp } from "@/components/site/CountUp";
 const principles = [
   {
     title: "Question the requirements first.",
-    body: "Every constraint we accept has to come from physics or from the customer, not from industry habit. The wrong requirement is more expensive than the wrong answer.",
+    body: "Every constraint we accept comes from physics or the customer, not industry habit. The wrong requirement costs more than the wrong answer.",
   },
   {
     title: "The best feature is the one we deleted.",
-    body: "Every flag, every option, every dependency has to justify itself. Less surface area, less drift, fewer ways for a network change to surprise you.",
+    body: "Every flag, every option has to justify itself. Less surface, less drift, fewer surprises.",
   },
   {
     title: "Test the way it ships. Ship the way it tested.",
-    body: "The system we verify against is the system that runs in production. We do not take shortcuts between the model and the deployment.",
+    body: "The system we verify against is the system that runs in production. No shortcuts between model and deployment.",
   },
   {
     title: "Cycle time is a feature.",
-    body: "The fastest way to ship reliable software is to make every cycle short. Parse fast, simulate fast, verify fast, learn fast, repeat.",
+    body: "Make every cycle short. Parse fast, simulate fast, verify fast, learn fast, repeat.",
   },
   {
     title: "Built by the people you'll talk to.",
-    body: "Founders take customer calls. Engineers ship the code. There is no support queue between you and the people who wrote it.",
+    body: "Founders take customer calls. Engineers ship the code. No support queue between you and the team that wrote it.",
   },
   {
     title: "Publish the science. Protect the data.",
-    body: "What we learn about verification, we put back into the field. What you give us about your network never leaves your hardware.",
+    body: "What we learn about verification, we put back in the field. What you tell us about your network never leaves your hardware.",
   },
 ];
 
@@ -184,9 +184,8 @@ export default function Index() {
               Our mission
             </p>
             <p className="mt-6 text-balance text-3xl font-medium tracking-[-0.025em] text-background sm:text-4xl md:text-[3.25rem] md:leading-[1.06]">
-              Network outages should not be a fact of life. Optimesh Technologies
-              is building the verification layer that prevents them, before they
-              ever reach a customer, a patient, or a production line.
+              Network outages are not a fact of life. We are building the layer
+              that prevents them.
             </p>
           </Reveal>
         </Container>
@@ -233,7 +232,7 @@ export default function Index() {
             icon={<Gauge className="h-5 w-5" />}
             name="Hammerhead"
             tagline="Offline forwarding-plane simulator"
-            description="Drop your configs in a directory and ask what a change will do. Hammerhead parses every major network vendor, simulates OSPF, BGP, IS-IS and more, and answers reachability and traceroute queries in milliseconds, as a single static binary."
+            description="Drop your configs in a directory and ask what a change will do. Hammerhead simulates the forwarding plane across every major vendor in milliseconds."
             points={[
               "800× faster than the industry standard, 99.93% FIB parity",
               "CLI, Python SDK, REST API & CI integration",
@@ -245,7 +244,7 @@ export default function Index() {
             icon={<ShieldCheck className="h-5 w-5" />}
             name="Config Studio"
             tagline="AI diagnosis & verified remediation"
-            description="When a config breaks, Config Studio finds the fault, writes the exact CLI patch, and runs it through Hammerhead to prove it restores reachability, all before a human approves it. On your own hardware."
+            description="When a config breaks, Config Studio finds the fault, writes the fix, and proves it safe in Hammerhead before a human ever sees it. All on your own hardware."
             points={[
               "99.6% diagnostic accuracy, 99% reduction in MTTR",
               "Every patch verified before it's proposed",
@@ -269,19 +268,19 @@ export default function Index() {
               step="01"
               icon={<Network className="h-5 w-5" />}
               title="Simulate"
-              body="Hammerhead parses every device, runs protocol convergence, and builds the forwarding tables for your whole fabric in milliseconds."
+              body="Parse every device. Run protocol convergence. Build the whole-fabric forwarding plane in milliseconds."
             />
             <StepCard
               step="02"
               icon={<CircuitBoard className="h-5 w-5" />}
               title="Diagnose"
-              body="Config Studio compares intended behavior to reality, isolates the misconfigured device, and drafts a minimal CLI patch, not a rewrite."
+              body="Compare intent to reality. Isolate the misconfigured device. Draft the minimal CLI patch, not a rewrite."
             />
             <StepCard
               step="03"
               icon={<ShieldCheck className="h-5 w-5" />}
               title="Verify"
-              body="Every proposed fix is re-simulated. If it doesn't restore reachability, it never reaches you. Gate it on a PR or approve it in one click."
+              body="Re-simulate every fix. Reject anything that breaks reachability. Gate on a PR, or approve in one click."
             />
           </div>
         </Container>
@@ -292,7 +291,7 @@ export default function Index() {
         <SectionHeading
           eyebrow="Built for"
           title="The networks that matter most."
-          description="Optimesh Technologies is vendor- and topology-agnostic, but the operational problem looks distinct in every market we serve."
+          description="Vendor- and topology-agnostic. The problem looks different in each market we serve."
         />
         <div className="mt-14 grid gap-x-8 gap-y-12 sm:grid-cols-2 lg:grid-cols-4">
           <Vertical
@@ -329,7 +328,7 @@ export default function Index() {
           <SectionHeading
             eyebrow="How we work"
             title="How we build."
-            description="A few of the habits we hold ourselves to. Shaped, in part, by time one of our co-founders spent at SpaceX, where shipping something that mostly works is not a viable outcome."
+            description="A few habits we hold ourselves to. Shaped by a co-founder's time at SpaceX, where 'mostly works' is not an outcome."
           />
           <div className="mt-14 grid gap-x-12 gap-y-12 md:grid-cols-2">
             {principles.map((p, i) => (
@@ -357,22 +356,22 @@ export default function Index() {
             <Feature
               icon={<Gauge className="h-5 w-5" />}
               title="Fast enough to live in CI"
-              body="Whole-fabric simulation in milliseconds means change validation can run on every commit, not once a quarter."
+              body="Whole-fabric simulation in milliseconds. Validation runs on every commit, not once a quarter."
             />
             <Feature
               icon={<ShieldCheck className="h-5 w-5" />}
               title="Proven, not promised"
-              body="Answers are validated against the industry standard and live FRR ground truth, and every output is fully deterministic."
+              body="Cross-validated against industry-standard analysis and a live routing stack. Every output deterministic."
             />
             <Feature
               icon={<TerminalSquare className="h-5 w-5" />}
               title="Meets you where you work"
-              body="A single binary, a Python SDK, a REST API, and a CI integration that drops into the toolchain you already have."
+              body="A single binary, an SDK, a REST API, and a CI integration. Drops into the toolchain you already have."
             />
             <Feature
               icon={<GitPullRequest className="h-5 w-5" />}
               title="Yours to run"
-              body="On-prem and air-gap ready. Your configs stay on your hardware; nothing phones home."
+              body="On-prem and air-gap ready. Your configs never leave your hardware."
             />
           </div>
         </Container>
