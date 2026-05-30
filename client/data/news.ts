@@ -43,7 +43,7 @@ export const news: NewsItem[] = [
   {
     slug: "a16z-speedrun",
     headline: "A Note on Our a16z Speedrun Decision",
-    date: "2026-04-02",
+    date: "2026-05-07",
     category: "Programs",
     dek: "Earlier this year, Optimesh Technologies received an offer from a16z Speedrun. After careful thought, we decided not to pursue the program at this time. We are grateful to the team for one of the cleanest processes we have been through.",
     link: {
