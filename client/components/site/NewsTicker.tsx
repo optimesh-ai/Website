@@ -26,24 +26,24 @@ export function NewsTicker() {
     <div
       onMouseEnter={() => setPaused(true)}
       onMouseLeave={() => setPaused(false)}
-      className="mx-auto flex max-w-4xl items-center gap-5 rounded-full border border-border bg-card px-5 py-4 shadow-sm sm:px-6"
+      className="mx-auto flex max-w-4xl items-start gap-4 rounded-2xl border border-border bg-card px-4 py-4 shadow-sm sm:items-center sm:gap-5 sm:rounded-full sm:px-6"
     >
-      <span className="flex-none rounded-full bg-primary/10 px-3.5 py-1.5 font-mono text-[0.78rem] font-semibold uppercase tracking-[0.18em] text-primary">
+      <span className="flex-none rounded-full bg-primary/10 px-3 py-1.5 font-mono text-[0.7rem] font-semibold uppercase tracking-[0.18em] text-primary sm:px-3.5 sm:text-[0.78rem]">
         News
       </span>
 
       <Link
         to={`/news/${item.slug}`}
         key={item.slug}
-        className="group flex min-w-0 flex-1 animate-fade-in items-center gap-4"
+        className="group flex min-w-0 flex-1 animate-fade-in flex-col gap-1 sm:flex-row sm:items-center sm:gap-4"
       >
-        <span className="hidden flex-none font-mono text-sm text-muted-foreground sm:inline">
+        <span className="font-mono text-xs text-muted-foreground sm:text-sm">
           {formatDate(item.date)}
         </span>
-        <span className="flex-1 truncate text-base font-medium text-foreground transition-colors group-hover:text-primary sm:text-lg">
+        <span className="flex-1 text-[1.05rem] font-medium leading-snug text-foreground transition-colors group-hover:text-primary sm:truncate sm:text-lg">
           {item.headline}
         </span>
-        <ArrowUpRight className="h-5 w-5 flex-none text-muted-foreground transition-colors group-hover:text-primary" />
+        <ArrowUpRight className="hidden h-5 w-5 flex-none text-muted-foreground transition-colors group-hover:text-primary sm:block" />
       </Link>
 
       <div className="hidden flex-none items-center gap-2 sm:flex">
