@@ -12,6 +12,7 @@ import {
   Server,
   HeartPulse,
   GraduationCap,
+  X,
 } from "lucide-react";
 import {
   ButtonLink,
@@ -152,23 +153,23 @@ export default function Index() {
           <Reveal className="grid grid-cols-2 gap-x-6 gap-y-10 md:grid-cols-4">
             <Stat
               value={<><CountUp to={800} />×</>}
-              label="Faster than the industry standard"
+              label="Fits inside a change window"
               sub="whole-fabric simulation in milliseconds"
             />
             <Stat
               value={<CountUp to={99.6} decimals={1} suffix="%" />}
-              label="Diagnosis accuracy"
-              sub="on real-world configuration faults"
+              label="Caught before it ships"
+              sub="diagnostic accuracy on real-world faults"
             />
             <Stat
               value={<CountUp to={99} suffix="%" />}
-              label="MTTR reduction"
-              sub="vs. manual incident response"
+              label="Recovery before customers notice"
+              sub="MTTR reduction vs. manual response"
             />
             <Stat
               value={<CountUp to={100} suffix="%" />}
-              label="On-prem and air-gap"
-              sub="your configs never leave your network"
+              label="Your data stays yours"
+              sub="on-prem and air-gap, no telemetry"
             />
           </Reveal>
         </Container>
@@ -190,6 +191,34 @@ export default function Index() {
           </Reveal>
         </Container>
       </section>
+
+      {/* -------------------------------------------------- What stops happening */}
+      <Section>
+        <SectionHeading
+          eyebrow="The point"
+          title="What stops happening."
+          description="Verification is not a feature. It is the absence of a long list of expensive things."
+        />
+        <div className="mx-auto mt-12 grid max-w-4xl gap-x-10 gap-y-5 md:grid-cols-2">
+          {[
+            "The 2 a.m. page from a one-line change you reviewed yesterday.",
+            "The BGP misconfiguration that doesn't show up until three hops downstream.",
+            "The week of audit prep because nobody logged what got checked.",
+            "The change window that has to wait for a quarterly verification cycle.",
+            "The AI copilot suggestion you cannot actually trust to ship.",
+            "The post-incident archaeology to find which change broke what.",
+          ].map((item) => (
+            <div key={item} className="flex items-start gap-4">
+              <span className="mt-1 flex h-6 w-6 flex-none items-center justify-center rounded-full border border-destructive/30 bg-destructive/5 text-destructive">
+                <X className="h-3.5 w-3.5" />
+              </span>
+              <p className="text-pretty leading-relaxed text-foreground">
+                {item}
+              </p>
+            </div>
+          ))}
+        </div>
+      </Section>
 
       {/* ----------------------------------------------------------- Products */}
       <Section>
