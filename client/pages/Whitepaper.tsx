@@ -297,15 +297,15 @@ export default function Whitepaper() {
               host.
             </P>
             <P>
-              For Config Studio, the two measures that matter to an operator are
-              how accurately the system identifies the fault and how quickly the
-              network is back to a known-good state. Across the supported fault
-              taxonomy, the system reaches 99.6 percent diagnostic accuracy.
-              Mean time to recovery, measured from incident detected to verified
-              fix applied, typically lands under five minutes in practice. The
-              AI pipeline itself runs in seconds; the remaining time is the
-              human review and the controlled apply that any responsible
-              operator wants in the loop.
+              For Config Studio, the two measures that matter to an operator
+              are how accurately the system identifies the fault and how much
+              faster the network is back to a known-good state. Across the
+              supported fault taxonomy, the system reaches 99.6 percent
+              diagnostic accuracy and roughly a 99 percent reduction in mean
+              time to recovery compared to manual incident response. The AI
+              pipeline itself returns a candidate fix in seconds; the remaining
+              time is the human review and the controlled apply that any
+              responsible operator wants in the loop.
             </P>
           </Section>
 

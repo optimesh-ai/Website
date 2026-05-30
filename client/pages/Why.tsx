@@ -363,9 +363,9 @@ export default function Why() {
               sub="across the fault taxonomy"
             />
             <Stat
-              value={<><span aria-hidden>&lt;</span><CountUp to={5} /> min</>}
-              label="Mean time to recovery"
-              sub="incident detected to verified fix"
+              value={<CountUp to={99} suffix="%" />}
+              label="MTTR reduction"
+              sub="vs. manual incident response"
             />
           </Reveal>
         </Container>

@@ -161,9 +161,9 @@ export default function Index() {
               sub="on real-world configuration faults"
             />
             <Stat
-              value={<><span aria-hidden>&lt;</span><CountUp to={5} /> min</>}
-              label="Mean time to recovery"
-              sub="incident detected to verified fix"
+              value={<CountUp to={99} suffix="%" />}
+              label="MTTR reduction"
+              sub="vs. manual incident response"
             />
             <Stat
               value={<CountUp to={100} suffix="%" />}
@@ -218,7 +218,7 @@ export default function Index() {
             tagline="AI diagnosis & verified remediation"
             description="When a config breaks, Config Studio finds the fault, writes the exact CLI patch, and runs it through Hammerhead to prove it restores reachability, all before a human approves it. On your own hardware."
             points={[
-              "99.6% diagnostic accuracy, MTTR under 5 minutes",
+              "99.6% diagnostic accuracy, 99% reduction in MTTR",
               "Every patch verified before it's proposed",
               "On-prem & air-gap ready, no telemetry",
             ]}
