@@ -13,6 +13,11 @@ import {
   HeartPulse,
   GraduationCap,
   X,
+  GitMerge,
+  FileCode2,
+  Activity,
+  Bell,
+  KeyRound,
 } from "lucide-react";
 import {
   ButtonLink,
@@ -285,6 +290,83 @@ export default function Index() {
           </div>
         </Container>
       </section>
+
+      {/* ------------------------------------------------------- Integrations */}
+      <Section>
+        <SectionHeading
+          eyebrow="Fits your stack"
+          title="Drops into the tools you already run."
+          description="No agents. No rip-and-replace. Optimesh Technologies plugs in through the surfaces every infrastructure team already lives in."
+        />
+        <div className="mt-14 grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+          {[
+            {
+              icon: <GitMerge className="h-5 w-5" />,
+              name: "CI / CD",
+              body: "Verify every config change inside the pipeline. Block the merge that breaks reachability.",
+              tools: ["GitHub Actions", "GitLab CI", "Jenkins", "CircleCI", "ArgoCD"],
+            },
+            {
+              icon: <FileCode2 className="h-5 w-5" />,
+              name: "Infrastructure as code",
+              body: "Plug into the configuration sources you already manage. Apply verification to every plan.",
+              tools: ["Terraform", "Ansible", "Nornir", "Salt"],
+            },
+            {
+              icon: <Network className="h-5 w-5" />,
+              name: "Network management",
+              body: "Pull device inventory and topology from the tools your team already trusts.",
+              tools: ["NetBox", "Nautobot", "Cisco DNAC", "Aruba Central"],
+            },
+            {
+              icon: <Activity className="h-5 w-5" />,
+              name: "Observability",
+              body: "Push verification verdicts into the dashboards your on-call already watches.",
+              tools: ["Datadog", "Splunk", "Grafana", "Prometheus", "OpenTelemetry"],
+            },
+            {
+              icon: <Bell className="h-5 w-5" />,
+              name: "ITSM & incident response",
+              body: "Open tickets, attach verdicts, page on-call. Optimesh respects your incident process.",
+              tools: ["ServiceNow", "Jira Service Mgmt", "PagerDuty", "Opsgenie"],
+            },
+            {
+              icon: <KeyRound className="h-5 w-5" />,
+              name: "Identity & secrets",
+              body: "SSO and secrets management that fits your security posture from day one.",
+              tools: ["OIDC / SAML SSO", "HashiCorp Vault", "AWS Secrets", "Okta"],
+            },
+          ].map((cat) => (
+            <div
+              key={cat.name}
+              className="rounded-2xl border border-border bg-card p-7 shadow-sm transition-all duration-300 hover:-translate-y-0.5 hover:border-primary/30 hover:shadow-md"
+            >
+              <span className="flex h-10 w-10 items-center justify-center rounded-lg bg-primary/10 text-primary">
+                {cat.icon}
+              </span>
+              <h3 className="mt-5 text-base font-semibold tracking-tight text-foreground">
+                {cat.name}
+              </h3>
+              <p className="mt-2 text-sm leading-relaxed text-muted-foreground">
+                {cat.body}
+              </p>
+              <div className="mt-5 flex flex-wrap gap-1.5">
+                {cat.tools.map((t) => (
+                  <span
+                    key={t}
+                    className="rounded-md border border-border bg-background px-2 py-0.5 font-mono text-[0.7rem] text-foreground/70"
+                  >
+                    {t}
+                  </span>
+                ))}
+              </div>
+            </div>
+          ))}
+        </div>
+        <p className="mt-10 text-center text-sm text-muted-foreground">
+          One CLI, one Python SDK, one REST API. Wire Optimesh Technologies into anywhere a script or a pipeline runs.
+        </p>
+      </Section>
 
       {/* --------------------------------------------------------- Verticals */}
       <Section>
