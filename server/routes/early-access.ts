@@ -18,10 +18,18 @@ export const handleEarlyAccess: RequestHandler = async (req, res) => {
 
   const resend = new Resend(apiKey);
 
+  // Both default to optimesh.ai, but can be overridden via env without a code
+  // change. The `from` address must be on a domain verified in Resend — the
+  // sandbox sender (onboarding@resend.dev) can only deliver to your own
+  // Resend account email, not to an arbitrary recipient.
+  const from = process.env.EARLY_ACCESS_FROM ?? "Optimesh <noreply@optimesh.ai>";
+  const to = process.env.EARLY_ACCESS_TO ?? "contact@optimesh.ai";
+
   try {
-    await resend.emails.send({
-      from: "Optimesh Early Access <onboarding@resend.dev>",
-      to: "contact@optimesh.ai",
+    const { error } = await resend.emails.send({
+      from,
+      to,
+      replyTo: email,
       subject: "New Early Access Request",
       html: `
         <h2>New Early Access Request</h2>
@@ -29,6 +37,12 @@ export const handleEarlyAccess: RequestHandler = async (req, res) => {
         <p>This person submitted the early access form on optimesh.ai.</p>
       `,
     });
+
+    if (error) {
+      console.error("Resend rejected the email:", error);
+      res.status(502).json({ error: "Failed to send email" });
+      return;
+    }
 
     res.status(200).json({ success: true });
   } catch (error) {

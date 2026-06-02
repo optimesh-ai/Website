@@ -203,7 +203,7 @@ export function Stat({
 }) {
   return (
     <div className={cn("flex flex-col", className)}>
-      <span className="font-mono text-5xl font-medium tabular-nums tracking-[-0.04em] text-foreground sm:text-6xl md:text-[4.25rem] md:leading-none">
+      <span className="whitespace-nowrap font-mono text-5xl font-medium tabular-nums tracking-[-0.04em] text-foreground sm:text-6xl md:text-[4.25rem] md:leading-none">
         {value}
       </span>
       <span className="mt-3 text-sm font-medium text-foreground">{label}</span>
