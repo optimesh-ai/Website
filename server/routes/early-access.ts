@@ -23,7 +23,7 @@ export const handleEarlyAccess: RequestHandler = async (req, res) => {
   // sandbox sender (onboarding@resend.dev) can only deliver to your own
   // Resend account email, not to an arbitrary recipient.
   const from = process.env.EARLY_ACCESS_FROM ?? "Optimesh <noreply@optimesh.ai>";
-  const to = process.env.EARLY_ACCESS_TO ?? "contact@optimesh.ai";
+  const to = process.env.EARLY_ACCESS_TO ?? "chandler@optimesh.ai";
 
   try {
     const { error } = await resend.emails.send({

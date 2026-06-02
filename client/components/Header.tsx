@@ -71,7 +71,7 @@ export function Header() {
             onMouseLeave={() => setProductsOpen(false)}
           >
             <button
-              className="flex items-center gap-1 rounded-md px-3 py-2 text-sm font-medium text-muted-foreground transition-colors hover:text-foreground"
+              className="flex items-center gap-1 rounded-md px-3 py-2 text-base font-medium text-muted-foreground transition-colors hover:text-foreground"
               onClick={() => setProductsOpen((v) => !v)}
               aria-expanded={productsOpen}
             >
@@ -109,7 +109,7 @@ export function Header() {
             <Link
               key={link.to}
               to={link.to}
-              className="rounded-md px-3 py-2 text-sm font-medium text-muted-foreground transition-colors hover:text-foreground"
+              className="rounded-md px-3 py-2 text-base font-medium text-muted-foreground transition-colors hover:text-foreground"
             >
               {link.label}
             </Link>
