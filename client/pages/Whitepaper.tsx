@@ -9,16 +9,16 @@ import {
 } from "@/components/site/primitives";
 
 const contents = [
-  { id: "abstract", label: "Abstract" },
-  { id: "opportunity", label: "1. The opportunity" },
-  { id: "problem", label: "2. The problem" },
-  { id: "hammerhead", label: "3. Hammerhead" },
-  { id: "config-studio", label: "4. Config Studio" },
-  { id: "validation", label: "5. Validation and performance" },
-  { id: "security", label: "6. Security and data locality" },
-  { id: "moat", label: "7. Why Optimesh wins" },
-  { id: "conclusion", label: "8. Conclusion" },
-  { id: "references", label: "References" },
+  { id: "abstract", num: "—", label: "Abstract" },
+  { id: "opportunity", num: "01", label: "The opportunity" },
+  { id: "problem", num: "02", label: "The problem" },
+  { id: "hammerhead", num: "03", label: "Hammerhead" },
+  { id: "config-studio", num: "04", label: "Config Studio" },
+  { id: "validation", num: "05", label: "Validation and performance" },
+  { id: "security", num: "06", label: "Security and data locality" },
+  { id: "moat", num: "07", label: "Why Optimesh wins" },
+  { id: "conclusion", num: "08", label: "Conclusion" },
+  { id: "references", num: "—", label: "References" },
 ];
 
 const references = [
@@ -116,18 +116,23 @@ export default function Whitepaper() {
       {/* -------------------------------------------------------------- Contents */}
       <Container className="pb-4">
         <div className="mx-auto max-w-3xl">
-          <div className="rounded-2xl border border-border bg-card p-6">
+          <div className="rounded-2xl border border-border bg-card p-6 sm:p-8">
             <p className="font-mono text-xs font-semibold uppercase tracking-[0.18em] text-muted-foreground">
               Contents
             </p>
-            <ol className="mt-4 grid gap-2 sm:grid-cols-2">
+            <ol className="mt-5 grid gap-x-8 sm:grid-cols-2">
               {contents.map((c) => (
                 <li key={c.id}>
                   <a
                     href={`#${c.id}`}
-                    className="text-sm text-foreground/80 transition-colors hover:text-primary"
+                    className="group -mx-3 flex items-baseline gap-3 rounded-lg px-3 py-2 transition-colors hover:bg-muted"
                   >
-                    {c.label}
+                    <span className="w-6 shrink-0 font-mono text-xs tabular-nums text-muted-foreground transition-colors group-hover:text-primary">
+                      {c.num}
+                    </span>
+                    <span className="text-sm text-foreground/80 transition-colors group-hover:text-foreground">
+                      {c.label}
+                    </span>
                   </a>
                 </li>
               ))}
