@@ -5,7 +5,10 @@
 
 
 [functions]
-  external_node_modules = ["express"]
+  # Bundle dependencies (express, serverless-http, resend, …) into the function
+  # with esbuild. Marking express as external left it out of the deployed
+  # bundle, so the function crashed at runtime with "Cannot find module
+  # 'express'" and every /api/* route returned 502.
   node_bundler = "esbuild"
 
 [[redirects]]
