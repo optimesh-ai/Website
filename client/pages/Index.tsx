@@ -86,18 +86,17 @@ export default function Index() {
                 className="animate-fade-up mt-6 text-balance text-[2.8rem] font-medium leading-[1.02] tracking-[-0.03em] text-foreground sm:text-6xl lg:text-[5rem]"
                 style={{ animationDelay: "80ms" }}
               >
-                Validate every network change before it ships.
+                Ship network changes without the 2&nbsp;a.m.&nbsp;call.
               </h1>
 
               <p
                 className="animate-fade-up mt-7 max-w-xl text-pretty text-lg leading-relaxed text-muted-foreground"
                 style={{ animationDelay: "160ms" }}
               >
-                Optimesh Technologies is the network verification platform that
-                prevents outages before they happen. Simulate the forwarding
-                plane across every major vendor, prove exactly what a
-                configuration change will do, and ship verified fixes with
-                confidence. All on your own hardware.
+                Optimesh combines a forwarding-plane simulation engine with
+                AI-driven fault diagnosis so your team can prove every change
+                safe before it reaches production. Stop outages before they
+                happen. Ship faster. Sleep better.
               </p>
 
               <div
@@ -229,19 +228,19 @@ export default function Index() {
         <SectionHeading
           eyebrow="The platform"
           title="Two products. One source of truth for your network."
-          description="Hammerhead is the offline simulation engine. Config Studio puts it to work, diagnosing faults and proposing fixes that are proven safe before a human ever sees them."
+          description="Hammerhead simulates your forwarding plane with millisecond precision. Config Studio puts it to work — diagnosing faults, writing exact CLI fixes, and proving them safe before a human ever sees them."
         />
 
         <Reveal className="mt-14 grid gap-6 lg:grid-cols-2">
           <ProductCard
             icon={<Gauge className="h-5 w-5" />}
             name="Hammerhead"
-            tagline="Offline forwarding-plane simulator"
+            tagline="Forwarding-plane simulation engine"
             description="Drop your configs in a directory and ask what a change will do. Hammerhead simulates the forwarding plane across every major vendor in milliseconds."
             points={[
               "800× faster than the industry standard, 99.93% FIB parity",
               "CLI, Python SDK, REST API & CI integration",
-              "Deterministic, no Docker or JVM, no live device",
+              "Deterministic — no Docker, no JVM, runs on your hardware",
             ]}
             to="/products/hammerhead"
           />
