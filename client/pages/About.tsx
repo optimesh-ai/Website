@@ -1,5 +1,6 @@
 import { Layout } from "@/components/Layout";
 import { Link } from "react-router-dom";
+import { NewsTicker } from "@/components/site/NewsTicker";
 import {
   ArrowRight,
   BadgeCheck,
@@ -122,6 +123,13 @@ export default function About() {
               world.
             </p>
           </div>
+        </Container>
+      </section>
+
+      {/* -------------------------------------------------------------- News */}
+      <section className="border-b border-border py-10 md:py-14">
+        <Container>
+          <NewsTicker size="lg" />
         </Container>
       </section>
 

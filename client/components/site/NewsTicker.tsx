@@ -5,7 +5,7 @@ import { cn } from "@/lib/utils";
 import { getSortedNews } from "@/data/news";
 import { formatDate } from "@/data/articles";
 
-export function NewsTicker() {
+export function NewsTicker({ size = "md" }: { size?: "md" | "lg" }) {
   const items = getSortedNews();
   const [index, setIndex] = useState(0);
   const [paused, setPaused] = useState(false);
@@ -21,14 +21,27 @@ export function NewsTicker() {
 
   if (items.length === 0) return null;
   const item = items[index];
+  const lg = size === "lg";
 
   return (
     <div
       onMouseEnter={() => setPaused(true)}
       onMouseLeave={() => setPaused(false)}
-      className="mx-auto flex max-w-4xl items-start gap-4 rounded-2xl border border-border bg-card px-4 py-4 shadow-sm sm:items-center sm:gap-5 sm:rounded-full sm:px-6"
+      className={cn(
+        "mx-auto flex items-start gap-4 rounded-2xl border border-border bg-card shadow-sm sm:items-center sm:gap-5 sm:rounded-full",
+        lg
+          ? "max-w-5xl px-5 py-5 sm:px-8"
+          : "max-w-4xl px-4 py-4 sm:px-6",
+      )}
     >
-      <span className="flex-none rounded-full bg-primary/10 px-3 py-1.5 font-mono text-[0.7rem] font-semibold uppercase tracking-[0.18em] text-primary sm:px-3.5 sm:text-[0.78rem]">
+      <span
+        className={cn(
+          "flex-none rounded-full bg-primary/10 font-mono font-semibold uppercase tracking-[0.18em] text-primary",
+          lg
+            ? "px-4 py-2 text-[0.78rem] sm:text-[0.85rem]"
+            : "px-3 py-1.5 text-[0.7rem] sm:px-3.5 sm:text-[0.78rem]",
+        )}
+      >
         News
       </span>
 
@@ -37,13 +50,28 @@ export function NewsTicker() {
         key={item.slug}
         className="group flex min-w-0 flex-1 animate-fade-in flex-col gap-1 sm:flex-row sm:items-center sm:gap-4"
       >
-        <span className="font-mono text-xs text-muted-foreground sm:text-sm">
+        <span
+          className={cn(
+            "font-mono text-muted-foreground",
+            lg ? "text-sm sm:text-base" : "text-xs sm:text-sm",
+          )}
+        >
           {formatDate(item.date)}
         </span>
-        <span className="flex-1 text-[1.05rem] font-medium leading-snug text-foreground transition-colors group-hover:text-primary sm:truncate sm:text-lg">
+        <span
+          className={cn(
+            "flex-1 font-medium leading-snug text-foreground transition-colors group-hover:text-primary sm:truncate",
+            lg ? "text-xl sm:text-2xl" : "text-[1.05rem] sm:text-lg",
+          )}
+        >
           {item.headline}
         </span>
-        <ArrowUpRight className="hidden h-5 w-5 flex-none text-muted-foreground transition-colors group-hover:text-primary sm:block" />
+        <ArrowUpRight
+          className={cn(
+            "hidden flex-none text-muted-foreground transition-colors group-hover:text-primary sm:block",
+            lg ? "h-6 w-6" : "h-5 w-5",
+          )}
+        />
       </Link>
 
       <div className="hidden flex-none items-center gap-2 sm:flex">
@@ -54,7 +82,8 @@ export function NewsTicker() {
             aria-label={`Show: ${it.headline}`}
             onClick={() => setIndex(i)}
             className={cn(
-              "h-2 w-2 rounded-full transition-colors",
+              "rounded-full transition-colors",
+              lg ? "h-2.5 w-2.5" : "h-2 w-2",
               i === index
                 ? "bg-primary animate-pulse-soft"
                 : "bg-border hover:bg-muted-foreground/50",
