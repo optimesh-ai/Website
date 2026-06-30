@@ -16,6 +16,11 @@ const products = [
     name: "Config Studio",
     desc: "AI diagnosis & verified fixes",
   },
+  {
+    to: "/products/rulehawk",
+    name: "RuleHawk",
+    desc: "Free firewall rule auditor",
+  },
 ];
 
 const navLinks = [
@@ -117,6 +122,14 @@ export function Header() {
         </div>
 
         <div className="hidden items-center gap-3 md:flex">
+          <a
+            href="https://optimesh-ai.github.io/RuleHawk/"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="rounded-lg border border-primary/20 bg-primary/5 px-4 py-2 text-sm font-medium text-primary transition-colors hover:bg-primary/10"
+          >
+            Try Free
+          </a>
           <ButtonLink to="/early-access" variant="primary" size="md">
             Request access
           </ButtonLink>

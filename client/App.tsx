@@ -17,6 +17,7 @@ import News from "./pages/News";
 import NewsArticle from "./pages/NewsArticle";
 import Whitepaper from "./pages/Whitepaper";
 import Why from "./pages/Why";
+import RuleHawk from "./pages/RuleHawk";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -34,6 +35,7 @@ export default function App() {
             <Route path="/features" element={<Features />} />
             <Route path="/products/hammerhead" element={<Hammerhead />} />
             <Route path="/products/config-studio" element={<ConfigStudio />} />
+            <Route path="/products/rulehawk" element={<RuleHawk />} />
             <Route path="/about" element={<About />} />
             <Route path="/insights" element={<Insights />} />
             <Route path="/insights/:slug" element={<Article />} />

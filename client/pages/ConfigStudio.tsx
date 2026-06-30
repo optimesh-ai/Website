@@ -27,6 +27,8 @@ import {
   Card,
   CodeBlock,
 } from "@/components/site/primitives";
+import { PacketFlowScene } from "@/components/site/PacketFlowScene";
+import { Reveal } from "@/components/site/Reveal";
 
 const pipeline = [
   {
@@ -487,35 +489,41 @@ export default function ConfigStudio() {
         </Container>
       </section>
 
-      {/* --------------------------------------------- Security & sovereignty */}
-      <Section>
-        <SectionHeading
-          eyebrow="Security &amp; sovereignty"
-          title="Your configs never leave your control."
-          description="Config Studio runs entirely on your hardware. Built to be trusted with the most sensitive thing in your network."
-        />
-
-        <div className="mt-14 grid gap-x-10 gap-y-10 sm:grid-cols-2 lg:grid-cols-3">
-          {trust.map((item) => {
-            const Icon = item.icon;
-            return (
-              <div key={item.title} className="flex gap-4">
-                <span className="flex h-10 w-10 flex-none items-center justify-center rounded-lg bg-primary/10 text-primary">
-                  <Icon className="h-5 w-5" />
-                </span>
-                <div>
-                  <h3 className="text-base font-semibold tracking-tight text-foreground">
-                    {item.title}
-                  </h3>
-                  <p className="mt-1.5 text-sm leading-relaxed text-muted-foreground">
-                    {item.body}
-                  </p>
+      {/* --------------------------------------------- Security — visual split */}
+      <section className="py-24 md:py-32">
+        <Container>
+          <div className="grid items-center gap-12 lg:grid-cols-2">
+            <Reveal>
+              <div>
+                <Eyebrow>Security &amp; sovereignty</Eyebrow>
+                <h2 className="mt-4 text-3xl font-semibold tracking-tight text-foreground sm:text-4xl">
+                  Your configs never leave your control.
+                </h2>
+                <p className="mt-4 text-[0.95rem] leading-relaxed text-muted-foreground">
+                  Config Studio runs entirely on your hardware. Built to be trusted
+                  with the most sensitive thing in your network.
+                </p>
+                <div className="mt-8 space-y-3">
+                  {trust.map((item) => {
+                    const Icon = item.icon;
+                    return (
+                      <div key={item.title} className="flex items-center gap-3">
+                        <span className="flex h-7 w-7 flex-none items-center justify-center rounded-full bg-primary/10 text-primary">
+                          <Icon className="h-3.5 w-3.5" />
+                        </span>
+                        <span className="text-sm text-foreground">{item.title}</span>
+                      </div>
+                    );
+                  })}
                 </div>
               </div>
-            );
-          })}
-        </div>
-      </Section>
+            </Reveal>
+            <div className="relative h-[380px] sm:h-[420px] lg:h-[460px]">
+              <PacketFlowScene className="absolute inset-0" />
+            </div>
+          </div>
+        </Container>
+      </section>
 
       {/* ----------------------------------------------- Adversarial robustness */}
       <Section>

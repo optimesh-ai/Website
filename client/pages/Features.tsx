@@ -25,6 +25,7 @@ import {
   Badge,
   CodeBlock,
 } from "@/components/site/primitives";
+import { PacketFlowScene } from "@/components/site/PacketFlowScene";
 
 const capabilities = [
   {
@@ -101,51 +102,55 @@ export default function Features() {
         <div className="pointer-events-none absolute -top-40 left-1/2 h-[36rem] w-[60rem] -translate-x-1/2 rounded-full bg-primary/5 blur-3xl" />
 
         <Container className="relative pb-20 pt-32 md:pb-28 md:pt-40">
-          <div className="max-w-3xl">
-            <div className="animate-fade-up" style={{ animationDelay: "0ms" }}>
-              <Eyebrow>The platform</Eyebrow>
+          <div className="grid items-center gap-10 lg:grid-cols-2 lg:gap-6">
+            <div>
+              <div className="animate-fade-up" style={{ animationDelay: "0ms" }}>
+                <Eyebrow>The platform</Eyebrow>
+              </div>
+
+              <h1
+                className="animate-fade-up mt-5 text-balance text-[2.5rem] font-medium leading-[1.05] tracking-tight text-foreground sm:text-5xl lg:text-[3.5rem]"
+                style={{ animationDelay: "80ms" }}
+              >
+                One source of truth for how your network behaves.
+              </h1>
+
+              <p
+                className="animate-fade-up mt-6 max-w-xl text-pretty text-lg leading-relaxed text-muted-foreground"
+                style={{ animationDelay: "160ms" }}
+              >
+                Simulate the forwarding plane across your whole fabric, see
+                exactly what a change will do, and ship verified fixes —
+                without touching a live device.
+              </p>
+
+              <div
+                className="animate-fade-up mt-9 flex flex-col gap-3 sm:flex-row"
+                style={{ animationDelay: "240ms" }}
+              >
+                <ButtonLink to="/early-access" variant="primary" size="lg">
+                  Request access
+                  <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-0.5" />
+                </ButtonLink>
+                <ButtonLink to="/products/hammerhead" variant="secondary" size="lg">
+                  Explore Hammerhead
+                </ButtonLink>
+              </div>
+
+              <p
+                className="animate-fade-up mt-8 font-mono text-xs uppercase tracking-[0.14em] text-muted-foreground"
+                style={{ animationDelay: "320ms" }}
+              >
+                On-prem · air-gapped · single binary · no agents
+              </p>
             </div>
 
-            <h1
-              className="animate-fade-up mt-5 text-balance text-[2.6rem] font-medium leading-[1.05] tracking-tight text-foreground sm:text-6xl lg:text-[4rem]"
-              style={{ animationDelay: "80ms" }}
-            >
-              One source of truth for how your network behaves.
-            </h1>
-
-            <p
-              className="animate-fade-up mt-6 max-w-2xl text-pretty text-lg leading-relaxed text-muted-foreground"
-              style={{ animationDelay: "160ms" }}
-            >
-              Optimesh Technologies is offline network intelligence: simulate the forwarding
-              plane across your whole fabric, see exactly what a config change
-              will do, and ship verified fixes, all without touching a live
-              device. Two products, one engine, one answer you can trust.
-            </p>
-
+            {/* 3D network topology */}
             <div
-              className="animate-fade-up mt-9 flex flex-col gap-3 sm:flex-row"
-              style={{ animationDelay: "240ms" }}
+              className="animate-fade-up relative h-[380px] sm:h-[440px] lg:h-[500px]"
+              style={{ animationDelay: "200ms" }}
             >
-              <ButtonLink to="/early-access" variant="primary" size="lg">
-                Request access
-                <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-0.5" />
-              </ButtonLink>
-              <ButtonLink to="/products/hammerhead" variant="secondary" size="lg">
-                Explore Hammerhead
-              </ButtonLink>
-            </div>
-
-            <div
-              className="animate-fade-up mt-8 flex flex-wrap gap-2.5"
-              style={{ animationDelay: "320ms" }}
-            >
-              <Badge tone="primary">Vendor agnostic</Badge>
-              <Badge tone="primary">CLI · SDK · REST · CI</Badge>
-              <Badge tone="success">
-                <span className="h-1.5 w-1.5 rounded-full bg-success" />
-                On-prem & air-gap ready
-              </Badge>
+              <PacketFlowScene className="absolute inset-0" />
             </div>
           </div>
         </Container>

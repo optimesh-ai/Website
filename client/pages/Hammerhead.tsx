@@ -31,6 +31,8 @@ import {
   Badge,
   CodeBlock,
 } from "@/components/site/primitives";
+import { RackScene } from "@/components/site/RackScene";
+import { Reveal } from "@/components/site/Reveal";
 
 /* -------------------------------------------------------------------------- */
 /* Data                                                                       */
@@ -174,10 +176,10 @@ export default function Hammerhead() {
                 className="animate-fade-up mt-6 max-w-xl text-pretty text-lg leading-relaxed text-muted-foreground"
                 style={{ animationDelay: "160ms" }}
               >
-                Drop your configs in a directory and ask. Hammerhead parses
-                every major vendor, simulates the forwarding plane, and answers
-                reachability queries in milliseconds. One static binary, no
-                Docker, no JVM, no live device.
+                Point it at a directory of router configs. It builds the
+                forwarding tables for every device, runs your reachability
+                query, and tells you the answer — in under a second. Ships
+                as a single binary. Nothing else to install.
               </p>
 
               <div
@@ -237,115 +239,93 @@ export default function Hammerhead() {
       {/* ----------------------------------------------------------- Stat band */}
       <section className="border-y border-border bg-card">
         <Container className="py-12">
-          <div className="grid grid-cols-2 gap-x-6 gap-y-10 md:grid-cols-5">
+          <div className="grid grid-cols-2 gap-x-8 gap-y-10 md:grid-cols-4">
             <Stat
               value="800×"
-              label="Faster than the industry standard"
-              sub="whole-fabric simulation in milliseconds"
+              label="Faster"
+              sub="whole-fabric sim in milliseconds"
             />
             <Stat
               value="99.93%"
-              label="Cross-validated accuracy"
-              sub="matches the industry standard at scale"
-            />
-            <Stat
-              value="0"
-              label="Per-device flags"
-              sub="automatic detection across every major network OS"
+              label="FIB parity"
+              sub="cross-validated against live stacks"
             />
             <Stat
               value="<1s"
-              label="Whole-fabric simulation"
-              sub="for a 1,280-device topology"
+              label="Full topology"
+              sub="1,280 devices parsed and simulated"
             />
             <Stat
               value="100%"
               label="Deterministic"
-              sub="same input, same answer, audit-ready"
+              sub="same input, same answer, every time"
             />
           </div>
         </Container>
       </section>
 
-      {/* ------------------------------------------------------- Capabilities */}
-      <Section>
-        <SectionHeading
-          eyebrow="32 CLI subcommands"
-          title="One engine, the whole change-validation loop."
-          description="Parse, simulate, query, analyze, verify. One deterministic binary."
-        />
-
-        <div className="mt-14 grid gap-6 md:grid-cols-2">
-          {capabilityGroups.map((g) => (
-            <Card key={g.group} className="flex flex-col">
-              <div className="flex items-center gap-3">
-                <span className="flex h-10 w-10 items-center justify-center rounded-lg bg-primary/10 text-primary">
-                  {g.icon}
-                </span>
-                <h3 className="text-lg font-semibold tracking-tight text-foreground">
-                  {g.group}
-                </h3>
-              </div>
-              <p className="mt-4 text-pretty text-sm leading-relaxed text-muted-foreground">
-                {g.blurb}
-              </p>
-              <div className="mt-5 flex flex-wrap gap-2">
-                {g.commands.map((c) => (
-                  <span
-                    key={c}
-                    className="rounded-md border border-border bg-muted px-2.5 py-1 font-mono text-xs text-foreground/75"
-                  >
-                    {c}
-                  </span>
-                ))}
-              </div>
-            </Card>
-          ))}
-        </div>
-
-        <p className="mt-8 text-sm text-muted-foreground">
-          Plus a symbolic BDD headerspace engine for differential reachability,
-          so you can prove that two snapshots forward every packet identically.
-        </p>
-      </Section>
-
-      {/* --------------------------------------------------- Protocols & planes */}
-      <section className="border-y border-border bg-card">
-        <Container className="py-20 md:py-28">
-          <SectionHeading
-            eyebrow="Protocols & data planes"
-            title="Models the control and forwarding plane you actually run."
-            description="Real routing convergence resolved down to per-VLAN forwarding. That is what makes the answers trustworthy."
-          />
-
-          <div className="mt-14 grid gap-6 md:grid-cols-3">
-            {protocolGroups.map((p) => (
-              <div
-                key={p.title}
-                className="rounded-xl border border-border bg-background p-7"
-              >
-                <div className="flex items-center gap-3">
-                  <span className="flex h-10 w-10 items-center justify-center rounded-lg bg-primary/10 text-primary">
-                    {p.icon}
-                  </span>
-                  <h3 className="text-base font-semibold tracking-tight text-foreground">
-                    {p.title}
-                  </h3>
-                </div>
-                <ul className="mt-5 space-y-3">
-                  {p.items.map((item) => (
-                    <li
-                      key={item}
-                      className="flex items-start gap-2.5 text-sm leading-relaxed text-foreground/80"
-                    >
-                      <span className="mt-1.5 h-1.5 w-1.5 flex-none rounded-full bg-primary/60" />
-                      {item}
-                    </li>
+      {/* ------------------------------------------------------- Capabilities — visual split */}
+      <section className="border-y border-border">
+        <Container className="py-24 md:py-32">
+          <div className="grid items-center gap-12 lg:grid-cols-2">
+            <div className="relative h-[400px] sm:h-[460px] lg:h-[520px]">
+              <RackScene className="absolute inset-0" />
+            </div>
+            <Reveal>
+              <div>
+                <Eyebrow>32 CLI subcommands</Eyebrow>
+                <h2 className="mt-4 text-3xl font-semibold tracking-tight text-foreground sm:text-4xl">
+                  One engine. The whole validation loop.
+                </h2>
+                <p className="mt-4 text-[0.95rem] leading-relaxed text-muted-foreground">
+                  Parse, simulate, query, analyze, verify — one deterministic binary.
+                </p>
+                <div className="mt-8 grid grid-cols-2 gap-4">
+                  {capabilityGroups.map((g) => (
+                    <div key={g.group}>
+                      <div className="flex items-center gap-2">
+                        <span className="text-primary">{g.icon}</span>
+                        <h3 className="text-sm font-semibold text-foreground">{g.group}</h3>
+                      </div>
+                      <div className="mt-2 flex flex-wrap gap-1.5">
+                        {g.commands.map((c) => (
+                          <span key={c} className="rounded border border-border bg-muted px-2 py-0.5 font-mono text-[0.65rem] text-foreground/70">
+                            {c}
+                          </span>
+                        ))}
+                      </div>
+                    </div>
                   ))}
-                </ul>
+                </div>
               </div>
-            ))}
+            </Reveal>
           </div>
+        </Container>
+      </section>
+
+      {/* --------------------------------------------------- Protocols — compact strip */}
+      <section className="bg-foreground">
+        <Container className="py-20 md:py-24">
+          <Reveal>
+            <p className="text-center font-mono text-xs font-medium uppercase tracking-[0.22em] text-primary">
+              Protocols &amp; data planes
+            </p>
+            <h2 className="mt-4 text-center text-3xl font-semibold tracking-tight text-background sm:text-4xl">
+              Models the network you actually run.
+            </h2>
+            <div className="mx-auto mt-12 grid max-w-4xl gap-8 md:grid-cols-3">
+              {protocolGroups.map((p) => (
+                <div key={p.title}>
+                  <h3 className="text-sm font-semibold text-background">{p.title}</h3>
+                  <ul className="mt-3 space-y-1.5">
+                    {p.items.map((item) => (
+                      <li key={item} className="text-sm text-background/60">{item}</li>
+                    ))}
+                  </ul>
+                </div>
+              ))}
+            </div>
+          </Reveal>
         </Container>
       </section>
 
