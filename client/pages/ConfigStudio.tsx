@@ -530,11 +530,7 @@ export default function ConfigStudio() {
         <div className="overflow-hidden rounded-2xl border border-border bg-card shadow-sm">
           <div className="grid gap-0 md:grid-cols-[1.1fr_0.9fr]">
             <div className="p-8 md:p-12">
-              <Badge tone="primary">
-                <ShieldAlert className="h-3.5 w-3.5" />
-                Adversarial robustness
-              </Badge>
-              <h3 className="mt-5 text-balance text-2xl font-medium tracking-tight text-foreground sm:text-3xl">
+              <h3 className="text-balance text-2xl font-medium tracking-tight text-foreground sm:text-3xl">
                 Built for adversarial environments.
               </h3>
               <p className="mt-4 text-pretty leading-relaxed text-muted-foreground">

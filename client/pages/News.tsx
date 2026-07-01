@@ -1,7 +1,7 @@
 import { Layout } from "@/components/Layout";
 import { Link } from "react-router-dom";
 import { ArrowUpRight } from "lucide-react";
-import { Container, Section, Badge } from "@/components/site/primitives";
+import { Container, Section } from "@/components/site/primitives";
 import { getSortedNews } from "@/data/news";
 import { formatDate } from "@/data/articles";
 import { MeshFieldScene } from "@/components/site/MeshFieldScene";
@@ -19,11 +19,8 @@ export default function News() {
         </div>
         <Container className="relative pb-16 pt-32 md:pb-20 md:pt-40">
           <div className="max-w-3xl">
-            <div className="animate-fade-up">
-              <Badge tone="primary">News</Badge>
-            </div>
             <h1
-              className="animate-fade-up mt-6 text-balance text-[2.6rem] font-medium leading-[1.06] tracking-tight text-foreground sm:text-6xl"
+              className="animate-fade-up text-balance text-[2.6rem] font-medium leading-[1.06] tracking-tight text-foreground sm:text-6xl"
               style={{ animationDelay: "80ms" }}
             >
               What's new at Optimesh Technologies.

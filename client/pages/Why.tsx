@@ -23,7 +23,6 @@ import {
   Section,
   SectionHeading,
   Eyebrow,
-  Badge,
   Stat,
 } from "@/components/site/primitives";
 import { Reveal } from "@/components/site/Reveal";
@@ -140,11 +139,8 @@ export default function Why() {
 
         <Container className="relative pb-20 pt-32 md:pb-24 md:pt-40">
           <div className="max-w-3xl">
-            <div className="animate-fade-up">
-              <Badge tone="primary">Why Optimesh Technologies</Badge>
-            </div>
             <h1
-              className="animate-fade-up mt-6 text-balance text-[2.6rem] font-medium leading-[1.06] tracking-tight text-foreground sm:text-6xl lg:text-[4rem]"
+              className="animate-fade-up text-balance text-[2.6rem] font-medium leading-[1.06] tracking-tight text-foreground sm:text-6xl lg:text-[4rem]"
               style={{ animationDelay: "80ms" }}
             >
               Making network engineering safe and autonomous.

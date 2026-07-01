@@ -1,7 +1,7 @@
 import { motion } from "framer-motion";
 import { cn } from "@/lib/utils";
 import { ArrowRight, ChevronRight } from "lucide-react";
-import { Badge, ButtonLink, Container } from "./primitives";
+import { ButtonLink, Container } from "./primitives";
 import { NetworkScene } from "./NetworkScene";
 
 const container = {
@@ -30,7 +30,6 @@ const item = {
 interface HeroProps {
   title: string;
   description: string;
-  badge?: string;
   primaryButton?: { to: string; label: string };
   secondaryButton?: { to: string; label: string };
   tertiaryButton?: { to: string; label: string; external?: boolean };
@@ -45,7 +44,6 @@ interface HeroProps {
 export function Hero({
   title,
   description,
-  badge,
   primaryButton = { to: "/early-access", label: "Request access" },
   secondaryButton = { to: "/products/hammerhead", label: "Explore the platform" },
   tertiaryButton,
@@ -68,15 +66,6 @@ export function Hero({
           animate="show"
           className="max-w-xl"
         >
-          {badge && (
-            <motion.div variants={item}>
-              <Badge tone="primary">
-                <span className="h-1.5 w-1.5 rounded-full bg-primary" />
-                {badge}
-              </Badge>
-            </motion.div>
-          )}
-
           <motion.h1
             variants={item}
             className="mt-6 text-balance text-4xl font-semibold leading-[1.08] tracking-[-0.03em] text-foreground sm:text-5xl lg:text-[3.4rem] xl:text-[3.8rem]"

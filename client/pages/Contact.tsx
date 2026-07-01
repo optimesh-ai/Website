@@ -6,7 +6,6 @@ import {
   Eyebrow,
   ButtonLink,
   ArrowLink,
-  Badge,
 } from "@/components/site/primitives";
 import { MeshFieldScene } from "@/components/site/MeshFieldScene";
 
@@ -23,11 +22,8 @@ export default function Contact() {
 
         <Container className="relative pb-16 pt-32 md:pb-20 md:pt-40">
           <div className="mx-auto max-w-2xl text-center">
-            <div className="animate-fade-up flex justify-center">
-              <Badge tone="primary">Contact</Badge>
-            </div>
             <h1
-              className="animate-fade-up mt-6 text-balance text-[2.6rem] font-medium leading-[1.05] tracking-tight text-foreground sm:text-5xl md:text-6xl"
+              className="animate-fade-up text-balance text-[2.6rem] font-medium leading-[1.05] tracking-tight text-foreground sm:text-5xl md:text-6xl"
               style={{ animationDelay: "80ms" }}
             >
               Get in touch

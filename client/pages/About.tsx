@@ -18,7 +18,6 @@ import {
   SectionHeading,
   Eyebrow,
   Stat,
-  Badge,
 } from "@/components/site/primitives";
 
 const values = [
@@ -99,12 +98,8 @@ export default function About() {
 
         <Container className="relative pb-20 pt-32 md:pb-28 md:pt-40">
           <div className="max-w-3xl">
-            <div className="animate-fade-up" style={{ animationDelay: "0ms" }}>
-              <Badge tone="primary">Company</Badge>
-            </div>
-
             <h1
-              className="animate-fade-up mt-6 text-balance text-[2.6rem] font-medium leading-[1.06] tracking-tight text-foreground sm:text-6xl lg:text-[3.9rem]"
+              className="animate-fade-up text-balance text-[2.6rem] font-medium leading-[1.06] tracking-tight text-foreground sm:text-6xl lg:text-[3.9rem]"
               style={{ animationDelay: "80ms" }}
             >
               Bring certainty to the networks that run the world.

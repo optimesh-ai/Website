@@ -28,7 +28,6 @@ import {
   Eyebrow,
   Stat,
   Card,
-  Badge,
   CodeBlock,
 } from "@/components/site/primitives";
 import { RackScene } from "@/components/site/RackScene";
@@ -158,15 +157,8 @@ export default function Hammerhead() {
         <Container className="relative pb-20 pt-32 md:pb-24 md:pt-40">
           <div className="grid items-center gap-14 lg:grid-cols-[1fr_1fr]">
             <div>
-              <div className="animate-fade-up" style={{ animationDelay: "0ms" }}>
-                <Badge tone="primary">
-                  <span className="h-1.5 w-1.5 rounded-full bg-primary" />
-                  Hammerhead, offline simulator
-                </Badge>
-              </div>
-
               <h1
-                className="animate-fade-up mt-6 text-balance text-[2.5rem] font-medium leading-[1.05] tracking-tight text-foreground sm:text-5xl lg:text-[3.6rem]"
+                className="animate-fade-up text-balance text-[2.5rem] font-medium leading-[1.05] tracking-tight text-foreground sm:text-5xl lg:text-[3.6rem]"
                 style={{ animationDelay: "80ms" }}
               >
                 Know what a change will do, before you make it.

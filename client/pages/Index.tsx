@@ -21,7 +21,6 @@ export default function Index() {
     <Layout>
       {/* ---------------------------------------------------------------- Hero */}
       <Hero
-        badge="Early Access"
         title="Validate network changes<br class='hidden sm:block' /> before deployment."
         description="Forwarding-plane simulation with automated fault analysis. Verify configuration changes before they hit production."
         primaryButton={{ to: "/early-access", label: "Get Started" }}

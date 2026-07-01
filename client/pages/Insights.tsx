@@ -4,7 +4,6 @@ import { ArrowUpRight } from "lucide-react";
 import {
   Container,
   Section,
-  Badge,
 } from "@/components/site/primitives";
 import {
   getSortedArticles,
@@ -27,11 +26,8 @@ export default function Insights() {
         </div>
         <Container className="relative pb-16 pt-32 md:pb-20 md:pt-40">
           <div className="max-w-3xl">
-            <div className="animate-fade-up">
-              <Badge tone="primary">Insights</Badge>
-            </div>
             <h1
-              className="animate-fade-up mt-6 text-balance text-[2.6rem] font-medium leading-[1.06] tracking-tight text-foreground sm:text-6xl"
+              className="animate-fade-up text-balance text-[2.6rem] font-medium leading-[1.06] tracking-tight text-foreground sm:text-6xl"
               style={{ animationDelay: "80ms" }}
             >
               Notes on the future of network intelligence.

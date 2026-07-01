@@ -15,7 +15,6 @@ import {
   Section,
   SectionHeading,
   Eyebrow,
-  Badge,
   Button,
 } from "@/components/site/primitives";
 import { MeshFieldScene } from "@/components/site/MeshFieldScene";
@@ -142,15 +141,8 @@ export default function EarlyAccess() {
 
         <Container className="relative pb-20 pt-32 md:pb-24 md:pt-40">
           <div className="mx-auto max-w-2xl text-center">
-            <div className="animate-fade-up flex justify-center">
-              <Badge tone="primary">
-                <span className="h-1.5 w-1.5 rounded-full bg-primary" />
-                Early access
-              </Badge>
-            </div>
-
             <h1
-              className="animate-fade-up mt-6 text-balance text-[2.6rem] font-medium leading-[1.05] tracking-tight text-foreground sm:text-5xl md:text-6xl"
+              className="animate-fade-up text-balance text-[2.6rem] font-medium leading-[1.05] tracking-tight text-foreground sm:text-5xl md:text-6xl"
               style={{ animationDelay: "80ms" }}
             >
               Get early access to Optimesh Technologies.

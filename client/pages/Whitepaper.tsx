@@ -5,7 +5,6 @@ import {
   Button,
   Container,
   Eyebrow,
-  Badge,
 } from "@/components/site/primitives";
 
 const contents = [
@@ -77,8 +76,7 @@ export default function Whitepaper() {
         <div className="pointer-events-none absolute inset-0 bg-grid bg-grid-fade opacity-60" />
         <Container className="relative pb-12 pt-32 md:pt-40">
           <div className="mx-auto max-w-3xl">
-            <Badge tone="primary">White paper</Badge>
-            <h1 className="mt-6 text-balance text-4xl font-medium leading-[1.08] tracking-tight text-foreground sm:text-5xl">
+            <h1 className="text-balance text-4xl font-medium leading-[1.08] tracking-tight text-foreground sm:text-5xl">
               Offline Network Verification
             </h1>
             <p className="mt-5 text-pretty text-xl leading-relaxed text-muted-foreground">
