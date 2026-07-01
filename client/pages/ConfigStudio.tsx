@@ -27,7 +27,7 @@ import {
   Card,
   CodeBlock,
 } from "@/components/site/primitives";
-import { WithdrawalScene } from "@/components/site/WithdrawalScene";
+import { PacketFlowScene } from "@/components/site/PacketFlowScene";
 import { Reveal } from "@/components/site/Reveal";
 
 const pipeline = [
@@ -519,7 +519,7 @@ export default function ConfigStudio() {
               </div>
             </Reveal>
             <div className="relative h-[380px] sm:h-[420px] lg:h-[460px]">
-              <WithdrawalScene className="absolute inset-0" />
+              <PacketFlowScene className="absolute inset-0" />
             </div>
           </div>
         </Container>
