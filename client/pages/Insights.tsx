@@ -11,6 +11,7 @@ import {
   authors,
   formatDate,
 } from "@/data/articles";
+import { MeshFieldScene } from "@/components/site/MeshFieldScene";
 
 export default function Insights() {
   const posts = getSortedArticles();
@@ -20,6 +21,10 @@ export default function Insights() {
       {/* ---------------------------------------------------------------- Hero */}
       <section className="relative overflow-hidden">
         <div className="pointer-events-none absolute inset-0 bg-grid bg-grid-fade opacity-70" />
+        <div className="pointer-events-none absolute -top-40 left-1/2 h-[34rem] w-[58rem] -translate-x-1/2 rounded-full bg-primary/5 blur-3xl" />
+        <div className="pointer-events-none absolute inset-y-0 right-0 hidden w-[46%] lg:block [mask-image:linear-gradient(to_right,transparent,black_45%)]">
+          <MeshFieldScene className="absolute inset-0" seed={31} />
+        </div>
         <Container className="relative pb-16 pt-32 md:pb-20 md:pt-40">
           <div className="max-w-3xl">
             <div className="animate-fade-up">
