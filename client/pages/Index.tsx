@@ -45,7 +45,7 @@ export default function Index() {
             ].map((s, i) => (
               <Reveal key={i} delay={i * 0.1}>
                 <div className="text-center">
-                  <div className="text-4xl font-semibold tracking-tight text-background sm:text-5xl md:text-6xl">
+                  <div className="text-4xl font-semibold tabular-nums tracking-tight text-background sm:text-5xl md:text-6xl">
                     {s.value}
                   </div>
                   <p className="mt-3 text-sm font-medium uppercase tracking-[0.15em] text-background/50">

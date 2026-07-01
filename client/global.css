@@ -73,7 +73,40 @@
 
   h1, h2, h3, h4 {
     @apply font-display;
-    letter-spacing: -0.025em;
+    letter-spacing: -0.03em;
+    font-feature-settings: "ss01" on, "cv01" on;
+  }
+
+  h1, h2 {
+    text-wrap: balance;
+  }
+
+  /* Stats and technical figures line up */
+  .tabular-nums, [class*="CountUp"] {
+    font-variant-numeric: tabular-nums;
+  }
+
+  /* Quiet, premium scrollbar */
+  ::-webkit-scrollbar {
+    width: 10px;
+    height: 10px;
+  }
+  ::-webkit-scrollbar-thumb {
+    background: hsl(var(--muted-foreground) / 0.25);
+    border-radius: 999px;
+    border: 2px solid hsl(var(--background));
+  }
+  ::-webkit-scrollbar-thumb:hover {
+    background: hsl(var(--muted-foreground) / 0.4);
+  }
+  ::-webkit-scrollbar-track {
+    background: transparent;
+  }
+
+  :focus-visible {
+    outline: 2px solid hsl(var(--ring));
+    outline-offset: 2px;
+    border-radius: 4px;
   }
 
   :where(p, span, li, h1, h2, h3, h4, h5, h6, a, button, label, td, th) {
@@ -93,6 +126,31 @@
 }
 
 @layer components {
+  /* Layered ambient shadows — softer and deeper than the tailwind scale */
+  .shadow-soft {
+    box-shadow:
+      0 1px 2px 0 hsl(222 47% 11% / 0.04),
+      0 4px 16px -8px hsl(222 47% 11% / 0.06);
+  }
+  .shadow-lift {
+    box-shadow:
+      0 2px 4px 0 hsl(222 47% 11% / 0.04),
+      0 16px 40px -16px hsl(222 47% 11% / 0.14);
+  }
+
+  /* Hairline gradient divider — more refined than a solid border */
+  .hairline-b {
+    position: relative;
+  }
+  .hairline-b::after {
+    content: "";
+    position: absolute;
+    inset-inline: 0;
+    bottom: 0;
+    height: 1px;
+    background: linear-gradient(to right, transparent, hsl(var(--border)), transparent);
+  }
+
   /* Eyebrow label, mono, tracked-out, used above section headings */
   .eyebrow {
     @apply font-mono text-xs font-medium uppercase tracking-[0.22em] text-primary;

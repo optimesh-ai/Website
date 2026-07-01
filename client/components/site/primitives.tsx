@@ -92,9 +92,9 @@ const buttonBase =
 
 const buttonVariants: Record<ButtonVariant, string> = {
   primary:
-    "bg-primary text-primary-foreground shadow-sm hover:bg-primary/90 hover:shadow-md active:translate-y-px",
+    "bg-gradient-to-b from-primary to-[hsl(222_75%_32%)] text-primary-foreground shadow-[inset_0_1px_0_0_hsl(0_0%_100%/0.16),0_1px_2px_0_hsl(222_75%_20%/0.35)] hover:shadow-[inset_0_1px_0_0_hsl(0_0%_100%/0.16),0_6px_16px_-4px_hsl(var(--primary)/0.45)] hover:brightness-[1.06] active:translate-y-px active:brightness-95",
   secondary:
-    "border border-border bg-card text-foreground shadow-sm hover:border-foreground/20 hover:bg-muted",
+    "bg-card text-foreground ring-1 ring-inset ring-border shadow-[0_1px_2px_0_hsl(222_47%_11%/0.05)] hover:bg-muted/60 hover:ring-foreground/20 hover:shadow-[0_2px_8px_-2px_hsl(222_47%_11%/0.1)] active:translate-y-px",
   ghost: "text-primary hover:text-primary/80",
 };
 
@@ -226,7 +226,7 @@ export function Card({
   return (
     <div
       className={cn(
-        "rounded-xl border border-border bg-card p-7 shadow-sm transition-all duration-300 hover:-translate-y-0.5 hover:border-foreground/15 hover:shadow-md",
+        "rounded-xl border border-border bg-card p-7 shadow-[0_1px_2px_0_hsl(222_47%_11%/0.04),0_4px_16px_-8px_hsl(222_47%_11%/0.06)] transition-all duration-300 hover:-translate-y-0.5 hover:border-primary/25 hover:shadow-[0_2px_4px_0_hsl(222_47%_11%/0.04),0_12px_32px_-12px_hsl(var(--primary)/0.18)]",
         className,
       )}
     >
