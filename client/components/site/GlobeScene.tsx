@@ -220,7 +220,7 @@ export function GlobeScene({ className }: { className?: string }) {
   return (
     <div className={className}>
       <Canvas
-        camera={{ position: [0, 0, 8.8], fov: 45 }}
+        camera={{ position: [0, 0, 7.2], fov: 45 }}
         gl={{ antialias: true, alpha: true, powerPreference: "high-performance" }}
         dpr={[1, 1.5]}
         frameloop={animate ? "always" : "demand"}

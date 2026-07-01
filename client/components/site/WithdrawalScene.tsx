@@ -7,29 +7,9 @@
  * Honours prefers-reduced-motion.
  */
 import { useRef, useMemo, useState, useEffect } from "react";
-import { Canvas, useFrame, useThree } from "@react-three/fiber";
+import { Canvas, useFrame } from "@react-three/fiber";
 import { Float, Line } from "@react-three/drei";
 import * as THREE from "three";
-
-/* Pull the camera back until the gate ring (radius 4.1 → half-width ~4.35 with
- * glow) fits the container with margin at any aspect ratio. */
-function FitCamera() {
-  const { camera, size } = useThree();
-  useEffect(() => {
-    const cam = camera as THREE.PerspectiveCamera;
-    const aspect = size.width / Math.max(size.height, 1);
-    const halfFov = (cam.fov * Math.PI) / 360;
-    // distance so that halfWidth (4.7 with margin) fits horizontally,
-    // and the fabric (~3.2 half-height incl. ring tilt) fits vertically
-    const dzW = 4.7 / (Math.tan(halfFov) * aspect);
-    const dzH = 3.4 / Math.tan(halfFov);
-    const dz = Math.max(dzW, dzH, 8.2);
-    cam.position.set(0, dz * 0.4, dz);
-    cam.lookAt(0, 0, 0);
-    cam.updateProjectionMatrix();
-  }, [camera, size]);
-  return null;
-}
 
 function useReducedMotion() {
   const [reduced, setReduced] = useState(false);
@@ -262,7 +242,6 @@ export function WithdrawalScene({ className }: { className?: string }) {
         frameloop={animate ? "always" : "demand"}
         className="h-full w-full"
       >
-        <FitCamera />
         <Scene animate={animate} />
       </Canvas>
     </div>

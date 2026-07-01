@@ -5,21 +5,9 @@
  * loop. Used on the Features hero. Honours prefers-reduced-motion.
  */
 import { useRef, useMemo, useState, useEffect } from "react";
-import { Canvas, useFrame, useThree } from "@react-three/fiber";
+import { Canvas, useFrame } from "@react-three/fiber";
 import { ContactShadows, RoundedBox, Line } from "@react-three/drei";
 import * as THREE from "three";
-
-/* Fit the orthographic zoom to the container so the full path (≈11.5 world
- * units wide, ≈6.5 tall incl. shadows) is never cropped at any viewport. */
-function FitZoom() {
-  const { camera, size } = useThree();
-  useEffect(() => {
-    const cam = camera as THREE.OrthographicCamera;
-    cam.zoom = Math.min(size.width / 10.2, size.height / 6.2);
-    cam.updateProjectionMatrix();
-  }, [camera, size]);
-  return null;
-}
 
 function useReducedMotion() {
   const [reduced, setReduced] = useState(false);
@@ -40,14 +28,14 @@ const RED = "#ef4444";
 
 /* Router hop positions — a gentle zig-zag left→right, gate after the last hop. */
 const HOPS: [number, number, number][] = [
-  [-3.9, -0.5, 0.6],
-  [-2.3, 0.5, -0.5],
-  [-0.7, -0.4, 0.4],
-  [0.9, 0.55, -0.4],
-  [2.4, -0.3, 0.3],
+  [-4.4, -0.5, 0.6],
+  [-2.6, 0.5, -0.5],
+  [-0.8, -0.4, 0.4],
+  [1.0, 0.55, -0.4],
+  [2.8, -0.3, 0.3],
 ];
-const GATE: [number, number, number] = [3.8, 0.1, 0];
-const EXIT: [number, number, number] = [4.9, 0.1, 0];
+const GATE: [number, number, number] = [4.3, 0.1, 0];
+const EXIT: [number, number, number] = [5.6, 0.1, 0];
 
 const HOP_SECONDS = 0.55; // travel time per hop
 const PAUSE = 0.22; // dwell on each router
@@ -64,7 +52,7 @@ function Router({
 }) {
   return (
     <group position={position}>
-      <RoundedBox args={[1.1, 0.26, 0.7]} radius={0.04} smoothness={4} castShadow>
+      <RoundedBox args={[0.85, 0.2, 0.55]} radius={0.03} smoothness={4} castShadow>
         <meshPhysicalMaterial
           color="#e6e6ee"
           roughness={0.28}
@@ -73,22 +61,22 @@ function Router({
           clearcoatRoughness={0.25}
         />
       </RoundedBox>
-      <mesh position={[0, 0.133, 0]}>
-        <boxGeometry args={[1.05, 0.004, 0.65]} />
+      <mesh position={[0, 0.103, 0]}>
+        <boxGeometry args={[0.81, 0.004, 0.51]} />
         <meshPhysicalMaterial color="#f0f0f7" roughness={0.2} clearcoat={0.6} />
       </mesh>
       {/* port strip */}
-      <mesh position={[0, 0, 0.355]}>
-        <planeGeometry args={[0.72, 0.1]} />
+      <mesh position={[0, 0, 0.28]}>
+        <planeGeometry args={[0.55, 0.08]} />
         <meshStandardMaterial color="#12121f" roughness={0.95} />
       </mesh>
       {/* hop glow ring under the router — pulsed when the packet arrives */}
       <mesh
         ref={glowRef}
-        position={[0, -0.16, 0]}
+        position={[0, -0.13, 0]}
         rotation={[-Math.PI / 2, 0, 0]}
       >
-        <ringGeometry args={[0.36, 0.52, 28]} />
+        <ringGeometry args={[0.28, 0.42, 28]} />
         <meshStandardMaterial
           color={BLUE}
           emissive={BLUE}
@@ -98,7 +86,7 @@ function Router({
         />
       </mesh>
       {/* hop number */}
-      <mesh position={[-0.42, 0.02, 0.356]}>
+      <mesh position={[-0.32, 0.02, 0.281]}>
         <circleGeometry args={[0.035, 8]} />
         <meshStandardMaterial
           color={index === 0 ? GREEN : BLUE}
@@ -231,7 +219,7 @@ function Scene({ animate }: { animate: boolean }) {
       {/* The verification gate — a standing ring the packet must clear */}
       <group position={GATE}>
         <mesh ref={gateRing} rotation={[0, Math.PI / 2, 0]}>
-          <torusGeometry args={[0.78, 0.055, 12, 48]} />
+          <torusGeometry args={[0.62, 0.045, 12, 48]} />
           <meshStandardMaterial
             color={GREEN}
             emissive={GREEN}
@@ -240,7 +228,7 @@ function Scene({ animate }: { animate: boolean }) {
           />
         </mesh>
         <mesh ref={gateCore} rotation={[0, Math.PI / 2, 0]}>
-          <circleGeometry args={[0.73, 40]} />
+          <circleGeometry args={[0.58, 40]} />
           <meshBasicMaterial
             color={GREEN}
             transparent
@@ -252,7 +240,7 @@ function Scene({ animate }: { animate: boolean }) {
 
       {/* The packet */}
       <mesh ref={packet}>
-        <sphereGeometry args={[0.115, 12, 12]} />
+        <sphereGeometry args={[0.09, 12, 12]} />
         <meshStandardMaterial
           color={GREEN}
           emissive={GREEN}
@@ -273,14 +261,13 @@ export function PathTraceScene({ className }: { className?: string }) {
     <div className={className}>
       <Canvas
         orthographic
-        camera={{ position: [0.5, -0.1, 9], zoom: 50 }}
+        camera={{ position: [1.5, 3.2, 9], zoom: 62 }}
         gl={{ antialias: true, alpha: true, powerPreference: "high-performance" }}
         dpr={[1, 1.5]}
         frameloop={animate ? "always" : "demand"}
         shadows
         className="h-full w-full"
       >
-        <FitZoom />
         <Scene animate={animate} />
       </Canvas>
     </div>
