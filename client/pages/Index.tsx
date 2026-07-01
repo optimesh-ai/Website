@@ -5,6 +5,7 @@ import { ButtonLink, Container, Eyebrow } from "@/components/site/primitives";
 import { CountUp } from "@/components/site/CountUp";
 import { Hero } from "@/components/site/Hero";
 import { PacketFlowScene } from "@/components/site/PacketFlowScene";
+import { MeshFieldScene } from "@/components/site/MeshFieldScene";
 import { Reveal } from "@/components/site/Reveal";
 
 const integrations = [
@@ -30,8 +31,11 @@ export default function Index() {
       />
 
       {/* --------------------------------------------------------- Stat band — dark, dramatic */}
-      <section className="relative bg-foreground">
+      <section className="relative overflow-hidden bg-foreground">
         <div className="pointer-events-none absolute inset-0 bg-grid opacity-[0.04]" />
+        <div className="pointer-events-none absolute inset-0 hidden opacity-40 lg:block [mask-image:radial-gradient(ellipse_at_center,transparent_28%,black_82%)]">
+          <MeshFieldScene className="absolute inset-0" seed={42} count={42} />
+        </div>
         <Container className="relative py-20 md:py-24">
           <div className="grid grid-cols-2 gap-y-14 md:grid-cols-4">
             {[
