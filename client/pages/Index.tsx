@@ -7,6 +7,7 @@ import { Hero } from "@/components/site/Hero";
 import { PacketFlowScene } from "@/components/site/PacketFlowScene";
 import { MeshFieldScene } from "@/components/site/MeshFieldScene";
 import { Reveal } from "@/components/site/Reveal";
+import { ParallaxLayer, ScrollBeam } from "@/components/site/ScrollFX";
 
 const integrations = [
   "GitHub Actions", "GitLab CI", "Jenkins", "ArgoCD",
@@ -33,7 +34,9 @@ export default function Index() {
       <section className="relative overflow-hidden bg-foreground">
         <div className="pointer-events-none absolute inset-0 bg-grid opacity-[0.04]" />
         <div className="pointer-events-none absolute inset-0 hidden opacity-40 lg:block [mask-image:radial-gradient(ellipse_at_center,transparent_28%,black_82%)]">
-          <MeshFieldScene className="absolute inset-0" seed={42} count={42} />
+          <ParallaxLayer className="absolute -inset-y-10 inset-x-0" distance={30}>
+            <MeshFieldScene className="absolute inset-0" seed={42} count={42} />
+          </ParallaxLayer>
         </div>
         <Container className="relative py-20 md:py-24">
           <div className="grid grid-cols-2 gap-y-14 md:grid-cols-4">
@@ -57,6 +60,10 @@ export default function Index() {
           </div>
         </Container>
       </section>
+
+      {/* ---- Scroll story: a beam draws down the page through these sections */}
+      <div className="relative">
+        <ScrollBeam className="left-5 hidden lg:block xl:left-8" />
 
       {/* ----------------------------------------------------------- Products */}
       <section className="py-24 md:py-32">
@@ -180,9 +187,9 @@ export default function Index() {
                 </div>
               </div>
             </Reveal>
-            <div className="relative h-[380px] sm:h-[440px] lg:h-[480px]">
+            <ParallaxLayer className="relative h-[380px] sm:h-[440px] lg:h-[480px]" distance={44}>
               <PacketFlowScene className="absolute inset-0" />
-            </div>
+            </ParallaxLayer>
           </div>
         </Container>
       </section>
@@ -207,6 +214,7 @@ export default function Index() {
           </Reveal>
         </Container>
       </section>
+      </div>
 
       {/* --------------------------------------------------------------- CTA */}
       <section className="px-6 pb-24 md:pb-32">

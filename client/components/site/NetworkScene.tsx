@@ -244,9 +244,15 @@ function RackAssembly() {
 
   useFrame(() => {
     if (!ref.current) return;
-    const s = scrollState.progress;
-    ref.current.rotation.y = baseRotY + s * 0.15;
-    ref.current.position.y = -s * 0.3;
+    const s = Math.min(scrollState.progress, 1.4);
+    // smooth toward the target so fast scrolling feels weighty, not jerky
+    const targetRot = baseRotY + s * 0.55;
+    const targetY = -s * 0.85;
+    const targetScale = 1 + Math.min(s, 1) * 0.06;
+    ref.current.rotation.y += (targetRot - ref.current.rotation.y) * 0.08;
+    ref.current.position.y += (targetY - ref.current.position.y) * 0.08;
+    const sc = ref.current.scale.x + (targetScale - ref.current.scale.x) * 0.08;
+    ref.current.scale.setScalar(sc);
   });
 
   return (
