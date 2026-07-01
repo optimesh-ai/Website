@@ -1,7 +1,7 @@
 import { Layout } from "@/components/Layout";
 import { Link } from "react-router-dom";
 import { NewsTicker } from "@/components/site/NewsTicker";
-import { MeshFieldScene } from "@/components/site/MeshFieldScene";
+import { GlobeScene } from "@/components/site/GlobeScene";
 import {
   ArrowRight,
   BadgeCheck,
@@ -92,8 +92,8 @@ export default function About() {
       <section className="relative overflow-hidden">
         <div className="pointer-events-none absolute inset-0 bg-grid bg-grid-fade opacity-70" />
         <div className="pointer-events-none absolute -top-40 left-1/2 h-[34rem] w-[58rem] -translate-x-1/2 rounded-full bg-primary/5 blur-3xl" />
-        <div className="pointer-events-none absolute inset-y-0 right-0 hidden w-[46%] lg:block [mask-image:linear-gradient(to_right,transparent,black_45%)]">
-          <MeshFieldScene className="absolute inset-0" seed={7} />
+        <div className="pointer-events-none absolute inset-y-0 right-0 hidden w-[48%] lg:block [mask-image:linear-gradient(to_right,transparent,black_40%)]">
+          <GlobeScene className="absolute inset-0" />
         </div>
 
         <Container className="relative pb-20 pt-32 md:pb-28 md:pt-40">

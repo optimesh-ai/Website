@@ -25,7 +25,7 @@ import {
   Badge,
   CodeBlock,
 } from "@/components/site/primitives";
-import { PacketFlowScene } from "@/components/site/PacketFlowScene";
+import { PathTraceScene } from "@/components/site/PathTraceScene";
 
 const capabilities = [
   {
@@ -150,7 +150,7 @@ export default function Features() {
               className="animate-fade-up relative h-[380px] sm:h-[440px] lg:h-[500px]"
               style={{ animationDelay: "200ms" }}
             >
-              <PacketFlowScene className="absolute inset-0" />
+              <PathTraceScene className="absolute inset-0" />
             </div>
           </div>
         </Container>
