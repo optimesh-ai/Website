@@ -8,6 +8,7 @@ import { PacketFlowScene } from "@/components/site/PacketFlowScene";
 import { MeshFieldScene } from "@/components/site/MeshFieldScene";
 import { Reveal } from "@/components/site/Reveal";
 import { ParallaxLayer, ScrollBeam } from "@/components/site/ScrollFX";
+import { GlobeScene } from "@/components/site/GlobeScene";
 
 const integrations = [
   "GitHub Actions", "GitLab CI", "Jenkins", "ArgoCD",
@@ -220,6 +221,11 @@ export default function Index() {
       <section className="px-6 pb-24 md:pb-32">
         <div className="relative mx-auto max-w-6xl overflow-hidden rounded-3xl bg-foreground px-8 py-20 text-center md:px-16 md:py-28">
           <div className="pointer-events-none absolute inset-0 bg-grid opacity-[0.05]" />
+          {/* Dotted-continent globe bleeding off the card's right edge */}
+          <div className="pointer-events-none absolute -right-64 top-1/2 hidden h-[620px] w-[620px] -translate-y-1/2 lg:block xl:-right-48">
+            <div className="absolute inset-0 rounded-full bg-primary/10 blur-3xl" />
+            <GlobeScene className="absolute inset-0" />
+          </div>
           <div className="relative mx-auto max-w-2xl">
             <Reveal>
               <h2 className="text-balance text-3xl font-semibold tracking-tight text-background sm:text-4xl md:text-5xl">
