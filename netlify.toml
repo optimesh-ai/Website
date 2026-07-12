@@ -13,6 +13,12 @@
 
 [[redirects]]
   force = true
+  from = "/api/early-access"
+  status = 200
+  to = "/.netlify/functions/early-access"
+
+[[redirects]]
+  force = true
   from = "/api/*"
   status = 200
   to = "/.netlify/functions/api/:splat"
