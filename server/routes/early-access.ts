@@ -1,11 +1,20 @@
 import type { RequestHandler } from "express";
 import { Resend } from "resend";
 
+function escapeHtml(str: string): string {
+  return str.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;");
+}
+
 export const handleEarlyAccess: RequestHandler = async (req, res) => {
   const { email } = req.body;
 
   if (!email || typeof email !== "string") {
     res.status(400).json({ error: "Email is required" });
+    return;
+  }
+
+  if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+    res.status(400).json({ error: "Invalid email format" });
     return;
   }
 
@@ -33,7 +42,7 @@ export const handleEarlyAccess: RequestHandler = async (req, res) => {
       subject: "New Early Access Request",
       html: `
         <h2>New Early Access Request</h2>
-        <p><strong>Email:</strong> ${email}</p>
+        <p><strong>Email:</strong> ${escapeHtml(email)}</p>
         <p>This person submitted the early access form on optimesh.ai.</p>
       `,
     });
