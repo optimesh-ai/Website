@@ -6,7 +6,11 @@ function escapeHtml(str: string): string {
 }
 
 export const handleEarlyAccess: RequestHandler = async (req, res) => {
-  const { email } = req.body;
+  // In Netlify's serverless environment, express.json() may not parse the body
+  // (serverless-http can pass it as a raw string). Fall back to manual parsing.
+  const body =
+    typeof req.body === "string" ? JSON.parse(req.body) : (req.body ?? {});
+  const email: unknown = body.email;
 
   if (!email || typeof email !== "string") {
     res.status(400).json({ error: "Email is required" });
