@@ -9,17 +9,17 @@ const products = [
   {
     to: "/products/hammerhead",
     name: "Hammerhead",
-    desc: "Offline forwarding-plane simulator",
+    desc: "Deterministic verification engine",
   },
   {
     to: "/products/config-studio",
     name: "Config Studio",
-    desc: "AI diagnosis & verified fixes",
+    desc: "AI-powered verified remediation",
   },
   {
     to: "/products/rulehawk",
     name: "RuleHawk",
-    desc: "Free firewall rule auditor",
+    desc: "Free firewall & ACL auditor",
   },
 ];
 

@@ -180,23 +180,23 @@ export default function Why() {
           <div className="mt-14 grid gap-x-10 gap-y-12 md:grid-cols-2 lg:grid-cols-4">
             <DriverCard
               n="01"
-              title="AI workloads are reshaping the data center."
-              body="GPU fabrics are being built and rebuilt at unprecedented speed. A single misconfiguration cascades across thousands of accelerators."
+              title="AI agents are managing production infrastructure."
+              body="Cisco reports 165,000+ agentic workflow executions monthly. AI is no longer drafting suggestions — it's executing changes on live networks, clusters, and cloud environments."
             />
             <DriverCard
               n="02"
-              title="AI is writing network configurations."
-              body="Every major copilot in network operations ships without a verifier between the model and production. We are the only platform that built one, pairing AI generation with a forwarding-plane proof before any change reaches production."
+              title="Nobody is verifying what agents do."
+              body="Every major AI agent ships without a deterministic verifier between the model and production. We built the only platform that proves an AI-proposed infrastructure change is safe before it executes."
             />
             <DriverCard
               n="03"
-              title="Networks are getting more complex, and harder to debug."
-              body="Fabrics carry more layers, more vendors, and more dependencies every year. Connectivity gets less reliable, and the path from incident to root cause keeps getting longer."
+              title="Regulation now requires it."
+              body="The EU AI Act, effective August 2026, mandates auditability and human oversight for high-risk AI systems. Infrastructure agents fall squarely in scope. Verification is no longer optional — it's compliance."
             />
             <DriverCard
               n="04"
-              title="Enterprises deserve proof."
-              body="The companies that bet their business on the network deserve more than promises. They deserve documented, signed evidence that every change was verified before it shipped."
+              title="The trust gap is the bottleneck."
+              body="Enterprises want autonomous operations. They don't trust AI to make changes unsupervised. Deterministic verification closes that gap — the agent proposes, the verifier proves, production stays safe."
             />
           </div>
         </Container>
@@ -359,19 +359,19 @@ export default function Why() {
           <RoadmapCard
             horizon="Now"
             title="Software"
-            body="Hammerhead simulates the forwarding plane offline. Config Studio diagnoses faults and ships verified fixes. Both run on customer hardware today."
+            body="Hammerhead verifies network, Kubernetes, and cloud infrastructure changes. Config Studio adds AI-powered diagnosis and remediation. Both run on your hardware today."
             tone="primary"
           />
           <RoadmapCard
             horizon="Next"
             title="Hardware"
-            body="Purpose-built appliances and silicon co-designed with the verifier. The verification engine moves into the network itself."
+            body="Purpose-built appliances for air-gapped environments. Local AI inference with deterministic verification — the autonomous network engineer that never sleeps."
             tone="muted"
           />
           <RoadmapCard
             horizon="Then"
-            title="Orbital"
-            body="Verification and remediation for satellite constellations and compute-in-space. The networks that cannot tolerate an outage."
+            title="Universal"
+            body="Verification for every AI agent acting on any infrastructure. Terraform, databases, CI/CD, and beyond. The trust layer becomes the standard."
             tone="muted"
           />
         </div>

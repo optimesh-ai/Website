@@ -1,6 +1,6 @@
 import { Layout } from "@/components/Layout";
 import { Link } from "react-router-dom";
-import { ArrowRight, Gauge, ShieldCheck, ShieldAlert } from "lucide-react";
+import { ArrowRight, Gauge, ShieldCheck, ShieldAlert, Network, Box, Cloud, GitBranch } from "lucide-react";
 import { ButtonLink, Container, Eyebrow } from "@/components/site/primitives";
 import { CountUp } from "@/components/site/CountUp";
 import { Hero } from "@/components/site/Hero";
@@ -23,10 +23,10 @@ export default function Index() {
     <Layout>
       {/* ---------------------------------------------------------------- Hero */}
       <Hero
-        title="Validate network changes<br class='hidden sm:block' /> before deployment."
-        description="Forwarding-plane simulation with automated fault analysis. Verify configuration changes before they hit production."
-        primaryButton={{ to: "/early-access", label: "Get Started" }}
-        secondaryButton={{ to: "/products/hammerhead", label: "Documentation" }}
+        title="The trust layer for<br class='hidden sm:block' /> autonomous infrastructure."
+        description="AI agents are changing your networks, your clusters, and your cloud. We make sure they don't break anything. Deterministic verification for every infrastructure change — before it executes."
+        primaryButton={{ to: "/early-access", label: "Get started" }}
+        secondaryButton={{ to: "/features", label: "See the platform" }}
         tertiaryButton={{ to: "https://optimesh-ai.github.io/RuleHawk/", label: "Audit your firewall free", external: true }}
         show3DScene={true}
       />
@@ -42,10 +42,10 @@ export default function Index() {
         <Container className="relative py-20 md:py-24">
           <div className="grid grid-cols-2 gap-y-14 md:grid-cols-4">
             {[
-              { value: <><CountUp to={800} />×</>, label: "Faster" },
-              { value: <CountUp to={99.93} decimals={2} suffix="%" />, label: "FIB parity" },
-              { value: <CountUp to={99} suffix="%" />, label: "MTTR reduction" },
-              { value: <CountUp to={0} />, label: "Agents required" },
+              { value: <><CountUp to={800} />×</>, label: "Faster than alternatives" },
+              { value: <CountUp to={99.93} decimals={2} suffix="%" />, label: "Verification accuracy" },
+              { value: <CountUp to={3} />, label: "Infrastructure domains" },
+              { value: <CountUp to={0} />, label: "Cloud dependencies" },
             ].map((s, i) => (
               <Reveal key={i} delay={i * 0.1}>
                 <div className="text-center">
@@ -74,7 +74,7 @@ export default function Index() {
               The platform
             </p>
             <h2 className="mt-4 text-center text-3xl font-semibold tracking-tight text-foreground sm:text-4xl md:text-5xl">
-              Three tools. One verification engine.
+              One verification engine. Every infrastructure layer.
             </h2>
           </Reveal>
 
@@ -83,7 +83,7 @@ export default function Index() {
               {
                 icon: <Gauge className="h-6 w-6" />,
                 name: "Hammerhead",
-                desc: "Forwarding-plane simulation. Answers reachability queries in milliseconds.",
+                desc: "Simulates forwarding planes, K8s policies, and cloud security groups. Answers reachability queries in milliseconds.",
                 href: "/products/hammerhead",
                 accent: "bg-primary/10 text-primary",
                 linkText: "Learn more",
@@ -91,7 +91,7 @@ export default function Index() {
               {
                 icon: <ShieldCheck className="h-6 w-6" />,
                 name: "Config Studio",
-                desc: "Finds the fault, writes the CLI patch, proves the fix. All verified offline.",
+                desc: "Finds the fault, writes the fix, proves it safe through deterministic simulation. Nothing reaches production unverified.",
                 href: "/products/config-studio",
                 accent: "bg-primary/10 text-primary",
                 linkText: "Learn more",
@@ -160,17 +160,16 @@ export default function Index() {
               <div>
                 <Eyebrow>How it works</Eyebrow>
                 <h2 className="mt-4 text-balance text-3xl font-semibold tracking-tight text-foreground sm:text-4xl">
-                  Simulated and verified at the speed of thought.
+                  Your agent proposes. We prove it safe.
                 </h2>
                 <p className="mt-5 max-w-md text-[0.95rem] leading-relaxed text-muted-foreground">
-                  Point Hammerhead at a directory of configs. It builds every forwarding table
-                  and tells you exactly what will happen — before you touch a live device.
+                  Whether it's an AI copilot, a CI pipeline, or a human engineer — every proposed change runs through the same deterministic verification before it touches production.
                 </p>
                 <div className="mt-8 space-y-3">
                   {[
-                    "Parse configs → build FIBs",
-                    "Run reachability queries",
-                    "Verify → gate merges in CI",
+                    "Propose a change — AI agent, engineer, or automation",
+                    "Simulate the impact — deterministic forwarding-plane analysis",
+                    "Verify or reject — proven safe, or blocked with evidence",
                   ].map((step, i) => (
                     <div key={i} className="flex items-center gap-3">
                       <span className="flex h-7 w-7 items-center justify-center rounded-full bg-primary/10 font-mono text-xs font-bold text-primary">
@@ -181,8 +180,8 @@ export default function Index() {
                   ))}
                 </div>
                 <div className="mt-8">
-                  <ButtonLink to="/products/hammerhead" variant="primary" size="lg" className="group">
-                    See how it works
+                  <ButtonLink to="/features" variant="primary" size="lg" className="group">
+                    See the platform
                     <ArrowRight className="h-4 w-4 ml-2 transition-transform group-hover:translate-x-1" />
                   </ButtonLink>
                 </div>
@@ -191,6 +190,59 @@ export default function Index() {
             <ParallaxLayer className="relative h-[380px] sm:h-[440px] lg:h-[480px]" distance={44}>
               <PacketFlowScene className="absolute inset-0" />
             </ParallaxLayer>
+          </div>
+        </Container>
+      </section>
+
+      {/* --------------------------------------------------- Where it works */}
+      <section className="py-24 md:py-32">
+        <Container>
+          <Reveal>
+            <p className="text-center font-mono text-xs font-medium uppercase tracking-[0.22em] text-primary">
+              Where it works
+            </p>
+            <h2 className="mt-4 text-center text-3xl font-semibold tracking-tight text-foreground sm:text-4xl md:text-5xl">
+              From the data center to the cloud.
+            </h2>
+          </Reveal>
+
+          <div className="mt-16 grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
+            {[
+              {
+                icon: <Network className="h-6 w-6" />,
+                name: "Network infrastructure",
+                desc: "Routers, switches, firewalls across 14+ vendors. Simulate every forwarding table and verify reachability before changes deploy.",
+                accent: "bg-primary/10 text-primary",
+              },
+              {
+                icon: <Box className="h-6 w-6" />,
+                name: "Kubernetes",
+                desc: "NetworkPolicy, Calico, and Cilium. Verify pod-to-pod reachability and segmentation across your clusters.",
+                accent: "bg-primary/10 text-primary",
+              },
+              {
+                icon: <Cloud className="h-6 w-6" />,
+                name: "Cloud security",
+                desc: "AWS VPCs, security groups, NACLs, and transit gateways. Prove that infrastructure changes preserve your security posture.",
+                accent: "bg-primary/10 text-primary",
+              },
+              {
+                icon: <GitBranch className="h-6 w-6" />,
+                name: "CI/CD pipelines",
+                desc: "Gate every pull request with deterministic verification. Block unsafe changes before they merge — automatically.",
+                accent: "bg-primary/10 text-primary",
+              },
+            ].map((p) => (
+              <Reveal key={p.name}>
+                <div className="flex h-full flex-col rounded-2xl border border-border bg-card p-8 transition-all duration-300 hover:border-primary/30 hover:shadow-lg hover:shadow-primary/5">
+                  <div className={`flex h-12 w-12 items-center justify-center rounded-xl ${p.accent}`}>
+                    {p.icon}
+                  </div>
+                  <h3 className="mt-5 text-xl font-semibold tracking-tight text-foreground">{p.name}</h3>
+                  <p className="mt-2.5 flex-1 text-[0.95rem] leading-relaxed text-muted-foreground">{p.desc}</p>
+                </div>
+              </Reveal>
+            ))}
           </div>
         </Container>
       </section>
@@ -229,10 +281,10 @@ export default function Index() {
           <div className="relative mx-auto max-w-2xl">
             <Reveal>
               <h2 className="text-balance text-3xl font-semibold tracking-tight text-background sm:text-4xl md:text-5xl">
-                Stop guessing.<br />Start verifying.
+                Infrastructure is becoming autonomous.<br />Make it safe.
               </h2>
               <p className="mt-6 text-lg text-background/60">
-                We're onboarding early access teams now.
+                The verification layer for the age of AI agents. On-prem, air-gapped, zero cloud dependencies.
               </p>
               <div className="mt-10 flex flex-col justify-center gap-3 sm:flex-row">
                 <ButtonLink

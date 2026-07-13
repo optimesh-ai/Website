@@ -11,11 +11,11 @@ export function Footer() {
         <div className="flex flex-col gap-8 md:flex-row md:items-end md:justify-between">
           <div>
             <h2 className="text-3xl font-semibold tracking-tight text-foreground sm:text-4xl md:text-[2.5rem] md:leading-[1.12]">
-              Verified network changes,<br className="hidden sm:block" />
-              not guesswork.
+              The trust layer for<br className="hidden sm:block" />
+              autonomous infrastructure.
             </h2>
             <p className="mt-3 text-muted-foreground">
-              Built by network engineers, for the networks that power the world.
+              Deterministic verification for every AI-driven infrastructure change.
             </p>
           </div>
           <div className="flex flex-shrink-0 items-center gap-3">
