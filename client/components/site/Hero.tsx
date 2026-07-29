@@ -1,4 +1,4 @@
-import { motion } from "framer-motion";
+import { motion, useScroll, useTransform } from "framer-motion";
 import { cn } from "@/lib/utils";
 import { ArrowRight, ChevronRight } from "lucide-react";
 import { ButtonLink, Container } from "./primitives";
@@ -50,13 +50,25 @@ export function Hero({
   show3DScene = false,
   className,
 }: HeroProps) {
+  // Apple-style scroll parallax: background layers drift at different speeds.
+  const { scrollY } = useScroll();
+  const gridY = useTransform(scrollY, [0, 700], [0, 90]);
+  const glowY = useTransform(scrollY, [0, 700], [0, 170]);
+  const sceneY = useTransform(scrollY, [0, 700], [0, -60]);
   return (
     <section className={cn("relative overflow-hidden bg-background", className)}>
-      {/* 3D scene — full-width background, desktop only */}
+      {/* ambient background: faint engineering grid + soft brand wash, parallaxing on scroll */}
+      <div aria-hidden className="pointer-events-none absolute inset-0 z-0">
+        <motion.div style={{ y: gridY }} className="absolute inset-0 bg-grid [mask-image:radial-gradient(ellipse_85%_80%_at_35%_15%,#000_35%,transparent_80%)] [-webkit-mask-image:radial-gradient(ellipse_85%_80%_at_35%_15%,#000_35%,transparent_80%)]" />
+        <motion.div style={{ y: glowY }} className="absolute -left-40 -top-48 h-[560px] w-[760px] rounded-full bg-primary/[0.07] blur-[130px]" />
+        <motion.div style={{ y: glowY }} className="absolute bottom-[-6rem] right-[-4rem] hidden h-[420px] w-[560px] rounded-full bg-[hsl(200_85%_55%/0.06)] blur-[130px] lg:block" />
+      </div>
+
+      {/* 3D scene — full-width background, desktop only, gentle counter-parallax */}
       {show3DScene && (
-        <div className="hidden lg:block absolute inset-0 z-0">
+        <motion.div style={{ y: sceneY }} className="hidden lg:block absolute inset-0 z-0">
           <NetworkScene className="w-full h-full" />
-        </div>
+        </motion.div>
       )}
 
       <Container className="relative z-10 py-24 md:py-32 lg:py-36">
@@ -111,8 +123,6 @@ export function Hero({
         </motion.div>
       </Container>
 
-      {/* Bottom edge */}
-      <div className="absolute bottom-0 left-0 right-0 h-px bg-border" />
     </section>
   );
 }
