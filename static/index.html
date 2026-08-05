@@ -32,7 +32,7 @@
   .reveal.in{ opacity:1; transform:none; }
   [hidden]{ display:none !important; }
   .nav .links a.navon{ color:var(--ink); font-weight:600; }
-  [data-nav]{ cursor:pointer; }
+  [data-nav]{ cursor:pointer; } [data-request]{ cursor:pointer; }
   .navdrop{ position:relative; }
   .navdrop .trig{ display:inline-flex; align-items:center; gap:5px; }
   .navdrop .trig svg{ width:11px; height:11px; transition:transform .2s; }
@@ -89,6 +89,26 @@
   .artmodal-link svg{ width:15px; height:15px; }
   @media (max-width:560px){ .artmodal{ width:94vw; } .artmodal-body{ padding:20px 20px 24px; } }
   @media (prefers-reduced-motion:reduce){ .artmodal, .artscrim{ transition:opacity .1s linear; } .artmodal{ transform:none; } }
+  /* contact form modal */
+  .cxform{ margin-top:20px; display:flex; flex-direction:column; gap:15px; }
+  .cxrow{ display:grid; grid-template-columns:1fr 1fr; gap:15px; }
+  @media (max-width:520px){ .cxrow{ grid-template-columns:1fr; } }
+  .cxfield{ display:flex; flex-direction:column; gap:6px; }
+  .cxfield>span{ font-size:12px; font-weight:600; letter-spacing:.01em; color:var(--muted); }
+  .cxfield input, .cxfield select, .cxfield textarea{ width:100%; box-sizing:border-box; font:inherit; font-size:14.5px; color:var(--ink); background:color-mix(in srgb,var(--ink) 3%,var(--panel)); border:1px solid var(--hair); border-radius:11px; padding:11px 13px; transition:border-color .16s ease, box-shadow .16s ease, background .16s ease; }
+  .cxfield textarea{ resize:vertical; min-height:76px; line-height:1.5; }
+  .cxfield input:focus, .cxfield select:focus, .cxfield textarea:focus{ outline:none; border-color:var(--accent); background:var(--panel); box-shadow:0 0 0 3px color-mix(in srgb,var(--accent) 16%,transparent); }
+  .cxfield input:invalid:not(:placeholder-shown){ border-color:#d6455a; }
+  .cxactions{ display:flex; align-items:center; gap:16px; flex-wrap:wrap; margin-top:4px; }
+  .cxactions .btn{ cursor:pointer; }
+  .cxmail{ font-size:13.5px; color:var(--muted); text-decoration:none; }
+  .cxmail:hover{ color:var(--ink); text-decoration:underline; }
+  .cxerr{ margin:2px 0 0; font-size:13px; color:#d6455a; font-weight:550; }
+  .cxdone{ text-align:center; padding:26px 8px 10px; display:flex; flex-direction:column; align-items:center; gap:12px; }
+  .cxcheck{ width:52px; height:52px; border-radius:50%; display:grid; place-items:center; font-size:26px; font-weight:700; color:#fff; background:var(--accent); box-shadow:0 12px 30px -10px color-mix(in srgb,var(--accent) 60%,transparent); }
+  .cxdone h3{ margin:2px 0 0; font-size:21px; letter-spacing:-0.02em; color:var(--ink); }
+  .cxdone p{ margin:0; font-size:14.5px; color:var(--muted); line-height:1.55; max-width:38ch; }
+  .cxdone .btn{ margin-top:8px; cursor:pointer; }
   .navdrop:hover .menu{ opacity:1; visibility:visible; transform:none; }
   .navdrop .card{ background:var(--panel); border:1px solid var(--hair); border-radius:14px; box-shadow:0 24px 60px -24px rgba(10,26,63,0.35); padding:10px; }
   .navdrop .card a{ display:block; padding:12px 14px; border-radius:10px; }
@@ -118,16 +138,25 @@
   .tk-dots{ display:flex; gap:6px; justify-content:center; margin-top:11px; }
   .tk-dot{ width:6px; height:6px; border-radius:50%; background:color-mix(in srgb,var(--accent) 28%,transparent); transition:all .3s; cursor:pointer; }
   .tk-dot.on{ width:20px; border-radius:9px; background:var(--accent); }
-  .feed{ order:2; flex:0 0 min(400px,42%); z-index:2; display:flex; flex-direction:column; gap:12px; pointer-events:none; }
+  .feed{ order:2; flex:0 0 min(414px,45%); z-index:2; pointer-events:none; }
   @media(max-width:980px){ .feed{ display:none; } }
-  .feed .lbl{ display:flex; align-items:center; gap:8px; font-family:ui-monospace,Menlo,monospace; font-size:12px; color:var(--muted); }
-  .feed .lbl .dot{ width:7px; height:7px; border-radius:50%; background:var(--green); animation:livepulse 1.7s infinite; }
-  @keyframes livepulse{ 0%{ box-shadow:0 0 0 0 color-mix(in srgb,var(--green) 55%,transparent);} 70%{ box-shadow:0 0 0 9px transparent;} 100%{ box-shadow:0 0 0 0 transparent;} }
-  #feedRows{ display:flex; flex-direction:column; gap:10px; }
-  .vrow{ display:flex; align-items:center; justify-content:space-between; gap:12px; background:color-mix(in srgb,var(--panel) 88%,transparent); backdrop-filter:blur(8px); border:1px solid var(--hair); border-radius:12px; padding:12px 15px; box-shadow:0 16px 36px -20px rgba(10,26,63,0.42); transition:opacity .4s, transform .4s; }
-  .vrow.enter{ opacity:0; transform:translateY(-12px) scale(.98); } .vrow.leave{ opacity:0; transform:translateY(10px); }
+  @keyframes livepulse{ 0%{ box-shadow:0 0 0 0 color-mix(in srgb,var(--green) 55%,transparent);} 70%{ box-shadow:0 0 0 8px transparent;} 100%{ box-shadow:0 0 0 0 transparent;} }
+  .vpanel{ background:color-mix(in srgb,var(--panel) 93%,transparent); backdrop-filter:blur(12px); -webkit-backdrop-filter:blur(12px); border:1px solid var(--hair); border-radius:16px; overflow:hidden; box-shadow:0 34px 80px -38px rgba(10,26,63,0.55), 0 2px 10px -5px rgba(10,26,63,0.16); }
+  .vpanel-top{ display:flex; align-items:center; gap:9px; padding:12px 16px; border-bottom:1px solid var(--hair); background:linear-gradient(180deg,color-mix(in srgb,var(--ink) 3.5%,transparent),transparent); }
+  .vlive{ display:inline-flex; align-items:center; gap:7px; font-family:ui-monospace,Menlo,monospace; font-size:11px; font-weight:700; letter-spacing:.09em; text-transform:uppercase; color:var(--ink); }
+  .vlive .dot{ width:7px; height:7px; border-radius:50%; background:var(--green); animation:livepulse 1.7s infinite; }
+  .vcount{ margin-left:auto; font-family:ui-monospace,Menlo,monospace; font-size:12.5px; font-weight:700; color:var(--ink); font-variant-numeric:tabular-nums; }
+  .vcount-lbl{ font-family:ui-monospace,Menlo,monospace; font-size:10.5px; color:var(--muted); letter-spacing:.02em; }
+  #feedRows{ display:flex; flex-direction:column; }
+  .vrow{ position:relative; display:flex; align-items:center; justify-content:space-between; gap:12px; padding:13px 16px 13px 19px; border-top:1px solid color-mix(in srgb,var(--hair) 65%,transparent); transition:opacity .4s ease, transform .4s ease, background .6s ease; }
+  .vrow:first-child{ border-top:none; }
+  .vrow::before{ content:''; position:absolute; left:0; top:0; bottom:0; width:3px; background:color-mix(in srgb,var(--accent) 55%,transparent); transition:background .45s ease; }
+  .vrow.safe::before{ background:var(--green); } .vrow.blocked::before{ background:var(--red); }
+  .vrow.fresh{ background:color-mix(in srgb,var(--accent) 5.5%,transparent); }
+  .vrow.enter{ opacity:0; transform:translateY(-10px); } .vrow.leave{ opacity:0; transform:translateY(8px); }
   .vc{ font-family:ui-monospace,Menlo,monospace; font-size:13px; color:var(--ink); font-weight:500; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
   .vs{ font-family:ui-monospace,Menlo,monospace; font-size:12px; font-weight:600; white-space:nowrap; display:flex; align-items:center; gap:6px; flex:none; }
+  .vs .ms{ color:var(--muted); font-weight:500; }
   .vs.verifying{ color:var(--muted); } .vs.safe{ color:var(--green); } .vs.blocked{ color:var(--red); }
   .spin{ width:11px; height:11px; border-radius:50%; border:2px solid color-mix(in srgb,var(--accent) 30%,transparent); border-top-color:var(--accent); animation:spin .7s linear infinite; }
   @keyframes spin{ to{ transform:rotate(360deg); } }
@@ -355,7 +384,7 @@
       </div></div>
     </div>
     <a data-nav="platform">Platform</a><a data-nav="why">Why us</a><a data-nav="insights">Insights</a><a data-nav="company">Company</a><a data-nav="contact">Contact</a></div>
-  <div class="spacer"></div><a class="btn ghost" href="https://optimesh-ai.github.io/RuleHawk/" target="_blank" rel="noopener">Try RuleHawk</a><a class="btn primary" data-nav="contact">Request access</a>
+  <div class="spacer"></div><a class="btn ghost" href="https://optimesh-ai.github.io/RuleHawk/" target="_blank" rel="noopener">Try RuleHawk</a><a class="btn primary" data-request>Request access</a>
 </div></nav>
 
 <section class="hero wrap" data-page="home">
@@ -364,8 +393,13 @@
     <div class="tk-dots" id="tkDots"></div>
   </div>
   <div class="feed" id="feed" aria-hidden="true">
-    <div class="lbl"><span class="dot"></span>Live · every change, verified</div>
-    <div id="feedRows"></div>
+    <div class="vpanel">
+      <div class="vpanel-top">
+        <span class="vlive"><span class="dot"></span>Live</span>
+        <span class="vcount" id="vcount">142,884</span><span class="vcount-lbl">verified today</span>
+      </div>
+      <div id="feedRows"></div>
+    </div>
   </div>
   <div class="hero__in">
     <h1>Every network change, proven safe before it ships.</h1>
@@ -812,11 +846,11 @@
 <div class="wrap fcta" id="contact">
   <div class="fcta-top"><div><h2>The trust layer for<br>autonomous infrastructure.</h2><p>Deterministic verification for every AI-driven infrastructure change.</p></div><div class="fbtns"><a class="btn ghost" data-nav="platform">Platform</a><a class="btn primary" href="mailto:contact@optimesh.ai?subject=Early%20access">Request access →</a></div></div>
   <div class="fgrid">
-    <div class="fcol"><h4>Contact</h4><a href="mailto:contact@optimesh.ai">Contact us</a><a data-nav="contact">Request access</a><a href="https://optimesh-ai.github.io/RuleHawk/" target="_blank" rel="noopener">Try RuleHawk free</a><a href="mailto:contact@optimesh.ai" style="color:var(--accent)">contact@optimesh.ai</a></div>
+    <div class="fcol"><h4>Contact</h4><a href="mailto:contact@optimesh.ai">Contact us</a><a data-request>Request access</a><a href="https://optimesh-ai.github.io/RuleHawk/" target="_blank" rel="noopener">Try RuleHawk free</a><a href="mailto:contact@optimesh.ai" style="color:var(--accent)">contact@optimesh.ai</a></div>
     <div class="fcol"><h4>Products</h4><a data-nav="hammerhead">Hammerhead</a><a data-nav="configstudio">Config Studio</a><a data-nav="rulehawk">RuleHawk</a><a data-nav="platform">Platform overview</a></div>
     <div class="fcol"><h4>Resources</h4><a data-nav="why">White paper</a><a data-nav="insights">Insights</a><a data-nav="insights">Newsroom</a><a data-nav="why">Why Optimesh</a></div>
     <div class="fcol"><h4>Company</h4><a data-nav="company">About</a><a href="mailto:contact@optimesh.ai">Contact</a></div>
-    <div class="fcol"><h4>Get started</h4><a data-nav="contact">Request early access</a><a href="mailto:contact@optimesh.ai">Talk to the team</a></div>
+    <div class="fcol"><h4>Get started</h4><a data-request>Request early access</a><a href="mailto:contact@optimesh.ai">Talk to the team</a></div>
   </div>
   <div class="fbottom"><span>© 2026 Optimesh Technologies. All rights reserved.</span><span>Privacy · Terms · Security</span></div>
 </div>
@@ -835,6 +869,47 @@
     <hr class="artmodal-rule">
     <div id="artProse"></div>
     <a class="artmodal-link" id="artLink" target="_blank" rel="noopener"><span id="artLinkLabel"></span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12h15M13 6l6 6-6 6"/></svg></a>
+  </div>
+</div>
+
+<div class="artscrim" id="cxScrim" aria-hidden="true"></div>
+<div class="artmodal cxmodal" id="cxModal" role="dialog" aria-modal="true" aria-labelledby="cxTitle" aria-hidden="true">
+  <div class="artmodal-head" id="cxHead">
+    <span class="artmodal-grip" aria-hidden="true"><i></i><i></i></span>
+    <span class="artmodal-cat">Request access</span>
+    <button class="artmodal-x" id="cxClose" aria-label="Close form" type="button"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 6 6 18M6 6l12 12"/></svg></button>
+  </div>
+  <div class="artmodal-body">
+    <h2 class="artmodal-title" id="cxTitle">Let's put Optimesh on your network.</h2>
+    <p class="artmodal-dek">Tell us a little about your environment and a founder will get back to you — usually within a business day.</p>
+    <form class="cxform" id="cxForm" novalidate>
+      <div class="cxrow">
+        <label class="cxfield"><span>Name</span><input name="name" type="text" placeholder="Jane Doe" required autocomplete="name"></label>
+        <label class="cxfield"><span>Work email</span><input name="email" type="email" placeholder="jane@company.com" required autocomplete="email"></label>
+      </div>
+      <div class="cxrow">
+        <label class="cxfield"><span>Company</span><input name="company" type="text" placeholder="Company" autocomplete="organization"></label>
+        <label class="cxfield"><span>Network size</span><select name="size">
+          <option value="" selected>Select…</option>
+          <option>Under 50 devices</option>
+          <option>50–500 devices</option>
+          <option>500–5,000 devices</option>
+          <option>5,000+ devices</option>
+        </select></label>
+      </div>
+      <label class="cxfield"><span>What are you trying to solve?</span><textarea name="message" rows="3" placeholder="e.g. we push config changes daily and want to prove them safe before they ship"></textarea></label>
+      <p class="cxerr" id="cxErr" hidden></p>
+      <div class="cxactions">
+        <button class="btn primary" type="submit">Request access →</button>
+        <a class="cxmail" href="mailto:contact@optimesh.ai?subject=Request%20access">or email us directly</a>
+      </div>
+    </form>
+    <div class="cxdone" id="cxDone" hidden>
+      <div class="cxcheck" aria-hidden="true">✓</div>
+      <h3>Request received.</h3>
+      <p id="cxDoneMsg">Thanks — a founder will be in touch within a business day.</p>
+      <button class="btn ghost" type="button" id="cxAgain">Close</button>
+    </div>
   </div>
 </div>
 <script>
@@ -996,21 +1071,98 @@
       modal.style.top=Math.min(r.top, window.innerHeight-56)+'px'; } });
   })();
 
+  /* ===== request-access contact form modal ===== */
+  (function(){
+    const scrim=el('cxScrim'), modal=el('cxModal'), head=el('cxHead'),
+          form=el('cxForm'), done=el('cxDone'), errBox=el('cxErr');
+    if(!scrim||!modal||!head||!form) return;
+    let lastFocus=null;
+    function center(){ const w=modal.offsetWidth, h=modal.offsetHeight;
+      modal.style.left=Math.max(12,(window.innerWidth-w)/2)+'px';
+      modal.style.top=Math.max(12,(window.innerHeight-h)/2)+'px'; }
+    function reset(){ form.hidden=false; done.hidden=true; errBox.hidden=true; form.reset(); }
+    function open(){
+      reset(); lastFocus=document.activeElement;
+      scrim.classList.add('on'); scrim.setAttribute('aria-hidden','false');
+      modal.setAttribute('aria-hidden','false'); modal.style.transform=''; center();
+      requestAnimationFrame(()=>modal.classList.add('on'));
+      const first=form.querySelector('input[name=name]'); if(first) setTimeout(()=>first.focus(),60);
+    }
+    function close(){
+      modal.classList.remove('on'); scrim.classList.remove('on');
+      scrim.setAttribute('aria-hidden','true'); modal.setAttribute('aria-hidden','true');
+      setTimeout(()=>{ if(!modal.classList.contains('on')){ modal.style.left=''; modal.style.top=''; } },300);
+      if(lastFocus&&lastFocus.focus) lastFocus.focus();
+    }
+    window.openContact=open;
+    el('cxClose').onclick=close; scrim.onclick=close; el('cxAgain').onclick=close;
+    document.addEventListener('keydown',e=>{ if(e.key==='Escape'&&modal.classList.contains('on')) close(); });
+
+    /* submit → validate, show confirmation (self-contained, no backend) */
+    form.addEventListener('submit',e=>{
+      e.preventDefault();
+      const f=new FormData(form);
+      const name=(f.get('name')||'').toString().trim();
+      const email=(f.get('email')||'').toString().trim();
+      const ok=/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+      if(!name||!ok){ errBox.textContent=!name?'Please add your name.':'Please enter a valid work email.'; errBox.hidden=false;
+        (form.querySelector(!name?'input[name=name]':'input[name=email]')||{}).focus?.(); return; }
+      errBox.hidden=true;
+      el('cxDoneMsg').textContent='Thanks, '+name.split(' ')[0]+' — a founder will be in touch at '+email+', usually within a business day.';
+      form.hidden=true; done.hidden=false;
+      el('cxAgain').focus();
+    });
+
+    /* drag by header */
+    let drag=false, sx=0, sy=0, ox=0, oy=0;
+    head.addEventListener('pointerdown',e=>{ if(e.target.closest('#cxClose')) return;
+      drag=true; modal.classList.add('dragging');
+      const r=modal.getBoundingClientRect(); ox=r.left; oy=r.top; sx=e.clientX; sy=e.clientY;
+      head.setPointerCapture(e.pointerId); e.preventDefault(); });
+    head.addEventListener('pointermove',e=>{ if(!drag) return;
+      const w=modal.offsetWidth;
+      let nx=ox+(e.clientX-sx), ny=oy+(e.clientY-sy);
+      nx=Math.min(Math.max(nx,-w+80), window.innerWidth-80);
+      ny=Math.min(Math.max(ny,8), window.innerHeight-56);
+      modal.style.left=nx+'px'; modal.style.top=ny+'px'; });
+    function endDrag(e){ if(!drag) return; drag=false; modal.classList.remove('dragging'); try{head.releasePointerCapture(e.pointerId);}catch(_){}}
+    head.addEventListener('pointerup',endDrag); head.addEventListener('pointercancel',endDrag);
+    window.addEventListener('resize',()=>{ if(modal.classList.contains('on')){
+      const r=modal.getBoundingClientRect();
+      modal.style.left=Math.min(r.left, window.innerWidth-80)+'px';
+      modal.style.top=Math.min(r.top, window.innerHeight-56)+'px'; } });
+
+    /* intercept every "Request access" trigger site-wide */
+    document.addEventListener('click',e=>{
+      const a=e.target.closest('a,button'); if(!a) return;
+      if(a.closest('#cxModal')||a.closest('#artModal')) return;
+      const txt=(a.textContent||'').trim().toLowerCase();
+      if(a.hasAttribute('data-request')||txt.startsWith('request access')||txt.startsWith('request early access')){ e.preventDefault(); open(); }
+    });
+  })();
+
   /* ===== hero live verification feed ===== */
   const feedRows=el('feedRows');
   if(feedRows){
     const CH=[{c:'10.0.1.5 → 10.0.9.2',v:'safe'},{c:'pod/web → pod/db',v:'safe'},{c:'app-sg → 0.0.0.0/0',v:'blocked',e:'acl line 42'},{c:'guest-vlan → finance',v:'blocked',e:'segmentation'},{c:'bgp peer as65020',v:'safe'},{c:'withdraw 10.0.9.0/24',v:'safe'},{c:'PR #482 · merge',v:'blocked',e:'app → internet'},{c:'k8s web → cache',v:'safe'},{c:'edge-fw APP_EGRESS',v:'safe'},{c:'s-sw-02 acl update',v:'safe'},{c:'vpn tunnel dc-west',v:'safe'},{c:'vlan40 trunk change',v:'safe'}];
-    let fi=0;
+    let fi=0; const counter=el('vcount'); let count=142884;
+    const bump=(n)=>{ count+=n; if(counter) counter.textContent=count.toLocaleString('en-US'); };
     function addFeedRow(){ const ch=CH[fi%CH.length]; fi++;
-      const row=document.createElement('div'); row.className='vrow enter';
+      feedRows.querySelectorAll('.vrow.fresh').forEach(r=>r.classList.remove('fresh'));
+      const row=document.createElement('div'); row.className='vrow verifying enter fresh';
       row.innerHTML=`<div class="vc"></div><div class="vs verifying"><span class="spin"></span>verifying</div>`;
       row.querySelector('.vc').textContent=ch.c; feedRows.prepend(row);
       requestAnimationFrame(()=>row.classList.remove('enter'));
-      setTimeout(()=>{ const s=row.querySelector('.vs'); if(!s) return; if(ch.v==='safe'){ s.className='vs safe'; s.textContent='✓ proven safe'; } else { s.className='vs blocked'; s.textContent='✗ blocked'+(ch.e?' · '+ch.e:''); } }, 800+Math.random()*500);
+      setTimeout(()=>{ const s=row.querySelector('.vs'); if(!s) return;
+        row.classList.remove('verifying');
+        if(ch.v==='safe'){ const ms=3+((fi*7)%38); row.classList.add('safe'); s.className='vs safe'; s.innerHTML='✓ proven safe <span class="ms">· '+ms+'ms</span>'; bump(1); }
+        else { row.classList.add('blocked'); s.className='vs blocked'; s.textContent='✗ blocked'+(ch.e?' · '+ch.e:''); }
+      }, 800+((fi*137)%500));
       if(feedRows.children.length>5){ const last=feedRows.lastElementChild; last.classList.add('leave'); setTimeout(()=>{ if(last.parentNode) last.remove(); },380); }
     }
     for(let i=0;i<5;i++) setTimeout(addFeedRow,i*180);
     setInterval(addFeedRow,1700);
+    setInterval(()=>bump(2+((fi*3)%5)),1700);
   }
 
   /* hero parallax */
