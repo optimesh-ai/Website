@@ -49,6 +49,18 @@
   .megaitem .mt{ display:block; font-weight:650; font-size:13.5px; color:var(--ink); } .megaitem .md{ display:block; font-size:11.5px; color:var(--muted); margin-top:1px; }
   .megafoot{ display:flex; align-items:center; justify-content:space-between; gap:16px; padding:14px 22px; border-top:1px solid var(--hair); background:var(--bg); }
   .megafoot span{ font-size:13px; color:var(--muted); } .megafoot a{ font-size:13px; font-weight:700; color:var(--accent); }
+  .cnews{ max-width:620px; margin:40px 0 0; }
+  .cnews-label{ display:flex; align-items:center; gap:8px; font-family:ui-monospace,Menlo,monospace; font-size:12px; color:var(--muted); margin-bottom:11px; }
+  .cnews-label .dot{ width:7px; height:7px; border-radius:50%; background:var(--green); animation:livepulse 1.7s infinite; }
+  .cnews-card{ display:flex; align-items:center; gap:14px; background:color-mix(in srgb,var(--accent) 8%,transparent); border:1px solid color-mix(in srgb,var(--accent) 18%,transparent); border-radius:16px; padding:16px 20px; cursor:pointer; }
+  .cnews-card:hover{ background:color-mix(in srgb,var(--accent) 13%,transparent); }
+  .cnews-badge{ width:34px; height:34px; border-radius:10px; background:var(--accent); color:#fff; display:grid; place-items:center; flex:none; }
+  .cnews-badge svg{ width:16px; height:16px; }
+  .cnews-text{ flex:1; font-weight:650; font-size:16px; color:var(--accent); transition:opacity .25s ease; letter-spacing:-0.01em; }
+  .cnews-arrow{ color:var(--accent); opacity:.7; font-size:18px; }
+  .cnews-dots{ display:flex; gap:7px; margin-top:15px; justify-content:center; }
+  .cnews-dot{ width:7px; height:7px; border-radius:50%; background:color-mix(in srgb,var(--accent) 26%,transparent); cursor:pointer; transition:all .3s; }
+  .cnews-dot.on{ width:22px; border-radius:9px; background:var(--accent); }
   .navdrop:hover .menu{ opacity:1; visibility:visible; transform:none; }
   .navdrop .card{ background:var(--panel); border:1px solid var(--hair); border-radius:14px; box-shadow:0 24px 60px -24px rgba(10,26,63,0.35); padding:10px; }
   .navdrop .card a{ display:block; padding:12px 14px; border-radius:10px; }
@@ -308,7 +320,7 @@
 
 <section class="hero wrap" data-page="home">
   <div class="ticker" id="ticker">
-    <a class="tk-pill"><span class="tk-badge"><svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l2.2 6.6L21 9l-5.4 4 2 7-5.6-4.2L6.4 20l2-7L3 9l6.8-.4z"/></svg></span><span class="tk-text" id="tkText"></span><span class="tk-arrow">→</span></a>
+    <a class="tk-pill" data-nav="company"><span class="tk-badge"><svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l2.2 6.6L21 9l-5.4 4 2 7-5.6-4.2L6.4 20l2-7L3 9l6.8-.4z"/></svg></span><span class="tk-text" id="tkText"></span><span class="tk-arrow">→</span></a>
     <div class="tk-dots" id="tkDots"></div>
   </div>
   <div class="feed" id="feed" aria-hidden="true">
@@ -579,6 +591,15 @@
 <!-- company -->
 <section class="blk" id="company" data-page="company"><div class="wrap">
   <div class="reveal"><div class="kicker">Company</div><h2 class="h2">Bring certainty to the networks that run the world.</h2><p class="lead">Optimesh builds offline intelligence so the engineers routing the world's traffic know exactly what a change will do before they make it.</p></div>
+  <div class="reveal cnews">
+    <div class="cnews-label"><span class="dot"></span>Newsroom</div>
+    <a class="cnews-card" href="mailto:contact@optimesh.ai?subject=Press%20inquiry">
+      <span class="cnews-badge"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l2.9 6.1 6.6.9-4.8 4.6 1.2 6.6L12 18.3 5.9 20.2l1.2-6.6L2.3 9l6.6-.9z"/></svg></span>
+      <span class="cnews-text" id="cnewsText"></span>
+      <span class="cnews-arrow">→</span>
+    </a>
+    <div class="cnews-dots" id="cnewsDots"></div>
+  </div>
   <div class="about-lead">
     <div class="reveal">
       <div class="kicker">The team</div>
@@ -794,6 +815,16 @@
   let ntimer; function nrestart(){ clearInterval(ntimer); ntimer=setInterval(()=>showNews(ni+1),4500); }
   [...tkDots.children].forEach(d=>d.onclick=()=>{ showNews(+d.dataset.i); nrestart(); });
   tkText.textContent=news[0].t; nrestart();
+
+  /* ===== company newsroom cycler (same headlines) ===== */
+  const cnewsText=el('cnewsText'), cnewsDots=el('cnewsDots');
+  if(cnewsText && cnewsDots){
+    let ci=0; cnewsDots.innerHTML=news.map((_,i)=>`<span class="cnews-dot ${i===0?'on':''}" data-i="${i}"></span>`).join('');
+    function showCNews(i){ ci=(i+news.length)%news.length; cnewsText.style.opacity=0; setTimeout(()=>{ cnewsText.textContent=news[ci].t; cnewsText.style.opacity=1; },220); [...cnewsDots.children].forEach((d,j)=>d.classList.toggle('on',j===ci)); }
+    let ct; function cRestart(){ clearInterval(ct); ct=setInterval(()=>showCNews(ci+1),4500); }
+    [...cnewsDots.children].forEach(d=>d.onclick=(e)=>{ e.preventDefault(); showCNews(+d.dataset.i); cRestart(); });
+    cnewsText.textContent=news[0].t; cRestart();
+  }
 
   /* ===== hero live verification feed ===== */
   const feedRows=el('feedRows');
