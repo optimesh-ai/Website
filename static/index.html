@@ -142,8 +142,18 @@
   .tnode h3{ font-size:18px; margin:0; letter-spacing:-0.01em; } .tnode p{ color:var(--muted); font-size:14px; margin:6px 0 0; line-height:1.55; }
   .about-lead{ display:grid; grid-template-columns:1.05fr 0.9fr; gap:clamp(32px,5vw,64px); align-items:center; margin-top:52px; } @media(max-width:900px){ .about-lead{ grid-template-columns:1fr; gap:36px; } }
   .team-h{ font-size:clamp(1.6rem,3vw,2.3rem); font-weight:800; letter-spacing:-0.025em; line-height:1.14; margin:12px 0 0; max-width:16ch; }
-  .pedline{ display:flex; flex-wrap:wrap; gap:9px 0; margin-top:30px; font-family:ui-monospace,Menlo,monospace; font-size:12.5px; color:var(--muted); }
-  .pedline span{ padding:0 14px; border-right:1px solid var(--hair); line-height:1.1; } .pedline span:first-child{ padding-left:0; } .pedline span:last-child{ border-right:none; }
+  .logostrip{ margin-top:34px; position:relative; overflow:hidden; max-width:560px;
+    -webkit-mask-image:linear-gradient(90deg,transparent,#000 7%,#000 93%,transparent);
+    mask-image:linear-gradient(90deg,transparent,#000 7%,#000 93%,transparent); }
+  .logotrack{ display:flex; align-items:center; gap:54px; width:max-content; color:#26386e; animation:logoscroll 30s linear infinite; }
+  .logostrip:hover .logotrack{ animation-play-state:paused; }
+  .logo{ flex:0 0 auto; display:flex; align-items:center; opacity:.42; }
+  .logo svg{ height:25px; width:auto; display:block; }
+  @keyframes logoscroll{ from{transform:translateX(0);} to{transform:translateX(-50%);} }
+  @media (prefers-color-scheme:dark){ .logotrack{ color:#8ea4d8; } .logo{ opacity:.5; } }
+  :root[data-theme="light"] .logotrack{ color:#26386e; } :root[data-theme="light"] .logo{ opacity:.42; }
+  :root[data-theme="dark"] .logotrack{ color:#8ea4d8; } :root[data-theme="dark"] .logo{ opacity:.5; }
+  @media (prefers-reduced-motion:reduce){ .logotrack{ animation:none; flex-wrap:wrap; } }
   .orbit-wrap{ position:relative; aspect-ratio:1/0.82; min-height:280px; } #orbit{ position:absolute; inset:0; width:100%; height:100%; }
   .hero__in{ position:relative; z-index:3; order:1; flex:1 1 auto; min-width:0; }
   .pill{ display:inline-flex; align-items:center; gap:8px; font-size:13px; color:var(--accent); background:color-mix(in srgb,var(--accent) 9%,transparent); border:1px solid color-mix(in srgb,var(--accent) 22%,transparent); padding:6px 14px; border-radius:999px; margin-bottom:22px; }
@@ -636,9 +646,13 @@
       <div class="kicker">The team</div>
       <h3 class="team-h">Built by people who ship where failure is not an option.</h3>
       <p style="color:var(--muted); font-size:1.06rem; line-height:1.6; margin-top:18px; max-width:44ch">Flight systems for lunar landers. The satellite network connecting the planet. Platforms at billions-of-users scale. The people who spent a decade proving the impossible correct are now doing it for the network.</p>
-      <div class="pedline">
-        <span>Lunar landers</span><span>Starlink</span><span>SpaceX</span><span>Blue Origin</span><span>Princeton</span><span>MIT</span><span>Harvard</span>
-      </div>
+      <div class="logostrip"><div class="logotrack" id="logotrack">
+        <div class="logo" title="Princeton University"><svg viewBox="0 0 156 34" role="img" aria-label="Princeton University"><path d="M8 4 h11 a8 8 0 0 1 0 16 h-6 v9 h-5 Z M13 8 v8 h5 a4 4 0 0 0 0 -8 Z" fill="currentColor"/><text x="30" y="25" font-family="Georgia,'Times New Roman',serif" font-weight="600" font-size="23" letter-spacing="0.3">Princeton</text></svg></div>
+        <div class="logo" title="National Science Foundation"><svg viewBox="0 0 150 34" role="img" aria-label="National Science Foundation"><circle cx="17" cy="17" r="15" fill="none" stroke="currentColor" stroke-width="2"/><ellipse cx="17" cy="17" rx="6.5" ry="15" fill="none" stroke="currentColor" stroke-width="1.2"/><line x1="2" y1="17" x2="32" y2="17" stroke="currentColor" stroke-width="1.2"/><line x1="17" y1="2" x2="17" y2="32" stroke="currentColor" stroke-width="1.2"/><text x="41" y="25" font-family="Arial,Helvetica,sans-serif" font-weight="800" font-size="23" letter-spacing="1.5">NSF</text></svg></div>
+        <div class="logo" title="Blue Origin"><svg viewBox="0 0 168 34" role="img" aria-label="Blue Origin"><path d="M13 2 C7 11 6 22 9 31 C10 26 11 22 12.4 19 L12.4 6 Z" fill="currentColor"/><path d="M15 2 C21 11 22 22 19 31 C18 26 17 22 15.6 19 L15.6 6 Z" fill="currentColor"/><text x="32" y="24" font-family="Arial,Helvetica,sans-serif" font-weight="600" font-size="19" letter-spacing="2.5">BLUE ORIGIN</text></svg></div>
+        <div class="logo" title="SpaceX"><svg viewBox="0 0 150 34" role="img" aria-label="SpaceX"><text x="0" y="24" font-family="Arial,Helvetica,sans-serif" font-weight="800" font-size="23" letter-spacing="1">SPACE</text><text x="98" y="26" font-family="Arial,Helvetica,sans-serif" font-weight="800" font-size="31">X</text></svg></div>
+        <div class="logo" title="ByteDance"><svg viewBox="0 0 148 34" role="img" aria-label="ByteDance"><text x="0" y="25" font-family="Arial,Helvetica,sans-serif" font-weight="700" font-size="24" letter-spacing="0.2">ByteDance</text></svg></div>
+      </div></div>
     </div>
     <div class="reveal orbit-wrap"><canvas id="orbit"></canvas></div>
   </div>
@@ -904,6 +918,9 @@
     }
     paint(); cRestart();
   }
+
+  /* ===== logo marquee: duplicate for seamless loop ===== */
+  (function(){ const t=el('logotrack'); if(t) t.innerHTML+=t.innerHTML; })();
 
   /* ===== draggable article overlay ===== */
   (function(){
