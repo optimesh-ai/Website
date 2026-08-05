@@ -51,8 +51,7 @@
   .megafoot span{ font-size:13px; color:var(--muted); } .megafoot a{ font-size:13px; font-weight:700; color:var(--accent); }
   .company-top{ display:grid; grid-template-columns:1.1fr 0.9fr; gap:clamp(32px,5vw,64px); align-items:center; margin-top:8px; } @media(max-width:900px){ .company-top{ grid-template-columns:1fr; gap:36px; } }
   .cnews{ width:100%; }
-  .cnews-eyebrow{ display:inline-flex; align-items:center; gap:12px; font-size:12.5px; font-weight:600; color:var(--muted); margin-bottom:16px; }
-  .cnews-eyebrow::before{ content:""; width:26px; height:2px; border-radius:2px; background:linear-gradient(90deg, var(--accent), var(--accent2)); flex:none; }
+  .cnews-eyebrow{ display:none; }
   .cnews-card{ display:block; background:var(--panel); border:1px solid var(--hair); border-radius:16px; padding:24px 26px; box-shadow:0 20px 44px -28px rgba(10,26,63,0.28); transition:box-shadow .2s ease, transform .2s ease; cursor:pointer; }
   .cnews-card:hover{ box-shadow:0 26px 56px -26px rgba(10,26,63,0.34); transform:translateY(-2px); }
   .cnews-cat{ display:inline-block; font-size:10.5px; font-weight:700; letter-spacing:.06em; text-transform:uppercase; color:var(--accent); background:color-mix(in srgb,var(--accent) 10%,transparent); border-radius:999px; padding:4px 11px; transition:opacity .25s ease; }
@@ -148,8 +147,7 @@
 
   section.blk{ padding:100px 0; scroll-margin-top:78px; }
   [id]{ scroll-margin-top:78px; }
-  .kicker{ display:inline-flex; align-items:center; gap:12px; font-size:12.5px; font-weight:600; color:var(--muted); letter-spacing:.01em; }
-  .kicker::before{ content:""; width:26px; height:2px; border-radius:2px; background:linear-gradient(90deg, var(--accent), var(--accent2)); flex:none; }
+  .kicker{ display:none; }
   .h2{ font-size:clamp(1.9rem,3.8vw,3rem); font-weight:800; margin:12px 0 0; max-width:20ch; }
   .lead{ color:var(--muted); font-size:1.14rem; max-width:60ch; margin:16px 0 0; }
   .center{ text-align:center; } .center .h2,.center .lead{ margin-left:auto; margin-right:auto; }
