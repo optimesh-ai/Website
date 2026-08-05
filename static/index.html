@@ -110,6 +110,29 @@
   .cxdone h3{ margin:2px 0 0; font-size:21px; letter-spacing:-0.02em; color:var(--ink); }
   .cxdone p{ margin:0; font-size:14.5px; color:var(--muted); line-height:1.55; max-width:38ch; }
   .cxdone .btn{ margin-top:8px; cursor:pointer; }
+  /* email-compose modal — distinct "new message" look */
+  .emmodal .artmodal-head{ background:var(--ink); border-bottom:none; }
+  .emhead-title{ display:inline-flex; align-items:center; gap:8px; font-size:13px; font-weight:650; color:var(--bg); letter-spacing:-0.01em; }
+  .emhead-title svg{ width:16px; height:16px; opacity:.85; }
+  .emmodal .artmodal-grip i{ background:color-mix(in srgb,var(--bg) 55%,transparent); }
+  .emmodal .artmodal-x{ color:color-mix(in srgb,var(--bg) 70%,transparent); border-color:color-mix(in srgb,var(--bg) 25%,transparent); }
+  .emmodal .artmodal-x:hover{ color:var(--bg); background:color-mix(in srgb,var(--bg) 12%,transparent); border-color:color-mix(in srgb,var(--bg) 40%,transparent); }
+  .emmodal .artmodal-body{ padding:0 0 20px; }
+  .emform{ display:flex; flex-direction:column; }
+  .emline{ display:flex; align-items:center; gap:12px; padding:12px 24px; border-bottom:1px solid var(--hair); }
+  .emline .emk{ flex:0 0 58px; font-size:12.5px; font-weight:600; color:var(--muted); }
+  .emline .emto{ font-size:14px; color:var(--ink); font-weight:550; }
+  .emline-in .eminput{ flex:1; min-width:0; border:none; background:transparent; font:inherit; font-size:14.5px; color:var(--ink); padding:2px 0; }
+  .emline-in .eminput:focus{ outline:none; }
+  .emline:focus-within{ background:color-mix(in srgb,var(--accent) 4%,transparent); }
+  .emline:focus-within .emk{ color:var(--accent); }
+  .embody{ border:none; background:transparent; font:inherit; font-size:14.5px; line-height:1.6; color:var(--ink); padding:18px 24px; min-height:150px; resize:vertical; }
+  .embody:focus{ outline:none; }
+  .emform .cxerr{ margin:0; padding:0 24px; }
+  .emactions{ display:flex; align-items:center; gap:16px; padding:14px 24px 0; }
+  .emactions .btn{ cursor:pointer; }
+  .emhint{ font-size:12.5px; color:var(--muted); }
+  #emDone{ padding:30px 24px 14px; }
   .navdrop:hover .menu{ opacity:1; visibility:visible; transform:none; }
   .navdrop .card{ background:var(--panel); border:1px solid var(--hair); border-radius:14px; box-shadow:0 24px 60px -24px rgba(10,26,63,0.35); padding:10px; }
   .navdrop .card a{ display:block; padding:12px 14px; border-radius:10px; }
@@ -171,12 +194,11 @@
   .tnode.gate.lit::before{ border-color:var(--green); background:var(--green); box-shadow:0 0 0 6px color-mix(in srgb,var(--green) 13%,transparent); }
   .tnode h3{ font-size:18px; margin:0; letter-spacing:-0.01em; } .tnode p{ color:var(--muted); font-size:14px; margin:6px 0 0; line-height:1.55; }
   /* horizon node — future, not shipped: dashed pulsing marker, path continues */
-  .tnode.horizon{ padding-bottom:8px; }
-  .tnode.horizon::before{ border:2px dashed color-mix(in srgb,var(--accent) 60%,transparent); background:var(--panel); box-shadow:none; animation:hpulse 2.6s ease-in-out infinite; }
-  .tnode.horizon.lit::before{ border:2px dashed var(--accent); background:var(--panel); box-shadow:none; }
+  .tnode.horizon{ margin-top:10px; padding:24px 26px; background:color-mix(in srgb,var(--accent) 4%,var(--panel)); border:1px solid color-mix(in srgb,var(--accent) 20%,transparent); border-radius:16px; }
+  .tnode.horizon::before{ top:50%; transform:translateY(-50%); border:2px dashed color-mix(in srgb,var(--accent) 60%,transparent); background:var(--bg); box-shadow:none; animation:hpulse 2.6s ease-in-out infinite; }
+  .tnode.horizon.lit::before{ border:2px dashed var(--accent); background:var(--bg); box-shadow:none; }
   @keyframes hpulse{ 0%,100%{ box-shadow:0 0 0 0 color-mix(in srgb,var(--accent) 26%,transparent);} 55%{ box-shadow:0 0 0 9px transparent;} }
-  .tnode.horizon::after{ content:""; position:absolute; left:-34px; top:28px; width:2px; height:34px; background:repeating-linear-gradient(var(--accent) 0 3px, transparent 3px 8px); -webkit-mask-image:linear-gradient(#000,transparent); mask-image:linear-gradient(#000,transparent); opacity:.6; }
-  .htag{ display:inline-block; font-family:ui-monospace,Menlo,monospace; font-size:10px; font-weight:700; letter-spacing:.11em; text-transform:uppercase; color:var(--accent); background:color-mix(in srgb,var(--accent) 10%,transparent); border-radius:999px; padding:4px 11px; margin-bottom:11px; }
+  .htag{ display:inline-block; font-family:ui-monospace,Menlo,monospace; font-size:10px; font-weight:700; letter-spacing:.11em; text-transform:uppercase; color:var(--accent); background:color-mix(in srgb,var(--accent) 12%,transparent); border-radius:999px; padding:4px 11px; margin-bottom:12px; }
   @media (prefers-reduced-motion:reduce){ .tnode.horizon::before{ animation:none; } }
   .about-lead{ display:grid; grid-template-columns:1.05fr 0.9fr; gap:clamp(32px,5vw,64px); align-items:center; margin-top:52px; } @media(max-width:900px){ .about-lead{ grid-template-columns:1fr; gap:36px; } }
   .team-h{ font-size:clamp(1.6rem,3vw,2.3rem); font-weight:800; letter-spacing:-0.025em; line-height:1.14; margin:12px 0 0; max-width:16ch; }
@@ -968,6 +990,8 @@
   <input type="email" name="email">
   <input type="text" name="company">
   <input type="text" name="size">
+  <input type="text" name="subject">
+  <input type="text" name="kind">
   <textarea name="message"></textarea>
   <input type="text" name="bot-field">
 </form>
@@ -984,6 +1008,7 @@
     <p class="artmodal-dek">Tell us a little about your environment and a founder will get back to you — usually within a business day.</p>
     <form class="cxform" id="cxForm" novalidate>
       <input type="hidden" name="form-name" value="request-access">
+      <input type="hidden" name="kind" value="Request access">
       <input type="hidden" name="bot-field" value="">
       <div class="cxrow">
         <label class="cxfield"><span>Name</span><input name="name" type="text" placeholder="Jane Doe" required autocomplete="name"></label>
@@ -1011,6 +1036,38 @@
       <h3>Request received.</h3>
       <p id="cxDoneMsg">Thanks — a founder will be in touch within a business day.</p>
       <button class="btn ghost" type="button" id="cxAgain">Close</button>
+    </div>
+  </div>
+</div>
+
+<div class="artscrim" id="emScrim" aria-hidden="true"></div>
+<div class="artmodal emmodal" id="emModal" role="dialog" aria-modal="true" aria-labelledby="emTitle" aria-hidden="true">
+  <div class="artmodal-head emhead" id="emHead">
+    <span class="artmodal-grip" aria-hidden="true"><i></i><i></i></span>
+    <span class="emhead-title"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m3 7 9 6 9-6"/></svg> New message</span>
+    <button class="artmodal-x" id="emClose" aria-label="Close" type="button"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 6 6 18M6 6l12 12"/></svg></button>
+  </div>
+  <div class="artmodal-body">
+    <form class="emform" id="emForm" novalidate>
+      <input type="hidden" name="form-name" value="request-access">
+      <input type="hidden" name="kind" value="Email the team">
+      <input type="hidden" name="bot-field" value="">
+      <div class="emline"><span class="emk">To</span><span class="emto">the founding team · chandler@optimesh.ai</span></div>
+      <div class="emline emline-in"><span class="emk">From</span><input class="eminput" name="email" type="email" placeholder="you@company.com" required autocomplete="email"></div>
+      <div class="emline emline-in"><span class="emk">Name</span><input class="eminput" name="name" type="text" placeholder="Your name" required autocomplete="name"></div>
+      <div class="emline emline-in"><span class="emk">Subject</span><input class="eminput" name="subject" type="text" placeholder="What's this about?" required></div>
+      <textarea class="embody" name="message" rows="7" placeholder="Write your message…" required></textarea>
+      <p class="cxerr" id="emErr" hidden></p>
+      <div class="emactions">
+        <button class="btn primary" type="submit">Send message</button>
+        <span class="emhint">Goes straight to the founders.</span>
+      </div>
+    </form>
+    <div class="cxdone" id="emDone" hidden>
+      <div class="cxcheck" aria-hidden="true">✓</div>
+      <h3>Message sent.</h3>
+      <p id="emDoneMsg">Thanks — we'll get back to you shortly.</p>
+      <button class="btn ghost" type="button" id="emAgain">Close</button>
     </div>
   </div>
 </div>
@@ -1247,9 +1304,85 @@
     /* intercept every "Request access" trigger site-wide */
     document.addEventListener('click',e=>{
       const a=e.target.closest('a,button'); if(!a) return;
-      if(a.closest('#cxModal')||a.closest('#artModal')) return;
+      if(a.closest('#cxModal')||a.closest('#artModal')||a.closest('#emModal')) return;
       const txt=(a.textContent||'').trim().toLowerCase();
       if(a.hasAttribute('data-request')||txt.startsWith('request access')||txt.startsWith('request early access')){ e.preventDefault(); open(); }
+    });
+  })();
+
+  /* ===== email-the-team compose modal (posts to the same Netlify form) ===== */
+  (function(){
+    const scrim=el('emScrim'), modal=el('emModal'), head=el('emHead'),
+          form=el('emForm'), done=el('emDone'), errBox=el('emErr');
+    if(!scrim||!modal||!head||!form) return;
+    let lastFocus=null;
+    function center(){ const w=modal.offsetWidth, h=modal.offsetHeight;
+      modal.style.left=Math.max(12,(window.innerWidth-w)/2)+'px';
+      modal.style.top=Math.max(12,(window.innerHeight-h)/2)+'px'; }
+    function reset(){ form.hidden=false; done.hidden=true; errBox.hidden=true; form.reset(); }
+    function open(){
+      reset(); lastFocus=document.activeElement;
+      scrim.classList.add('on'); scrim.setAttribute('aria-hidden','false');
+      modal.setAttribute('aria-hidden','false'); modal.style.transform=''; center();
+      requestAnimationFrame(()=>modal.classList.add('on'));
+      const first=form.querySelector('input[name=email]'); if(first) setTimeout(()=>first.focus(),60);
+    }
+    function close(){
+      modal.classList.remove('on'); scrim.classList.remove('on');
+      scrim.setAttribute('aria-hidden','true'); modal.setAttribute('aria-hidden','true');
+      setTimeout(()=>{ if(!modal.classList.contains('on')){ modal.style.left=''; modal.style.top=''; } },300);
+      if(lastFocus&&lastFocus.focus) lastFocus.focus();
+    }
+    window.openEmail=open;
+    el('emClose').onclick=close; scrim.onclick=close; el('emAgain').onclick=close;
+    document.addEventListener('keydown',e=>{ if(e.key==='Escape'&&modal.classList.contains('on')) close(); });
+
+    form.addEventListener('submit',async e=>{
+      e.preventDefault();
+      const f=new FormData(form);
+      const name=(f.get('name')||'').toString().trim();
+      const email=(f.get('email')||'').toString().trim();
+      const subject=(f.get('subject')||'').toString().trim();
+      const msg=(f.get('message')||'').toString().trim();
+      const ok=/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+      if(!email||!ok||!name||!subject||!msg){
+        errBox.textContent=!name?'Please add your name.':!ok?'Please enter a valid email.':!subject?'Add a subject.':'Write a short message.';
+        errBox.hidden=false; return; }
+      errBox.hidden=true;
+      const btn=form.querySelector('button[type=submit]'); const label=btn?btn.innerHTML:'';
+      if(btn){ btn.disabled=true; btn.textContent='Sending…'; }
+      const finish=()=>{ el('emDoneMsg').textContent="Thanks, "+name.split(' ')[0]+" — your message is on its way to the founders. We'll reply to "+email+".";
+        form.hidden=true; done.hidden=false; el('emAgain').focus(); if(btn){ btn.disabled=false; btn.innerHTML=label; } };
+      try{
+        await fetch('/',{ method:'POST', headers:{'Content-Type':'application/x-www-form-urlencoded'}, body:new URLSearchParams(f).toString() });
+        finish();
+      }catch(err){
+        window.location.href='mailto:chandler@optimesh.ai?subject='+encodeURIComponent(subject)+'&body='+encodeURIComponent(msg+'\n\n— '+name+' ('+email+')');
+        finish();
+      }
+    });
+
+    /* drag by header */
+    let drag=false, sx=0, sy=0, ox=0, oy=0;
+    head.addEventListener('pointerdown',e=>{ if(e.target.closest('#emClose')) return;
+      drag=true; modal.classList.add('dragging');
+      const r=modal.getBoundingClientRect(); ox=r.left; oy=r.top; sx=e.clientX; sy=e.clientY;
+      head.setPointerCapture(e.pointerId); e.preventDefault(); });
+    head.addEventListener('pointermove',e=>{ if(!drag) return;
+      const w=modal.offsetWidth;
+      let nx=ox+(e.clientX-sx), ny=oy+(e.clientY-sy);
+      nx=Math.min(Math.max(nx,-w+80), window.innerWidth-80);
+      ny=Math.min(Math.max(ny,8), window.innerHeight-56);
+      modal.style.left=nx+'px'; modal.style.top=ny+'px'; });
+    function endDrag(e){ if(!drag) return; drag=false; modal.classList.remove('dragging'); try{head.releasePointerCapture(e.pointerId);}catch(_){}}
+    head.addEventListener('pointerup',endDrag); head.addEventListener('pointercancel',endDrag);
+
+    /* intercept "Email the team" / "Talk to the team" triggers */
+    document.addEventListener('click',e=>{
+      const a=e.target.closest('a,button'); if(!a) return;
+      if(a.closest('#emModal')||a.closest('#cxModal')||a.closest('#artModal')) return;
+      const txt=(a.textContent||'').trim().toLowerCase();
+      if(txt==='email the team'||txt==='talk to the team'||txt==='email us directly'){ e.preventDefault(); open(); }
     });
   })();
 
