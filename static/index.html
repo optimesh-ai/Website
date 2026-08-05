@@ -102,7 +102,8 @@
   .cxactions{ display:flex; align-items:center; gap:16px; flex-wrap:wrap; margin-top:4px; }
   .cxactions .btn{ cursor:pointer; }
   .cxmail{ font-size:13.5px; color:var(--muted); text-decoration:none; }
-  .cxmail:hover{ color:var(--ink); text-decoration:underline; }
+  .cxmail b{ color:var(--accent); font-weight:600; text-decoration:underline; text-underline-offset:2px; }
+  .cxmail:hover b{ text-decoration:none; }
   .cxerr{ margin:2px 0 0; font-size:13px; color:#d6455a; font-weight:550; }
   .cxdone{ text-align:center; padding:26px 8px 10px; display:flex; flex-direction:column; align-items:center; gap:12px; }
   .cxcheck{ width:52px; height:52px; border-radius:50%; display:grid; place-items:center; font-size:26px; font-weight:700; color:#fff; background:var(--accent); box-shadow:0 12px 30px -10px color-mix(in srgb,var(--accent) 60%,transparent); }
@@ -901,7 +902,7 @@
       <p class="cxerr" id="cxErr" hidden></p>
       <div class="cxactions">
         <button class="btn primary" type="submit">Request access →</button>
-        <a class="cxmail" href="mailto:contact@optimesh.ai?subject=Request%20access">or email us directly</a>
+        <a class="cxmail" href="mailto:contact@optimesh.ai?subject=Request%20access">or email <b>contact@optimesh.ai</b></a>
       </div>
     </form>
     <div class="cxdone" id="cxDone" hidden>
