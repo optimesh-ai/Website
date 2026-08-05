@@ -62,6 +62,33 @@
   .cnews-dots{ display:flex; gap:7px; margin-top:16px; }
   .cnews-dot{ width:7px; height:7px; border-radius:50%; background:color-mix(in srgb,var(--accent) 26%,transparent); cursor:pointer; transition:all .3s; }
   .cnews-dot.on{ width:22px; border-radius:9px; background:var(--accent); }
+
+  /* ===== draggable article overlay ===== */
+  .artscrim{ position:fixed; inset:0; background:rgba(9,18,42,0.30); backdrop-filter:blur(2.5px); -webkit-backdrop-filter:blur(2.5px); opacity:0; pointer-events:none; transition:opacity .3s ease; z-index:1400; }
+  .artscrim.on{ opacity:1; pointer-events:auto; }
+  .artmodal{ position:fixed; z-index:1401; width:min(600px,92vw); max-height:80vh; display:flex; flex-direction:column; background:var(--panel); border:1px solid var(--hair); border-radius:20px; box-shadow:0 44px 120px -34px rgba(9,18,42,0.60), 0 8px 30px -12px rgba(9,18,42,0.28); opacity:0; transform:translateY(10px) scale(.975); transition:opacity .28s cubic-bezier(.2,.8,.2,1), transform .28s cubic-bezier(.2,.8,.2,1); overflow:hidden; }
+  .artmodal.on{ opacity:1; transform:translateY(0) scale(1); }
+  .artmodal.dragging{ transition:none; box-shadow:0 54px 140px -30px rgba(9,18,42,0.66); }
+  .artmodal-head{ display:flex; align-items:center; gap:12px; padding:15px 16px 14px 18px; border-bottom:1px solid var(--hair); cursor:grab; user-select:none; touch-action:none; background:linear-gradient(180deg, color-mix(in srgb,var(--accent) 5%,var(--panel)), var(--panel)); }
+  .artmodal-head:active{ cursor:grabbing; }
+  .artmodal-grip{ display:flex; flex-direction:column; gap:3px; flex:0 0 auto; opacity:.5; }
+  .artmodal-grip i{ display:block; width:16px; height:2px; border-radius:2px; background:var(--muted); }
+  .artmodal-cat{ font-size:10.5px; font-weight:700; letter-spacing:.06em; text-transform:uppercase; color:var(--accent); background:color-mix(in srgb,var(--accent) 10%,transparent); border-radius:999px; padding:4px 11px; }
+  .artmodal-date{ font-size:12.5px; color:var(--muted); font-weight:550; }
+  .artmodal-x{ margin-left:auto; flex:0 0 auto; width:32px; height:32px; display:inline-flex; align-items:center; justify-content:center; border:1px solid var(--hair); border-radius:9px; background:transparent; color:var(--muted); cursor:pointer; transition:all .18s ease; }
+  .artmodal-x:hover{ color:var(--ink); background:color-mix(in srgb,var(--ink) 6%,transparent); border-color:color-mix(in srgb,var(--ink) 18%,transparent); }
+  .artmodal-x svg{ width:16px; height:16px; }
+  .artmodal-body{ padding:24px 28px 28px; overflow-y:auto; overscroll-behavior:contain; }
+  .artmodal-title{ font-weight:740; font-size:clamp(21px,2.4vw,26px); line-height:1.2; letter-spacing:-0.025em; color:var(--ink); text-wrap:balance; }
+  .artmodal-dek{ margin-top:12px; font-size:15.5px; line-height:1.55; color:var(--muted); font-weight:500; }
+  .artmodal-rule{ height:1px; background:var(--hair); margin:20px 0; border:0; }
+  .artmodal-body p{ margin:0 0 15px; font-size:15px; line-height:1.68; color:var(--ink-soft,var(--ink)); }
+  .artmodal-body p:last-of-type{ margin-bottom:0; }
+  .artmodal-link{ display:inline-flex; align-items:center; gap:7px; margin-top:22px; font-size:14px; font-weight:650; color:var(--accent); text-decoration:none; }
+  .artmodal-link:hover{ text-decoration:underline; }
+  .artmodal-link svg{ width:15px; height:15px; }
+  @media (max-width:560px){ .artmodal{ width:94vw; } .artmodal-body{ padding:20px 20px 24px; } }
+  @media (prefers-reduced-motion:reduce){ .artmodal, .artscrim{ transition:opacity .1s linear; } .artmodal{ transform:none; } }
   .navdrop:hover .menu{ opacity:1; visibility:visible; transform:none; }
   .navdrop .card{ background:var(--panel); border:1px solid var(--hair); border-radius:14px; box-shadow:0 24px 60px -24px rgba(10,26,63,0.35); padding:10px; }
   .navdrop .card a{ display:block; padding:12px 14px; border-radius:10px; }
@@ -595,7 +622,7 @@
   <div class="reveal"><div class="kicker">Company</div><h2 class="h2">Bring certainty to the networks that run the world.</h2><p class="lead">Optimesh builds offline intelligence so the engineers routing the world's traffic know exactly what a change will do before they make it.</p></div>
   <div class="reveal cnews">
     <div class="cnews-eyebrow">Newsroom</div>
-    <a class="cnews-card" href="mailto:contact@optimesh.ai?subject=Press%20inquiry">
+    <a class="cnews-card" id="cnewsCard" role="button" tabindex="0">
       <span class="cnews-cat" id="cnewsCat"></span>
       <span class="cnews-text" id="cnewsText"></span>
       <span class="cnews-sum" id="cnewsSum"></span>
@@ -783,6 +810,23 @@
   </div>
   <div class="fbottom"><span>© 2026 Optimesh Technologies. All rights reserved.</span><span>Privacy · Terms · Security</span></div>
 </div>
+
+<div class="artscrim" id="artScrim" aria-hidden="true"></div>
+<div class="artmodal" id="artModal" role="dialog" aria-modal="true" aria-labelledby="artTitle" aria-hidden="true">
+  <div class="artmodal-head" id="artHead">
+    <span class="artmodal-grip" aria-hidden="true"><i></i><i></i></span>
+    <span class="artmodal-cat" id="artCat"></span>
+    <span class="artmodal-date" id="artDate"></span>
+    <button class="artmodal-x" id="artClose" aria-label="Close article" type="button"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 6 6 18M6 6l12 12"/></svg></button>
+  </div>
+  <div class="artmodal-body" id="artScroll">
+    <h2 class="artmodal-title" id="artTitle"></h2>
+    <p class="artmodal-dek" id="artDek"></p>
+    <hr class="artmodal-rule">
+    <div id="artProse"></div>
+    <a class="artmodal-link" id="artLink" target="_blank" rel="noopener"><span id="artLinkLabel"></span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12h15M13 6l6 6-6 6"/></svg></a>
+  </div>
+</div>
 <script>
 (() => {
   const el=id=>document.getElementById(id);
@@ -807,9 +851,30 @@
 
   /* ===== news ticker (placeholder items — replace with real headlines) ===== */
   const news=[
-    {t:'Accepted to a16z Speedrun — and why we chose our own path', c:'Program', d:'Selected by one of the sharpest accelerators, and grateful for it. Here is why we chose to keep our own pace.'},
-    {t:'Optimesh joins the NVIDIA Inception program', c:'Program', d:"Into NVIDIA's program for AI-first startups: technical resources, GTM support, and a community building the future."},
-    {t:'Optimesh Technologies raises an angel round', c:'Funding', d:'New backing from operators and angels who have run real networks, to build the verification layer for AI-driven change.'},
+    {t:'Accepted to a16z Speedrun — and why we chose our own path', c:'Program', d:'Selected by one of the sharpest accelerators, and grateful for it. Here is why we chose to keep our own pace.',
+     date:'May 2026',
+     body:[
+       'When the offer came, we were heads-down on the work that defines this stage of the company: shipping the first version of the platform, opening conversations with the operators who will use it, and recruiting the team that will scale it. A structured program, however good, would have meant changing operating mode at exactly the wrong moment.',
+       'Speedrun itself is excellent. The team, the cohort, and the process were all exceptional, and we want to be clear that the decision had nothing to do with the program. The fit for where Optimesh is right now turned out to be different from what we expected when we applied.',
+       'We are grateful to the a16z team for their time, their conviction, and one of the cleanest, most respectful processes we have been through as founders. The bar they set is the bar we want to hold ourselves to.',
+       'We will keep building. If you operate a network and want to put Optimesh to work in your environment, we would like to hear from you.',
+     ], link:{label:'Learn more about a16z Speedrun', href:'https://a16z.com/speedrun/'}},
+    {t:'Optimesh joins the NVIDIA Inception program', c:'Program', d:"Into NVIDIA's program for AI-first startups: technical resources, GTM support, and a community building the future.",
+     date:'April 2026',
+     body:[
+       'Optimesh has been accepted into NVIDIA Inception, the program NVIDIA runs to support startups building with accelerated computing and AI.',
+       "The fit is a natural one. Config Studio's diagnosis and remediation pipeline is AI-driven, and the verification work underneath it is computationally demanding. Inception gives our team access to technical resources, go-to-market support, and a community of companies working on adjacent problems.",
+       'It also reinforces a thesis we keep coming back to. As AI takes on a larger role in operating critical infrastructure, the tooling that checks its decisions has to be every bit as serious as the models making them.',
+       'We will share more as the work progresses. If you operate a network and want to put Optimesh to work in your environment, we would like to hear from you.',
+     ], link:{label:'Learn more about NVIDIA Inception', href:'https://www.nvidia.com/en-us/startups/'}},
+    {t:'Optimesh Technologies raises an angel round', c:'Funding', d:'New backing from operators and angels who have run real networks, to build the verification layer for AI-driven change.',
+     date:'March 2026',
+     body:[
+       "We have closed an angel round to accelerate Optimesh's mission of bringing fast, trustworthy, offline intelligence to network infrastructure.",
+       "The funding lets us invest in the core engine behind Hammerhead's forwarding-plane simulation and in Config Studio's verified remediation, while we work hands-on with our earliest network partners.",
+       'We are especially glad to have backers who have run production networks themselves and have felt firsthand the problem we are setting out to solve.',
+       'There is more to come. If running Optimesh against your own environment sounds useful, request early access.',
+     ], link:{label:'Request early access', href:'mailto:contact@optimesh.ai?subject=Early%20access'}},
   ];
   let ni=0; const tkText=el('tkText'), tkDots=el('tkDots');
   tkDots.innerHTML=news.map((_,i)=>`<span class="tk-dot ${i===0?'on':''}" data-i="${i}"></span>`).join('');
@@ -831,8 +896,75 @@
       [...cnewsDots.children].forEach((d,j)=>d.classList.toggle('on',j===ci)); }
     let ct; function cRestart(){ clearInterval(ct); ct=setInterval(()=>showCNews(ci+1),5200); }
     [...cnewsDots.children].forEach(d=>d.onclick=(e)=>{ e.preventDefault(); showCNews(+d.dataset.i); cRestart(); });
+    const cnewsCard=el('cnewsCard');
+    if(cnewsCard){
+      const open=(e)=>{ e.preventDefault(); if(window.openArticle) window.openArticle(ci); };
+      cnewsCard.addEventListener('click', open);
+      cnewsCard.addEventListener('keydown',(e)=>{ if(e.key==='Enter'||e.key===' '){ open(e); } });
+    }
     paint(); cRestart();
   }
+
+  /* ===== draggable article overlay ===== */
+  (function(){
+    const scrim=el('artScrim'), modal=el('artModal'), head=el('artHead'), scroll=el('artScroll');
+    if(!scrim||!modal||!head) return;
+    let lastFocus=null;
+    function center(){ const w=modal.offsetWidth, h=modal.offsetHeight;
+      modal.style.left=Math.max(12,(window.innerWidth-w)/2)+'px';
+      modal.style.top=Math.max(12,(window.innerHeight-h)/2)+'px'; }
+    window.openArticle=function(i){
+      const n=news[(i+news.length)%news.length]; if(!n) return;
+      el('artCat').textContent=n.c||'News';
+      el('artDate').textContent=n.date||'';
+      el('artTitle').textContent=n.t;
+      el('artDek').textContent=n.d||'';
+      el('artProse').innerHTML=(n.body||[]).map(p=>'<p></p>').join('');
+      [...el('artProse').children].forEach((p,k)=>{ p.textContent=n.body[k]; });
+      const link=el('artLink');
+      if(n.link){ link.href=n.link.href; el('artLinkLabel').textContent=n.link.label; link.style.display='inline-flex'; }
+      else link.style.display='none';
+      if(scroll) scroll.scrollTop=0;
+      lastFocus=document.activeElement;
+      scrim.classList.add('on'); scrim.setAttribute('aria-hidden','false');
+      modal.setAttribute('aria-hidden','false');
+      modal.style.transform=''; center();
+      requestAnimationFrame(()=>modal.classList.add('on'));
+      el('artClose').focus();
+    };
+    function closeArticle(){
+      modal.classList.remove('on'); scrim.classList.remove('on');
+      scrim.setAttribute('aria-hidden','true'); modal.setAttribute('aria-hidden','true');
+      setTimeout(()=>{ if(!modal.classList.contains('on')){ modal.style.left=''; modal.style.top=''; } },300);
+      if(lastFocus&&lastFocus.focus) lastFocus.focus();
+    }
+    el('artClose').onclick=closeArticle;
+    scrim.onclick=closeArticle;
+    document.addEventListener('keydown',(e)=>{ if(e.key==='Escape'&&modal.classList.contains('on')) closeArticle(); });
+    /* drag by header */
+    let drag=false, sx=0, sy=0, ox=0, oy=0;
+    head.addEventListener('pointerdown',(e)=>{
+      if(e.target.closest('#artClose')) return;
+      drag=true; modal.classList.add('dragging');
+      const r=modal.getBoundingClientRect(); ox=r.left; oy=r.top; sx=e.clientX; sy=e.clientY;
+      head.setPointerCapture(e.pointerId); e.preventDefault();
+    });
+    head.addEventListener('pointermove',(e)=>{
+      if(!drag) return;
+      const w=modal.offsetWidth, h=modal.offsetHeight;
+      let nx=ox+(e.clientX-sx), ny=oy+(e.clientY-sy);
+      nx=Math.min(Math.max(nx,-w+80), window.innerWidth-80);
+      ny=Math.min(Math.max(ny,8), window.innerHeight-56);
+      modal.style.left=nx+'px'; modal.style.top=ny+'px';
+    });
+    function endDrag(e){ if(!drag) return; drag=false; modal.classList.remove('dragging'); try{head.releasePointerCapture(e.pointerId);}catch(_){}}
+    head.addEventListener('pointerup',endDrag);
+    head.addEventListener('pointercancel',endDrag);
+    window.addEventListener('resize',()=>{ if(modal.classList.contains('on')){
+      const r=modal.getBoundingClientRect();
+      modal.style.left=Math.min(r.left, window.innerWidth-80)+'px';
+      modal.style.top=Math.min(r.top, window.innerHeight-56)+'px'; } });
+  })();
 
   /* ===== hero live verification feed ===== */
   const feedRows=el('feedRows');
