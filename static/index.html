@@ -53,12 +53,14 @@
   .cnews{ width:100%; }
   .cnews-label{ display:flex; align-items:center; gap:8px; font-family:ui-monospace,Menlo,monospace; font-size:12px; color:var(--muted); margin-bottom:11px; }
   .cnews-label .dot{ width:7px; height:7px; border-radius:50%; background:var(--green); animation:livepulse 1.7s infinite; }
-  .cnews-card{ display:flex; align-items:center; gap:14px; background:color-mix(in srgb,var(--accent) 8%,transparent); border:1px solid color-mix(in srgb,var(--accent) 18%,transparent); border-radius:16px; padding:16px 20px; cursor:pointer; }
+  .cnews-card{ display:flex; align-items:flex-start; gap:15px; background:color-mix(in srgb,var(--accent) 8%,transparent); border:1px solid color-mix(in srgb,var(--accent) 18%,transparent); border-radius:16px; padding:20px 22px; cursor:pointer; transition:background .2s; }
   .cnews-card:hover{ background:color-mix(in srgb,var(--accent) 13%,transparent); }
-  .cnews-badge{ width:34px; height:34px; border-radius:10px; background:var(--accent); color:#fff; display:grid; place-items:center; flex:none; }
+  .cnews-badge{ width:36px; height:36px; border-radius:10px; background:var(--accent); color:#fff; display:grid; place-items:center; flex:none; margin-top:1px; }
   .cnews-badge svg{ width:16px; height:16px; }
-  .cnews-text{ flex:1; font-weight:650; font-size:16px; color:var(--accent); transition:opacity .25s ease; letter-spacing:-0.01em; }
-  .cnews-arrow{ color:var(--accent); opacity:.7; font-size:18px; }
+  .cnews-body{ flex:1; min-width:0; display:flex; flex-direction:column; gap:6px; }
+  .cnews-text{ font-weight:700; font-size:16.5px; color:var(--accent); letter-spacing:-0.01em; line-height:1.25; transition:opacity .25s ease; }
+  .cnews-sum{ font-size:13.5px; color:var(--muted); line-height:1.5; transition:opacity .25s ease; }
+  .cnews-arrow{ color:var(--accent); opacity:.7; font-size:18px; margin-top:3px; }
   .cnews-dots{ display:flex; gap:7px; margin-top:15px; justify-content:center; }
   .cnews-dot{ width:7px; height:7px; border-radius:50%; background:color-mix(in srgb,var(--accent) 26%,transparent); cursor:pointer; transition:all .3s; }
   .cnews-dot.on{ width:22px; border-radius:9px; background:var(--accent); }
@@ -597,7 +599,7 @@
     <div class="cnews-label"><span class="dot"></span>Newsroom</div>
     <a class="cnews-card" href="mailto:contact@optimesh.ai?subject=Press%20inquiry">
       <span class="cnews-badge"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l2.9 6.1 6.6.9-4.8 4.6 1.2 6.6L12 18.3 5.9 20.2l1.2-6.6L2.3 9l6.6-.9z"/></svg></span>
-      <span class="cnews-text" id="cnewsText"></span>
+      <span class="cnews-body"><span class="cnews-text" id="cnewsText"></span><span class="cnews-sum" id="cnewsSum"></span></span>
       <span class="cnews-arrow">→</span>
     </a>
     <div class="cnews-dots" id="cnewsDots"></div>
@@ -806,9 +808,9 @@
 
   /* ===== news ticker (placeholder items — replace with real headlines) ===== */
   const news=[
-    {t:'Accepted to a16z Speedrun — and why we chose our own path'},
-    {t:'Optimesh joins the NVIDIA Inception program'},
-    {t:'Optimesh Technologies raises an angel round'},
+    {t:'Accepted to a16z Speedrun — and why we chose our own path', d:'Selected by one of the sharpest accelerators, and grateful for it. Here is why we chose to keep our own pace.'},
+    {t:'Optimesh joins the NVIDIA Inception program', d:"Into NVIDIA's program for AI-first startups: technical resources, GTM support, and a community building the future."},
+    {t:'Optimesh Technologies raises an angel round', d:'New backing from operators and angels who have run real networks, to build the verification layer for AI-driven change.'},
   ];
   let ni=0; const tkText=el('tkText'), tkDots=el('tkDots');
   tkDots.innerHTML=news.map((_,i)=>`<span class="tk-dot ${i===0?'on':''}" data-i="${i}"></span>`).join('');
@@ -822,11 +824,13 @@
   /* ===== company newsroom cycler (same headlines) ===== */
   const cnewsText=el('cnewsText'), cnewsDots=el('cnewsDots');
   if(cnewsText && cnewsDots){
-    let ci=0; cnewsDots.innerHTML=news.map((_,i)=>`<span class="cnews-dot ${i===0?'on':''}" data-i="${i}"></span>`).join('');
-    function showCNews(i){ ci=(i+news.length)%news.length; cnewsText.style.opacity=0; setTimeout(()=>{ cnewsText.textContent=news[ci].t; cnewsText.style.opacity=1; },220); [...cnewsDots.children].forEach((d,j)=>d.classList.toggle('on',j===ci)); }
-    let ct; function cRestart(){ clearInterval(ct); ct=setInterval(()=>showCNews(ci+1),4500); }
+    let ci=0; const cnewsSum=el('cnewsSum'); cnewsDots.innerHTML=news.map((_,i)=>`<span class="cnews-dot ${i===0?'on':''}" data-i="${i}"></span>`).join('');
+    function showCNews(i){ ci=(i+news.length)%news.length; cnewsText.style.opacity=0; if(cnewsSum) cnewsSum.style.opacity=0;
+      setTimeout(()=>{ cnewsText.textContent=news[ci].t; if(cnewsSum) cnewsSum.textContent=news[ci].d||''; cnewsText.style.opacity=1; if(cnewsSum) cnewsSum.style.opacity=1; },220);
+      [...cnewsDots.children].forEach((d,j)=>d.classList.toggle('on',j===ci)); }
+    let ct; function cRestart(){ clearInterval(ct); ct=setInterval(()=>showCNews(ci+1),5200); }
     [...cnewsDots.children].forEach(d=>d.onclick=(e)=>{ e.preventDefault(); showCNews(+d.dataset.i); cRestart(); });
-    cnewsText.textContent=news[0].t; cRestart();
+    cnewsText.textContent=news[0].t; if(cnewsSum) cnewsSum.textContent=news[0].d||''; cRestart();
   }
 
   /* ===== hero live verification feed ===== */
