@@ -1,27 +1,7 @@
+# Serve the single-file Optimesh site (static prototype). No build step required.
 [build]
-  command = "npm run build:client"
-  functions = "netlify/functions"
-  publish = "dist/spa"
-
-
-[functions]
-  # Bundle dependencies (express, serverless-http, resend, …) into the function
-  # with esbuild. Marking express as external left it out of the deployed
-  # bundle, so the function crashed at runtime with "Cannot find module
-  # 'express'" and every /api/* route returned 502.
-  node_bundler = "esbuild"
-
-[[redirects]]
-  force = true
-  from = "/api/early-access"
-  status = 200
-  to = "/.netlify/functions/early-access"
-
-[[redirects]]
-  force = true
-  from = "/api/*"
-  status = 200
-  to = "/.netlify/functions/api/:splat"
+  command = "echo 'serving static optimesh site'"
+  publish = "static"
 
 [[redirects]]
   from = "/*"
