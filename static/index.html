@@ -261,6 +261,10 @@
   .evidence .line{ margin-top:14px; border-top:1px solid rgba(255,255,255,.14); padding-top:12px; font-size:12px; color:color-mix(in srgb,var(--bg) 60%,transparent); }
   .hint{ position:absolute; bottom:22px; left:50%; transform:translateX(-50%); z-index:4; font-size:11px; letter-spacing:.18em; text-transform:uppercase; color:var(--muted); opacity:.8; transition:opacity .3s; }
   .hint::after{ content:""; display:block; width:1px; height:26px; margin:8px auto 0; background:linear-gradient(var(--muted),transparent); }
+  /* blast-radius scroll story */
+  .brcap{ position:absolute; left:50%; bottom:clamp(38px,9vh,104px); transform:translateX(-50%); width:min(90vw,660px); text-align:center; z-index:4; pointer-events:none; }
+  .brcap p{ margin:0; font-size:clamp(1rem,1.9vw,1.35rem); font-weight:500; line-height:1.5; color:var(--muted); transition:opacity .35s ease; }
+  .brhint{ opacity:.75; }
 
   section.blk{ padding:100px 0; scroll-margin-top:78px; }
   [id]{ scroll-margin-top:78px; }
@@ -711,21 +715,15 @@
   </div>
 </div></section>
 
-<!-- blast-radius differentiators -->
-<section class="blk" data-page="platform"><div class="wrap center">
-  <div class="kicker reveal">The differentiators</div>
-  <h2 class="h2 reveal" style="margin:12px auto 0">Blast radius, beyond the checkbox.</h2>
-  <p class="lead reveal" style="margin:16px auto 0">The number is the easy part. What you can trust and act on is everything around it.</p>
-  <div class="sgrid reveal">
-    <div class="scard"><div class="si"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M3 3v18h18"/><path d="M7 14l3-3 3 3 5-6"/></svg></div><h3>From flows to revenue</h3><p>See the applications, sites, and revenue at risk, not just IP addresses.</p></div>
-    <div class="scard"><div class="si"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="6" cy="12" r="2.5"/><circle cx="18" cy="12" r="2.5"/><path d="M8.5 12h7"/><path d="M12 5v3M12 16v3"/></svg></div><h3>Redundancy that's real</h3><p>Flags when "independent" paths secretly share a carrier, power feed, or cloud region.</p></div>
-    <div class="scard"><div class="si"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg></div><h3>Learns from your history</h3><p>Correlates each change with past incidents of the same type.</p></div>
-    <div class="scard"><div class="si"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4-4"/><path d="M8 11h6M8 8h4"/></svg></div><h3>Every verdict, shown</h3><p>The exact config lines, routes, and timestamps behind every answer.</p></div>
-    <div class="scard"><div class="si"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M2 12s3.5-7 10-7 10 7 10 7-3.5 7-10 7S2 12 2 12z"/><circle cx="12" cy="12" r="3"/></svg></div><h3>Read-only, day one</h3><p>Useful analysis from configs alone. No services engagement, no write access.</p></div>
-    <div class="scard"><div class="si"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="6" cy="6" r="2"/><circle cx="18" cy="6" r="2"/><circle cx="12" cy="18" r="2"/><path d="M7.6 7.5l3 8.8M16.4 7.5l-3 8.8M8 6h8"/></svg></div><h3>One service graph</h3><p>On-prem, cloud, Kubernetes, DNS, and load balancers in a single model.</p></div>
-    <div class="scard"><div class="si"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="6" cy="6" r="2"/><circle cx="6" cy="18" r="2"/><circle cx="18" cy="9" r="2"/><path d="M6 8v8M6 13h6a4 4 0 004-4"/></svg></div><h3>Where the change lives</h3><p>Evidence posts straight to ServiceNow, Jira, Git PRs, and Terraform plans.</p></div>
+<!-- blast-radius: scroll story (replaces the differentiator cards) -->
+<section class="scrolly" id="brStage" data-page="platform" style="height:440vh">
+  <div class="sticky">
+    <canvas class="net" id="brNet" aria-hidden="true"></canvas>
+    <div class="stagehead"><h2 id="brTitle">Blast radius, beyond the checkbox</h2></div>
+    <div class="brcap" id="brCap"><p>One change. See everything it can break — before it ships.</p></div>
+    <div class="hint brhint">scroll to trace it</div>
   </div>
-</div></section>
+</section>
 
 <!-- security (off platform to declutter) -->
 <section class="blk" data-page="x-off"><div class="wrap center">
@@ -1757,6 +1755,62 @@
           ox.save(); ox.shadowColor=A(soft,0.95); ox.shadowBlur=14; ox.fillStyle=soft; ox.beginPath(); ox.arc(x,y,S*0.016,0,7); ox.fill(); ox.restore(); }
       }
       requestAnimationFrame(loop); });
+  }
+
+  /* ===== blast-radius scroll story (platform) ===== */
+  const brC=el('brNet');
+  if(brC){ const brx=brC.getContext('2d');
+    const brStage=el('brStage'), brTitle=el('brTitle'), brCapP=el('brCap')&&el('brCap').querySelector('p');
+    let brW=0, brH=0;
+    const BN={ CORE:{x:600,y:112,r:24,lb:'edge'}, A1:{x:330,y:296,r:20,lb:'A1'}, A2:{x:600,y:296,r:23,lb:'A2'}, A3:{x:870,y:296,r:20,lb:'A3'},
+      checkout:{x:225,y:500,r:17,lab:'checkout · $2.3M/hr'}, billing:{x:452,y:500,r:17,lab:'billing · $900k/hr'},
+      api:{x:648,y:500,r:17,lab:'orders API'}, auth:{x:822,y:500,r:17,lab:'auth · every login'}, db:{x:996,y:500,r:17,lab:'primary DB'},
+      carrier:{x:600,y:662,r:19,lab:'carrier-x'} };
+    const BE=[['CORE','A1'],['CORE','A2'],['CORE','A3'],['A1','checkout'],['A1','billing'],['A2','billing'],['A2','api'],['A2','auth'],['A3','auth'],['A3','db']];
+    const AFF=new Set(['billing','api','auth']);
+    const brTitles=[[0,'Blast radius, beyond the checkbox'],[0.20,'One change ripples outward'],[0.44,'Not just IPs — apps and revenue'],[0.63,"The backup path isn't independent"],[0.83,'A verdict you can act on']];
+    const brCaps=[[0,'One change. See everything it can break — before it ships.'],[0.20,'The blast radius spreads through every downstream path in a single pass.'],[0.44,'You see the applications and revenue at risk, not a list of IP addresses.'],[0.63,'It flags "independent" paths that secretly share a carrier, power feed, or region.'],[0.83,'Blocked, with the exact routes and rules behind the answer — evidence you can act on.']];
+    const pick=(arr,p)=>{ let v=arr[0][1]; for(const [th,x] of arr){ if(p>=th) v=x; } return v; };
+    function brResize(){ const dpr=Math.min(devicePixelRatio||1,2); brW=brC.clientWidth; brH=brC.clientHeight; brC.width=Math.round(brW*dpr); brC.height=Math.round(brH*dpr); brx.setTransform(dpr,0,0,dpr,0,0); }
+    function brProg(){ const r=brStage.getBoundingClientRect(); return clamp(-r.top/(r.height-innerHeight),0,1); }
+    function brRender(p,time){
+      if(brC.clientWidth!==brW||brC.clientHeight!==brH) brResize();
+      const W=brW,H=brH; if(W<=0){ return; } brx.clearRect(0,0,W,H);
+      const scale=Math.min(W/1200,H/800)*0.94, ox=(W-1200*scale)/2, oy=(H-800*scale)/2-H*0.02;
+      const Pp=v=>({x:ox+v.x*scale,y:oy+v.y*scale});
+      const acc=css('--accent'),soft=css('--accent2'),ink=css('--ink'),muted=css('--muted'),red=css('--red');
+      const appear=easeOut(clamp(p/0.10,0,1)), blast=easeOut(clamp((p-0.20)/0.18,0,1)), lab=easeOut(clamp((p-0.44)/0.15,0,1)), carr=easeOut(clamp((p-0.63)/0.15,0,1));
+      brx.lineCap='round';
+      for(const [a,b] of BE){ const pa=Pp(BN[a]),pb=Pp(BN[b]); brx.strokeStyle=A(muted,0.26*appear); brx.lineWidth=1.6*scale; brx.beginPath(); brx.moveTo(pa.x,pa.y); brx.lineTo(pb.x,pb.y); brx.stroke(); }
+      for(const [a,b] of [['A2','billing'],['A2','api'],['A2','auth']]){ const pa=Pp(BN[a]),pb=Pp(BN[b]); if(blast>0){ brx.strokeStyle=A(red,0.85*blast); brx.lineWidth=2.8*scale; brx.beginPath(); brx.moveTo(pa.x,pa.y); brx.lineTo(lerp(pa.x,pb.x,blast),lerp(pa.y,pb.y,blast)); brx.stroke(); } }
+      if(carr>0){ const cp=Pp(BN.carrier); brx.save(); brx.setLineDash([5*scale,6*scale]); for(const a of ['A1','A3']){ const pa=Pp(BN[a]); brx.strokeStyle=A(red,0.75*carr); brx.lineWidth=2.2*scale; brx.beginPath(); brx.moveTo(pa.x,pa.y); brx.lineTo(lerp(pa.x,cp.x,carr),lerp(pa.y,cp.y,carr)); brx.stroke(); } brx.restore(); }
+      for(const k in BN){ const n=BN[k], pos=Pp(n), isCarr=k==='carrier', na=isCarr?carr:appear; if(na<=0.02) continue;
+        const isChange=k==='A2', isAff=(AFF.has(k)&&blast>0.35)||isCarr;
+        brx.save(); brx.globalAlpha=na;
+        if(isChange){ const rr=(n.r+7)*scale*(1+0.06*Math.sin(time*4)); brx.strokeStyle=A(acc,0.45); brx.lineWidth=2*scale; brx.beginPath(); brx.arc(pos.x,pos.y,rr,0,7); brx.stroke(); }
+        const g=brx.createLinearGradient(pos.x,pos.y-n.r*scale,pos.x,pos.y+n.r*scale);
+        if(isAff){ g.addColorStop(0,A(red,0.95)); g.addColorStop(1,red); } else { g.addColorStop(0,soft); g.addColorStop(1,acc); }
+        brx.fillStyle=g; brx.shadowColor=A(isAff?red:acc,0.4); brx.shadowBlur=12*scale;
+        brx.beginPath(); brx.arc(pos.x,pos.y,n.r*scale,0,7); brx.fill(); brx.shadowBlur=0;
+        if(n.lb){ brx.fillStyle='rgba(255,255,255,0.96)'; brx.textAlign='center'; brx.textBaseline='middle'; brx.font='700 '+(10.5*scale)+'px ui-sans-serif,system-ui'; brx.fillText(n.lb,pos.x,pos.y); brx.textBaseline='alphabetic'; }
+        else { brx.fillStyle='rgba(255,255,255,0.92)'; brx.beginPath(); brx.arc(pos.x,pos.y,n.r*scale*0.28,0,7); brx.fill(); }
+        brx.restore();
+      }
+      brx.textAlign='center'; brx.font=(11.5*scale)+'px ui-monospace,Menlo,monospace';
+      if(lab>0){ brx.save(); brx.globalAlpha=lab; for(const k of ['checkout','billing','api','auth','db']){ const n=BN[k],pos=Pp(n); brx.fillStyle=(AFF.has(k)&&blast>0.35)?red:ink; brx.fillText(n.lab,pos.x,pos.y+(n.r+19)*scale); } brx.restore(); }
+      if(carr>0){ brx.save(); brx.globalAlpha=carr; brx.fillStyle=red; const cp=Pp(BN.carrier); brx.fillText('carrier-x — shared by A1 + A3', cp.x, cp.y+(BN.carrier.r+19)*scale); brx.restore(); }
+      if(p>0.85){ const pos=Pp(BN.A2), a=easeOut(clamp((p-0.85)/0.05,0,1)); brx.save(); brx.globalAlpha=a; brx.fillStyle=red; brx.font='700 '+(13*scale)+'px ui-monospace,Menlo,monospace'; brx.textAlign='center'; brx.fillText('✗ BLOCKED', pos.x, pos.y-(BN.A2.r+15)*scale); brx.restore(); }
+    }
+    let brP=0;
+    function brUpdate(p){ if(brTitle){ const nt=pick(brTitles,p); if(brTitle.textContent!==nt){ brTitle.style.opacity=0; setTimeout(()=>{ brTitle.textContent=nt; brTitle.style.opacity=1; },150); } }
+      if(brCapP){ const nc=pick(brCaps,p); if(brCapP.textContent!==nc){ brCapP.style.opacity=0; setTimeout(()=>{ brCapP.textContent=nc; brCapP.style.opacity=1; },150); } } }
+    function brInView(){ const r=brStage.getBoundingClientRect(); return r.bottom>-200 && r.top<innerHeight+200; }
+    let bt0=performance.now();
+    function brFrame(now){ if(brInView()||reduce) brRender(brP,(now-bt0)/1000); requestAnimationFrame(brFrame); }
+    addEventListener('scroll',()=>{ brP=brProg(); brUpdate(brP); },{passive:true});
+    addEventListener('resize',brResize);
+    brResize(); brP=brProg(); brUpdate(brP);
+    if(reduce){ brRender(0.9,0); } else requestAnimationFrame(brFrame);
   }
 
 })();
