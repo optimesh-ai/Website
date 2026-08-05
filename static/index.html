@@ -358,6 +358,18 @@
   .flow.play .fstep:nth-child(4){ transition-delay:.24s; }
   .flow.play .fstep:nth-child(5){ transition-delay:.36s; }
   @media(prefers-reduced-motion:reduce){ .flow .fstep{ opacity:1; transform:none; } .flowline::after{ transform:scaleX(1); } }
+  /* platform creative hero — live verification gate */
+  .plat-hero{ position:relative; overflow:hidden; min-height:64vh; display:flex; align-items:center; padding:104px 0 68px; }
+  .plat-canvas{ position:absolute; inset:0; width:100%; height:100%; z-index:0; }
+  .plat-hero::after{ content:""; position:absolute; inset:0; z-index:1; pointer-events:none; background:radial-gradient(58% 62% at 50% 46%, color-mix(in srgb,var(--bg) 52%,transparent), transparent 72%); }
+  .plat-hero-in{ position:relative; z-index:2; }
+  .plat-hero-in h2{ font-size:clamp(2.1rem,5.4vw,3.7rem); line-height:1.02; letter-spacing:-0.035em; }
+  .plat-hero-in .lead{ max-width:56ch; }
+  .plat-badge{ display:inline-flex; align-items:center; gap:8px; margin:0 auto 20px; padding:6px 14px 6px 8px; border-radius:999px; background:color-mix(in srgb,var(--panel) 82%,transparent); border:1px solid var(--hair); backdrop-filter:blur(6px); font-size:12.5px; font-weight:600; color:var(--ink); }
+  .plat-badge .lv{ display:inline-flex; align-items:center; gap:6px; padding:2px 9px; border-radius:999px; background:color-mix(in srgb,var(--green) 14%,transparent); color:var(--green); font-family:ui-monospace,Menlo,monospace; font-size:11px; }
+  .plat-badge .lv::before{ content:""; width:6px; height:6px; border-radius:50%; background:var(--green); box-shadow:0 0 0 3px color-mix(in srgb,var(--green) 24%,transparent); }
+  .plat-hero-in .actions{ display:flex; gap:12px; justify-content:center; margin-top:30px; flex-wrap:wrap; }
+  @media(max-width:560px){ .plat-hero{ min-height:auto; padding:92px 0 56px; } .plat-hero-in .actions{ width:100%; } .plat-hero-in .actions .btn{ flex:1; justify-content:center; } }
   .fstep{ position:relative; z-index:1; display:flex; flex-direction:column; }
   .fdot{ width:32px; height:32px; border-radius:50%; margin:0 auto 20px; display:grid; place-items:center; font-family:ui-monospace,Menlo,monospace; font-weight:700; font-size:13px; color:#fff; background:var(--accent); border:3px solid var(--bg); box-shadow:0 6px 16px -5px color-mix(in srgb,var(--accent) 65%,transparent); }
   .fcard{ flex:1; display:flex; flex-direction:column; background:var(--panel); border:1px solid var(--hair); border-radius:16px; padding:22px 20px; box-shadow:0 24px 52px -34px rgba(10,26,63,0.32); }
@@ -620,14 +632,21 @@
 </div></div></section>
 
 <!-- platform intro -->
-<section class="blk" data-page="platform" style="padding-bottom:0"><div class="wrap center">
-  <div class="kicker reveal">The platform</div>
-  <h2 class="h2 reveal" style="margin:12px auto 0">Change anything. Break nothing.</h2>
-  <p class="lead reveal" style="margin:16px auto 0">Simulate your whole network. Catch the breaking change before it ships, and prove every fix safe — on your own hardware.</p>
-</div></section>
+<section class="blk plat-hero" data-page="platform" style="padding-bottom:0">
+  <canvas class="plat-canvas" id="platCanvas" aria-hidden="true"></canvas>
+  <div class="wrap center plat-hero-in">
+    <div class="plat-badge reveal">The Optimesh platform <span class="lv">live · verifying</span></div>
+    <h2 class="h2 reveal" style="margin:0 auto">Change anything.<br>Break nothing.</h2>
+    <p class="lead reveal" style="margin:18px auto 0">Every change to your network runs the gate first — simulated on your live topology, proven safe or blocked, before it ever ships.</p>
+    <div class="actions reveal">
+      <a class="btn primary lg" data-request>Request access →</a>
+      <a class="btn ghost lg" href="#platflow">See how it works ↓</a>
+    </div>
+  </div>
+</section>
 
 <!-- how it works: flow timeline -->
-<section class="blk" data-page="platform" style="padding-top:52px"><div class="wrap">
+<section class="blk" id="platflow" data-page="platform" style="padding-top:52px"><div class="wrap">
   <div class="center reveal"><h2 class="h2" style="margin:0 auto">From a risky change to a proven one.</h2><p class="lead" style="margin:14px auto 0">What actually happens when something touches your network.</p></div>
   <div class="flow">
     <div class="flowline"></div>
@@ -1768,6 +1787,43 @@
           ox.save(); ox.shadowColor=A(soft,0.95); ox.shadowBlur=14; ox.fillStyle=soft; ox.beginPath(); ox.arc(x,y,S*0.016,0,7); ox.fill(); ox.restore(); }
       }
       requestAnimationFrame(loop); });
+  }
+
+  /* ===== platform hero: live verification-gate stream ===== */
+  const platCanvas=el('platCanvas');
+  if(platCanvas && !reduce){ const pcx=platCanvas.getContext('2d');
+    let parts=[]; const t0b=performance.now();
+    const spawn=(W,H)=>({ x:-16, y:H*0.12+Math.random()*H*0.76, v:0.5+Math.random()*1.3, r:1.8+Math.random()*2.4, st:0, blocked:Math.random()<0.15, bt:0, trail:[] });
+    requestAnimationFrame(function loop(now){
+      const W=platCanvas.clientWidth, H=platCanvas.clientHeight;
+      if(W>0&&H>0){
+        const d=Math.min(devicePixelRatio||1,2);
+        if(platCanvas.width!==Math.round(W*d)||platCanvas.height!==Math.round(H*d)){ platCanvas.width=Math.round(W*d); platCanvas.height=Math.round(H*d); }
+        pcx.setTransform(d,0,0,d,0,0); pcx.clearRect(0,0,W,H);
+        const acc=css('--accent'), soft=css('--accent2'), grn=css('--green'), rd=css('--red');
+        const gateX=Math.round(W*0.60), t=(now-t0b)/1000;
+        /* faint dot grid */
+        pcx.fillStyle=A(acc,0.05); const gs=34;
+        for(let gx=(W*0.06); gx<W*0.96; gx+=gs){ for(let gy=H*0.14; gy<H*0.88; gy+=gs){ pcx.beginPath(); pcx.arc(gx,gy,1,0,7); pcx.fill(); } }
+        /* the gate */
+        const pulse=0.5+0.5*Math.sin(t*2.2);
+        pcx.strokeStyle=A(acc,0.16+0.10*pulse); pcx.lineWidth=1.6; pcx.setLineDash([3,7]); pcx.beginPath(); pcx.moveTo(gateX,H*0.10); pcx.lineTo(gateX,H*0.90); pcx.stroke(); pcx.setLineDash([]);
+        pcx.save(); pcx.globalAlpha=0.5+0.4*pulse; pcx.shadowColor=A(acc,0.5); pcx.shadowBlur=10; pcx.fillStyle=A(acc,0.5); pcx.beginPath(); pcx.arc(gateX,H*0.10,2.4,0,7); pcx.fill(); pcx.beginPath(); pcx.arc(gateX,H*0.90,2.4,0,7); pcx.fill(); pcx.restore();
+        if(parts.length < Math.min(64, W/26) && Math.random()<0.55) parts.push(spawn(W,H));
+        for(const p of parts){
+          if(p.st===0){ p.x+=p.v; if(p.x>=gateX){ p.st=p.blocked?2:1; if(p.blocked) p.x=gateX; } }
+          else if(p.st===1){ p.x+=p.v; }
+          else { p.bt++; }
+          const c = p.st===0?soft : p.st===1?grn : rd;
+          const a = p.st===2 ? Math.max(0,1-p.bt/34) : (p.x>W-40 ? Math.max(0,(W-p.x)/40) : 0.9);
+          p.trail.unshift({x:p.x,y:p.y}); if(p.trail.length>6) p.trail.pop();
+          if(p.trail.length>1){ pcx.strokeStyle=A(c,a*0.28); pcx.lineWidth=p.r*0.8; pcx.lineCap='round'; pcx.beginPath(); pcx.moveTo(p.trail[0].x,p.trail[0].y); for(const tp of p.trail) pcx.lineTo(tp.x,tp.y); pcx.stroke(); }
+          pcx.save(); pcx.globalAlpha=a*0.75; pcx.fillStyle=c; pcx.shadowColor=A(c,0.6); pcx.shadowBlur=8; pcx.beginPath(); pcx.arc(p.x,p.y,p.r,0,7); pcx.fill(); pcx.restore();
+        }
+        parts = parts.filter(p=> p.x<W+30 && !(p.st===2&&p.bt>38));
+      }
+      requestAnimationFrame(loop);
+    });
   }
 })();
 </script>
