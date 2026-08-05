@@ -1277,17 +1277,24 @@
       if(al<1){ ctx.save(); ctx.shadowColor=A(soft,0.9); ctx.shadowBlur=14; ctx.fillStyle=soft; ctx.beginPath(); ctx.arc(tx,ty,3*scale,0,7); ctx.fill(); ctx.restore(); }
       else if(!reduce){ ctx.save(); ctx.setLineDash([2*scale,22*scale]); ctx.lineDashOffset=-(time*52+(pa.x+pa.y))%1000; ctx.strokeStyle=A(soft,0.65); ctx.lineWidth=2.2*scale; ctx.beginPath(); ctx.moveTo(pa.x,pa.y); ctx.lineTo(pb.x,pb.y); ctx.stroke(); ctx.restore(); } }
     { const pa=px(N.S2),pb=px(N.NET),eg=easeOut(clamp((p-0.56)/0.1,0,1)); if(eg>0){ ctx.save(); ctx.setLineDash([6*scale,6*scale]); ctx.strokeStyle=A(bad,0.55*eg); ctx.lineWidth=1.7*scale; ctx.beginPath(); ctx.moveTo(pa.x,pa.y); ctx.lineTo(lerp(pa.x,pb.x,eg),lerp(pa.y,pb.y,eg)); ctx.stroke(); ctx.restore(); } }
+    let doTick=null, doCross=null;
     if(p>0.34){ const t=clamp((p-0.36)/0.20,0,1); ctx.strokeStyle=A(accent,0.95); ctx.lineWidth=3.2*scale; ctx.shadowColor=A(accent,0.55); ctx.shadowBlur=16*scale; poly(goodPath,t); ctx.shadowBlur=0;
-      if(t<1){ const d=pp(goodPath,t); dot(d.x,d.y,accent,soft); } else { const e=px(N.H3); tick(e.x,e.y-24*scale,good,easeOut(clamp((p-0.50)/0.05,0,1))); } }
+      if(t<1){ const d=pp(goodPath,t); dot(d.x,d.y,accent,soft); } else { const e=px(N.H3); doTick={x:e.x,y:e.y-30*scale,a:easeOut(clamp((p-0.50)/0.05,0,1))}; } }
     let showEv=false;
     if(p>0.57){ const t=clamp((p-0.59)/0.18,0,1),ba=0.66,tt=Math.min(t,ba); ctx.strokeStyle=A(bad,0.95); ctx.lineWidth=3.2*scale; ctx.shadowColor=A(bad,0.55); ctx.shadowBlur=16*scale; poly(badPath,tt); ctx.shadowBlur=0;
       const g=pp(badPath,ba); gate(g.x,g.y,accent,bad,easeOut(clamp((p-0.60)/0.08,0,1)),time);
-      if(t<ba){ const d=pp(badPath,t); dot(d.x,d.y,bad,bad); } else { cross(g.x,g.y,bad,easeOut(clamp((t-ba)/0.2,0,1))); showEv=p<0.99; } }
+      if(t<ba){ const d=pp(badPath,t); dot(d.x,d.y,bad,bad); } else { doCross={x:g.x,y:g.y,a:easeOut(clamp((t-ba)/0.2,0,1))}; showEv=p<0.99; } }
     for(const k in N){ const ap=arr(k,p); if(ap>.01) drawNode(k,N[k],ap,{accent,soft,bad,good,ink,muted,node},time); }
+    /* verdict marks drawn last so nodes never cover them */
+    if(doTick) tickBadge(doTick.x,doTick.y,good,doTick.a);
+    if(doCross) cross(doCross.x,doCross.y,bad,doCross.a);
     evidence.classList.toggle('show',showEv); hint.style.opacity=p>0.05?0:0.8;
   }
   function dot(x,y,c,g){ ctx.save(); ctx.shadowColor=A(g,0.85); ctx.shadowBlur=18; ctx.fillStyle=c; ctx.beginPath(); ctx.arc(x,y,6*scale,0,7); ctx.fill(); ctx.restore(); }
   function tick(x,y,c,a){ if(a<=0)return; ctx.save(); ctx.globalAlpha=a; ctx.strokeStyle=c; ctx.lineWidth=3.6*scale; ctx.lineCap='round'; ctx.lineJoin='round'; ctx.beginPath(); ctx.moveTo(x-7*scale,y); ctx.lineTo(x-1*scale,y+6*scale); ctx.lineTo(x+9*scale,y-8*scale); ctx.stroke(); ctx.restore(); }
+  function tickBadge(x,y,c,a){ if(a<=0)return; const R=13*scale; ctx.save(); ctx.globalAlpha=a;
+    ctx.shadowColor=A(c,0.5); ctx.shadowBlur=16*scale; ctx.fillStyle=c; ctx.beginPath(); ctx.arc(x,y,R,0,7); ctx.fill(); ctx.shadowBlur=0;
+    ctx.strokeStyle='#fff'; ctx.lineWidth=2.6*scale; ctx.lineCap='round'; ctx.lineJoin='round'; ctx.beginPath(); ctx.moveTo(x-5.5*scale,y+0.5*scale); ctx.lineTo(x-1*scale,y+5*scale); ctx.lineTo(x+6*scale,y-4.5*scale); ctx.stroke(); ctx.restore(); }
   function cross(x,y,c,a){ if(a<=0)return; ctx.save(); ctx.globalAlpha=a; ctx.strokeStyle=c; ctx.lineWidth=3.8*scale; ctx.lineCap='round'; const s=8*scale; ctx.beginPath(); ctx.moveTo(x-s,y-s); ctx.lineTo(x+s,y+s); ctx.moveTo(x+s,y-s); ctx.lineTo(x-s,y+s); ctx.stroke(); ctx.restore(); }
   function gate(x,y,ac,bd,a,time){ if(a<=0)return; ctx.save(); ctx.globalAlpha=a; ctx.translate(x,y); const pl=1+0.05*Math.sin(time*4); ctx.scale(pl,pl); const w=17*scale; ctx.fillStyle=A(ac,0.14); ctx.strokeStyle=A(bd,0.95); ctx.lineWidth=2.2*scale; ctx.beginPath(); ctx.moveTo(0,-w); ctx.lineTo(w,-w*0.5); ctx.lineTo(w,w*0.4); ctx.quadraticCurveTo(0,w*1.15,0,w*1.15); ctx.quadraticCurveTo(0,w*1.15,-w,w*0.4); ctx.lineTo(-w,-w*0.5); ctx.closePath(); ctx.fill(); ctx.stroke(); ctx.restore(); }
   function drawNode(key,n,ap,col,time){ const pos=px(n),eb=easeBack(ap),rise=(1-eb)*30*scale,y=pos.y+rise,x=pos.x,sc=0.6+0.4*eb,al=clamp(ap*1.6,0,1);
