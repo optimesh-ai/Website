@@ -255,7 +255,9 @@
   .console{ --cbg:#0b1226; --cpanel:#131d3c; --cpanel2:#0f1832; --cline:#26335a; --ctext:#e9eeff; --cmut:#8ea0cc; --cacc:#6e9bff; --cgreen:#34d399; --cred:#fb7185; --camber:#fbbf24;
     background:var(--cbg); color:var(--ctext); border-radius:18px; border:1px solid #223057; box-shadow:0 44px 110px -44px rgba(6,12,32,0.75); overflow:hidden; }
   .console .cbar{ display:flex; align-items:center; gap:8px; padding:12px 16px; border-bottom:1px solid var(--cline); background:#0c1430; }
-  .console .cbar .title{ margin-left:10px; font-size:12.5px; color:var(--cmut); } .console .cbar .title b{ color:var(--ctext); } .console .cbar .env{ margin-left:auto; font-size:11px; color:var(--cmut); border:1px solid var(--cline); border-radius:999px; padding:3px 10px; }
+  .console .cbar .title{ margin-left:10px; font-size:12.5px; color:var(--cmut); } .console .cbar .title b{ color:var(--ctext); }
+  .console .cbar .env{ margin-left:auto; display:inline-flex; align-items:center; gap:7px; font-family:ui-monospace,Menlo,monospace; font-size:10.5px; letter-spacing:.02em; color:var(--cmut); }
+  .console .cbar .env::before{ content:""; width:6px; height:6px; border-radius:50%; background:var(--green); box-shadow:0 0 0 3px color-mix(in srgb,var(--green) 22%,transparent); flex:none; }
   .dash{ display:grid; grid-template-columns:minmax(0,1fr) minmax(0,1.12fr); min-height:520px; } @media(max-width:900px){ .dash{ grid-template-columns:1fr; } }
   .dgen{ border-right:1px solid var(--cline); padding:16px; display:flex; flex-direction:column; gap:12px; } @media(max-width:900px){ .dgen{ border-right:none; border-bottom:1px solid var(--cline); } }
   .genwrap{ background:var(--cpanel); border:1px solid var(--cline); border-radius:12px; overflow:hidden; }
@@ -883,7 +885,9 @@
   <div class="artmodal-body">
     <h2 class="artmodal-title" id="cxTitle">Let's put Optimesh on your network.</h2>
     <p class="artmodal-dek">Tell us a little about your environment and a founder will get back to you — usually within a business day.</p>
-    <form class="cxform" id="cxForm" novalidate>
+    <form class="cxform" id="cxForm" name="request-access" method="POST" data-netlify="true" netlify-honeypot="bot-field" novalidate>
+      <input type="hidden" name="form-name" value="request-access">
+      <p hidden aria-hidden="true"><label>Leave this empty: <input name="bot-field" tabindex="-1" autocomplete="off"></label></p>
       <div class="cxrow">
         <label class="cxfield"><span>Name</span><input name="name" type="text" placeholder="Jane Doe" required autocomplete="name"></label>
         <label class="cxfield"><span>Work email</span><input name="email" type="email" placeholder="jane@company.com" required autocomplete="email"></label>
@@ -1099,8 +1103,8 @@
     el('cxClose').onclick=close; scrim.onclick=close; el('cxAgain').onclick=close;
     document.addEventListener('keydown',e=>{ if(e.key==='Escape'&&modal.classList.contains('on')) close(); });
 
-    /* submit → validate, show confirmation (self-contained, no backend) */
-    form.addEventListener('submit',e=>{
+    /* submit → POST to Netlify Forms; fall back to a prefilled email if the network call fails */
+    form.addEventListener('submit',async e=>{
       e.preventDefault();
       const f=new FormData(form);
       const name=(f.get('name')||'').toString().trim();
@@ -1109,9 +1113,19 @@
       if(!name||!ok){ errBox.textContent=!name?'Please add your name.':'Please enter a valid work email.'; errBox.hidden=false;
         (form.querySelector(!name?'input[name=name]':'input[name=email]')||{}).focus?.(); return; }
       errBox.hidden=true;
-      el('cxDoneMsg').textContent='Thanks, '+name.split(' ')[0]+' — a founder will be in touch at '+email+', usually within a business day.';
-      form.hidden=true; done.hidden=false;
-      el('cxAgain').focus();
+      const btn=form.querySelector('button[type=submit]'); const label=btn?btn.innerHTML:'';
+      if(btn){ btn.disabled=true; btn.textContent='Sending…'; }
+      const finish=()=>{ el('cxDoneMsg').textContent="Thanks, "+name.split(' ')[0]+" — we've got your request and a founder will reply to "+email+", usually within a business day.";
+        form.hidden=true; done.hidden=false; el('cxAgain').focus(); if(btn){ btn.disabled=false; btn.innerHTML=label; } };
+      try{
+        await fetch('/',{ method:'POST', headers:{'Content-Type':'application/x-www-form-urlencoded'}, body:new URLSearchParams(f).toString() });
+        finish();
+      }catch(err){
+        const subj=encodeURIComponent('Request access — '+((f.get('company')||'').toString().trim()||name));
+        const bodyt=encodeURIComponent('Name: '+name+'\nWork email: '+email+'\nCompany: '+(f.get('company')||'')+'\nNetwork size: '+(f.get('size')||'')+'\n\n'+(f.get('message')||''));
+        window.location.href='mailto:chandler@optimesh.ai?subject='+subj+'&body='+bodyt;
+        finish();
+      }
     });
 
     /* drag by header */
@@ -1186,10 +1200,10 @@
   function pp(path,t){ const s=path.length-1,ft=clamp(t,0,1)*s,i=Math.min(Math.floor(ft),s-1),f=ft-i; const a=px(N[path[i]]),b=px(N[path[i+1]]); return {x:lerp(a.x,b.x,f),y:lerp(a.y,b.y,f)}; }
   function poly(path,upto){ const s=path.length-1,end=clamp(upto,0,1)*s; ctx.beginPath(); for(let i=0;i<s;i++){ if(i>end)break; const a=px(N[path[i]]),b=px(N[path[i+1]]),f=Math.min(1,end-i); ctx.moveTo(a.x,a.y); ctx.lineTo(lerp(a.x,b.x,f),lerp(a.y,b.y,f)); } ctx.stroke(); }
   const _c=document.createElement('canvas').getContext('2d'); function A(c,a){ _c.fillStyle=c; const h=_c.fillStyle; if(h[0]==='#'){ const n=parseInt(h.slice(1),16); return `rgba(${(n>>16)&255},${(n>>8)&255},${n&255},${a})`; } return h.replace('rgb(','rgba(').replace(')',`,${a})`); }
-  let P=0; function progress(){ const r=stage.getBoundingClientRect(); return clamp(-r.top/(r.height-innerHeight),0,1); }
+  let P=0; function progress(){ const r=stage.getBoundingClientRect(); const lead=innerHeight*0.45; return clamp((-r.top+lead)/(r.height-innerHeight),0,1); }
   function render(time){ const p=P; ctx.clearRect(0,0,W,H);
     const accent=css('--accent'),soft=css('--accent2'),good=css('--green'),bad=css('--red'),ink=css('--ink'),muted=css('--muted'),node=css('--bg2');
-    const gc=px({x:600,y:250}),rg=ctx.createRadialGradient(gc.x,gc.y,0,gc.x,gc.y,420*scale); rg.addColorStop(0,A(accent,0.10)); rg.addColorStop(1,A(accent,0)); ctx.fillStyle=rg; ctx.fillRect(0,0,W,H);
+    const gc=px({x:600,y:330}),rad=Math.max(W,H)*0.95,rg=ctx.createRadialGradient(gc.x,gc.y,0,gc.x,gc.y,rad); rg.addColorStop(0,A(accent,0.07)); rg.addColorStop(0.45,A(accent,0.028)); rg.addColorStop(1,A(accent,0)); ctx.fillStyle=rg; ctx.fillRect(0,0,W,H);
     const lt=easeOut(clamp((p-0.02)/0.20,0,1)); ctx.lineCap='round';
     for(const [a,b] of LK){ const pa=px(N[a]),pb=px(N[b]),al=Math.min(arr(a,p),arr(b,p))*lt; if(al<=.01)continue; const tx=lerp(pa.x,pb.x,al),ty=lerp(pa.y,pb.y,al);
       ctx.strokeStyle=A(accent,0.26*al); ctx.lineWidth=2*scale; ctx.beginPath(); ctx.moveTo(pa.x,pa.y); ctx.lineTo(tx,ty); ctx.stroke();
