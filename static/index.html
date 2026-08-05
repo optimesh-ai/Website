@@ -49,7 +49,8 @@
   .megaitem .mt{ display:block; font-weight:650; font-size:13.5px; color:var(--ink); } .megaitem .md{ display:block; font-size:11.5px; color:var(--muted); margin-top:1px; }
   .megafoot{ display:flex; align-items:center; justify-content:space-between; gap:16px; padding:14px 22px; border-top:1px solid var(--hair); background:var(--bg); }
   .megafoot span{ font-size:13px; color:var(--muted); } .megafoot a{ font-size:13px; font-weight:700; color:var(--accent); }
-  .cnews{ max-width:620px; margin:40px 0 0; }
+  .company-top{ display:grid; grid-template-columns:1.1fr 0.9fr; gap:clamp(32px,5vw,64px); align-items:center; margin-top:8px; } @media(max-width:900px){ .company-top{ grid-template-columns:1fr; gap:36px; } }
+  .cnews{ width:100%; }
   .cnews-label{ display:flex; align-items:center; gap:8px; font-family:ui-monospace,Menlo,monospace; font-size:12px; color:var(--muted); margin-bottom:11px; }
   .cnews-label .dot{ width:7px; height:7px; border-radius:50%; background:var(--green); animation:livepulse 1.7s infinite; }
   .cnews-card{ display:flex; align-items:center; gap:14px; background:color-mix(in srgb,var(--accent) 8%,transparent); border:1px solid color-mix(in srgb,var(--accent) 18%,transparent); border-radius:16px; padding:16px 20px; cursor:pointer; }
@@ -590,6 +591,7 @@
 
 <!-- company -->
 <section class="blk" id="company" data-page="company"><div class="wrap">
+  <div class="company-top">
   <div class="reveal"><div class="kicker">Company</div><h2 class="h2">Bring certainty to the networks that run the world.</h2><p class="lead">Optimesh builds offline intelligence so the engineers routing the world's traffic know exactly what a change will do before they make it.</p></div>
   <div class="reveal cnews">
     <div class="cnews-label"><span class="dot"></span>Newsroom</div>
@@ -599,6 +601,7 @@
       <span class="cnews-arrow">→</span>
     </a>
     <div class="cnews-dots" id="cnewsDots"></div>
+  </div>
   </div>
   <div class="about-lead">
     <div class="reveal">
@@ -643,10 +646,10 @@
     </div>
   </div>
   <div class="statband reveal" style="margin-top:84px">
-    <div class="stat"><div class="sv" data-count="800" data-suffix="×">800×</div><div class="sl">Faster</div><div class="ss">whole-fabric sim in milliseconds</div></div>
-    <div class="stat"><div class="sv" data-count="99.93" data-suffix="%">99.93%</div><div class="sl">FIB parity</div><div class="ss">cross-validated against live stacks</div></div>
-    <div class="stat"><div class="sv">&lt;1s</div><div class="sl">Full topology</div><div class="ss">1,280 devices parsed and simulated</div></div>
-    <div class="stat"><div class="sv" data-count="100" data-suffix="%">100%</div><div class="sl">Deterministic</div><div class="ss">same input, same answer, every time</div></div>
+    <div class="stat"><div class="sv" data-count="800" data-suffix="×">800×</div><div class="sl">Fast enough for every commit</div><div class="ss">A whole network checked in under a second.</div></div>
+    <div class="stat"><div class="sv" data-count="99.93" data-suffix="%">99.93%</div><div class="sl">Answers you can trust</div><div class="ss">Matches the analysis your auditors already rely on.</div></div>
+    <div class="stat"><div class="sv">&lt;1s</div><div class="sl">No waiting on a result</div><div class="ss">1,280 devices simulated in a single pass.</div></div>
+    <div class="stat"><div class="sv" data-count="100" data-suffix="%">100%</div><div class="sl">Reproducible for audits</div><div class="ss">Same answer every time, so anyone can re-run it.</div></div>
   </div>
   <div class="center reveal" style="margin-top:90px"><div class="kicker">32 CLI subcommands</div><h2 class="h2" style="margin:12px auto 0">One engine. The whole validation loop.</h2></div>
   <div class="capcols reveal">
@@ -694,10 +697,10 @@
     </div>
   </div>
   <div class="statband reveal" style="margin-top:84px">
-    <div class="stat"><div class="sv" data-count="99" data-suffix="%">99%</div><div class="sl">MTTR reduction</div><div class="ss">vs manual incident response</div></div>
-    <div class="stat"><div class="sv" data-count="99.6" data-suffix="%">99.6%</div><div class="sl">Diagnosis accuracy</div><div class="ss">across the fault taxonomy</div></div>
-    <div class="stat"><div class="sv" data-count="100" data-suffix="%">100%</div><div class="sl">Verified before apply</div><div class="ss">every fix re-simulated</div></div>
-    <div class="stat"><div class="sv">0</div><div class="sl">Telemetry sent</div><div class="ss">runs on your hardware</div></div>
+    <div class="stat"><div class="sv" data-count="99" data-suffix="%">99%</div><div class="sl">Minutes, not a long night</div><div class="ss">Incidents resolved before they blow up.</div></div>
+    <div class="stat"><div class="sv" data-count="99.6" data-suffix="%">99.6%</div><div class="sl">Finds the real problem</div><div class="ss">Pinpoints the fault so no one hunts for it.</div></div>
+    <div class="stat"><div class="sv" data-count="100" data-suffix="%">100%</div><div class="sl">Never ships a bad fix</div><div class="ss">Every fix proven safe before you approve it.</div></div>
+    <div class="stat"><div class="sv">0</div><div class="sl">Your configs stay yours</div><div class="ss">Runs on your hardware. Nothing leaves the building.</div></div>
   </div>
   <div class="center reveal" style="margin-top:90px"><div class="kicker">Mean time to resolution</div><h2 class="h2" style="margin:12px auto 0">From alert to verified fix in seconds, not hours.</h2><p class="lead" style="margin:16px auto 0">The slow part of an incident was never the fix. It was finding the fault and trusting the repair. Config Studio does both, and proves it, before you approve.</p></div>
   <div class="mttr reveal">
