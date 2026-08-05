@@ -143,13 +143,31 @@
 
   nav{ position:sticky; top:0; z-index:50; backdrop-filter:blur(12px); background:color-mix(in srgb,var(--bg) 80%,transparent); border-bottom:1px solid var(--hair); }
   .nav{ display:flex; align-items:center; gap:22px; height:64px; }
-  .brand{ display:flex; align-items:center; gap:10px; font-weight:700; font-size:15px; }
+  .brand{ display:flex; align-items:center; gap:10px; font-weight:700; font-size:17px; letter-spacing:-0.01em; }
   .brand .sep{ color:var(--muted); font-weight:400; } .brand .sub{ color:var(--muted); font-weight:500; }
   .nav .links{ display:none; gap:22px; margin-left:12px; color:var(--muted); font-size:14px; } .nav .spacer{ flex:1; }
   .btn{ display:inline-flex; align-items:center; gap:8px; border-radius:999px; font-weight:600; font-size:14px; padding:10px 18px; cursor:pointer; border:1px solid transparent; }
   .btn.primary{ background:var(--accent); color:#fff; box-shadow:0 12px 28px -12px color-mix(in srgb,var(--accent) 70%,transparent); } .btn.primary:hover{ filter:brightness(1.08); }
   .btn.ghost{ color:var(--ink); border-color:var(--hair); background:var(--panel); } .btn.lg{ padding:14px 24px; font-size:15px; }
   @media(min-width:920px){ .nav .links{ display:flex; } }
+  /* mobile navigation */
+  .navtoggle{ display:none; flex-direction:column; gap:5px; width:42px; height:42px; align-items:center; justify-content:center; background:transparent; border:1px solid var(--hair); border-radius:11px; cursor:pointer; flex:none; }
+  .navtoggle span{ width:18px; height:2px; background:var(--ink); border-radius:2px; transition:transform .28s cubic-bezier(.4,0,.2,1), opacity .2s; }
+  .navtoggle.open span:nth-child(1){ transform:translateY(7px) rotate(45deg); }
+  .navtoggle.open span:nth-child(2){ opacity:0; }
+  .navtoggle.open span:nth-child(3){ transform:translateY(-7px) rotate(-45deg); }
+  .navmobile{ display:none; }
+  @media(max-width:920px){
+    .navtoggle{ display:flex; }
+    .nav>.btn{ display:none; }
+    .navmobile{ display:flex; position:absolute; top:100%; left:0; right:0; flex-direction:column; padding:0 20px; gap:0; background:var(--panel); border-bottom:1px solid var(--hair); box-shadow:0 26px 54px -22px rgba(10,26,63,0.34); max-height:0; overflow:hidden; opacity:0; pointer-events:none; transition:max-height .32s cubic-bezier(.4,0,.2,1), opacity .24s ease, padding .32s ease; }
+    .navmobile.open{ max-height:min(84vh,640px); overflow-y:auto; opacity:1; pointer-events:auto; padding:8px 20px 20px; }
+    .navmobile a:not(.btn){ padding:15px 4px; font-size:16px; font-weight:550; color:var(--ink); border-bottom:1px solid var(--hair); }
+    .navmobile .mlabel{ font-family:ui-monospace,Menlo,monospace; font-size:10.5px; font-weight:700; letter-spacing:.09em; text-transform:uppercase; color:var(--muted); padding:16px 4px 4px; }
+    .navmobile .btn{ margin-top:14px; justify-content:center; width:100%; }
+    .navmobile .btn+.btn{ margin-top:10px; }
+  }
+  @media(max-width:400px){ .brand{ font-size:15px; } .brand svg{ width:34px; height:34px; } }
 
   /* hero + floating */
   .hero{ position:relative; min-height:90vh; display:flex; align-items:center; gap:clamp(28px,4vw,64px); padding:120px 0 48px; }
@@ -331,7 +349,15 @@
   .stat .sv{ font-family:ui-monospace,Menlo,monospace; font-size:clamp(2rem,4vw,2.8rem); font-weight:600; letter-spacing:-0.02em; color:var(--ink); } .stat .sl{ font-weight:650; margin-top:6px; font-size:14.5px; } .stat .ss{ color:var(--muted); font-size:12.5px; margin-top:2px; }
   /* platform flow — how a change becomes a proven change */
   .flow{ position:relative; display:grid; grid-template-columns:repeat(4,1fr); gap:20px; margin-top:46px; }
-  .flowline{ position:absolute; top:15px; left:12.5%; right:12.5%; height:2px; background:linear-gradient(90deg,var(--accent),var(--accent2)); opacity:.45; z-index:0; }
+  .flowline{ position:absolute; top:15px; left:12.5%; right:12.5%; height:2px; background:var(--hair); z-index:0; overflow:hidden; }
+  .flowline::after{ content:""; position:absolute; inset:0; background:linear-gradient(90deg,var(--accent),var(--accent2)); transform:scaleX(0); transform-origin:left; transition:transform 1s cubic-bezier(.4,0,.2,1) .1s; }
+  .flow.play .flowline::after{ transform:scaleX(1); }
+  .flow .fstep{ opacity:0; transform:translateY(26px); transition:opacity .6s cubic-bezier(.22,1,.36,1), transform .6s cubic-bezier(.22,1,.36,1); }
+  .flow.play .fstep{ opacity:1; transform:none; }
+  .flow.play .fstep:nth-child(3){ transition-delay:.12s; }
+  .flow.play .fstep:nth-child(4){ transition-delay:.24s; }
+  .flow.play .fstep:nth-child(5){ transition-delay:.36s; }
+  @media(prefers-reduced-motion:reduce){ .flow .fstep{ opacity:1; transform:none; } .flowline::after{ transform:scaleX(1); } }
   .fstep{ position:relative; z-index:1; display:flex; flex-direction:column; }
   .fdot{ width:32px; height:32px; border-radius:50%; margin:0 auto 20px; display:grid; place-items:center; font-family:ui-monospace,Menlo,monospace; font-weight:700; font-size:13px; color:#fff; background:var(--accent); border:3px solid var(--bg); box-shadow:0 6px 16px -5px color-mix(in srgb,var(--accent) 65%,transparent); }
   .fcard{ flex:1; display:flex; flex-direction:column; background:var(--panel); border:1px solid var(--hair); border-radius:16px; padding:22px 20px; box-shadow:0 24px 52px -34px rgba(10,26,63,0.32); }
@@ -414,6 +440,30 @@
   .mttr-old, .mttr-new{ border-radius:16px; padding:24px; text-align:center; border:1px solid var(--hair); }
   .mttr-new{ background:color-mix(in srgb,var(--green) 7%,transparent); border-color:color-mix(in srgb,var(--green) 35%,transparent); }
   .mttr .ml{ font-size:12.5px; color:var(--muted); font-weight:600; } .mttr .mv{ font-family:ui-monospace,Menlo,monospace; font-size:clamp(2.2rem,5vw,3rem); font-weight:700; letter-spacing:-0.02em; margin-top:6px; } .mttr-old .mv{ color:var(--muted); } .mttr-new .mv{ color:var(--green); } .mttr .md{ font-size:12.5px; color:var(--muted); margin-top:6px; } .mttr-arrow{ font-size:24px; color:var(--muted); } @media(max-width:640px){ .mttr-arrow{ transform:rotate(90deg); } }
+
+  /* ===== mobile polish pass ===== */
+  @media(max-width:760px){
+    .blk{ padding:64px 0; }
+    .wrap{ padding:0 20px; }
+    .split{ gap:28px; }
+    .h2{ font-size:clamp(1.7rem,6.4vw,2.3rem); }
+    .lead{ font-size:1.05rem; }
+    .prodgrid{ grid-template-columns:1fr; }
+    .term pre{ font-size:12px; padding:14px; }
+    .megacard{ padding:14px; } .megagrid{ grid-template-columns:1fr; gap:6px; }
+    .fcta-top{ flex-direction:column; align-items:flex-start; gap:20px; } .fbtns{ width:100%; } .fbtns .btn{ flex:1; justify-content:center; }
+    .fgrid{ grid-template-columns:1fr 1fr; gap:24px 16px; }
+    .voices-in{ grid-template-columns:1fr; }
+    .capcols{ grid-template-columns:1fr; }
+  }
+  @media(max-width:480px){
+    .blk{ padding:52px 0; }
+    .hero h1{ font-size:clamp(2rem,9vw,2.6rem); }
+    .fgrid{ grid-template-columns:1fr; }
+    .statband{ grid-template-columns:1fr 1fr; gap:24px 16px; }
+    .btn.lg{ padding:13px 20px; font-size:14px; }
+    .hero .actions{ width:100%; } .hero .actions .btn{ flex:1; justify-content:center; }
+  }
 </style>
 
 <nav><div class="wrap nav">
@@ -454,6 +504,21 @@
     </div>
     <a data-nav="platform">Platform</a><a data-nav="why">Why us</a><a data-nav="insights">Insights</a><a data-nav="company">Company</a><a data-nav="contact">Contact</a></div>
   <div class="spacer"></div><a class="btn ghost" href="https://optimesh-ai.github.io/RuleHawk/" target="_blank" rel="noopener">Try RuleHawk</a><a class="btn primary" data-request>Request access</a>
+  <button class="navtoggle" id="navToggle" aria-label="Open menu" aria-expanded="false" aria-controls="navMobile"><span></span><span></span><span></span></button>
+</div>
+<div class="navmobile" id="navMobile">
+  <div class="mlabel">Products</div>
+  <a data-nav="hammerhead">Hammerhead</a>
+  <a data-nav="configstudio">Config Studio</a>
+  <a data-nav="rulehawk">RuleHawk</a>
+  <div class="mlabel">Company</div>
+  <a data-nav="platform">Platform</a>
+  <a data-nav="why">Why us</a>
+  <a data-nav="insights">Insights</a>
+  <a data-nav="company">Company</a>
+  <a data-nav="contact">Contact</a>
+  <a class="btn primary" data-request>Request access</a>
+  <a class="btn ghost" href="https://optimesh-ai.github.io/RuleHawk/" target="_blank" rel="noopener">Try RuleHawk free</a>
 </div></nav>
 
 <section class="hero wrap" data-page="home">
@@ -564,7 +629,7 @@
 <!-- how it works: flow timeline -->
 <section class="blk" data-page="platform" style="padding-top:52px"><div class="wrap">
   <div class="center reveal"><h2 class="h2" style="margin:0 auto">From a risky change to a proven one.</h2><p class="lead" style="margin:14px auto 0">What actually happens when something touches your network.</p></div>
-  <div class="flow reveal">
+  <div class="flow">
     <div class="flowline"></div>
     <div class="fstep">
       <div class="fdot">1</div>
@@ -1085,13 +1150,27 @@
   function showPage(name){
     pages.forEach(s=>{ const p=s.dataset.page; s.hidden = !(p===name || p==='global'); });
     document.querySelectorAll('[data-nav]').forEach(a=>a.classList.toggle('navon', a.dataset.nav===name));
-    pages.forEach(s=>{ if(!s.hidden) s.querySelectorAll('.reveal').forEach(r=>r.classList.add('in')); });
     window.scrollTo({ top:0 });
+    /* reveal only what's above the fold now; the rest animate in on scroll */
+    requestAnimationFrame(()=>{ const vh=innerHeight; document.querySelectorAll('[data-page]:not([hidden]) .reveal:not(.in)').forEach(r=>{ if(r.getBoundingClientRect().top < vh*0.92) r.classList.add('in'); }); });
     if(name==='home'){ requestAnimationFrame(()=>{ try{ resize(); }catch(e){} }); }
     if(name==='hammerhead'){ try{ runHHTerm(); }catch(e){} }
   }
   document.querySelectorAll('[data-nav]').forEach(a=>a.addEventListener('click',e=>{ e.preventDefault(); showPage(a.dataset.nav); }));
   showPage('home');
+
+  /* mobile menu toggle */
+  const navToggle=el('navToggle'), navMobile=el('navMobile');
+  if(navToggle&&navMobile){
+    const closeM=()=>{ navMobile.classList.remove('open'); navToggle.classList.remove('open'); navToggle.setAttribute('aria-expanded','false'); };
+    navToggle.addEventListener('click',()=>{ const willOpen=!navMobile.classList.contains('open'); navMobile.classList.toggle('open',willOpen); navToggle.classList.toggle('open',willOpen); navToggle.setAttribute('aria-expanded',willOpen?'true':'false'); });
+    navMobile.querySelectorAll('a').forEach(a=>a.addEventListener('click',closeM));
+    document.addEventListener('keydown',e=>{ if(e.key==='Escape') closeM(); });
+  }
+
+  /* platform flow timeline: draw rail + stagger cards when scrolled into view */
+  const flowEl=document.querySelector('.flow');
+  if(flowEl){ new IntersectionObserver((es,ob)=>es.forEach(e=>{ if(e.isIntersecting){ flowEl.classList.add('play'); ob.disconnect(); } }),{threshold:.25}).observe(flowEl); }
 
   /* ===== news ticker (placeholder items — replace with real headlines) ===== */
   const news=[
