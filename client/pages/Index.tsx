@@ -1,7 +1,7 @@
 import { Layout } from "@/components/Layout";
 import { Link } from "react-router-dom";
 import { ArrowRight, Gauge, ShieldCheck, ShieldAlert, Check, X } from "lucide-react";
-import { ButtonLink, Container, Eyebrow } from "@/components/site/primitives";
+import { ButtonLink, Container } from "@/components/site/primitives";
 import { Hero } from "@/components/site/Hero";
 import { PacketFlowScene } from "@/components/site/PacketFlowScene";
 import { Reveal } from "@/components/site/Reveal";
@@ -141,10 +141,7 @@ function WhereItWorks() {
     <section className="py-24 md:py-32">
       <Container>
         <Reveal>
-          <p className="text-center font-mono text-xs font-medium uppercase tracking-[0.22em] text-primary">
-            Where it works
-          </p>
-          <h2 className="mt-4 text-center text-3xl font-semibold tracking-tight text-foreground sm:text-4xl md:text-5xl">
+          <h2 className="text-center text-3xl font-semibold tracking-tight text-foreground sm:text-4xl md:text-5xl">
             From the data center to the cloud.
           </h2>
         </Reveal>
@@ -191,7 +188,7 @@ export default function Index() {
       {/* ---------------------------------------------------------------- Hero */}
       <Hero
         title="Ship changes at full speed.<br class='hidden sm:block' /> Never cause an outage."
-        description="An engineer pushes a change that quietly opens a path from your corporate network to your payment systems. Optimesh catches it before it ships. Nobody gets paged. The audit stays clean. You never even hear about it."
+        description="An engineer pushes a change that quietly opens a path from your corporate network to your payment systems. Optimesh proves it's unsafe and blocks it before it ships, down to the exact rule that opened the hole. Nobody gets paged. The audit is already done."
         primaryButton={{ to: "/early-access", label: "Get started" }}
         secondaryButton={{ to: "/features", label: "See the platform" }}
         tertiaryButton={{ to: "https://optimesh-ai.github.io/RuleHawk/", label: "Audit your firewall free", external: true }}
@@ -203,8 +200,7 @@ export default function Index() {
         <Container>
           <Reveal>
             <div className="mx-auto max-w-2xl text-center">
-              <Eyebrow>The difference</Eyebrow>
-              <h2 className="mt-4 text-balance text-3xl font-semibold tracking-tight text-foreground sm:text-4xl md:text-5xl">
+              <h2 className="text-balance text-3xl font-semibold tracking-tight text-foreground sm:text-4xl md:text-5xl">
                 Network changes shouldn't feel like a gamble.
               </h2>
             </div>
@@ -256,6 +252,59 @@ export default function Index() {
         </Container>
       </section>
 
+      {/* --------------------------------------------- Why you can trust it */}
+      <section className="py-24 md:py-32">
+        <Container>
+          <Reveal>
+            <div className="mx-auto max-w-2xl text-center">
+              <h2 className="text-balance text-3xl font-semibold tracking-tight text-foreground sm:text-4xl md:text-5xl">
+                Everyone else guesses.<br className="hidden sm:block" /> We prove it.
+              </h2>
+              <p className="mt-5 text-lg leading-relaxed text-muted-foreground">
+                AI copilots and legacy tools give you a best guess and hope for the best. Optimesh runs a
+                deterministic proof of exactly what a change does to your live network before it ships. When we
+                say a change is safe, it's math, not a hunch.
+              </p>
+            </div>
+          </Reveal>
+
+          <div className="mx-auto mt-16 grid max-w-4xl gap-6 md:grid-cols-2">
+            <Reveal>
+              <div className="h-full rounded-2xl border border-border bg-card p-8">
+                <div className="inline-flex items-center gap-2 self-start rounded-md border border-border bg-secondary/50 px-2.5 py-1.5 font-mono text-xs text-muted-foreground">
+                  <X className="h-3.5 w-3.5 shrink-0 text-muted-foreground/60" />
+                  Guesswork
+                </div>
+                <h3 className="mt-5 text-xl font-semibold tracking-tight text-foreground">
+                  A prediction, not a guarantee
+                </h3>
+                <p className="mt-2.5 text-[0.95rem] leading-relaxed text-muted-foreground">
+                  An LLM or a linter reads your config and predicts it's probably fine. No proof, no evidence,
+                  no guarantee. The one time the guess is wrong is the outage you get paged for.
+                </p>
+              </div>
+            </Reveal>
+
+            <Reveal delay={0.1}>
+              <div className="h-full rounded-2xl border border-primary/20 bg-primary/[0.04] p-8">
+                <div className="inline-flex items-center gap-2 self-start rounded-md border border-primary/20 bg-primary/10 px-2.5 py-1.5 font-mono text-xs text-primary">
+                  <Check className="h-3.5 w-3.5 shrink-0 text-success" />
+                  Proof
+                </div>
+                <h3 className="mt-5 text-xl font-semibold tracking-tight text-foreground">
+                  Provably safe, or blocked with the reason
+                </h3>
+                <p className="mt-2.5 text-[0.95rem] leading-relaxed text-foreground">
+                  Optimesh computes exactly what a change does to every path in your network and shows you the
+                  routes and rules behind the verdict. It ships proven safe, or it's stopped with the exact
+                  line that made it dangerous.
+                </p>
+              </div>
+            </Reveal>
+          </div>
+        </Container>
+      </section>
+
       {/* ---- Scroll story: a beam draws down the page through these sections */}
       <div className="relative">
         <ScrollBeam className="left-5 hidden lg:block xl:left-8" />
@@ -264,10 +313,7 @@ export default function Index() {
       <section className="py-24 md:py-32">
         <Container>
           <Reveal>
-            <p className="text-center font-mono text-xs font-medium uppercase tracking-[0.22em] text-primary">
-              The platform
-            </p>
-            <h2 className="mt-4 text-center text-3xl font-semibold tracking-tight text-foreground sm:text-4xl md:text-5xl">
+            <h2 className="text-center text-3xl font-semibold tracking-tight text-foreground sm:text-4xl md:text-5xl">
               Change anything. Break nothing.
             </h2>
           </Reveal>
@@ -352,8 +398,7 @@ export default function Index() {
           <div className="grid items-center gap-12 lg:grid-cols-2">
             <Reveal>
               <div>
-                <Eyebrow>How it works</Eyebrow>
-                <h2 className="mt-4 text-balance text-3xl font-semibold tracking-tight text-foreground sm:text-4xl">
+                <h2 className="text-balance text-3xl font-semibold tracking-tight text-foreground sm:text-4xl">
                   Your agent proposes. We prove it safe.
                 </h2>
                 <p className="mt-5 max-w-md text-[0.95rem] leading-relaxed text-muted-foreground">
@@ -396,8 +441,7 @@ export default function Index() {
         <Container>
           <Reveal>
             <div className="mx-auto max-w-2xl text-center">
-              <Eyebrow>Integrations</Eyebrow>
-              <h2 className="mt-4 text-balance text-3xl font-semibold tracking-tight text-foreground sm:text-4xl md:text-5xl">
+              <h2 className="text-balance text-3xl font-semibold tracking-tight text-foreground sm:text-4xl md:text-5xl">
                 Fits the stack you already run.
               </h2>
               <p className="mt-5 text-lg leading-relaxed text-muted-foreground">
@@ -445,7 +489,7 @@ export default function Index() {
           <div className="relative mx-auto max-w-2xl">
             <Reveal>
               <h2 className="text-balance text-3xl font-semibold tracking-tight text-background sm:text-4xl md:text-5xl">
-                Infrastructure is becoming autonomous.<br />Make it safe.
+                Your next outage is one bad change away.<br />Catch it before it ships.
               </h2>
               <p className="mt-6 text-lg text-background/60">
                 Give your team the confidence to move fast. Optimesh runs entirely inside your network, so your configs never leave it.
