@@ -1494,8 +1494,8 @@
   /* ===== pinned network canvas ===== */
   const canvas=el('net'), ctx=canvas.getContext('2d'), stage=el('stage'), stageTitle=el('stageTitle'), evidence=el('evidence'), hint=el('hint');
   const caps=[...document.querySelectorAll('.cap')];
-  const N={ S1:{x:430,y:186,r:'spine'},S2:{x:770,y:186,r:'spine'},L1:{x:265,y:360,r:'leaf'},L2:{x:470,y:360,r:'leaf'},L3:{x:730,y:360,r:'leaf'},L4:{x:935,y:360,r:'leaf'},
-    H1:{x:265,y:534,r:'host'},H2:{x:470,y:534,r:'host'},H3:{x:730,y:534,r:'host'},H4:{x:935,y:534,r:'host'},NET:{x:1095,y:120,r:'net'} };
+  const N={ S1:{x:430,y:186,r:'spine',lab:'core-01'},S2:{x:770,y:186,r:'spine',lab:'core-02'},L1:{x:265,y:360,r:'leaf',lab:'leaf-01'},L2:{x:470,y:360,r:'leaf',lab:'leaf-02'},L3:{x:730,y:360,r:'leaf',lab:'leaf-03'},L4:{x:935,y:360,r:'leaf',lab:'leaf-04'},
+    H1:{x:265,y:534,r:'host',lab:'web'},H2:{x:470,y:534,r:'host',lab:'api'},H3:{x:730,y:534,r:'host',lab:'db'},H4:{x:935,y:534,r:'host',lab:'cache'},NET:{x:1095,y:120,r:'net',lab:'internet'} };
   const LK=[['L1','S1'],['L1','S2'],['L2','S1'],['L2','S2'],['L3','S1'],['L3','S2'],['L4','S1'],['L4','S2'],['H1','L1'],['H2','L2'],['H3','L3'],['H4','L4'],['S1','S2']];
   const goodPath=['H1','L1','S1','L3','H3'], badPath=['H3','L3','S2','NET'];
   const order=['S1','S2','L1','L2','L3','L4','H1','H2','H3','H4','NET']; const delay={}; order.forEach((k,i)=>delay[k]=i/order.length*0.13);
@@ -1513,9 +1513,9 @@
     const gc=px({x:600,y:330}),rad=Math.max(W,H)*0.95,rg=ctx.createRadialGradient(gc.x,gc.y,0,gc.x,gc.y,rad); rg.addColorStop(0,A(accent,0.07)); rg.addColorStop(0.45,A(accent,0.028)); rg.addColorStop(1,A(accent,0)); ctx.fillStyle=rg; ctx.fillRect(0,0,W,H);
     const lt=easeOut(clamp((p-0.02)/0.20,0,1)); ctx.lineCap='round';
     for(const [a,b] of LK){ const pa=px(N[a]),pb=px(N[b]),al=Math.min(arr(a,p),arr(b,p))*lt; if(al<=.01)continue; const tx=lerp(pa.x,pb.x,al),ty=lerp(pa.y,pb.y,al);
-      ctx.strokeStyle=A(accent,0.26*al); ctx.lineWidth=2*scale; ctx.beginPath(); ctx.moveTo(pa.x,pa.y); ctx.lineTo(tx,ty); ctx.stroke();
+      ctx.strokeStyle=A(accent,0.17*al); ctx.lineWidth=1.4*scale; ctx.beginPath(); ctx.moveTo(pa.x,pa.y); ctx.lineTo(tx,ty); ctx.stroke();
       if(al<1){ ctx.save(); ctx.shadowColor=A(soft,0.9); ctx.shadowBlur=14; ctx.fillStyle=soft; ctx.beginPath(); ctx.arc(tx,ty,3*scale,0,7); ctx.fill(); ctx.restore(); }
-      else if(!reduce){ ctx.save(); ctx.setLineDash([2*scale,22*scale]); ctx.lineDashOffset=-(time*52+(pa.x+pa.y))%1000; ctx.strokeStyle=A(soft,0.65); ctx.lineWidth=2.2*scale; ctx.beginPath(); ctx.moveTo(pa.x,pa.y); ctx.lineTo(pb.x,pb.y); ctx.stroke(); ctx.restore(); } }
+      else if(!reduce){ ctx.save(); ctx.setLineDash([2*scale,26*scale]); ctx.lineDashOffset=-(time*46+(pa.x+pa.y))%1000; ctx.strokeStyle=A(soft,0.34); ctx.lineWidth=1.8*scale; ctx.beginPath(); ctx.moveTo(pa.x,pa.y); ctx.lineTo(pb.x,pb.y); ctx.stroke(); ctx.restore(); } }
     { const pa=px(N.S2),pb=px(N.NET),eg=easeOut(clamp((p-0.56)/0.1,0,1)); if(eg>0){ ctx.save(); ctx.setLineDash([6*scale,6*scale]); ctx.strokeStyle=A(bad,0.55*eg); ctx.lineWidth=1.7*scale; ctx.beginPath(); ctx.moveTo(pa.x,pa.y); ctx.lineTo(lerp(pa.x,pb.x,eg),lerp(pa.y,pb.y,eg)); ctx.stroke(); ctx.restore(); } }
     let doTick=null, doCross=null;
     if(p>0.34){ const t=clamp((p-0.36)/0.20,0,1); ctx.strokeStyle=A(accent,0.95); ctx.lineWidth=3.2*scale; ctx.shadowColor=A(accent,0.55); ctx.shadowBlur=16*scale; poly(goodPath,t); ctx.shadowBlur=0;
@@ -1525,6 +1525,11 @@
       const g=pp(badPath,ba); gate(g.x,g.y,accent,bad,easeOut(clamp((p-0.60)/0.08,0,1)),time);
       if(t<ba){ const d=pp(badPath,t); dot(d.x,d.y,bad,bad); } else { doCross={x:g.x,y:g.y,a:easeOut(clamp((t-ba)/0.2,0,1))}; showEv=p<0.99; } }
     for(const k in N){ const ap=arr(k,p); if(ap>.01) drawNode(k,N[k],ap,{accent,soft,bad,good,ink,muted,node},time); }
+    /* device labels — reads as a real topology, not abstract dots */
+    ctx.textAlign='center'; ctx.textBaseline='middle';
+    for(const k in N){ const nn=N[k]; if(!nn.lab) continue; const ap2=arr(k,p); if(ap2<0.55) continue; const ps=px(nn), RR=(nn.r==='spine'?20:nn.r==='leaf'?15:14)*scale;
+      ctx.save(); ctx.globalAlpha=clamp((ap2-0.55)/0.35,0,1)*0.92; ctx.fillStyle=(nn.r==='net')?A(bad,0.85):A(ink,0.55); ctx.font='500 '+(12*scale)+'px ui-monospace,Menlo,monospace'; ctx.fillText(nn.lab, ps.x, ps.y + RR + 17*scale); ctx.restore(); }
+    ctx.textBaseline='alphabetic';
     /* verdict marks drawn last so nodes never cover them */
     if(doTick) tickBadge(doTick.x,doTick.y,good,doTick.a);
     if(doCross) cross(doCross.x,doCross.y,bad,doCross.a);
@@ -1542,7 +1547,7 @@
     ctx.save(); ctx.globalAlpha=al;
     if(n.r==='net'){ ctx.save(); ctx.shadowColor=A(col.bad,0.45); ctx.shadowBlur=22*scale; ctx.strokeStyle=A(col.bad,0.92); ctx.lineWidth=2.6*scale; ctx.beginPath(); ctx.arc(x,y,17*scale*sc,0,7); ctx.stroke(); ctx.restore(); ctx.strokeStyle=A(col.bad,0.42); ctx.lineWidth=1.4*scale; ctx.beginPath(); ctx.ellipse(x,y,17*scale*sc,7.5*scale*sc,0,0,7); ctx.stroke(); ctx.beginPath(); ctx.moveTo(x,y-17*scale*sc); ctx.lineTo(x,y+17*scale*sc); ctx.stroke(); ctx.restore(); return; }
     const R=(n.r==='spine'?20:n.r==='leaf'?15:14)*scale*sc;
-    const glow=ctx.createRadialGradient(x,y,0,x,y,R*2.6); glow.addColorStop(0,A(col.accent,0.30)); glow.addColorStop(1,A(col.accent,0)); ctx.fillStyle=glow; ctx.beginPath(); ctx.arc(x,y,R*2.6,0,7); ctx.fill();
+    const glow=ctx.createRadialGradient(x,y,0,x,y,R*1.85); glow.addColorStop(0,A(col.accent,0.14)); glow.addColorStop(1,A(col.accent,0)); ctx.fillStyle=glow; ctx.beginPath(); ctx.arc(x,y,R*1.85,0,7); ctx.fill();
     ctx.shadowColor=A(col.ink,0.30); ctx.shadowBlur=18*scale; ctx.shadowOffsetY=6*scale;
     const bg=ctx.createLinearGradient(x,y-R,x,y+R); bg.addColorStop(0,col.soft); bg.addColorStop(1,col.accent); ctx.fillStyle=bg;
     if(n.r==='host'){ rr(x-R,y-R,R*2,R*2,6*scale); ctx.fill(); } else { ctx.beginPath(); ctx.arc(x,y,R,0,7); ctx.fill(); }
