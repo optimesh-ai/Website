@@ -883,19 +883,13 @@
       <h1 style="margin:12px 0 0">Know what a change will do, before you make it.</h1>
       <p class="lead" style="margin:18px 0 0">Point it at a directory of router configs. It builds the forwarding tables for every device, runs your reachability query, and tells you the answer, in under a second. Ships as a single binary. Nothing else to install.</p>
       <div style="display:flex; gap:12px; margin-top:26px; flex-wrap:wrap"><a class="btn primary lg" href="mailto:contact@optimesh.ai?subject=Hammerhead%20access">Request access →</a><a class="btn ghost lg" data-nav="why">Read the white paper</a></div>
-      <div class="mono" style="margin-top:16px; font-size:12px; color:var(--muted)">Memory-safe by construction · deterministic · audit-ready</div>
+      <div class="mono" style="margin-top:16px; font-size:12px; color:var(--muted)">800× faster · 99.93% FIB parity · deterministic · audit-ready</div>
     </div>
     <div class="reveal">
       <div class="term"><div class="tb"><span class="d" style="background:#fb7185"></span><span class="d" style="background:#fbbf24"></span><span class="d" style="background:#34d399"></span><span class="nm">hammerhead</span></div><pre id="hhTerm"></pre></div>
     </div>
   </div>
-  <div class="statband reveal" style="margin-top:84px">
-    <div class="stat"><div class="sv" data-count="800" data-suffix="×">800×</div><div class="sl">Fast enough for every commit</div><div class="ss">A whole network checked in under a second.</div></div>
-    <div class="stat"><div class="sv" data-count="99.93" data-suffix="%">99.93%</div><div class="sl">Answers you can trust</div><div class="ss">Matches the analysis your auditors already rely on.</div></div>
-    <div class="stat"><div class="sv">&lt;1s</div><div class="sl">No waiting on a result</div><div class="ss">1,280 devices simulated in a single pass.</div></div>
-    <div class="stat"><div class="sv" data-count="100" data-suffix="%">100%</div><div class="sl">Reproducible for audits</div><div class="ss">Same answer every time, so anyone can re-run it.</div></div>
-  </div>
-  <div class="center reveal" style="margin-top:90px"><div class="kicker">32 CLI subcommands</div><h2 class="h2" style="margin:12px auto 0">One engine. The whole validation loop.</h2></div>
+  <div class="center reveal" style="margin-top:96px"><div class="kicker">32 CLI subcommands</div><h2 class="h2" style="margin:12px auto 0">One engine. The whole validation loop.</h2></div>
   <div class="capcols reveal">
     <div class="capcol"><h3>Parse &amp; simulate</h3><p>Read raw configs, run protocol convergence, build the routing and forwarding tables.</p><div class="cmds"><span class="cmd">parse</span><span class="cmd">simulate</span><span class="cmd">rib</span><span class="cmd">fib</span></div></div>
     <div class="capcol"><h3>Query</h3><p>Ask where a packet goes. Reachability, traceroutes, path joins, IP ownership.</p><div class="cmds"><span class="cmd">reachability</span><span class="cmd">traceroute</span><span class="cmd">find-ip</span></div></div>
@@ -940,13 +934,7 @@
       </div>
     </div>
   </div>
-  <div class="statband reveal" style="margin-top:84px">
-    <div class="stat"><div class="sv" data-count="99.6" data-suffix="%">99.6%</div><div class="sl">of faults found correctly</div><div class="ss">Pinpoints the breaking change on the first try.</div></div>
-    <div class="stat"><div class="sv" data-count="100" data-suffix="%">100%</div><div class="sl">of fixes proven first</div><div class="ss">Nothing ships until it's verified safe.</div></div>
-    <div class="stat"><div class="sv">&lt;1<span style="font-size:0.5em">s</span></div><div class="sl">to check a whole network</div><div class="ss">Fast enough to run on every change.</div></div>
-    <div class="stat"><div class="sv">0</div><div class="sl">bytes leave your network</div><div class="ss">Runs entirely on your own hardware.</div></div>
-  </div>
-  <div class="center reveal" style="margin-top:90px"><div class="kicker">Mean time to resolution</div><h2 class="h2" style="margin:12px auto 0">From alert to verified fix in seconds, not hours.</h2><p class="lead" style="margin:16px auto 0">The slow part of an incident was never the fix. It was finding the fault and trusting the repair. Config Studio does both, and proves it, before you approve.</p></div>
+  <div class="center reveal" style="margin-top:96px"><div class="kicker">Mean time to resolution</div><h2 class="h2" style="margin:12px auto 0">From alert to verified fix in seconds, not hours.</h2><p class="lead" style="margin:16px auto 0">The slow part of an incident was never the fix. It was finding the fault and trusting the repair. Config Studio does both, and proves it, before you approve.</p></div>
   <div class="mttr reveal">
     <div class="mttr-old"><div class="ml">Manual incident response</div><div class="mv">~45 min</div><div class="md">bisecting configs hop by hop, under pressure</div></div>
     <div class="mttr-arrow">→</div>
