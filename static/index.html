@@ -3,26 +3,24 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="color-scheme" content="light">
 <title>Optimesh Technologies</title>
 <meta name="description" content="Every network change, proven safe before it ships.">
 </head>
 <body>
 <title>Optimesh Technologies</title>
 <style>
-  :root{
+  /* Optimesh is a light-first brand — locked to light in every context. */
+  :root, :root[data-theme="light"], :root[data-theme="dark"]{
+    color-scheme:light;
     --bg:#f3f7ff; --bg2:#ffffff; --panel:#ffffff; --ink:#0a1a3f; --muted:#566388; --hair:#dbe4f6;
     --accent:#1a4fd6; --accent2:#5b8bff; --green:#1f8e65; --red:#e0532b; --radius:16px;
   }
-  @media (prefers-color-scheme: dark){
-    :root{ --bg:#060b1c; --bg2:#0a1128; --panel:#0d1631; --ink:#eaf1ff; --muted:#93a3cc; --hair:#1c2a4c; --accent:#6ea0ff; --accent2:#8fb4ff; --green:#3fb489; --red:#f0764c; }
-  }
-  :root[data-theme="light"]{ --bg:#f3f7ff; --bg2:#fff; --panel:#fff; --ink:#0a1a3f; --muted:#566388; --hair:#dbe4f6; --accent:#1a4fd6; --accent2:#5b8bff; --green:#1f8e65; --red:#e0532b; }
-  :root[data-theme="dark"]{ --bg:#060b1c; --bg2:#0a1128; --panel:#0d1631; --ink:#eaf1ff; --muted:#93a3cc; --hair:#1c2a4c; --accent:#6ea0ff; --accent2:#8fb4ff; --green:#3fb489; --red:#f0764c; }
 
   *{ box-sizing:border-box; }
   html{ scroll-behavior:smooth; }
   body{ margin:0; color:var(--ink); overflow-x:hidden;
-    background:radial-gradient(60% 45% at 80% 4%, color-mix(in srgb,var(--accent) 11%,transparent), transparent 70%), var(--bg);
+    background:radial-gradient(60% 45% at 80% 4%, color-mix(in srgb,var(--accent) 5%,transparent), transparent 68%), var(--bg);
     font-family:"Helvetica Neue",Helvetica,Arial,ui-sans-serif,system-ui,sans-serif; -webkit-font-smoothing:antialiased; line-height:1.55; }
   .mono{ font-family:ui-monospace,"SF Mono","JetBrains Mono",Menlo,monospace; }
   .wrap{ max-width:1200px; margin:0 auto; padding:0 24px; }
@@ -106,7 +104,7 @@
   .cxmail:hover b{ text-decoration:none; }
   .cxerr{ margin:2px 0 0; font-size:13px; color:#d6455a; font-weight:550; }
   .cxdone{ text-align:center; padding:26px 8px 10px; display:flex; flex-direction:column; align-items:center; gap:12px; }
-  .cxcheck{ width:52px; height:52px; border-radius:50%; display:grid; place-items:center; font-size:26px; font-weight:700; color:#fff; background:var(--accent); box-shadow:0 12px 30px -10px color-mix(in srgb,var(--accent) 60%,transparent); }
+  .cxcheck{ width:52px; height:52px; border-radius:50%; display:grid; place-items:center; font-size:26px; font-weight:700; color:#fff; background:var(--accent); box-shadow:0 10px 24px -12px color-mix(in srgb,var(--accent) 38%,transparent); }
   .cxdone h3{ margin:2px 0 0; font-size:21px; letter-spacing:-0.02em; color:var(--ink); }
   .cxdone p{ margin:0; font-size:14.5px; color:var(--muted); line-height:1.55; max-width:38ch; }
   .cxdone .btn{ margin-top:8px; cursor:pointer; }
@@ -147,7 +145,7 @@
   .brand .sep{ color:var(--muted); font-weight:400; } .brand .sub{ color:var(--muted); font-weight:500; }
   .nav .links{ display:none; gap:22px; margin-left:12px; color:var(--muted); font-size:14px; } .nav .spacer{ flex:1; }
   .btn{ display:inline-flex; align-items:center; gap:8px; border-radius:999px; font-weight:600; font-size:14px; padding:10px 18px; cursor:pointer; border:1px solid transparent; }
-  .btn.primary{ background:var(--accent); color:#fff; box-shadow:0 12px 28px -12px color-mix(in srgb,var(--accent) 70%,transparent); } .btn.primary:hover{ filter:brightness(1.08); }
+  .btn.primary{ background:var(--accent); color:#fff; box-shadow:0 8px 20px -12px color-mix(in srgb,var(--accent) 42%,transparent); } .btn.primary:hover{ filter:brightness(1.06); }
   .btn.ghost{ color:var(--ink); border-color:var(--hair); background:var(--panel); } .btn.lg{ padding:14px 24px; font-size:15px; }
   @media(min-width:920px){ .nav .links{ display:flex; } }
   /* mobile navigation */
@@ -230,9 +228,7 @@
   .logo svg{ height:34px; width:auto; display:block; }
   .logo svg *{ fill:currentColor !important; stroke:none !important; }
   @keyframes logoscroll{ from{transform:translateX(0);} to{transform:translateX(-50%);} }
-  @media (prefers-color-scheme:dark){ .logotrack{ color:#9fb3e0; } .logo{ opacity:.5; } }
-  :root[data-theme="light"] .logotrack{ color:#25386f; } :root[data-theme="light"] .logo{ opacity:.4; }
-  :root[data-theme="dark"] .logotrack{ color:#9fb3e0; } :root[data-theme="dark"] .logo{ opacity:.5; }
+  .logotrack{ color:#25386f; } .logo{ opacity:.4; }
   @media (prefers-reduced-motion:reduce){ .logotrack{ animation:none; } .logostrip{ overflow-x:auto; } }
   .orbit-wrap{ position:relative; aspect-ratio:1/0.82; min-height:280px; } #orbit{ position:absolute; inset:0; width:100%; height:100%; }
   .hero__in{ position:relative; z-index:3; order:1; flex:1 1 auto; min-width:0; }
@@ -332,7 +328,7 @@
   .scard{ background:var(--panel); border:1px solid var(--hair); border-radius:var(--radius); padding:22px; } .scard .si{ width:34px; height:34px; border-radius:9px; background:color-mix(in srgb,var(--accent) 12%,transparent); color:var(--accent); display:grid; place-items:center; margin-bottom:14px; } .scard .si svg{ width:18px; height:18px; } .scard h3{ font-size:16px; margin:0 0 6px; } .scard p{ color:var(--muted); font-size:13.5px; margin:0; }
 
   /* testimonials */
-  .voices{ background:#0b1226; color:#eef2ff; border-radius:26px; overflow:hidden; position:relative; background-image:radial-gradient(60% 60% at 90% 20%, rgba(110,155,255,0.22), transparent 70%); }
+  .voices{ background:#0b1226; color:#eef2ff; border-radius:26px; overflow:hidden; position:relative; background-image:radial-gradient(60% 60% at 90% 20%, rgba(110,155,255,0.10), transparent 70%); }
   .voices-in{ display:grid; grid-template-columns:1fr 1fr; gap:40px; padding:56px; align-items:center; } @media(max-width:900px){ .voices-in{ grid-template-columns:1fr; } }
   .voices h2{ font-size:clamp(1.9rem,3.6vw,2.9rem); font-weight:800; margin:0; max-width:14ch; }
   .voices .stories{ display:inline-flex; align-items:center; gap:8px; margin-top:22px; background:rgba(255,255,255,.08); border:1px solid rgba(255,255,255,.14); border-radius:999px; padding:9px 16px; font-size:13.5px; font-weight:600; }
@@ -348,7 +344,7 @@
   .ftag{ font-size:10px; font-weight:700; color:var(--accent); background:color-mix(in srgb,var(--accent) 12%,transparent); border-radius:6px; padding:2px 7px; margin-left:6px; }
   .fbottom{ display:flex; align-items:center; justify-content:space-between; gap:16px; flex-wrap:wrap; border-top:1px solid var(--hair); margin-top:40px; padding:24px 0 40px; color:var(--muted); font-size:12.5px; }
   .disc{ max-width:1000px; margin:0 auto; color:var(--muted); font-size:11.5px; opacity:.85; padding-bottom:50px; }
-  .cta-band{ background:var(--ink); color:var(--bg); border-radius:26px; text-align:center; padding:70px 30px; position:relative; overflow:hidden; } .cta-band h2{ font-size:clamp(2rem,4.5vw,3.2rem); font-weight:800; margin:0 auto; max-width:18ch; color:#fff; } .cta-band p{ color:color-mix(in srgb,var(--bg) 70%,transparent); margin:18px auto 0; max-width:46ch; } .cta-band .actions{ margin-top:30px; display:flex; gap:12px; justify-content:center; flex-wrap:wrap; } .cta-band .btn.ghost{ background:transparent; color:#fff; border-color:rgba(255,255,255,.25); } .cta-band .glow{ position:absolute; width:420px; height:420px; border-radius:50%; background:color-mix(in srgb,var(--accent) 55%,transparent); filter:blur(120px); right:-80px; top:-120px; opacity:.5; }
+  .cta-band{ background:var(--ink); color:var(--bg); border-radius:26px; text-align:center; padding:70px 30px; position:relative; overflow:hidden; } .cta-band h2{ font-size:clamp(2rem,4.5vw,3.2rem); font-weight:800; margin:0 auto; max-width:18ch; color:#fff; } .cta-band p{ color:color-mix(in srgb,var(--bg) 70%,transparent); margin:18px auto 0; max-width:46ch; } .cta-band .actions{ margin-top:30px; display:flex; gap:12px; justify-content:center; flex-wrap:wrap; } .cta-band .btn.ghost{ background:transparent; color:#fff; border-color:rgba(255,255,255,.25); } .cta-band .glow{ position:absolute; width:420px; height:420px; border-radius:50%; background:color-mix(in srgb,var(--accent) 40%,transparent); filter:blur(130px); right:-90px; top:-130px; opacity:.28; }
   .statband{ display:grid; grid-template-columns:repeat(4,1fr); gap:20px; } @media(max-width:760px){ .statband{ grid-template-columns:repeat(2,1fr); } }
   .stat .sv{ font-family:ui-monospace,Menlo,monospace; font-size:clamp(2rem,4vw,2.8rem); font-weight:600; letter-spacing:-0.02em; color:var(--ink); } .stat .sl{ font-weight:650; margin-top:6px; font-size:14.5px; } .stat .ss{ color:var(--muted); font-size:12.5px; margin-top:2px; }
   /* platform flow — how a change becomes a proven change */
@@ -383,7 +379,7 @@
   .horizons{ display:grid; grid-template-columns:repeat(3,1fr); gap:16px; margin-top:32px; } @media(max-width:760px){ .horizons{ grid-template-columns:1fr; } } .horizon{ border:1px solid var(--hair); border-radius:14px; padding:20px; background:var(--panel); } .horizon .ht{ font-size:11.5px; font-weight:700; color:var(--accent); text-transform:uppercase; letter-spacing:.06em; } .horizon h3{ margin:8px 0 0; font-size:16px; } .horizon p{ color:var(--muted); font-size:13px; margin:8px 0 0; }
   /* insights — editorial field-notes index */
   .ins-wrap{ position:relative; z-index:1; margin-top:40px; }
-  .ins-lead{ display:block; text-decoration:none; color:inherit; padding:28px 0 32px; border-top:2px solid var(--ink); border-bottom:1px solid var(--hair); cursor:pointer; }
+  .ins-lead{ display:block; text-decoration:none; color:inherit; padding:4px 0 30px; border-bottom:1px solid var(--hair); cursor:pointer; }
   .ins-meta{ display:flex; align-items:center; gap:12px; font-family:ui-monospace,Menlo,monospace; font-size:12px; color:var(--muted); }
   .ins-tag{ font-size:10.5px; font-weight:700; letter-spacing:.07em; text-transform:uppercase; color:var(--accent); }
   .ins-lead-title{ font-size:clamp(1.7rem,3.4vw,2.7rem); font-weight:800; letter-spacing:-0.03em; line-height:1.08; margin:15px 0 0; max-width:20ch; transition:color .2s ease; text-wrap:balance; }
@@ -440,7 +436,7 @@
   .pipe{ display:grid; grid-template-columns:repeat(4,1fr); position:relative; } @media(max-width:760px){ .pipe{ grid-template-columns:1fr; gap:22px; } }
   .pstep{ text-align:center; padding:0 14px; position:relative; }
   .pstep .pn{ width:46px; height:46px; border-radius:50%; margin:0 auto 14px; display:grid; place-items:center; font-weight:700; font-size:16px; background:var(--panel); border:2px solid var(--hair); color:var(--muted); position:relative; z-index:1; transition:all .45s; }
-  .pstep.lit .pn{ background:var(--accent); border-color:var(--accent); color:#fff; box-shadow:0 8px 22px -6px color-mix(in srgb,var(--accent) 60%,transparent); }
+  .pstep.lit .pn{ background:var(--accent); border-color:var(--accent); color:#fff; box-shadow:0 6px 16px -8px color-mix(in srgb,var(--accent) 40%,transparent); }
   .pstep.gate.lit .pn{ background:var(--green); border-color:var(--green); box-shadow:0 8px 22px -6px color-mix(in srgb,var(--green) 55%,transparent); }
   .pstep .pt{ font-weight:650; font-size:15px; } .pstep .pd{ color:var(--muted); font-size:12.5px; margin-top:8px; line-height:1.5; }
   .pstep .dur{ display:inline-block; margin-top:7px; font-family:ui-monospace,Menlo,monospace; font-size:11px; color:var(--accent); background:color-mix(in srgb,var(--accent) 10%,transparent); border-radius:999px; padding:2px 9px; } .pstep.gate .dur{ color:var(--green); background:color-mix(in srgb,var(--green) 12%,transparent); }
@@ -945,10 +941,10 @@
     </div>
   </div>
   <div class="statband reveal" style="margin-top:84px">
-    <div class="stat"><div class="sv" data-count="99" data-suffix="%">99%</div><div class="sl">Minutes, not a long night</div><div class="ss">Incidents resolved before they blow up.</div></div>
-    <div class="stat"><div class="sv" data-count="99.6" data-suffix="%">99.6%</div><div class="sl">Finds the real problem</div><div class="ss">Pinpoints the fault so no one hunts for it.</div></div>
-    <div class="stat"><div class="sv" data-count="100" data-suffix="%">100%</div><div class="sl">Never ships a bad fix</div><div class="ss">Every fix proven safe before you approve it.</div></div>
-    <div class="stat"><div class="sv">0</div><div class="sl">Your configs stay yours</div><div class="ss">Runs on your hardware. Nothing leaves the building.</div></div>
+    <div class="stat"><div class="sv" data-count="99.6" data-suffix="%">99.6%</div><div class="sl">of faults found correctly</div><div class="ss">Pinpoints the breaking change on the first try.</div></div>
+    <div class="stat"><div class="sv" data-count="100" data-suffix="%">100%</div><div class="sl">of fixes proven first</div><div class="ss">Nothing ships until it's verified safe.</div></div>
+    <div class="stat"><div class="sv">&lt;1<span style="font-size:0.5em">s</span></div><div class="sl">to check a whole network</div><div class="ss">Fast enough to run on every change.</div></div>
+    <div class="stat"><div class="sv">0</div><div class="sl">bytes leave your network</div><div class="ss">Runs entirely on your own hardware.</div></div>
   </div>
   <div class="center reveal" style="margin-top:90px"><div class="kicker">Mean time to resolution</div><h2 class="h2" style="margin:12px auto 0">From alert to verified fix in seconds, not hours.</h2><p class="lead" style="margin:16px auto 0">The slow part of an incident was never the fix. It was finding the fault and trusting the repair. Config Studio does both, and proves it, before you approve.</p></div>
   <div class="mttr reveal">
@@ -1620,9 +1616,7 @@
   el('probes').innerHTML=probes.map(([a,b,v,bad],r)=>{ let s=''; for(let i=0;i<44;i++){ const h=bad?(30+((i*7)%55)):(45+35*Math.abs(Math.sin(i*0.6+r))); s+=`<i style="height:${Math.min(100,h)}%"></i>`; } return `<div class="prow"><div class="pl">${a}<small>${b}</small></div><div class="spark ${bad?'bad':''}">${s}</div><div class="pv ${bad?'bad':''}">${v}</div></div>`; }).join('');
 
   /* testimonials */
-  const voices=[{logo:'◆ Northwind',text:'"We stopped freezing changes before every launch. Config Studio proves the risky ones before they merge, so the team just ships."',who:'Placeholder — VP, Network Engineering',role:'Global financial services'},
-    {logo:'❖ Meridian',text:'"The evidence sold our security team. Every verdict points at the exact rule. No more arguing about whether a change is safe."',who:'Placeholder — Director, Network Security',role:'National healthcare network'},
-    {logo:'✦ Arclight',text:'"An engineer opened app-tier to the internet in a pull request. It got blocked automatically, with the line number. That is the whole pitch."',who:'Placeholder — Principal Platform Engineer',role:'Large SaaS platform'}];
+  const voices=[{logo:'NVIDIA',text:'"Optimesh is working on products of the future."',who:'Engineer, NVIDIA',role:'Shared during our NVIDIA Inception onboarding'}];
   let vi=0; el('vDots').innerHTML=voices.map((_,i)=>`<span class="vdot ${i===0?'on':''}"></span>`).join('');
   function showV(i){ vi=(i+voices.length)%voices.length; const v=voices[vi]; el('vLogo').textContent=v.logo; el('vText').textContent=v.text; el('vWho').textContent=v.who; el('vRole').textContent=v.role; [...el('vDots').children].forEach((d,j)=>d.classList.toggle('on',j===vi)); }
   el('vPrev').onclick=()=>showV(vi-1); el('vNext').onclick=()=>showV(vi+1); showV(0);
