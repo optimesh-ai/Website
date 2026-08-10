@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="color-scheme" content="light">
 <title>Optimesh Technologies</title>
-<meta name="description" content="Every network change, proven safe before it ships.">
+<meta name="description" content="x">
 </head>
 <body>
 <title>Optimesh Technologies</title>
@@ -168,8 +168,33 @@
   @media(max-width:400px){ .brand{ font-size:15px; } .brand svg{ width:34px; height:34px; } }
 
   /* hero + floating */
-  .hero{ position:relative; min-height:90vh; display:flex; align-items:center; gap:clamp(28px,4vw,64px); padding:120px 0 48px; }
-  @media(max-width:980px){ .hero{ flex-direction:column; align-items:stretch; padding-top:96px; min-height:auto; } .hero__in{ width:100%; } }
+  .hero{ position:relative; min-height:92vh; display:flex; align-items:flex-end; padding:clamp(130px,19vh,178px) 0 60px; }
+  @media(max-width:980px){ .hero{ min-height:auto; padding-top:100px; padding-bottom:12px; } .hero__in{ width:100%; } }
+  /* floating product-UI hero stage */
+  .hero__stage{ position:absolute; inset:0; z-index:2; pointer-events:none; perspective:1700px; }
+  @media(max-width:980px){ .hero__stage{ display:none; } }
+  .fx{ position:absolute; transform-style:preserve-3d; will-change:transform; border-radius:15px; box-shadow:0 46px 92px -36px rgba(16,26,54,0.42), 0 12px 30px -16px rgba(16,26,54,0.22); animation:fxfloat var(--dur,8s) ease-in-out infinite; }
+  @keyframes fxfloat{ 0%,100%{ transform:var(--t) translateY(0); } 50%{ transform:var(--t) translateY(-14px); } }
+  @media (prefers-reduced-motion:reduce){ .fx{ animation:none; } }
+  .fx-term{ top:15%; right:24.5%; width:min(360px,31vw); --t:rotateX(9deg) rotateY(-13deg); --dur:8.5s; z-index:3; background:#0b1327; border:1px solid #223057; overflow:hidden; }
+  .fx-bar{ display:flex; align-items:center; gap:6px; padding:11px 14px; border-bottom:1px solid #1e2b52; }
+  .fx-bar .d{ width:9px; height:9px; border-radius:50%; } .fx-bar .fx-nm{ margin-left:8px; font-family:ui-monospace,Menlo,monospace; font-size:11.5px; color:#8ea0cc; }
+  .fx-body{ padding:15px 16px; font-family:ui-monospace,Menlo,monospace; font-size:12px; line-height:1.9; color:#c4d0ee; white-space:nowrap; }
+  .fx-body .g{ color:#34d399; } .fx-body .r{ color:#fb7185; } .fx-body .k{ color:#7183b0; } .fx-body .mut{ color:#6f7fac; }
+  .fx-verdict{ top:5%; right:2.5%; width:min(308px,27vw); --t:rotateX(8deg) rotateY(-11deg); --dur:9.5s; z-index:4; background:#0b1327; border:1px solid #223057; padding:16px 18px; }
+  .fxv-top{ display:flex; align-items:center; justify-content:space-between; }
+  .fxv-pill{ font-family:ui-monospace,Menlo,monospace; font-size:10px; font-weight:700; letter-spacing:.08em; color:#fff; background:#e0532b; border-radius:999px; padding:3px 10px; }
+  .fxv-file{ font-family:ui-monospace,Menlo,monospace; font-size:11px; color:#6f7fac; }
+  .fxv-flow{ font-family:ui-monospace,Menlo,monospace; font-size:14px; font-weight:700; color:#eaf1ff; margin-top:14px; }
+  .fxv-line{ font-family:ui-monospace,Menlo,monospace; font-size:11px; color:#9fb0d8; margin-top:8px; } .fxv-line span{ color:#6f7fac; }
+  .fxv-foot{ margin-top:14px; padding-top:12px; border-top:1px solid #1e2b52; font-size:11px; color:#8ea0cc; }
+  .fx-diff{ top:53%; right:15%; width:min(302px,26vw); --t:rotateX(11deg) rotateY(-15deg); --dur:7.5s; z-index:3; background:#fff; border:1px solid var(--hair); padding:14px 15px; }
+  .fxd-nm{ font-family:ui-monospace,Menlo,monospace; font-size:11px; color:var(--muted); margin-bottom:9px; }
+  .fxd-ln{ font-family:ui-monospace,Menlo,monospace; font-size:11.5px; line-height:1.7; padding:2px 7px; border-radius:5px; white-space:nowrap; }
+  .fxd-ln.del{ color:#b23a12; background:color-mix(in srgb,#e0532b 9%,transparent); } .fxd-ln.add{ color:#15734f; background:color-mix(in srgb,#1f8e65 11%,transparent); }
+  .fx-chip{ display:inline-flex; align-items:center; gap:9px; padding:10px 15px; border-radius:13px; background:#fff; border:1px solid var(--hair); font-size:13px; font-weight:650; color:var(--ink); }
+  .fx-safe{ top:34%; right:45%; --t:rotateX(8deg) rotateY(-12deg); --dur:6.5s; z-index:5; }
+  .fx-safe .ck{ display:inline-grid; place-items:center; width:20px; height:20px; border-radius:50%; background:var(--green); color:#fff; font-size:11px; font-weight:800; }
   .ticker{ position:absolute; top:22px; left:50%; transform:translateX(-50%); z-index:6; text-align:center; max-width:92vw; }
   .tk-pill{ display:inline-flex; align-items:center; gap:12px; background:color-mix(in srgb,var(--accent) 10%,transparent); border:1px solid color-mix(in srgb,var(--accent) 20%,transparent); color:var(--accent); border-radius:999px; padding:9px 18px; font-size:14.5px; font-weight:500; max-width:92vw; cursor:pointer; }
   .tk-badge{ width:22px; height:22px; border-radius:6px; background:var(--accent); color:#fff; display:grid; place-items:center; font-size:11px; font-weight:800; flex:none; }
@@ -231,10 +256,11 @@
   .logotrack{ color:#25386f; } .logo{ opacity:.4; }
   @media (prefers-reduced-motion:reduce){ .logotrack{ animation:none; } .logostrip{ overflow-x:auto; } }
   .orbit-wrap{ position:relative; aspect-ratio:1/0.82; min-height:280px; } #orbit{ position:absolute; inset:0; width:100%; height:100%; }
-  .hero__in{ position:relative; z-index:3; order:1; flex:1 1 auto; min-width:0; }
+  .hero__in{ position:relative; z-index:5; max-width:min(600px,94%); }
+  .hero__in h1{ font-size:clamp(2rem,5.2vw,4.1rem); line-height:1.0; letter-spacing:-0.04em; }
   .pill{ display:inline-flex; align-items:center; gap:8px; font-size:13px; color:var(--accent); background:color-mix(in srgb,var(--accent) 9%,transparent); border:1px solid color-mix(in srgb,var(--accent) 22%,transparent); padding:6px 14px; border-radius:999px; margin-bottom:22px; }
   h1{ font-size:clamp(2.3rem,4.6vw,3.9rem); font-weight:800; line-height:1.0; letter-spacing:-0.03em; margin:0; text-wrap:balance; }
-  .hero p{ font-size:clamp(1rem,1.6vw,1.24rem); color:var(--muted); max-width:44ch; margin:24px 0 0; }
+  .hero p{ font-size:clamp(1.05rem,1.6vw,1.32rem); color:var(--muted); max-width:46ch; margin:26px 0 0; line-height:1.5; }
   .hero .actions{ display:flex; gap:12px; margin-top:30px; flex-wrap:wrap; }
   .floaters{ position:absolute; inset:0; z-index:1; pointer-events:none; overflow:hidden; }
   .chip{ position:absolute; font-size:12.5px; padding:8px 12px; border-radius:10px; background:color-mix(in srgb,var(--panel) 82%,transparent); backdrop-filter:blur(6px); border:1px solid var(--hair); color:var(--muted); box-shadow:0 14px 34px -16px rgba(10,26,63,0.4); white-space:nowrap; will-change:transform; }
@@ -544,19 +570,33 @@
     <a class="tk-pill" data-nav="company"><span class="tk-badge"><svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l2.2 6.6L21 9l-5.4 4 2 7-5.6-4.2L6.4 20l2-7L3 9l6.8-.4z"/></svg></span><span class="tk-text" id="tkText"></span><span class="tk-arrow">→</span></a>
     <div class="tk-dots" id="tkDots"></div>
   </div>
-  <div class="feed" id="feed" aria-hidden="true">
-    <div class="vpanel">
-      <div class="vpanel-top">
-        <span class="vlive"><span class="dot"></span>Live</span>
-        <span class="vcount" id="vcount">142,884</span><span class="vcount-lbl">verified today</span>
+  <div class="hero__stage" aria-hidden="true">
+    <div class="fx fx-term">
+      <div class="fx-bar"><span class="d" style="background:#fb7185"></span><span class="d" style="background:#fbbf24"></span><span class="d" style="background:#34d399"></span><span class="fx-nm">optimesh · verify</span></div>
+      <div class="fx-body">
+        <div class="fx-ln"><span class="g">$</span> optimesh verify --pr 482</div>
+        <div class="fx-ln"><span class="k">simulate</span> 12,481 paths <span class="g">✓ 41ms</span></div>
+        <div class="fx-ln"><span class="k">checks</span> reach <span class="g">8/8</span> · loops <span class="g">✓</span> · acl <span class="r">✗</span></div>
       </div>
-      <div id="feedRows"></div>
     </div>
+    <div class="fx fx-verdict">
+      <div class="fxv-top"><span class="fxv-pill">BLOCKED</span><span class="fxv-file">verdict.json</span></div>
+      <div class="fxv-flow">app-sg → 0.0.0.0/0</div>
+      <div class="fxv-line"><span>rule</span> permit ip any any · line 42</div>
+      <div class="fxv-line"><span>effect</span> exposes app-sg to the internet</div>
+      <div class="fxv-foot">Stopped before merge · deterministic</div>
+    </div>
+    <div class="fx fx-diff">
+      <div class="fxd-nm">core-sw-02 · Vlan40</div>
+      <div class="fxd-ln del">-  deny ip 10.20.0.0/16 10.0.0.0/8</div>
+      <div class="fxd-ln add">+  permit ip any any</div>
+    </div>
+    <div class="fx fx-chip fx-safe"><span class="ck">✓</span> proven safe</div>
   </div>
   <div class="hero__in">
     <h1>Every network change, proven safe before it ships.</h1>
-    <p>Not a best guess. A deterministic proof of exactly what your change does to the live network.</p>
-    <div class="actions"><a class="btn primary lg" href="#stage">See it catch a bad change →</a></div>
+    <p>A deterministic proof of exactly what a change does to your live network — before it ever merges.</p>
+    <div class="actions"><a class="btn primary lg" data-request>Request access →</a><a class="btn ghost lg" data-nav="platform">See how it works</a></div>
   </div>
 </section>
 
