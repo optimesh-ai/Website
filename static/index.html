@@ -266,6 +266,7 @@
   .netviz .nv-top{ display:flex; align-items:center; gap:11px; }
   .nv-live{ display:inline-flex; align-items:center; gap:7px; font-family:ui-monospace,Menlo,monospace; font-size:11px; font-weight:700; letter-spacing:.09em; text-transform:uppercase; color:var(--ink); }
   .nv-live .dot{ width:7px; height:7px; border-radius:50%; background:var(--green); animation:livepulse 1.7s infinite; }
+  .nv-live.warn{ color:var(--red); } .nv-live.warn .dot{ background:var(--red); animation:none; }
   .nv-sub{ font-family:ui-monospace,Menlo,monospace; font-size:11px; color:var(--muted); }
   .netviz svg{ width:100%; height:auto; display:block; margin-top:10px; }
   .nv-legend{ display:flex; align-items:center; gap:clamp(14px,2.4vw,26px); margin-top:14px; flex-wrap:wrap; font-size:12.5px; color:var(--muted); }
@@ -785,15 +786,56 @@
   </div>
 </div></section>
 
-<!-- blast-radius: scroll story (replaces the differentiator cards) -->
-<section class="scrolly" id="brStage" data-page="platform" style="height:440vh">
-  <div class="sticky">
-    <canvas class="net" id="brNet" aria-hidden="true"></canvas>
-    <div class="stagehead"><h2 id="brTitle">Blast radius, beyond the checkbox</h2></div>
-    <div class="brcap" id="brCap"><p>One change. See everything it can break — before it ships.</p></div>
-    <div class="hint brhint">scroll to trace it</div>
+<!-- blast-radius: clean SVG impact diagram -->
+<section class="blk" id="brStage" data-page="platform"><div class="wrap">
+  <div class="center reveal"><h2 class="h2" style="margin:0 auto">Blast radius, beyond the checkbox.</h2><p class="lead" style="margin:14px auto 0">One change. See every service it puts at risk — and the "redundant" path that secretly isn't — before it ships.</p></div>
+  <div class="netviz reveal">
+    <div class="nv-top"><span class="nv-live warn"><span class="dot"></span>Change detected</span><span class="nv-sub">impact · sw-02 · Vlan40</span></div>
+    <svg viewBox="0 0 1080 496" role="img" aria-label="Blast radius impact of a change on sw-02" xmlns="http://www.w3.org/2000/svg">
+      <defs><filter id="nsh2" x="-40%" y="-40%" width="180%" height="180%"><feDropShadow dx="0" dy="5" stdDeviation="8" flood-color="#0a1a3f" flood-opacity="0.10"/></filter></defs>
+      <!-- base connectors -->
+      <g stroke="#cdd8ee" stroke-width="1.6" fill="none" stroke-linecap="round">
+        <line x1="540" y1="46" x2="230" y2="176"/>
+        <line x1="540" y1="46" x2="540" y2="176"/>
+        <line x1="540" y1="46" x2="850" y2="176"/>
+        <line x1="230" y1="176" x2="230" y2="330"/>
+        <line x1="850" y1="176" x2="850" y2="330"/>
+      </g>
+      <!-- shared hidden carrier (fake redundancy) -->
+      <g stroke="#e0532b" stroke-width="1.8" stroke-dasharray="6 7" fill="none" stroke-linecap="round" opacity="0.85">
+        <line x1="230" y1="176" x2="540" y2="452"/>
+        <line x1="850" y1="176" x2="540" y2="452"/>
+      </g>
+      <!-- blast: affected edges -->
+      <g stroke="#e0532b" stroke-width="2.8" fill="none" stroke-linecap="round">
+        <line x1="540" y1="176" x2="450" y2="330"/>
+        <line x1="540" y1="176" x2="630" y2="330"/>
+      </g>
+      <!-- rippling blast ring on sw-02 -->
+      <circle cx="540" cy="176" r="28" fill="none" stroke="#1a4fd6" stroke-width="2"><animate attributeName="r" values="28;56" dur="2.6s" repeatCount="indefinite"/><animate attributeName="opacity" values="0.45;0" dur="2.6s" repeatCount="indefinite"/></circle>
+      <!-- nodes -->
+      <g font-family="ui-monospace,Menlo,monospace" font-size="12.5" text-anchor="middle">
+        <g filter="url(#nsh2)"><rect x="495" y="24" width="90" height="44" rx="11" fill="#fff" stroke="#e3e9f6"/><text x="540" y="50.5" fill="#7181a4">edge</text></g>
+        <g filter="url(#nsh2)"><rect x="175" y="154" width="110" height="44" rx="11" fill="#fff" stroke="#e3e9f6"/><text x="230" y="180.5" fill="#4b5a80">sw-01</text></g>
+        <g filter="url(#nsh2)"><rect x="485" y="154" width="110" height="44" rx="11" fill="#fff" stroke="#1a4fd6" stroke-width="1.7"/><text x="540" y="180.5" fill="#22345f" font-weight="600">sw-02</text></g>
+        <g filter="url(#nsh2)"><rect x="795" y="154" width="110" height="44" rx="11" fill="#fff" stroke="#e3e9f6"/><text x="850" y="180.5" fill="#4b5a80">sw-03</text></g>
+        <g filter="url(#nsh2)"><rect x="176" y="308" width="108" height="44" rx="11" fill="#fff" stroke="#e3e9f6"/><text x="230" y="334.5" fill="#4b5a80">web</text></g>
+        <g filter="url(#nsh2)"><rect x="392" y="308" width="116" height="44" rx="11" fill="#fff5f2" stroke="#e0532b" stroke-width="1.5"/><text x="450" y="334.5" fill="#b23a12" font-weight="600">billing</text></g>
+        <g filter="url(#nsh2)"><rect x="574" y="308" width="112" height="44" rx="11" fill="#fff5f2" stroke="#e0532b" stroke-width="1.5"/><text x="630" y="334.5" fill="#b23a12" font-weight="600">orders</text></g>
+        <g filter="url(#nsh2)"><rect x="796" y="308" width="108" height="44" rx="11" fill="#fff" stroke="#e3e9f6"/><text x="850" y="334.5" fill="#4b5a80">db</text></g>
+        <g filter="url(#nsh2)"><rect x="474" y="430" width="132" height="44" rx="11" fill="#fff5f2" stroke="#e0532b" stroke-width="1.4" stroke-dasharray="5 4"/><text x="540" y="456.5" fill="#b23a12">carrier-x</text></g>
+      </g>
+      <!-- impact value labels -->
+      <g font-family="ui-monospace,Menlo,monospace" font-size="11" text-anchor="middle" fill="#b23a12">
+        <text x="450" y="372">$900k/hr</text>
+        <text x="630" y="372">checkout flow</text>
+      </g>
+      <!-- change badge on sw-02 -->
+      <g><circle cx="592" cy="158" r="11" fill="#e0532b"/><path d="M592 152.5 v6 M592 162.5 v0.5" stroke="#fff" stroke-width="2.2" stroke-linecap="round"/></g>
+    </svg>
+    <div class="nv-legend"><span class="k"><i style="background:#e0532b"></i>at risk from this change</span><span class="k"><i style="background:#e0532b;opacity:.55;border-radius:2px"></i>shared carrier (fake redundancy)</span><span class="k nv-note">1 change on sw-02 → billing ($900k/hr) + orders · failover shares carrier-x</span></div>
   </div>
-</section>
+</div></section>
 
 <!-- security (off platform to declutter) -->
 <section class="blk" data-page="x-off"><div class="wrap center">
