@@ -261,6 +261,19 @@
   .brcap{ position:absolute; left:50%; bottom:clamp(38px,9vh,104px); transform:translateX(-50%); width:min(90vw,660px); text-align:center; z-index:4; pointer-events:none; }
   .brcap p{ margin:0; font-size:clamp(1rem,1.9vw,1.35rem); font-weight:500; line-height:1.5; color:var(--muted); transition:opacity .35s ease; }
   .brhint{ opacity:.75; }
+  /* network topology panel */
+  .netviz{ position:relative; margin-top:44px; background:radial-gradient(130% 110% at 50% -10%, #ffffff, #f6f9ff); border:1px solid var(--hair); border-radius:22px; box-shadow:0 50px 100px -60px rgba(10,26,63,0.45), 0 2px 10px -6px rgba(10,26,63,0.12); padding:26px clamp(20px,3vw,40px) 22px; overflow:hidden; }
+  .netviz .nv-top{ display:flex; align-items:center; gap:11px; }
+  .nv-live{ display:inline-flex; align-items:center; gap:7px; font-family:ui-monospace,Menlo,monospace; font-size:11px; font-weight:700; letter-spacing:.09em; text-transform:uppercase; color:var(--ink); }
+  .nv-live .dot{ width:7px; height:7px; border-radius:50%; background:var(--green); animation:livepulse 1.7s infinite; }
+  .nv-sub{ font-family:ui-monospace,Menlo,monospace; font-size:11px; color:var(--muted); }
+  .netviz svg{ width:100%; height:auto; display:block; margin-top:10px; }
+  .nv-legend{ display:flex; align-items:center; gap:clamp(14px,2.4vw,26px); margin-top:14px; flex-wrap:wrap; font-size:12.5px; color:var(--muted); }
+  .nv-legend .k{ display:inline-flex; align-items:center; gap:8px; }
+  .nv-legend i{ width:11px; height:11px; border-radius:4px; flex:none; }
+  .nv-note{ font-family:ui-monospace,Menlo,monospace; font-size:11.5px; color:color-mix(in srgb,var(--ink) 55%,transparent); }
+  @media(max-width:640px){ .nv-note{ display:none; } }
+  @media(max-width:720px){ .netviz{ overflow-x:auto; padding-left:20px; padding-right:20px; } .netviz svg{ min-width:600px; } .nv-legend{ min-width:600px; } }
 
   section.blk{ padding:100px 0; scroll-margin-top:78px; }
   [id]{ scroll-margin-top:78px; }
@@ -561,19 +574,50 @@
 </section>
 
 <!-- pinned network story -->
-<section class="scrolly" id="stage" data-page="home"><div class="sticky">
-  <canvas class="net" id="net"></canvas>
-  <div class="stagehead"><h2 id="stageTitle">Your network, as Optimesh sees it</h2></div>
-  <div class="cap tag" data-from="0.36" data-to="0.56"><p>Every path it touches is computed, instantly.</p></div>
-  <div class="cap tag" data-from="0.60" data-to="0.82"><p>Caught at the gate, with the exact reason.</p></div>
-  <div class="cap tag" data-from="0.88" data-to="1.01"><p>Every change, proven before it ships.</p></div>
-  <div class="evidence" id="evidence">
-    <span class="badge">● Blocked</span><div class="q mono">app-sg → 0.0.0.0/0</div>
-    <div class="row"><b>Rule</b><span class="mono">permit ip any any (line 42)</span></div>
-    <div class="row"><b>Effect</b><span>exposes app-sg to the public internet</span></div>
-    <div class="line">Verdict is deterministic. Stopped before merge.</div>
+<section class="blk" id="stage" data-page="home"><div class="wrap">
+  <div class="center reveal"><h2 class="h2" style="margin:0 auto">Your network, as Optimesh sees it.</h2><p class="lead" style="margin:14px auto 0">Every path computed against your live topology — so a change is proven safe, or blocked with the reason, before it ships.</p></div>
+  <div class="netviz reveal">
+    <div class="nv-top"><span class="nv-live"><span class="dot"></span>Live</span><span class="nv-sub">verifying · core fabric</span></div>
+    <svg viewBox="0 0 1080 468" role="img" aria-label="Network topology verified by Optimesh" xmlns="http://www.w3.org/2000/svg">
+      <defs>
+        <filter id="nsh" x="-40%" y="-40%" width="180%" height="180%"><feDropShadow dx="0" dy="5" stdDeviation="8" flood-color="#0a1a3f" flood-opacity="0.10"/></filter>
+      </defs>
+      <!-- base connectors -->
+      <g stroke="#cdd8ee" stroke-width="1.6" fill="none" stroke-linecap="round">
+        <line x1="990" y1="52" x2="700" y2="112"/>
+        <line x1="380" y1="112" x2="700" y2="112"/>
+        <line x1="260" y1="262" x2="380" y2="112"/>
+        <line x1="540" y1="262" x2="380" y2="112"/>
+        <line x1="540" y1="262" x2="700" y2="112"/>
+        <line x1="820" y1="262" x2="700" y2="112"/>
+        <line x1="260" y1="402" x2="260" y2="262"/>
+        <line x1="540" y1="402" x2="540" y2="262"/>
+        <line x1="820" y1="402" x2="820" y2="262"/>
+      </g>
+      <!-- verified change path -->
+      <path id="hp" d="M260,402 L260,262 L380,112" fill="none" stroke="#1a4fd6" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/>
+      <!-- blocked attempt -->
+      <path d="M700,112 L990,52" fill="none" stroke="#e0532b" stroke-width="2" stroke-dasharray="6 7" stroke-linecap="round"/>
+      <!-- travelling packet -->
+      <circle r="5" fill="#1a4fd6"><animateMotion dur="3.2s" repeatCount="indefinite" calcMode="linear"><mpath href="#hp"/></animateMotion><animate attributeName="opacity" values="0;1;1;1;0" dur="3.2s" repeatCount="indefinite"/></circle>
+      <!-- nodes -->
+      <g font-family="ui-monospace,Menlo,monospace" font-size="12.5" text-anchor="middle">
+        <g filter="url(#nsh)"><rect x="942" y="30" width="96" height="44" rx="11" fill="#ffffff" stroke="#e3e9f6"/><text x="990" y="56.5" fill="#7181a4">internet</text></g>
+        <g filter="url(#nsh)"><rect x="320" y="90" width="120" height="44" rx="11" fill="#ffffff" stroke="#1a4fd6" stroke-width="1.6"/><text x="380" y="116.5" fill="#22345f" font-weight="600">core-01</text></g>
+        <g filter="url(#nsh)"><rect x="640" y="90" width="120" height="44" rx="11" fill="#ffffff" stroke="#e3e9f6"/><text x="700" y="116.5" fill="#4b5a80">core-02</text></g>
+        <g filter="url(#nsh)"><rect x="200" y="240" width="120" height="44" rx="11" fill="#ffffff" stroke="#e3e9f6"/><text x="260" y="266.5" fill="#4b5a80">acc-01</text></g>
+        <g filter="url(#nsh)"><rect x="480" y="240" width="120" height="44" rx="11" fill="#ffffff" stroke="#e3e9f6"/><text x="540" y="266.5" fill="#4b5a80">acc-02</text></g>
+        <g filter="url(#nsh)"><rect x="760" y="240" width="120" height="44" rx="11" fill="#ffffff" stroke="#e3e9f6"/><text x="820" y="266.5" fill="#4b5a80">acc-03</text></g>
+        <g filter="url(#nsh)"><rect x="204" y="380" width="112" height="44" rx="11" fill="#ffffff" stroke="#e3e9f6"/><text x="260" y="406.5" fill="#4b5a80">web</text></g>
+        <g filter="url(#nsh)"><rect x="484" y="380" width="112" height="44" rx="11" fill="#ffffff" stroke="#e3e9f6"/><text x="540" y="406.5" fill="#4b5a80">db</text></g>
+        <g filter="url(#nsh)"><rect x="764" y="380" width="112" height="44" rx="11" fill="#ffffff" stroke="#e3e9f6"/><text x="820" y="406.5" fill="#4b5a80">api</text></g>
+      </g>
+      <!-- verdicts -->
+      <g><circle cx="432" cy="94" r="12" fill="#1f8e65"/><path d="M426.5 94 l3.5 3.5 l6 -7" fill="none" stroke="#fff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></g>
+      <g><circle cx="845" cy="82" r="12" fill="#e0532b"/><path d="M840 77 l10 10 M850 77 l-10 10" fill="none" stroke="#fff" stroke-width="2.2" stroke-linecap="round"/></g>
+    </svg>
+    <div class="nv-legend"><span class="k"><i style="background:#1a4fd6"></i>verified path</span><span class="k"><i style="background:#e0532b"></i>blocked change</span><span class="k nv-note">app-sg → 0.0.0.0/0 · permit ip any any (line 42)</span></div>
   </div>
-  <div class="hint" id="hint">Scroll</div>
 </div></section>
 
 <!-- CHAT feature -->
@@ -1478,7 +1522,7 @@
   function parallax(){ const y=window.scrollY; for(const c of chips){ const d=parseFloat(c.dataset.depth)||.15; c.style.transform=`translateY(${(-y*d).toFixed(1)}px)`; } }
 
   /* ===== pinned network canvas ===== */
-  const canvas=el('net'), ctx=canvas.getContext('2d'), stage=el('stage'), stageTitle=el('stageTitle'), evidence=el('evidence'), hint=el('hint');
+  const canvas=el('net'), ctx=canvas?canvas.getContext('2d'):null, stage=el('stage'), stageTitle=el('stageTitle'), evidence=el('evidence'), hint=el('hint');
   const caps=[...document.querySelectorAll('.cap')];
   const N={ S1:{x:430,y:186,r:'spine',lab:'core-01'},S2:{x:770,y:186,r:'spine',lab:'core-02'},L1:{x:265,y:360,r:'leaf',lab:'leaf-01'},L2:{x:470,y:360,r:'leaf',lab:'leaf-02'},L3:{x:730,y:360,r:'leaf',lab:'leaf-03'},L4:{x:935,y:360,r:'leaf',lab:'leaf-04'},
     H1:{x:265,y:534,r:'host',lab:'web'},H2:{x:470,y:534,r:'host',lab:'api'},H3:{x:730,y:534,r:'host',lab:'db'},H4:{x:935,y:534,r:'host',lab:'cache'},NET:{x:1095,y:120,r:'net',lab:'internet'} };
@@ -1559,9 +1603,11 @@
   function updateText(p){ let t=titles[0][1]; for(const [th,x] of titles){ if(p>=th) t=x; } if(stageTitle.textContent!==t){ stageTitle.style.opacity=0; setTimeout(()=>{ stageTitle.textContent=t; stageTitle.style.opacity=1; },150); } for(const c of caps){ c.style.opacity=(p>=+c.dataset.from&&p<+c.dataset.to)?1:0; } }
   function inView(){ const r=stage.getBoundingClientRect(); return r.bottom>-200&&r.top<innerHeight+200; }
   let t0=performance.now(); function frame(now){ if(inView()||reduce) render((now-t0)/1000); requestAnimationFrame(frame); }
-  addEventListener('scroll',()=>{ parallax(); P=progress(); updateText(P); },{passive:true});
-  addEventListener('resize',resize); resize(); P=progress(); updateText(P); parallax();
-  if(reduce){ P=0.95; render(0); } else requestAnimationFrame(frame);
+  if(canvas){ /* legacy pinned-canvas story removed; SVG diagram used instead */
+    addEventListener('scroll',()=>{ parallax(); P=progress(); updateText(P); },{passive:true});
+    addEventListener('resize',resize); resize(); P=progress(); updateText(P); parallax();
+    if(reduce){ P=0.95; render(0); } else requestAnimationFrame(frame);
+  } else { parallax(); }
 
   /* ===== chat ===== */
   const chatScript=[
