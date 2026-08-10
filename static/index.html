@@ -29,6 +29,7 @@
   .reveal{ opacity:0; transform:translateY(26px); transition:opacity .8s cubic-bezier(.22,1,.36,1), transform .8s cubic-bezier(.22,1,.36,1); }
   .reveal.in{ opacity:1; transform:none; }
   [hidden]{ display:none !important; }
+  section[id]{ scroll-margin-top:92px; }
   .nav .links a.navon{ color:var(--ink); font-weight:600; }
   [data-nav]{ cursor:pointer; } [data-request]{ cursor:pointer; }
   .navdrop{ position:relative; }
@@ -275,6 +276,48 @@
   .nv-note{ font-family:ui-monospace,Menlo,monospace; font-size:11.5px; color:color-mix(in srgb,var(--ink) 55%,transparent); }
   @media(max-width:640px){ .nv-note{ display:none; } }
   @media(max-width:720px){ .netviz{ overflow-x:auto; padding-left:20px; padding-right:20px; } .netviz svg{ min-width:600px; } .nv-legend{ min-width:600px; } }
+  /* verification dashboard ("as Optimesh sees it") */
+  .vdash{ position:relative; margin-top:44px; background:linear-gradient(180deg,#ffffff,#f7faff); border:1px solid var(--hair); border-radius:20px; box-shadow:0 50px 100px -60px rgba(10,26,63,0.45), 0 2px 10px -6px rgba(10,26,63,0.12); overflow:hidden; }
+  .vd-bar{ display:flex; align-items:center; gap:11px; padding:13px 20px; border-bottom:1px solid var(--hair); background:color-mix(in srgb,var(--bg) 55%,#fff); }
+  .vd-mk{ width:22px; height:22px; flex:none; }
+  .vd-title{ font-weight:700; font-size:14px; color:var(--ink); }
+  .vd-target{ font-family:ui-monospace,Menlo,monospace; font-size:12px; color:var(--muted); }
+  .vd-spacer{ flex:1; }
+  .vd-pill{ display:inline-flex; align-items:center; gap:7px; font-family:ui-monospace,Menlo,monospace; font-size:10.5px; font-weight:700; letter-spacing:.07em; text-transform:uppercase; padding:5px 11px; border-radius:999px; }
+  .vd-pill.blocked{ color:#b23a12; background:color-mix(in srgb,var(--red) 12%,transparent); border:1px solid color-mix(in srgb,var(--red) 32%,transparent); }
+  .vd-pill .dot{ width:7px; height:7px; border-radius:50%; background:var(--red); }
+  .vd-grid{ display:grid; grid-template-columns:minmax(0,1.15fr) minmax(0,1fr); gap:16px; padding:18px; }
+  .vd-col{ display:flex; flex-direction:column; gap:16px; min-width:0; }
+  .vd-card{ background:#fff; border:1px solid var(--hair); border-radius:14px; padding:14px 16px; min-width:0; }
+  .vd-card h5{ margin:0 0 10px; font-size:11px; text-transform:uppercase; letter-spacing:.07em; color:var(--muted); font-weight:700; }
+  .vd-intent{ font-size:13.5px; color:var(--ink); margin:0 0 11px; }
+  .vd-diff{ font-family:ui-monospace,Menlo,monospace; font-size:12px; line-height:1.75; background:#0f1830; border-radius:10px; padding:11px 13px; overflow-x:auto; white-space:pre; }
+  .vd-diff .add{ color:#7ee2b8; } .vd-diff .del{ color:#ff9b86; } .vd-diff .ctx{ color:#8394bd; }
+  .vck{ display:flex; align-items:center; gap:10px; padding:8px 0; font-size:13px; color:var(--ink); border-top:1px solid color-mix(in srgb,var(--hair) 70%,transparent); }
+  .vck:first-of-type{ border-top:0; }
+  .vck .ic{ width:18px; height:18px; border-radius:50%; flex:none; display:grid; place-items:center; }
+  .vck.pass .ic{ background:var(--green); } .vck.fail .ic{ background:var(--red); } .vck.skip .ic{ background:#c3ccdf; }
+  .vck .ic svg{ width:11px; height:11px; }
+  .vck .nm{ flex:1; } .vck .mt{ font-family:ui-monospace,Menlo,monospace; font-size:11px; color:var(--muted); }
+  .vpr{ display:flex; align-items:center; gap:8px; padding:7px 0; font-family:ui-monospace,Menlo,monospace; font-size:12px; color:var(--ink); border-top:1px solid color-mix(in srgb,var(--hair) 70%,transparent); }
+  .vpr:first-of-type{ border-top:0; } .vpr .ar{ color:var(--muted); } .vpr .st{ margin-left:auto; font-weight:700; font-size:11px; }
+  .vpr.ok .st{ color:var(--green); } .vpr.stop{ color:#b23a12; } .vpr.stop .st{ color:#b23a12; }
+  .vd-foot{ display:flex; align-items:flex-start; gap:13px; padding:16px 18px; border-top:1px solid var(--hair); background:color-mix(in srgb,var(--red) 5%,transparent); }
+  .vd-foot .vx{ width:30px; height:30px; border-radius:50%; background:var(--red); display:grid; place-items:center; flex:none; }
+  .vd-foot .vx svg{ width:15px; height:15px; }
+  .vd-vtext b{ display:block; font-size:14.5px; color:var(--ink); }
+  .vd-vtext > span{ font-size:13px; color:var(--muted); }
+  .vd-chips{ display:flex; flex-wrap:wrap; gap:7px; margin-top:10px; }
+  .vd-chip{ font-family:ui-monospace,Menlo,monospace; font-size:11px; padding:3px 9px; border-radius:7px; background:#fff5f2; border:1px solid color-mix(in srgb,var(--red) 30%,transparent); color:#b23a12; }
+  .vd-chip.rule{ background:#fff; border-color:var(--hair); color:var(--muted); }
+  /* staged entrance, keyed off .reveal.in */
+  .vdash .vd-card, .vdash .vd-foot{ opacity:0; transform:translateY(12px); transition:opacity .55s ease, transform .55s cubic-bezier(.22,1,.36,1); }
+  .vdash.in .vd-card, .vdash.in .vd-foot{ opacity:1; transform:none; }
+  .vdash .vd-col .vd-card:nth-child(2){ transition-delay:.1s; } .vdash .vd-foot{ transition-delay:.55s; }
+  .vdash .vck, .vdash .vpr{ opacity:0; transform:translateX(-6px); transition:opacity .4s ease, transform .4s ease; }
+  .vdash.in .vck, .vdash.in .vpr{ opacity:1; transform:none; transition-delay:var(--d,0s); }
+  @media (prefers-reduced-motion:reduce){ .vdash .vd-card,.vdash .vd-foot,.vdash .vck,.vdash .vpr{ opacity:1!important; transform:none!important; transition:none!important; } }
+  @media(max-width:760px){ .vd-grid{ grid-template-columns:minmax(0,1fr); } .vd-target{ display:none; } }
   /* pricing */
   .pricing{ display:grid; grid-template-columns:repeat(4,1fr); gap:18px; margin-top:46px; align-items:stretch; }
   @media(max-width:1040px){ .pricing{ grid-template-columns:repeat(2,1fr); } }
@@ -362,9 +405,8 @@
   .voices-in{ display:grid; grid-template-columns:1fr 1fr; gap:40px; padding:56px; align-items:center; } @media(max-width:900px){ .voices-in{ grid-template-columns:1fr; } }
   .voices h2{ font-size:clamp(1.9rem,3.6vw,2.9rem); font-weight:800; margin:0; max-width:14ch; }
   .voices .stories{ display:inline-flex; align-items:center; gap:8px; margin-top:22px; background:rgba(255,255,255,.08); border:1px solid rgba(255,255,255,.14); border-radius:999px; padding:9px 16px; font-size:13.5px; font-weight:600; }
-  .quote{ margin-top:30px; } .quote .logo{ font-weight:800; font-size:17px; opacity:.9; } .quote p{ color:#c2cbe6; font-size:15px; line-height:1.7; margin:14px 0 0; max-width:44ch; } .quote .who{ margin-top:16px; font-weight:700; font-size:14px; } .quote .role{ color:#8ea0cc; font-size:13px; }
+  .quote{ margin:0; padding-left:22px; border-left:2px solid rgba(143,180,255,.42); } .quote .logo{ font-weight:800; font-size:15px; letter-spacing:.03em; opacity:.85; } .quote p{ color:#eaf0ff; font-size:clamp(1.15rem,1.7vw,1.5rem); line-height:1.55; margin:14px 0 0; max-width:34ch; font-weight:500; } .quote .who{ margin-top:18px; font-weight:700; font-size:14px; } .quote .role{ color:#8ea0cc; font-size:13px; margin-top:2px; }
   .vctrl{ display:flex; align-items:center; gap:14px; margin-top:26px; } .varr{ width:40px; height:40px; border-radius:50%; border:1px solid rgba(255,255,255,.18); background:transparent; color:#eef2ff; cursor:pointer; display:grid; place-items:center; } .varr:hover{ background:rgba(255,255,255,.1); } .vdots{ display:flex; gap:7px; } .vdot{ width:7px; height:7px; border-radius:50%; background:rgba(255,255,255,.25); } .vdot.on{ background:#8fb4ff; width:22px; border-radius:9px; }
-  .vmedia{ border-radius:16px; border:1px solid rgba(255,255,255,.12); aspect-ratio:16/10; position:relative; overflow:hidden; background:linear-gradient(135deg,#0e1836,#182a55); } .vmedia canvas{ position:absolute; inset:0; width:100%; height:100%; } .vplay{ position:absolute; inset:0; margin:auto; width:64px; height:64px; border-radius:50%; background:rgba(255,255,255,.9); display:grid; place-items:center; } .vplay svg{ width:22px; height:22px; margin-left:3px; color:#0b1226; }
   .vnote{ text-align:center; font-size:11.5px; color:#7686ad; padding:14px 0 0; }
 
   /* footer */
@@ -408,11 +450,11 @@
   .forces{ display:grid; grid-template-columns:repeat(2,1fr); gap:18px; margin-top:36px; } @media(max-width:760px){ .forces{ grid-template-columns:1fr; } } .force{ background:var(--panel); border:1px solid var(--hair); border-radius:14px; padding:20px; } .force .fn{ font-family:ui-monospace,Menlo,monospace; color:var(--accent); font-size:13px; } .force h3{ font-size:16px; margin:8px 0 0; } .force p{ color:var(--muted); font-size:13.5px; margin:8px 0 0; }
   .horizons{ display:grid; grid-template-columns:repeat(3,1fr); gap:16px; margin-top:32px; } @media(max-width:760px){ .horizons{ grid-template-columns:1fr; } } .horizon{ border:1px solid var(--hair); border-radius:14px; padding:20px; background:var(--panel); } .horizon .ht{ font-size:11.5px; font-weight:700; color:var(--accent); text-transform:uppercase; letter-spacing:.06em; } .horizon h3{ margin:8px 0 0; font-size:16px; } .horizon p{ color:var(--muted); font-size:13px; margin:8px 0 0; }
   /* insights — editorial field-notes index */
-  .ins-wrap{ position:relative; z-index:1; margin-top:40px; }
+  .ins-wrap{ position:relative; z-index:1; margin-top:56px; padding-top:44px; border-top:1px solid var(--hair); }
   .ins-lead{ display:block; text-decoration:none; color:inherit; padding:4px 0 30px; border-bottom:1px solid var(--hair); cursor:pointer; }
   .ins-meta{ display:flex; align-items:center; gap:12px; font-family:ui-monospace,Menlo,monospace; font-size:12px; color:var(--muted); }
   .ins-tag{ font-size:10.5px; font-weight:700; letter-spacing:.07em; text-transform:uppercase; color:var(--accent); }
-  .ins-lead-title{ font-size:clamp(1.7rem,3.4vw,2.7rem); font-weight:800; letter-spacing:-0.03em; line-height:1.08; margin:15px 0 0; max-width:20ch; transition:color .2s ease; text-wrap:balance; }
+  .ins-lead-title{ font-size:clamp(1.45rem,2.7vw,2.05rem); font-weight:800; letter-spacing:-0.025em; line-height:1.12; margin:13px 0 0; max-width:24ch; transition:color .2s ease; text-wrap:balance; }
   .ins-lead:hover .ins-lead-title{ color:var(--accent); }
   .ins-lead-dek{ font-size:1.08rem; color:var(--muted); line-height:1.6; margin:14px 0 0; max-width:62ch; }
   .ins-read{ display:inline-flex; align-items:center; gap:8px; margin-top:20px; font-size:14px; font-weight:650; color:var(--accent); }
@@ -533,18 +575,19 @@
             <a class="megaitem" data-nav="hammerhead"><span class="mi"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linejoin="round"><path d="M13 2L4 14h6l-1 8 9-12h-6z"/></svg></span><span><span class="mt">Hammerhead</span><span class="md">Verification engine</span></span></a>
             <a class="megaitem" data-nav="configstudio"><span class="mi"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9"><path d="M21 15a2 2 0 01-2 2H8l-5 4V5a2 2 0 012-2h14a2 2 0 012 2z"/></svg></span><span><span class="mt">Config Studio</span><span class="md">AI diagnosis &amp; fixes</span></span></a>
             <a class="megaitem" data-nav="rulehawk"><span class="mi"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9"><path d="M12 3l7 4v5c0 4-3 7-7 9-4-2-7-5-7-9V7z"/></svg></span><span><span class="mt">RuleHawk</span><span class="md">Free firewall auditor</span></span></a>
+            <a class="megaitem" data-nav="pricing"><span class="mi"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linejoin="round"><path d="M20.6 13.4l-7.2 7.2a1.9 1.9 0 01-2.7 0l-8.1-8.1V3h9.5l8.5 8.5a1.9 1.9 0 010 1.9z"/><circle cx="7.5" cy="7.5" r="1.1"/></svg></span><span><span class="mt">Pricing</span><span class="md">Plans from free to enterprise</span></span></a>
           </div>
           <div class="megacol">
             <h4>Capabilities</h4>
-            <a class="megaitem" data-nav="platform"><span class="mi"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9"><path d="M12 3l7 4v5c0 4-3 7-7 9-4-2-7-5-7-9V7z"/><path d="M9 12l2 2 4-4"/></svg></span><span><span class="mt">Change verification</span><span class="md">Prove it before it ships</span></span></a>
-            <a class="megaitem" data-nav="platform"><span class="mi"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9"><circle cx="12" cy="12" r="3"/><path d="M12 2v3M12 19v3M2 12h3M19 12h3"/></svg></span><span><span class="mt">Blast radius</span><span class="md">See what a change touches</span></span></a>
-            <a class="megaitem" data-nav="platform"><span class="mi"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9"><circle cx="6" cy="6" r="2"/><circle cx="18" cy="6" r="2"/><circle cx="12" cy="18" r="2"/><path d="M7.6 7.5l3 8.8M16.4 7.5l-3 8.8M8 6h8"/></svg></span><span><span class="mt">Cross-domain graph</span><span class="md">On-prem to cloud to k8s</span></span></a>
+            <a class="megaitem" data-nav="platform#verify"><span class="mi"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9"><path d="M12 3l7 4v5c0 4-3 7-7 9-4-2-7-5-7-9V7z"/><path d="M9 12l2 2 4-4"/></svg></span><span><span class="mt">Change verification</span><span class="md">Prove it before it ships</span></span></a>
+            <a class="megaitem" data-nav="platform#brStage"><span class="mi"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9"><circle cx="12" cy="12" r="3"/><path d="M12 2v3M12 19v3M2 12h3M19 12h3"/></svg></span><span><span class="mt">Blast radius</span><span class="md">See what a change touches</span></span></a>
+            <a class="megaitem" data-nav="platform#graph"><span class="mi"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9"><circle cx="6" cy="6" r="2"/><circle cx="18" cy="6" r="2"/><circle cx="12" cy="18" r="2"/><path d="M7.6 7.5l3 8.8M16.4 7.5l-3 8.8M8 6h8"/></svg></span><span><span class="mt">Cross-domain graph</span><span class="md">On-prem to cloud to k8s</span></span></a>
           </div>
           <div class="megacol">
             <h4>Fits your stack</h4>
-            <a class="megaitem" data-nav="platform"><span class="mi"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9"><circle cx="6" cy="6" r="2"/><circle cx="6" cy="18" r="2"/><circle cx="18" cy="9" r="2"/><path d="M6 8v8M6 13h6a4 4 0 004-4"/></svg></span><span><span class="mt">Pull-request gate</span><span class="md">Block the bad merge</span></span></a>
-            <a class="megaitem" data-nav="platform"><span class="mi"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9"><rect x="3" y="4" width="18" height="16" rx="2"/><path d="M7 9h10M7 13h6"/></svg></span><span><span class="mt">ServiceNow &amp; Jira</span><span class="md">Evidence on the ticket</span></span></a>
-            <a class="megaitem" data-nav="platform"><span class="mi"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linejoin="round"><path d="M12 3l8 4.5v9L12 21l-8-4.5v-9z"/><path d="M12 12v9M12 12L4 7.5M12 12l8-4.5"/></svg></span><span><span class="mt">Terraform &amp; CI</span><span class="md">Verify the plan</span></span></a>
+            <a class="megaitem" data-nav="platform#prgate"><span class="mi"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9"><circle cx="6" cy="6" r="2"/><circle cx="6" cy="18" r="2"/><circle cx="18" cy="9" r="2"/><path d="M6 8v8M6 13h6a4 4 0 004-4"/></svg></span><span><span class="mt">Pull-request gate</span><span class="md">Block the bad merge</span></span></a>
+            <a class="megaitem" data-nav="platform#ticketing"><span class="mi"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9"><rect x="3" y="4" width="18" height="16" rx="2"/><path d="M7 9h10M7 13h6"/></svg></span><span><span class="mt">ServiceNow &amp; Jira</span><span class="md">Evidence on the ticket</span></span></a>
+            <a class="megaitem" data-nav="platform#iac"><span class="mi"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linejoin="round"><path d="M12 3l8 4.5v9L12 21l-8-4.5v-9z"/><path d="M12 12v9M12 12L4 7.5M12 12l8-4.5"/></svg></span><span><span class="mt">Terraform &amp; CI</span><span class="md">Verify the plan</span></span></a>
           </div>
         </div>
         <div class="megafoot"><span>One deterministic engine behind all of it.</span><a data-nav="platform">Explore the platform →</a></div>
@@ -593,48 +636,47 @@
 
 <!-- pinned network story -->
 <section class="blk" id="stage" data-page="home"><div class="wrap">
-  <div class="center reveal"><h2 class="h2" style="margin:0 auto">Your network, as Optimesh sees it.</h2><p class="lead" style="margin:14px auto 0">Every path computed against your live topology — so a change is proven safe, or blocked with the reason, before it ships.</p></div>
-  <div class="netviz reveal">
-    <div class="nv-top"><span class="nv-live"><span class="dot"></span>Live</span><span class="nv-sub">verifying · core fabric</span></div>
-    <svg viewBox="0 0 1080 468" role="img" aria-label="Network topology verified by Optimesh" xmlns="http://www.w3.org/2000/svg">
-      <defs>
-        <filter id="nsh" x="-40%" y="-40%" width="180%" height="180%"><feDropShadow dx="0" dy="5" stdDeviation="8" flood-color="#0a1a3f" flood-opacity="0.10"/></filter>
-      </defs>
-      <!-- base connectors -->
-      <g stroke="#cdd8ee" stroke-width="1.6" fill="none" stroke-linecap="round">
-        <line x1="990" y1="52" x2="700" y2="112"/>
-        <line x1="380" y1="112" x2="700" y2="112"/>
-        <line x1="260" y1="262" x2="380" y2="112"/>
-        <line x1="540" y1="262" x2="380" y2="112"/>
-        <line x1="540" y1="262" x2="700" y2="112"/>
-        <line x1="820" y1="262" x2="700" y2="112"/>
-        <line x1="260" y1="402" x2="260" y2="262"/>
-        <line x1="540" y1="402" x2="540" y2="262"/>
-        <line x1="820" y1="402" x2="820" y2="262"/>
-      </g>
-      <!-- verified change path -->
-      <path id="hp" d="M260,402 L260,262 L380,112" fill="none" stroke="#1a4fd6" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/>
-      <!-- blocked attempt -->
-      <path d="M700,112 L990,52" fill="none" stroke="#e0532b" stroke-width="2" stroke-dasharray="6 7" stroke-linecap="round"/>
-      <!-- travelling packet -->
-      <circle r="5" fill="#1a4fd6"><animateMotion dur="3.2s" repeatCount="indefinite" calcMode="linear"><mpath href="#hp"/></animateMotion><animate attributeName="opacity" values="0;1;1;1;0" dur="3.2s" repeatCount="indefinite"/></circle>
-      <!-- nodes -->
-      <g font-family="ui-monospace,Menlo,monospace" font-size="12.5" text-anchor="middle">
-        <g filter="url(#nsh)"><rect x="942" y="30" width="96" height="44" rx="11" fill="#ffffff" stroke="#e3e9f6"/><text x="990" y="56.5" fill="#7181a4">internet</text></g>
-        <g filter="url(#nsh)"><rect x="320" y="90" width="120" height="44" rx="11" fill="#ffffff" stroke="#1a4fd6" stroke-width="1.6"/><text x="380" y="116.5" fill="#22345f" font-weight="600">core-01</text></g>
-        <g filter="url(#nsh)"><rect x="640" y="90" width="120" height="44" rx="11" fill="#ffffff" stroke="#e3e9f6"/><text x="700" y="116.5" fill="#4b5a80">core-02</text></g>
-        <g filter="url(#nsh)"><rect x="200" y="240" width="120" height="44" rx="11" fill="#ffffff" stroke="#e3e9f6"/><text x="260" y="266.5" fill="#4b5a80">acc-01</text></g>
-        <g filter="url(#nsh)"><rect x="480" y="240" width="120" height="44" rx="11" fill="#ffffff" stroke="#e3e9f6"/><text x="540" y="266.5" fill="#4b5a80">acc-02</text></g>
-        <g filter="url(#nsh)"><rect x="760" y="240" width="120" height="44" rx="11" fill="#ffffff" stroke="#e3e9f6"/><text x="820" y="266.5" fill="#4b5a80">acc-03</text></g>
-        <g filter="url(#nsh)"><rect x="204" y="380" width="112" height="44" rx="11" fill="#ffffff" stroke="#e3e9f6"/><text x="260" y="406.5" fill="#4b5a80">web</text></g>
-        <g filter="url(#nsh)"><rect x="484" y="380" width="112" height="44" rx="11" fill="#ffffff" stroke="#e3e9f6"/><text x="540" y="406.5" fill="#4b5a80">db</text></g>
-        <g filter="url(#nsh)"><rect x="764" y="380" width="112" height="44" rx="11" fill="#ffffff" stroke="#e3e9f6"/><text x="820" y="406.5" fill="#4b5a80">api</text></g>
-      </g>
-      <!-- verdicts -->
-      <g><circle cx="432" cy="94" r="12" fill="#1f8e65"/><path d="M426.5 94 l3.5 3.5 l6 -7" fill="none" stroke="#fff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></g>
-      <g><circle cx="845" cy="82" r="12" fill="#e0532b"/><path d="M840 77 l10 10 M850 77 l-10 10" fill="none" stroke="#fff" stroke-width="2.2" stroke-linecap="round"/></g>
-    </svg>
-    <div class="nv-legend"><span class="k"><i style="background:#1a4fd6"></i>verified path</span><span class="k"><i style="background:#e0532b"></i>blocked change</span><span class="k nv-note">app-sg → 0.0.0.0/0 · permit ip any any (line 42)</span></div>
+  <div class="center reveal"><h2 class="h2" style="margin:0 auto">Your network, as Optimesh sees it.</h2><p class="lead" style="margin:14px auto 0">Every path computed against your live topology, so a change is proven safe, or blocked with the reason, before it ships.</p></div>
+  <div class="vdash reveal" role="img" aria-label="Optimesh change-review dashboard: a change to edge-fw-01 is blocked before merge because it opens the app tier to the internet.">
+    <div class="vd-bar">
+      <svg class="vd-mk" viewBox="0 0 40 40" fill="none"><g stroke-width="1.4" stroke-linejoin="round"><polygon points="14.5,10.1 18.9,12.3 18.9,16.7 14.5,18.9 10.1,16.7 10.1,12.3" fill="none" stroke="#1a4fd6"/><polygon points="14.5,21.1 18.9,23.3 18.9,27.7 14.5,29.9 10.1,27.7 10.1,23.3" fill="none" stroke="#1a4fd6"/><polygon points="25.5,21.1 29.9,23.3 29.9,27.7 25.5,29.9 21.1,27.7 21.1,23.3" fill="none" stroke="#1a4fd6"/><polygon points="25.5,10.1 29.9,12.3 29.9,16.7 25.5,18.9 21.1,16.7 21.1,12.3" fill="none" stroke="#1f8e65"/></g><polygon points="20,15.6 24.4,20 20,24.4 15.6,20" fill="#1a4fd6"/></svg>
+      <span class="vd-title">Change review</span>
+      <span class="vd-target">edge-fw-01 · APP_EGRESS</span>
+      <span class="vd-spacer"></span>
+      <span class="vd-pill blocked"><span class="dot"></span>Blocked</span>
+    </div>
+    <div class="vd-grid">
+      <div class="vd-card">
+        <h5>Verification</h5>
+        <div class="vck pass" style="--d:.15s"><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l4 4 10-10"/></svg></span><span class="nm">Parse device configs</span><span class="mt">14 devices</span></div>
+        <div class="vck pass" style="--d:.27s"><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l4 4 10-10"/></svg></span><span class="nm">Build forwarding model</span></div>
+        <div class="vck pass" style="--d:.39s"><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l4 4 10-10"/></svg></span><span class="nm">Simulate on live FIB</span></div>
+        <div class="vck pass" style="--d:.51s"><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l4 4 10-10"/></svg></span><span class="nm">Reachability probes</span><span class="mt">8 / 8 preserved</span></div>
+        <div class="vck fail" style="--d:.63s"><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="3.2" stroke-linecap="round"><path d="M6 6l12 12M18 6L6 18"/></svg></span><span class="nm">ACL flow-safety</span><span class="mt">new exposure</span></div>
+        <div class="vck skip" style="--d:.75s"><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="3.2" stroke-linecap="round"><path d="M6 12h12"/></svg></span><span class="nm">Loop &amp; blackhole scan</span><span class="mt">skipped</span></div>
+      </div>
+      <div class="vd-col">
+        <div class="vd-card">
+          <h5>The change</h5>
+          <p class="vd-intent">Allow <b>app-sg</b> egress to any destination</p>
+          <div class="vd-diff"><span class="ctx">  ip access-list extended APP_EGRESS</span>
+<span class="del">-  permit tcp app-sg 10.0.0.0/8 eq 443</span>
+<span class="add">+  permit ip any any</span></div>
+        </div>
+        <div class="vd-card">
+          <h5>Reachability probes</h5>
+          <div class="vpr ok" style="--d:.2s"><span>users → db</span><span class="ar">:1521</span><span class="st">preserved</span></div>
+          <div class="vpr ok" style="--d:.32s"><span>dmz → web</span><span class="ar">:443</span><span class="st">preserved</span></div>
+          <div class="vpr stop" style="--d:.44s"><span>app-sg → 0.0.0.0/0</span><span class="st">new exposure</span></div>
+        </div>
+      </div>
+    </div>
+    <div class="vd-foot">
+      <span class="vx"><svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="3" stroke-linecap="round"><path d="M6 6l12 12M18 6L6 18"/></svg></span>
+      <div class="vd-vtext"><b>Blocked before merge.</b><span>This change opens a path from the app tier to the public internet. Every other route is preserved.</span>
+        <div class="vd-chips"><span class="vd-chip rule">permit ip any any · line 42</span><span class="vd-chip">app-sg → 0.0.0.0/0</span></div>
+      </div>
+    </div>
   </div>
 </div></section>
 
@@ -703,7 +745,7 @@
 <section class="blk" id="platflow" data-page="platform" style="padding-top:104px"><div class="wrap">
   <div class="reveal" style="max-width:720px">
     <h2 class="h2" style="margin:0">Change anything. Break nothing.</h2>
-    <p class="lead" style="margin:16px 0 0">Every change to your network runs the gate first — simulated on your live topology, proven safe or blocked, before it ships. Here is a real run.</p>
+    <p class="lead" style="margin:16px 0 0">Every change to your network runs the gate first: simulated on your live topology, proven safe or blocked, before it ships. Here is a real run.</p>
   </div>
   <div class="verifyterm">
     <div class="vt-bar"><span class="d" style="background:#fb7185"></span><span class="d" style="background:#fbbf24"></span><span class="d" style="background:#34d399"></span><span class="nm"><b>optimesh</b> · verify --pr 482</span><span class="st">blocked</span></div>
@@ -740,7 +782,7 @@
 </div></section>
 
 <!-- gate / evidence -->
-<section class="blk" data-page="platform"><div class="wrap split">
+<section class="blk" id="verify" data-page="platform"><div class="wrap split">
   <div class="txt reveal">
     <div class="kicker">The gate that never guesses</div><h2 class="h2">A verdict backed by math, not a hunch</h2>
     <p class="lead">Config Studio computes exactly what a change does to every path in your network, then shows the routes and rules behind the answer. If it can't prove a change safe, it blocks it.</p>
@@ -762,8 +804,8 @@
   </div>
 </div></section>
 
-<!-- cross domain (off platform to declutter) -->
-<section class="blk" data-page="x-off"><div class="wrap split rev">
+<!-- cross domain -->
+<section class="blk" id="graph" data-page="platform"><div class="wrap split rev">
   <div class="panelbox txt reveal">
     <div class="mono" style="font-size:12px;color:var(--muted);margin-bottom:14px">reachable-from-internet · exposure scan</div>
     <div style="display:flex;flex-wrap:wrap;gap:10px">
@@ -788,7 +830,7 @@
 
 <!-- blast-radius: clean SVG impact diagram -->
 <section class="blk" id="brStage" data-page="platform"><div class="wrap">
-  <div class="center reveal"><h2 class="h2" style="margin:0 auto">Blast radius, beyond the checkbox.</h2><p class="lead" style="margin:14px auto 0">One change. See every service it puts at risk — and the "redundant" path that secretly isn't — before it ships.</p></div>
+  <div class="center reveal"><h2 class="h2" style="margin:0 auto">Blast radius, beyond the checkbox.</h2><p class="lead" style="margin:14px auto 0">One change. See every service it puts at risk, and the "redundant" path that secretly isn't, before it ships.</p></div>
   <div class="netviz reveal">
     <div class="nv-top"><span class="nv-live warn"><span class="dot"></span>Change detected</span><span class="nv-sub">impact · sw-02 · Vlan40</span></div>
     <svg viewBox="0 0 1080 496" role="img" aria-label="Blast radius impact of a change on sw-02" xmlns="http://www.w3.org/2000/svg">
@@ -834,6 +876,72 @@
       <g><circle cx="592" cy="158" r="11" fill="#e0532b"/><path d="M592 152.5 v6 M592 162.5 v0.5" stroke="#fff" stroke-width="2.2" stroke-linecap="round"/></g>
     </svg>
     <div class="nv-legend"><span class="k"><i style="background:#e0532b"></i>at risk from this change</span><span class="k"><i style="background:#e0532b;opacity:.55;border-radius:2px"></i>shared carrier (fake redundancy)</span><span class="k nv-note">1 change on sw-02 → billing ($900k/hr) + orders · failover shares carrier-x</span></div>
+  </div>
+</div></section>
+
+<!-- fits your stack: pull-request gate -->
+<section class="blk" id="prgate" data-page="platform"><div class="wrap split">
+  <div class="txt reveal">
+    <div class="kicker">Pull-request gate</div><h2 class="h2">Block the bad merge, automatically</h2>
+    <p class="lead">Optimesh runs on every pull request that touches network config. A red verdict fails the check and blocks the merge, with the offending rule cited right on the diff. No green check, no ship.</p>
+    <div class="feat-list">
+      <div class="feat"><div class="fi"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M4 12l5 5L20 6"/></svg></div><div><b>Fast enough to gate everything.</b> <span>Runs in seconds, so it fits on every PR the way a test suite does.</span></div></div>
+      <div class="feat"><div class="fi"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M4 6h16M4 12h10M4 18h7"/></svg></div><div><b>Cited on the diff.</b> <span>The failing flow and rule arrive as a comment, not a link to a dashboard.</span></div></div>
+    </div>
+  </div>
+  <div class="panelbox reveal">
+    <div class="mono" style="font-size:12.5px;color:var(--muted);margin-bottom:14px">Checks · pull request #482</div>
+    <div class="mono" style="display:flex;align-items:center;gap:9px;font-size:13px;padding:6px 0;color:var(--ink)"><span style="color:var(--green);font-weight:800">✓</span> build</div>
+    <div class="mono" style="display:flex;align-items:center;gap:9px;font-size:13px;padding:6px 0;color:var(--ink)"><span style="color:var(--green);font-weight:800">✓</span> lint</div>
+    <div class="mono" style="display:flex;align-items:center;gap:9px;font-size:13px;padding:6px 0;color:var(--ink)"><span style="color:var(--green);font-weight:800">✓</span> unit tests</div>
+    <div class="mono" style="display:flex;align-items:center;gap:9px;font-size:13px;padding:6px 0;color:var(--ink);border-top:1px solid var(--hair);margin-top:6px;padding-top:12px"><span style="color:var(--red);font-weight:800">✗</span> optimesh / verify</div>
+    <div class="mono" style="font-size:12px;color:#b23a12;margin:6px 0 0 25px;line-height:1.5">Blocked: app-sg → 0.0.0.0/0 opens · rule: permit ip any any (line 42)</div>
+    <div style="margin-top:14px;padding:10px 13px;border-radius:9px;background:color-mix(in srgb,var(--red) 6%,transparent);border:1px solid color-mix(in srgb,var(--red) 24%,transparent);font-size:13px;color:#b23a12;font-weight:600">Merging is blocked until all checks pass</div>
+  </div>
+</div></section>
+
+<!-- fits your stack: servicenow & jira -->
+<section class="blk" id="ticketing" data-page="platform"><div class="wrap split rev">
+  <div class="panelbox txt reveal">
+    <div class="mono" style="font-size:12.5px;color:var(--muted);margin-bottom:14px">CHG0031847 · Firewall ACL update</div>
+    <div style="display:flex;flex-direction:column;gap:11px;font-size:13.5px">
+      <div style="display:flex;justify-content:space-between;gap:12px"><span style="color:var(--muted)">Risk assessment</span><span style="font-weight:600;color:var(--ink)">Optimesh, automated</span></div>
+      <div style="display:flex;justify-content:space-between;gap:12px"><span style="color:var(--muted)">Reachability</span><span class="mono" style="font-weight:600;color:var(--ink)">8 / 8 preserved, 1 new exposure</span></div>
+      <div style="display:flex;justify-content:space-between;gap:12px"><span style="color:var(--muted)">Attached evidence</span><span class="mono" style="font-weight:600;color:var(--accent)">verdict.json</span></div>
+      <div style="display:flex;justify-content:space-between;gap:12px"><span style="color:var(--muted)">Recommendation</span><span style="font-weight:700;color:#b23a12">Do not deploy</span></div>
+    </div>
+  </div>
+  <div class="reveal">
+    <div class="kicker">ServiceNow &amp; Jira</div><h2 class="h2">Evidence on the ticket</h2>
+    <p class="lead">Every verified change writes its proof back to the change record. The reviewer sees the verdict, the reachability diff, and the cited rules without leaving the ticket. Audit gets a reproducible artifact instead of a screenshot.</p>
+    <div class="feat-list">
+      <div class="feat"><div class="fi"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><rect x="3" y="4" width="18" height="16" rx="2"/><path d="M7 9h10M7 13h6"/></svg></div><div><b>Attached, not narrated.</b> <span>The verdict rides on the change record as a signed, re-runnable artifact.</span></div></div>
+      <div class="feat"><div class="fi"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M12 3l7 4v5c0 4-3 7-7 9-4-2-7-5-7-9V7z"/></svg></div><div><b>Approvals with a basis.</b> <span>The change manager approves on evidence, not on the requester's confidence.</span></div></div>
+    </div>
+  </div>
+</div></section>
+
+<!-- fits your stack: terraform & ci -->
+<section class="blk" id="iac" data-page="platform"><div class="wrap split">
+  <div class="txt reveal">
+    <div class="kicker">Terraform &amp; CI</div><h2 class="h2">Verify the plan, not just the syntax</h2>
+    <p class="lead"><span class="mono">terraform plan</span> tells you what will change. Optimesh tells you what it will break. Drop it into any pipeline as a step that reads the plan and proves the resulting network still holds its invariants.</p>
+    <div class="feat-list">
+      <div class="feat"><div class="fi"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linejoin="round"><path d="M12 3l8 4.5v9L12 21l-8-4.5v-9z"/><path d="M12 12v9M12 12L4 7.5M12 12l8-4.5"/></svg></div><div><b>Any pipeline.</b> <span>GitHub Actions, GitLab CI, or Jenkins. It is a CLI with an exit code.</span></div></div>
+      <div class="feat"><div class="fi"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M4 12l5 5L20 6"/></svg></div><div><b>Fails closed.</b> <span>A non-zero exit stops the apply before anything reaches the fabric.</span></div></div>
+    </div>
+  </div>
+  <div class="panelbox reveal">
+    <div class="mono" style="font-size:12.5px;color:var(--muted);margin-bottom:12px">ci · verify step</div>
+    <div class="mono" style="font-size:12.5px;line-height:1.85;color:var(--ink)">
+      <div style="color:var(--muted)">$ terraform plan -out tf.plan</div>
+      <div style="color:var(--muted)">$ optimesh verify --plan tf.plan</div>
+      <div><span style="color:var(--green)">✓</span> parse configs <span style="color:var(--muted)">· 14 devices</span></div>
+      <div><span style="color:var(--green)">✓</span> simulate on live FIB</div>
+      <div><span style="color:var(--green)">✓</span> reachability probes <span style="color:var(--muted)">· 8/8 preserved</span></div>
+      <div><span style="color:var(--red)">✗</span> acl flow-safety <span style="color:#b23a12">· app-sg → 0.0.0.0/0</span></div>
+      <div style="color:#b23a12;font-weight:700;margin-top:4px">optimesh: change blocked (exit 1)</div>
+    </div>
   </div>
 </div></section>
 
@@ -891,13 +999,13 @@
     <a class="ins-lead" data-article="0" tabindex="0" role="link">
       <div class="ins-meta"><span class="ins-tag">Regulation</span><span>August 2026</span></div>
       <h3 class="ins-lead-title">The EU AI Act Just Made Network Verification a Line Item</h3>
-      <p class="ins-lead-dek">High-risk AI now needs auditability and human oversight. Infrastructure agents are squarely in scope — and "the model was confident" is not a control an auditor accepts.</p>
+      <p class="ins-lead-dek">High-risk AI now needs auditability and human oversight. Infrastructure agents are squarely in scope, and "the model was confident" is not a control an auditor accepts.</p>
       <span class="ins-read">Read the note <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12h15M13 6l6 6-6 6"/></svg></span>
     </a>
     <div class="ins-index">
       <a class="ins-row" data-article="1" tabindex="0" role="link">
         <span class="ins-date"><b>May</b>2026</span>
-        <span class="ins-body"><span class="ins-tag">Research</span><span class="ins-h">Proof-Carrying Change: A Type System for Your Network</span><span class="ins-sum">Every config diff is a hypothesis with no evidence attached. What if each one carried a machine-checkable proof that it preserves reachability and isolation?</span></span>
+        <span class="ins-body"><span class="ins-tag">Research</span><span class="ins-h">Proof-Carrying Change: A Type System for Your Network</span><span class="ins-sum">Proof-carrying code let untrusted software ship with a certificate the host could check. Networks never got that idea. Here is what it looks like when every diff has to type-check.</span></span>
         <svg class="ins-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12h15M13 6l6 6-6 6"/></svg>
       </a>
       <a class="ins-row" data-article="2" tabindex="0" role="link">
@@ -907,7 +1015,7 @@
       </a>
       <a class="ins-row" data-article="3" tabindex="0" role="link">
         <span class="ins-date"><b>Dec</b>2025</span>
-        <span class="ins-body"><span class="ins-tag">Research</span><span class="ins-h">Probing Tests Your Imagination. Verification Tests Your Network.</span><span class="ins-sum">Pings and traceroutes sample the paths you thought to try. The outage lives in the paths you didn't.</span></span>
+        <span class="ins-body"><span class="ins-tag">Research</span><span class="ins-h">Probing Tests Your Imagination. Verification Tests Your Network.</span><span class="ins-sum">A ping proves a path exists. Nothing you can ping proves a path is absent. That asymmetry is why monitoring never finds the leak.</span></span>
         <svg class="ins-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12h15M13 6l6 6-6 6"/></svg>
       </a>
       <a class="ins-row" data-article="4" tabindex="0" role="link">
@@ -930,10 +1038,8 @@
     <div>
       <h2>Trusted by the teams who can't afford an outage</h2>
       <a class="stories" data-nav="insights">Customer stories →</a>
-      <div class="quote"><div class="logo" id="vLogo"></div><p id="vText"></p><div class="who" id="vWho"></div><div class="role" id="vRole"></div></div>
-      <div class="vctrl"><button class="varr" id="vPrev">←</button><button class="varr" id="vNext">→</button><div class="vdots" id="vDots"></div></div>
     </div>
-    <div><div class="vmedia"><canvas id="vcanvas"></canvas><div class="vplay"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg></div></div></div>
+    <blockquote class="quote"><div class="logo" id="vLogo"></div><p id="vText"></p><div class="who" id="vWho"></div><div class="role" id="vRole"></div></blockquote>
   </div></div></div></section>
 
 <!-- company -->
@@ -960,7 +1066,7 @@
     <div class="reveal orbit-wrap"><canvas id="orbit"></canvas></div>
   </div>
   <div class="reveal logoband"><div class="logostrip"><div class="logotrack" id="logotrack"><div class="logo" title="Princeton"><svg viewBox="0 0 312 348" role="img" aria-label="Princeton" preserveAspectRatio="xMidYMid meet"><path d="M 145.25353,343.60459 C 125.94233,330.08317 103.91726,308.47244 88.732744,288.14704 C 55.484757,243.64265 36.093244,191.46421 30.026402,130.18079 C 28.677316,116.55316 29.229841,56.864459 30.777693,49.019657 L 31.468135,45.520369 L 39.126052,49.239126 C 54.367088,56.640316 74.332019,59.139451 89.185502,55.505376 C 110.6048,50.264901 131.61647,33.86804 147.13978,10.279623 C 150.50375,5.1679067 153.64973,0.9855984 154.13085,0.9855984 C 154.61197,0.9855984 156.19132,2.9398151 157.64052,5.3282984 C 162.69036,13.65109 173.4767,27.086586 180.23512,33.472189 C 199.83482,51.990689 222.27695,59.989935 245.03717,56.570142 C 254.62381,55.129721 270.97036,49.487797 273.82345,46.634709 C 274.86641,45.591759 275.75351,45.409406 276.20788,46.144578 C 279.56741,51.580413 280.39961,111.48929 277.46929,136.95191 C 268.90775,211.34621 239.42793,273.49254 190.34984,320.60814 C 176.22154,334.1715 157.65184,348.40141 154.0803,348.40141 C 152.99352,348.40141 149.02147,346.24284 145.25353,343.60459 z M 161.66479,341.25248 C 177.95312,329.7562 196.47897,312.34481 210.68294,295.18308 L 217.82832,286.54978 L 185.93503,254.65649 L 154.04175,222.7632 L 122.27355,254.51565 L 90.505335,286.26809 L 95.925194,293.29012 C 105.00825,305.05821 128.4521,327.86554 141.09099,337.22964 C 147.66496,342.10026 153.44278,346.0853 153.93057,346.0853 C 154.41836,346.0853 157.89876,343.91053 161.66479,341.25248 z M 108.57745,192.93834 L 154.03646,147.49026 L 199.75333,193.19615 C 228.37152,221.80746 245.86473,238.48076 246.52504,237.77568 C 248.31707,235.86215 255.41541,218.7422 259.7898,205.78338 C 266.06372,187.19732 270.03191,170.47906 273.97227,146.03171 L 274.57889,142.26803 L 154.0109,142.26803 C 39.743035,142.26803 33.47214,142.37392 34.002613,144.29462 C 34.310459,145.40925 34.900155,148.92684 35.313047,152.11148 C 36.598555,162.02662 42.606437,187.75886 46.430882,199.73007 C 52.02781,217.24946 60.657984,238.3864 62.214192,238.3864 C 62.711537,238.3864 83.575002,217.93478 108.57745,192.93834 z"/><path d="M 59.460709,233.13127 C 49.264683,210.75757 41.018278,182.97656 35.910349,153.79332 L 34.198893,144.01513 L 35.489348,143.5399 C 36.199097,143.27854 90.222114,142.9687 155.5405,142.85138 L 274.3012,142.63807 L 273.96061,144.35036 C 273.77326,145.29211 272.90154,150.19821 272.02345,155.25279 C 267.83318,179.37321 262.62745,198.25727 254.28078,219.61574 C 250.15723,230.16741 246.92285,237.04504 246.08416,237.04504 C 245.02068,237.04504 234.25436,226.68602 194.74754,187.65025 C 172.45093,165.61951 153.99593,147.59434 153.73645,147.59434 C 153.47694,147.59434 132.94735,167.8586 108.11511,192.62603 C 83.282884,217.39346 62.641105,237.65772 62.244526,237.65772 C 61.847947,237.65772 60.595226,235.62081 59.460703,233.13127 L 59.460709,233.13127 z"/><path d="M 146.4184,340.60939 C 134.64803,332.18373 122.17085,321.03238 108.34195,306.57895 C 100.15322,298.02038 91.289433,287.52961 91.261458,286.36323 C 91.253322,286.02505 105.37754,271.61949 122.64856,254.35091 L 154.05041,222.95349 L 185.80748,254.71497 L 217.56455,286.47645 L 214.01432,290.70969 C 198.70433,308.96512 182.32225,325.14095 168.51094,335.6402 C 161.20533,341.19389 154.87322,345.4887 153.99075,345.4887 C 153.57493,345.4887 150.16736,343.29301 146.41842,340.60939 L 146.4184,340.60939 z"/></svg></div><div class="logo" title="National Science Foundation"><svg viewBox="0 0 998.88002 1000" role="img" aria-label="National Science Foundation" preserveAspectRatio="xMidYMid meet"><g transform="translate(0,-52.362161)"><path d="m 186.4882,658.05477 c 20.34724,-2.37174 29.85715,-4.75687 29.85715,-27.15259 l 0,-160.82884 C 197.35039,446.6658 191.91451,445.62721 187.51149,445.62721 l 0,-8.46941 71.59021,0 117.74349,144.89227 0.67135,0 0,-102.8111 c 0,-20.35297 -4.07021,-31.56709 -31.55562,-33.61176 l 0,-8.46941 72.95205,0 0,8.46941 c -24.42701,3.0737 -26.47742,10.88131 -26.47742,27.14877 l 0,199.86691 -9.48122,0 -150.99567,-183.9074 -0.68474,0 0,135.73621 c 0,24.43275 7.13626,30.86131 32.24036,33.58307 l 0,8.48471 -77.02608,0 0,-8.48471"/><path d="m 580.70771,505.3568 c -6.11105,-23.74418 -26.46785,-62.76886 -66.50053,-62.76886 -17.63886,0 -36.31248,10.18126 -36.31248,32.23653 0,18.31404 6.44769,25.7812 34.96021,40.02694 l 49.87157,24.76556 c 11.52972,5.78781 37.33386,25.46942 37.33386,62.44561 0,29.86097 -21.73202,70.93033 -84.14895,70.93033 -32.2461,0 -47.51704,-11.54119 -58.02347,-11.54119 -7.14199,0 -8.83664,6.10149 -10.187,11.54119 l -9.82551,0 0,-83.81423 9.82551,0 c 6.79197,34.26017 26.46976,72.61158 69.56466,72.61158 40.71933,0 42.4178,-33.58881 42.4178,-38.00713 0,-22.74001 -15.95186,-30.87279 -38.00713,-41.40216 l -22.73236,-10.85454 c -58.03495,-27.8316 -58.03495,-57.004 -58.03495,-72.61349 0,-20.69535 10.52556,-66.8276 75.00245,-66.8276 27.14686,0 43.08151,11.1816 52.92806,11.1816 7.79996,0 9.48887,-5.08967 11.18543,-11.53354 l 10.187,0 0,73.6234 -9.50417,0"/><path d="m 620.02886,437.15589 192.36533,0 0,68.20282 -8.12895,0 c -7.46142,-35.28728 -16.62704,-56.6578 -74.99862,-56.6578 -18.31978,0 -24.41554,1.35418 -24.41554,15.94803 l 0,78.71308 c 42.0697,0.67901 47.16702,-23.40563 51.91624,-50.55249 l 8.47132,0 0,114.68893 -8.47132,0 c -3.72592,-27.82395 -9.14459,-52.59525 -51.91624,-52.59525 l 0,79.05162 c 0,22.4053 13.56865,23.08239 37.32813,24.09994 l 0,8.4828 -122.15035,0 0,-8.4828 c 19.34499,-2.0351 29.8495,-3.05839 29.8495,-24.09994 l 0,-164.23342 c 0,-22.37852 -13.91676,-23.0537 -29.8495,-24.0942 l 0,-8.47132"/><path d="M 486.95117,0.00585938 C 488.76632,31.020179 478.11806,63.039406 446.375,77.285156 c -7.33709,2.79635 -14.73235,5.421998 -22.21289,7.830078 -17.27545,1.93182 -34.44085,2.025606 -49.38281,1.666016 -29.87436,-5.77251 -45.68525,-27.376007 -55.46485,-53.294922 -7.57426,3.00485 -16.60067,6.755718 -22.84179,9.335938 13.53613,27.992265 15.94255,61.619224 -7.9336,86.939454 -6.40752,6.05177 -12.96954,11.93027 -19.75195,17.59375 -14.88458,8.10982 -30.29133,14.58352 -43.88867,19.82812 -29.80933,6.11488 -52.67989,-7.8004 -71.63086,-28.01757 -5.84902,5.69409 -12.76276,12.60331 -17.54297,17.39843 23.21475,20.65518 38.32422,50.81086 25.94336,83.34961 -3.03927,6.78623 -6.21191,13.51139 -9.58399,20.14844 -10.71491,13.3353 -22.5935,25.33737 -33.2539,35.47656 -25.193617,17.05166 -51.65114,12.94983 -76.89258,1.52149 -3.21868,7.50541 -6.962798,16.5287 -9.554688,22.7832 29.36061,10.20614 54.866934,32.28431 55.871094,67.07813 -0.25993,9.23638 -0.737869,18.46258 -1.605468,27.6875 -4.657601,15.15235 -10.544635,29.54388 -16.083985,42.06054 -16.75922,25.38527 -42.769104,31.72319 -70.45898425,30.82422 -0.10309,8.14808 -0.11097562,17.9359 -0.10351562,24.69727 31.01165087,-1.80749 63.03454987,8.83949 77.28124987,40.60742 2.87038,7.52262 5.559665,15.11561 8.021485,22.80273 1.90524,17.18172 1.989983,34.23952 1.626953,49.08203 -5.77328,29.89157 -27.366225,45.70429 -53.302735,55.46094 3.02454,7.58765 6.743993,16.6243 9.351563,22.875 27.97678,-13.5496 61.619741,-15.95389 86.937501,7.94141 5.95479,6.2793 11.73891,12.72867 17.3125,19.38867 8.062,14.8292 14.50512,30.16291 19.73633,43.69141 6.10723,29.817 -7.80655,52.68365 -28.03711,71.62695 5.69982,5.8318 12.60336,12.75 17.40039,17.5332 20.65709,-23.2063 50.82234,-38.32383 83.34961,-25.92773 7.25676,3.244 14.43291,6.66093 21.51562,10.30273 13.2301,10.6614 25.13292,22.45815 35.20899,33.02735 17.05548,25.1961 12.96707,51.64891 1.52343,76.88281 7.49775,3.2575 16.52683,6.97128 22.78516,9.58398 10.2004,-29.3696 32.29412,-54.88535 67.08984,-55.87695 8.88828,0.2525 17.77566,0.70391 26.65821,1.50781 15.91552,4.7511 31.05755,10.92089 44.1289,16.71289 25.39675,16.7742 31.73092,42.78961 30.82813,70.47071 8.1672,0.1144 17.93252,0.11523 24.71875,0.11523 -1.81514,-31.0396 8.82949,-63.05251 40.58594,-77.28711 8.41394,-3.209 16.90479,-6.18548 25.52148,-8.86328 16.0628,-1.5669 31.90897,-1.63544 45.80469,-1.30664 29.89349,5.7686 45.67922,27.3708 55.45117,53.3125 7.57618,-3.0125 16.62611,-6.77152 22.86914,-9.35742 -13.53995,-27.9889 -15.96344,-61.63112 7.94141,-86.94532 6.40178,-6.054 12.96164,-11.92623 19.74023,-17.58593 14.17688,-7.5513 28.71444,-13.65054 41.63086,-18.64844 29.79785,-6.0996 52.68559,7.80234 71.62891,28.02734 5.83563,-5.6905 12.75573,-12.60887 17.55468,-17.38867 -23.22584,-20.6648 -38.34367,-50.82268 -25.95898,-83.36328 4.05109,-9.0394 8.3591,-17.97037 13.05859,-26.73437 10.0053,-12.0308 20.79852,-22.91947 30.57813,-32.22657 25.21121,-17.0536 51.63749,-12.95965 76.89844,-1.53515 3.21332,-7.4882 6.95729,-16.49641 9.55664,-22.79493 -29.35219,-10.16979 -54.86339,-32.26075 -55.88477,-67.04882 0.27542,-9.77004 0.80367,-19.52847 1.77149,-29.28321 4.54456,-14.35094 10.13893,-27.95066 15.41796,-39.8457 16.76094,-25.38527 42.75526,-31.73853 70.44532,-30.82617 0.13198,-8.17868 0.13281,-17.93447 0.13281,-24.72071 -31.03919,1.81706 -63.05337,-8.83331 -77.3125,-40.58593 -3.17698,-8.35082 -6.12252,-16.76825 -8.77734,-25.30078 -1.59327,-16.11444 -1.67221,-32.02091 -1.31836,-45.94532 5.76295,-29.8954 27.35476,-45.70619 53.28515,-55.46093 -3.01058,-7.59913 -6.7542,-16.61129 -9.35547,-22.89258 -27.9521,13.56291 -61.60933,15.98321 -86.92382,-7.91016 -5.38232,-5.70365 -10.64674,-11.53495 -15.74024,-17.53125 -8.43689,-15.25755 -15.12752,-31.133 -20.51367,-45.09375 -6.0881,-29.83037 7.80818,-52.69926 28.02344,-71.64258 -5.70174,-5.85093 -12.61316,-12.76362 -17.41211,-17.5664 -20.64944,23.22393 -50.80892,38.33965 -83.34766,25.94922 -6.222,-2.7868 -12.39253,-5.68782 -18.48828,-8.75196 -14.22853,-11.1663 -26.99973,-23.75511 -37.70508,-34.99218 -17.05166,-25.218874 -12.96521,-51.652601 -1.52539,-76.888676 -7.49202,-3.23246 -16.53268,-6.974826 -22.79101,-9.572266 -10.19466,29.359845 -32.28041,54.857483 -67.07422,55.876953 -10.60971,-0.30795 -21.21435,-0.89511 -31.81641,-2.03125 C 566.58045,80.825691 553.7737,75.543193 542.51367,70.564453 517.10545,53.801613 510.76909,27.801398 511.67188,0.11132812 503.51232,0.00613813 493.73932,-0.01136062 486.95117,0.00585938 Z M 451.81641,98.427734 c 3.01706,0.04617 6.04311,0.254071 9.07031,0.671875 l 5.43359,4.208981 c 8.1672,8.37378 5.43425,21.8035 4.54102,32.74219 -1.12573,4.55779 -2.2058,9.11351 -3.28125,13.66406 -24.98304,2.24389 -49.21323,7.09902 -72.41602,14.29297 -3.67943,-5.19432 -7.25079,-10.47383 -10.67383,-15.86328 -4.36476,-8.17676 -9.04788,-17.13473 -4.9375,-26.0957 7.12478,-9.52521 21.50696,-14.89185 34.2168,-18.83008 12.07042,-2.13684 24.97295,-4.991079 38.04688,-4.791016 z m 104.88476,1.46875 c 8.58871,-0.0844 17.42184,0.966066 24.76563,1.716796 3.14638,0.32707 6.21666,0.82191 9.25976,1.35938 9.0107,2.25698 18.01554,5.18599 26.23438,10.01172 l 3.41797,5.95507 c 4.34372,10.86602 -3.31524,22.23534 -8.3418,31.98243 -3.13135,4.25636 -6.21093,8.52685 -9.28516,12.79101 -22.75726,-6.98342 -46.4954,-11.722 -70.95898,-13.95312 -1.41027,-6.22012 -2.68711,-12.47816 -3.78516,-18.77735 -0.93531,-9.2211 -1.83163,-19.29967 5.39453,-25.99219 6.36544,-3.78904 14.71012,-5.009348 23.29883,-5.093746 z m -246.39062,44.480466 6.62304,1.78711 c 10.73212,4.62681 13.35771,18.05877 16.69727,28.50782 0.70876,4.65348 1.45642,9.28626 2.20703,13.9121 -22.41118,11.79863 -43.39235,25.94545 -62.61914,42.11329 -5.36163,-3.37554 -10.65513,-6.86815 -15.85352,-10.51563 -7.1726,-5.88727 -14.94858,-12.38193 -14.54882,-22.22656 3.19419,-12.63334 16.39297,-23.99856 27.31445,-32.89258 12.19916,-7.85544 25.13254,-16.77409 40.17969,-20.68555 z m 375.48047,1.51172 c 9.66758,0.005 20.40075,4.49951 30.02734,9.38477 12.88964,9.18858 28.06645,18.22351 38.50976,32.03125 l 0.88086,6.8125 c -0.14345,11.70951 -11.56938,19.25538 -19.93359,26.34765 -4.23352,2.55808 -8.42767,5.14574 -12.61523,7.73243 -18.46618,-15.18314 -38.50528,-28.52122 -59.83789,-39.73243 1.13408,-6.80367 2.42915,-13.58818 3.93359,-20.33984 2.67968,-8.89211 5.71119,-18.53893 14.96289,-21.95117 1.33123,-0.19462 2.69118,-0.28581 4.07227,-0.28516 z m -186.3418,11.36328 c 189.30076,0 342.74414,153.43982 342.74414,342.75782 0,189.31226 -153.44335,342.74414 -342.74414,342.74414 -189.30846,0 -342.75977,-153.4319 -342.75977,-342.74414 0,-189.31798 153.45133,-342.75782 342.75977,-342.75782 z m 301.99414,85.48633 c 11.5278,2.9226 21.97635,14.11459 30.4668,24.33984 8.1366,12.78445 17.84131,26.31533 21.97656,42.15626 l -1.80664,6.62695 c -4.6268,10.76464 -18.07965,13.36978 -28.5,16.72656 -4.5484,0.6922 -9.07753,1.42174 -13.59961,2.1543 -11.67942,-21.89927 -25.6042,-42.4201 -41.47266,-61.25 3.44411,-5.47676 7.01362,-10.88479 10.74414,-16.19336 5.85667,-7.18217 12.35251,-14.91822 22.19141,-14.56055 z m -607.25781,1.46875 c 11.69612,0.15302 19.25889,11.5731 26.33203,19.92774 2.47566,4.09252 4.97904,8.15244 7.48242,12.20507 -15.14231,18.3553 -28.45891,38.27348 -39.67188,59.47461 -6.42585,-1.09106 -12.83435,-2.32513 -19.21289,-3.75 -8.88446,-2.68542 -18.5504,-5.69756 -21.95117,-14.95117 -1.67552,-11.56415 4.43562,-25.23044 10.53711,-36.87109 8.40438,-12.09397 17.03833,-25.61207 29.66211,-35.16407 z m 675.30078,132.7168 c 2.22766,0.0731 4.46675,0.55296 6.70508,1.58008 10.95399,8.18059 16.4052,25.93241 20.51367,39.73632 2.4272,13.18993 5.00169,27.21865 3.04883,41.25782 l -4.19336,5.43359 c -8.38716,8.17294 -21.79572,5.43623 -32.73633,4.54492 -4.42693,-1.0917 -8.84972,-2.14269 -13.26758,-3.1875 -2.38289,-25.0506 -7.3941,-49.33395 -14.75391,-72.57422 5.01327,-3.53386 10.10546,-6.96621 15.29883,-10.25976 6.1254,-3.30944 12.70179,-6.75047 19.38477,-6.53125 z m -742.37305,0.24609 c 8.58283,0.16501 17.17564,5.6864 24.78906,9.60742 3.88661,2.8623 7.7875,5.68172 11.6836,8.49414 -7.20948,23.14124 -12.09108,47.30813 -14.375,72.22657 -6.03799,1.36108 -12.11073,2.59594 -18.22461,3.66406 -9.23028,0.91427 -19.29811,1.81963 -26,-5.41992 -7.367697,-12.4019 -5.014528,-32.30247 -3.49414,-46.88867 2.67395,-12.43825 5.72323,-25.47578 12.47656,-36.98829 l 5.95898,-3.42187 c 2.37983,-0.94643 4.78236,-1.31964 7.18555,-1.27344 z m 749.52734,148.83594 c 6.43164,-0.0755 12.63527,1.06131 17.23243,6.0293 7.58383,12.73471 4.88985,33.37484 3.375,48.05859 -0.0918,0.93722 -0.23306,1.85563 -0.35547,2.78711 -2.4712,11.02094 -5.54343,22.3093 -11.47852,32.41406 l -5.95508,3.43946 c -10.87749,4.3265 -22.2431,-3.34971 -31.98828,-8.34376 -3.78373,-2.78451 -7.58023,-5.52878 -11.375,-8.26562 6.98506,-23.05353 11.66508,-47.10749 13.77539,-71.89453 5.96076,-1.34092 11.95583,-2.56226 17.98829,-3.61719 2.88876,-0.2887 5.85777,-0.57309 8.78124,-0.60742 z m -755.74804,1.13281 c 5.10301,0.0288 10.35625,0.77468 15.12695,1.17383 4.36708,1.07418 8.7321,2.10908 13.0918,3.13867 2.24132,25.28973 7.16201,49.81078 14.47265,73.27735 -5.00879,3.5318 -10.09585,6.96342 -15.28125,10.25976 -8.17868,4.37816 -17.1386,9.05561 -26.09765,4.94141 -9.71515,-7.26441 -15.10661,-22.05926 -19.05078,-34.9336 -2.6225,-14.73731 -6.256244,-30.72497 -4.056644,-46.72656 l 4.205074,-5.42187 c 4.71628,-4.59728 11.02884,-5.74601 17.58985,-5.70899 z m 691.06445,134.36524 c 6.12851,1.05523 12.23972,2.24058 18.32617,3.59765 8.86916,2.69308 18.52143,5.71298 21.9375,14.95703 2.12309,14.6627 -8.26154,32.71224 -15.27539,45.70703 -0.20848,0.38261 -0.43613,0.75016 -0.64843,1.12696 -7.05785,10.1985 -14.73213,20.71643 -25.06641,28.55273 l -6.82422,0.86133 c -11.70377,-0.1339 -19.2575,-11.58285 -26.35742,-19.93945 -2.48867,-4.11608 -5.00643,-8.19843 -7.52344,-12.27344 15.9287,-19.24627 29.84512,-40.21707 41.43164,-62.58984 z m -623.86523,2.23828 c 11.78738,22.36466 25.91634,43.30305 42.05664,62.49414 -3.28056,5.18688 -6.67211,10.31 -10.20899,15.34375 -5.87197,7.1802 -12.36259,14.93501 -22.21679,14.54101 -12.54727,-3.1827 -23.8299,-16.1889 -32.69141,-27.0664 -7.80953,-12.1036 -16.61532,-24.97314 -20.5,-39.86914 l 1.79492,-6.6211 c 4.62107,-10.76461 18.06614,-13.3754 28.49414,-16.7207 4.43863,-0.67493 8.85872,-1.38639 13.27149,-2.10156 z m 537.09179,105.96679 c 5.42037,3.41453 10.77377,6.94944 16.0293,10.64454 7.18599,5.8624 14.93909,12.34311 14.55273,22.19921 -3.37782,13.3028 -17.76582,25.15287 -28.95507,34.23047 -11.05728,7.1649 -22.82892,14.67184 -36.26367,18.18164 l -6.6211,-1.81054 c -10.77612,-4.6344 -13.37585,-18.07222 -16.74219,-28.50782 -0.72089,-4.76112 -1.48183,-9.50146 -2.24609,-14.23437 21.51413,-11.49492 41.69385,-25.15856 60.24609,-40.70313 z m -449.61328,1.56055 c 18.79185,15.526 39.2266,29.13174 61,40.5293 -1.06607,6.19501 -2.26491,12.37173 -3.64062,18.52148 -2.67203,8.8902 -5.6917,18.53686 -14.94531,21.94336 -12.09205,1.7712 -26.49103,-4.99767 -38.44727,-11.35547 -11.96773,-8.3164 -25.26203,-16.88433 -34.70117,-29.33593 l -0.85156,-6.79297 c 0.14727,-11.7152 11.56352,-19.28655 19.92773,-26.37305 3.90968,-2.36159 7.78785,-4.74843 11.6582,-7.13672 z m 330.13867,64.09766 c 3.666,5.17648 7.22551,10.43753 10.63672,15.80273 4.36285,8.1771 9.07063,17.1577 4.92774,26.0957 -8.26284,11.0689 -26.29516,16.52021 -40.16602,20.62891 -13.09238,2.4155 -26.99705,4.9201 -40.90234,3 l -5.42188,-4.20703 c -8.1825,-8.3853 -5.44759,-21.80685 -4.53906,-32.71875 1.1398,-4.63599 2.23495,-9.26831 3.32617,-13.89648 24.8961,-2.39758 49.03305,-7.3896 72.13867,-14.70508 z m -209.82226,0.8457 c 23.53183,7.24031 48.11487,12.07609 73.46484,14.22461 1.394,6.14851 2.65887,12.33248 3.74805,18.55859 0.90088,9.2473 1.81755,19.30526 -5.42773,26.00586 -11.54503,6.8685 -29.62104,5.28932 -43.84766,3.82032 -13.62985,-2.9279 -28.29962,-5.85728 -41.08789,-13.35938 l -3.40235,-5.95117 c -4.34181,-10.8739 3.31105,-22.22181 8.32422,-31.97461 2.77156,-3.76717 5.50344,-7.54714 8.22852,-11.32422 z" transform="translate(0,52.362161)"/></g></svg></div><div class="logo" title="Blue Origin"><svg viewBox="7 8 785 386" role="img" aria-label="Blue Origin" preserveAspectRatio="xMidYMid meet"><g transform="matrix(1.3858 0 0 1.3858 -310.86 -296.42)"><path d="m676.28 489.6h21.986v-127.03h-21.986zm-52.279-128.99c-22.964 0-33.712 14.658-33.712 32.735v65.471c0 18.078 10.749 32.735 33.712 32.735 0 0 12.215-0.48858 21.498-7.8174l11.726 7.8174v-65.959h-35.178v17.1h15.635v16.123c0 14.169-12.215 13.68-12.215 13.68h-1.4658c-8.7945 0-11.726-4.3973-11.726-14.169v-64.493c0-9.2831 2.9315-14.169 11.726-14.169 8.7946 0 11.726 4.3973 11.726 14.169v9.7717h21.986v-10.26c0-18.078-10.749-32.735-33.712-32.735zm-217.22 0c-22.964 0-33.224 14.658-33.224 32.735v65.471c0 18.078 10.749 32.735 33.712 32.735s33.712-14.658 33.712-32.735v-65.471c-0.48859-18.078-11.237-32.735-34.201-32.735zm11.726 97.717c0 9.2831-2.9315 14.169-11.726 14.169-8.7946 0-11.726-4.3973-11.726-14.169v-64.493c0-9.2831 2.9315-14.169 11.726-14.169 8.7945 0 11.726 4.3973 11.726 14.169zm350.11-95.763v75.242l-29.804-75.242h-19.543v127.03h19.543v-75.242l29.804 75.242h19.543v-127.03zm-220.35 127.03h21.986v-127.03h-21.986zm-19.916-89.9c0-27.361-12.215-37.621-37.133-37.621h-30.781v127.03h21.986v-51.79c3.9087 0 8.306 0 11.237-0.48858l15.635 52.767h21.986l-18.566-57.653c7.8174-3.4201 15.635-11.726 15.635-32.247zm-37.621 19.543h-7.8174v-39.087h7.8174c11.726 0 16.123 4.3973 16.123 19.543s-4.3973 19.543-16.123 19.543z"/><path d="m436.66 323.35c0 9.2831-3.9087 13.68-11.726 13.68s-11.726-4.3973-11.726-13.68v-95.763h-21.986v95.274c0 21.986 12.703 33.712 33.712 33.712 21.009 0 33.712-12.215 33.712-33.712v-95.274h-21.986zm-148.93-35.667c10.749-4.3973 15.146-15.635 15.146-26.872 0-21.498-10.26-33.712-33.712-33.712h-32.735v127.03h34.69c24.918 0 34.201-15.635 34.201-36.644 0-16.123-6.8402-24.918-17.589-29.804zm-29.315-42.507h8.306c9.7717 0 14.169 5.863 14.169 18.078 0 10.749-6.3516 16.123-14.658 16.123h-8.306zm8.7945 91.366h-8.7945v-39.087h6.8402c13.192 0 18.078 6.3516 18.078 19.543 0 12.703-4.3973 19.543-16.123 19.543zm234.35-38.11h28.338v-19.055h-28.338v-32.735h36.644v-19.055h-58.63v127.03h61.073v-19.055h-39.087zm-156.67-70.845h-21.498v127.03h56.187v-19.055h-34.201v-107.98z"/></g></svg></div><div class="logo" title="SpaceX"><svg viewBox="0 0 24 24" role="img" aria-label="SpaceX" preserveAspectRatio="xMidYMid meet"><path d="M24 7.417C8.882 8.287 1.89 14.75.321 16.28L0 16.583h2.797C10.356 9.005 21.222 7.663 24 7.417zm-17.046 6.35c-.472.321-.945.68-1.398 1.02l2.457 1.796h2.778zM2.948 10.8H.189l3.25 2.381c.473-.321 1.02-.661 1.512-.945Z"/></svg></div><div class="logo" title="ByteDance"><svg viewBox="0 0 24 24" role="img" aria-label="ByteDance" preserveAspectRatio="xMidYMid meet"><path d="M19.8772 1.4685L24 2.5326v18.9426l-4.1228 1.0563V1.4685zm-13.3481 9.428l4.115 1.0641v8.9786l-4.115 1.0642v-11.107zM0 2.572l4.115 1.0642v16.7354L0 21.428V2.572zm17.4553 5.6205v11.107l-4.1228-1.0642V9.2568l4.1228-1.0642z"/></svg></div></div></div></div>
-  <div class="reveal" style="margin-top:88px; text-align:center"><div class="kicker">The climb</div><h2 class="h2" style="margin:12px auto 0">From a hard research bet to the trust layer — and what's next.</h2></div>
+  <div class="reveal" style="margin-top:88px; text-align:center"><div class="kicker">The climb</div><h2 class="h2" style="margin:12px auto 0">From a hard research bet to the trust layer, and what's next.</h2></div>
   <div class="timeline" id="timeline">
     <div class="tline"></div><div class="tfill" id="tfill"></div>
     <div class="tnode"><h3>Proved the impossible fast</h3><p>An entire network's forwarding plane, simulated in milliseconds. 99.93% parity with the industry standard, 800× faster, on a laptop.</p></div>
@@ -1226,7 +1332,7 @@
   </div>
   <div class="artmodal-body">
     <h2 class="artmodal-title" id="cxTitle">Let's put Optimesh on your network.</h2>
-    <p class="artmodal-dek">Tell us a little about your environment and a founder will get back to you — usually within a business day.</p>
+    <p class="artmodal-dek">Tell us a little about your environment and a founder will get back to you, usually within a business day.</p>
     <form class="cxform" id="cxForm" novalidate>
       <input type="hidden" name="form-name" value="request-access">
       <input type="hidden" name="kind" value="Request access">
@@ -1303,16 +1409,23 @@
 
   /* ===== tab pages (restore the site's real IA) ===== */
   const pages=[...document.querySelectorAll('[data-page]')];
-  function showPage(name){
+  function showPage(name, anchor){
     pages.forEach(s=>{ const p=s.dataset.page; s.hidden = !(p===name || p==='global'); });
-    document.querySelectorAll('[data-nav]').forEach(a=>a.classList.toggle('navon', a.dataset.nav===name));
-    window.scrollTo({ top:0 });
-    /* reveal only what's above the fold now; the rest animate in on scroll */
-    requestAnimationFrame(()=>{ const vh=innerHeight; document.querySelectorAll('[data-page]:not([hidden]) .reveal:not(.in)').forEach(r=>{ if(r.getBoundingClientRect().top < vh*0.92) r.classList.add('in'); }); });
+    document.querySelectorAll('[data-nav]').forEach(a=>a.classList.toggle('navon', (a.dataset.nav||'').split('#')[0]===name));
+    if(anchor){
+      /* deep-link into a section: reveal the whole page so nothing's hidden at the destination, then scroll to it */
+      document.querySelectorAll('[data-page]:not([hidden]) .reveal').forEach(r=>r.classList.add('in'));
+      const t=document.getElementById(anchor);
+      if(t){ requestAnimationFrame(()=>t.scrollIntoView({behavior:'smooth', block:'start'})); } else { window.scrollTo({ top:0 }); }
+    } else {
+      window.scrollTo({ top:0 });
+      /* reveal only what's above the fold now; the rest animate in on scroll */
+      requestAnimationFrame(()=>{ const vh=innerHeight; document.querySelectorAll('[data-page]:not([hidden]) .reveal:not(.in)').forEach(r=>{ if(r.getBoundingClientRect().top < vh*0.92) r.classList.add('in'); }); });
+    }
     if(name==='home'){ requestAnimationFrame(()=>{ try{ resize(); }catch(e){} }); }
     if(name==='hammerhead'){ try{ runHHTerm(); }catch(e){} }
   }
-  document.querySelectorAll('[data-nav]').forEach(a=>a.addEventListener('click',e=>{ e.preventDefault(); showPage(a.dataset.nav); }));
+  document.querySelectorAll('[data-nav]').forEach(a=>a.addEventListener('click',e=>{ e.preventDefault(); const parts=(a.dataset.nav||'').split('#'); showPage(parts[0], parts[1]); }));
   showPage('home');
 
   /* mobile menu toggle */
@@ -1767,11 +1880,11 @@
   const scen={ safe:{target:'core-sw-02 · Vlan40',vendor:'Cisco IOS',intent:'Deny guest → production, keep guest → internet',
       diff:[['ctx','  ip access-list extended GUEST_STRICT'],['add','+  deny  ip 10.20.0.0/16 10.0.0.0/8'],['ctx','   permit ip 10.20.0.0/16 any']],
       checks:[['Parse device configs','14 devices','pass'],['Build forwarding model','','pass'],['Simulate on live FIB','','pass'],['Reachability probes','8/8 preserved','pass'],['ACL flow-safety','no new exposure','pass'],['Loop & blackhole scan','clean','pass']],
-      verdict:{ok:true,t:'Verified — safe to deploy',s:'Guest VLAN can no longer reach production. Every other path preserved.'}},
+      verdict:{ok:true,t:'Verified: safe to deploy',s:'Guest VLAN can no longer reach production. Every other path preserved.'}},
     risky:{target:'edge-fw-01 · APP_EGRESS',vendor:'Palo Alto',intent:'Allow app-sg egress to any destination',
       diff:[['ctx','  ip access-list extended APP_EGRESS'],['del','-  permit tcp app-sg 10.0.0.0/8 eq 443'],['add','+  permit ip any any']],
       checks:[['Parse device configs','14 devices','pass'],['Build forwarding model','','pass'],['Simulate on live FIB','','pass'],['Reachability probes','8/8 preserved','pass'],['ACL flow-safety','disposition changed','fail'],['Loop & blackhole scan','skipped','skip']],
-      verdict:{ok:false,t:'Blocked — do not deploy',s:'Opens a path from app-sg to the public internet. Stopped before merge.',ev:'app-sg → <span class="no-c">0.0.0.0/0</span> · rule: permit ip any any (line 42)'}} };
+      verdict:{ok:false,t:'Blocked: do not deploy',s:'Opens a path from app-sg to the public internet. Stopped before merge.',ev:'app-sg → <span class="no-c">0.0.0.0/0</span> · rule: permit ip any any (line 42)'}} };
   let cur='safe',dtok=0; const CH='<svg viewBox="0 0 24 24" fill="none" stroke="#06240f" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12l5 5L20 6"/></svg>', CR='<svg viewBox="0 0 24 24" fill="none" stroke="#2a0606" stroke-width="3.5" stroke-linecap="round"><path d="M6 6l12 12M18 6L6 18"/></svg>';
   function dload(k){ cur=k; const s=scen[k]; el('gTarget').textContent=s.target; el('gVendor').textContent=s.vendor; el('gIntent').textContent=s.intent;
     el('diff').innerHTML=s.diff.map(([c,t])=>`<div class="ln ${c}">${t.replace(/</g,'&lt;')}</div>`).join('');
@@ -1791,14 +1904,8 @@
   el('probes').innerHTML=probes.map(([a,b,v,bad],r)=>{ let s=''; for(let i=0;i<44;i++){ const h=bad?(30+((i*7)%55)):(45+35*Math.abs(Math.sin(i*0.6+r))); s+=`<i style="height:${Math.min(100,h)}%"></i>`; } return `<div class="prow"><div class="pl">${a}<small>${b}</small></div><div class="spark ${bad?'bad':''}">${s}</div><div class="pv ${bad?'bad':''}">${v}</div></div>`; }).join('');
 
   /* testimonials */
-  const voices=[{logo:'NVIDIA',text:'"Optimesh is working on products of the future."',who:'Engineer, NVIDIA',role:'Shared during our NVIDIA Inception onboarding'}];
-  let vi=0; el('vDots').innerHTML=voices.map((_,i)=>`<span class="vdot ${i===0?'on':''}"></span>`).join('');
-  function showV(i){ vi=(i+voices.length)%voices.length; const v=voices[vi]; el('vLogo').textContent=v.logo; el('vText').textContent=v.text; el('vWho').textContent=v.who; el('vRole').textContent=v.role; [...el('vDots').children].forEach((d,j)=>d.classList.toggle('on',j===vi)); }
-  el('vPrev').onclick=()=>showV(vi-1); el('vNext').onclick=()=>showV(vi+1); showV(0);
-  const vc=el('vcanvas'),vx=vc.getContext('2d'); function vrz(){ const r=vc.getBoundingClientRect(),dp=Math.min(devicePixelRatio||1,2); vc.width=r.width*dp; vc.height=r.height*dp; vx.setTransform(dp,0,0,dp,0,0); vc._w=r.width; vc._h=r.height; }
-  const vpts=[]; for(let i=0;i<16;i++) vpts.push({x:Math.random(),y:Math.random()}); let vt0=performance.now();
-  function vframe(now){ if(!vc._w) vrz(); const W2=vc._w,H2=vc._h,t=(now-vt0)/1000; vx.clearRect(0,0,W2,H2); vpts.forEach((p,i)=>{ p.px=(p.x+0.03*Math.sin(t*0.4+i))*W2; p.py=(p.y+0.03*Math.cos(t*0.5+i))*H2; }); vx.strokeStyle='rgba(143,180,255,0.16)'; vx.lineWidth=1; for(let i=0;i<vpts.length;i++)for(let j=i+1;j<vpts.length;j++){ const dx=vpts[i].px-vpts[j].px,dy=vpts[i].py-vpts[j].py; if(dx*dx+dy*dy<9000){ vx.beginPath(); vx.moveTo(vpts[i].px,vpts[i].py); vx.lineTo(vpts[j].px,vpts[j].py); vx.stroke(); } } vpts.forEach(p=>{ vx.fillStyle='rgba(143,180,255,0.6)'; vx.beginPath(); vx.arc(p.px,p.py,2,0,7); vx.fill(); }); requestAnimationFrame(vframe); }
-  addEventListener('resize',vrz); vrz(); requestAnimationFrame(vframe);
+  { const v={logo:'NVIDIA',text:'"Optimesh is working on products of the future."',who:'Engineer, NVIDIA',role:'Shared during our NVIDIA Inception onboarding'};
+    el('vLogo').textContent=v.logo; el('vText').textContent=v.text; el('vWho').textContent=v.who; el('vRole').textContent=v.role; }
 
   /* ===== globes (CTA + insights) ===== */
   function initGlobe(id, alpha){
@@ -1815,67 +1922,61 @@
 
   /* ===== article reader (real content from the site) ===== */
   const ARTICLES=[
-    {date:'August 5, 2026',cat:'Regulation',author:'Optimesh',title:`The EU AI Act Just Made Network Verification a Line Item`,deck:`As of this month, high-risk AI must be auditable and overseen. Infrastructure agents are squarely in scope, and "the model was confident" is not a control any auditor accepts.`,body:[
-      {t:'p',x:`This quarter the conversation in every enterprise security review changed. It used to be a question of appetite: do we trust an AI to touch the network? As of August 2026 it is a question of compliance.`},
-      {t:'h2',x:`Infrastructure agents are high-risk, whether you filed them that way or not`},
-      {t:'p',x:`The EU AI Act's obligations for high-risk systems are now in force, and they require auditability, logging, and meaningful human oversight. An AI that proposes and executes changes to a production network is not a chatbot. It acts on availability- and safety-critical infrastructure, and it falls in scope. The teams that spent the last year optimizing an ops copilot for speed are about to spend the next year proving control.`},
-      {t:'h2',x:`You cannot audit a probability`},
-      {t:'p',x:`Here is the wall every AI-ops program hits. A model can tell you it is ninety-four percent confident. It cannot tell you the change preserves segmentation. Confidence is a distribution over the model's own belief; it is not evidence about the network. An auditor reconstructing why a change was approved needs a control, and a persuasive explanation from the system that made the change is not one.`},
-      {t:'q',x:`In an audit, "the AI was 94% confident" is not a control. "Here is the deterministic proof the change preserved isolation" is.`},
-      {t:'h2',x:`What actually changed in the buying conversation`},
-      {t:'p',x:`Security and compliance are now in the room for what used to be a networking purchase, and they arrive with three non-negotiables: provenance, so you can say who or what proposed a change; deterministic verification, so the safety decision never depends on a model; and on-prem execution, because configuration is crown-jewel data that is not leaving the building. A verifier that runs on your hardware and produces reproducible, signed evidence is not a feature request anymore. It is the thing that lets the agent ship at all.`},
-      {t:'h2',x:`The quiet part`},
-      {t:'p',x:`None of this needed a regulation to be true. The tail-risk of an unverified change was always there, and the fix was always a deterministic gate between the generator and production. The Act did one thing: it set a date. The companies that treat verification as the substrate of autonomy, rather than a checkbox bolted on after an incident, are the ones that will be allowed to move fast.`},
+    {date:'August 5, 2026',cat:'Regulation',author:'Optimesh',title:`The EU AI Act Just Made Network Verification a Line Item`,deck:`High-risk AI now owes auditors logging, technical documentation, and meaningful human oversight. An agent that edits production networks meets none of those with a confidence score.`,body:[
+      {t:'p',x:`For two years, "should we let an AI touch the network?" was a question of risk appetite. Every team answered it differently, and the cautious ones simply waited. The EU AI Act's high-risk obligations turned it into a question with a deadline attached, and the deadline is now behind us.`},
+      {t:'h2',x:`Why a config agent lands in the high-risk bucket`},
+      {t:'p',x:`Annex III treats systems used in the management and operation of critical infrastructure as high-risk. An agent that proposes and pushes routing, ACL, or segmentation changes is not a productivity chatbot. It is a control component sitting on availability-critical infrastructure, and that places it in scope for the obligations most teams never designed for: technical documentation (Article 11), automatic logging of events over the system's lifetime (Article 12), and human oversight that is actually meaningful (Article 14).`},
+      {t:'h2',x:`Explainability is not the same thing as auditability`},
+      {t:'p',x:`This is where most AI-ops programs quietly break. A model can produce a fluent rationale for a change and a number that says it is 94% confident. Neither is a control. Confidence is the model's belief about its own output; it says nothing about whether the change preserved isolation between the guest VLAN and the cardholder network. Article 14's "meaningful human oversight" is impossible if the reviewer cannot independently check the decision in the seconds a change window allows. The only thing that makes oversight meaningful at that speed is a second system that decides safety without trusting the first.`},
+      {t:'q',x:`An explanation comes from the system that made the change. A control has to come from something that didn't.`},
+      {t:'h2',x:`What compliance actually asks for, in plain terms`},
+      {t:'p',x:`Strip away the article numbers and the auditor wants three things a probabilistic model cannot supply on its own. Provenance: who or what proposed this change, and against which network state. A deterministic verdict: a safety decision that is reproducible, so re-running it on the same inputs gives the same answer and the same evidence. And containment: configuration is crown-jewel data, so the check runs on your hardware and nothing leaves the building. A verifier that emits reproducible, signed evidence is not a nice-to-have bolted on after the fact. It is the artifact that lets the agent ship at all.`},
+      {t:'h2',x:`The Act set a date, not a new truth`},
+      {t:'p',x:`The tail risk of an unverified change was always there, and the fix was always the same: a deterministic gate between whatever generates a change and the network that receives it. Regulation did not invent that requirement. It just put a date on it and gave the people who had been asking for evidence the standing to insist. The teams that treat verification as the substrate of autonomy, rather than a checkbox added after an incident, are the ones who get to keep moving fast.`},
     ]},
-    {date:'May 12, 2026',cat:'Research',author:'Optimesh Research',title:`Proof-Carrying Change: A Type System for Your Network`,deck:`Every config diff is a hypothesis with no evidence attached. What if each change carried a machine-checkable proof that it preserves reachability, isolation, and blast radius, the way types travel with code?`,body:[
-      {t:'p',x:`The future we are building toward clarifies almost everything else: a world of proof-carrying network changes, where no change reaches a production fabric without evidence that it preserves the properties the network is supposed to have.`},
-      {t:'h2',x:`A change is a hypothesis`},
-      {t:'p',x:`Today a configuration diff is an assertion of intent with no attached evidence. An engineer believes it is correct, a colleague skims it, and it ships. We have accepted, as an industry, that the test for a network change is production itself. In no other part of modern infrastructure would we tolerate that.`},
-      {t:'p',x:`The useful reframing is to treat every change as a hypothesis that carries an obligation: prove that, after this edit, the network still satisfies a set of stated invariants. The change is not done when it is written. It is done when it is verified.`},
-      {t:'h2',x:`Invariants are the interface`},
-      {t:'p',x:`The invariants are the things operators already care about but rarely write down formally:`},
-      {t:'ul',items:[`Reachability contracts: these endpoints must reach each other; these must not.`,`Isolation and segmentation: tenants, zones, and PCI boundaries stay separate.`,`Absence of transient loops and blackholes under expected failures.`,`Bounded blast radius: no single change or link failure partitions the fabric.`,`Compliance posture: the controls an auditor will ask about, checked continuously.`]},
-      {t:'p',x:`Taken together, that is something like a type system for a network. And once you have a type system, a change either type-checks or it does not.`},
-      {t:'q',x:`The unit of trust shouldn't be the engineer who wrote the change. It should be the proof that travels with it.`},
-      {t:'h2',x:`Why now, and not a decade ago`},
-      {t:'p',x:`Two forces converged. AI now generates changes faster than human review can absorb, so the old safeguard of careful inspection is quietly breaking. And verification finally became fast enough to run inline, at the latency of a linter rather than a quarterly audit. The missing ingredient was never the math. It was speed. Sound verification you can run on every change is what turns a guarantee from an academic luxury into an operational habit.`},
-      {t:'p',x:`The lineage is older than networking. Proof-carrying code established that an artifact can travel with a checkable certificate of its safety. Verified compilers and verified operating systems showed the approach scales to systems we already trust with billions of dollars and human lives. Networks are next.`},
+    {date:'May 12, 2026',cat:'Research',author:'Optimesh Research',title:`Proof-Carrying Change: A Type System for Your Network`,deck:`Every config diff ships as an assertion with no evidence attached. The fix is old: make each change carry a machine-checkable proof that it preserves the properties the network is supposed to have.`,body:[
+      {t:'p',x:`In 1996, Necula and Lee published proof-carrying code: untrusted software could arrive with a certificate a host could check mechanically, so the host never had to trust the producer, only verify the proof. That idea quietly reshaped systems we now bet lives and billions on, from verified compilers like CompCert to the seL4 microkernel. Networking never got its version. It is overdue.`},
+      {t:'h2',x:`A change is a hypothesis with no test attached`},
+      {t:'p',x:`Look at how a network change actually ships. An engineer writes a diff they believe is correct, a colleague skims it, and it goes out during a window. The real test is production. We would never accept that in application code, where a change that compiles but fails its tests never merges. In networking we have normalized letting the fabric itself be the test harness, and paying for the failures in incidents.`},
+      {t:'h2',x:`Invariants are the type signature`},
+      {t:'p',x:`The reframing is to treat a change as an obligation: prove that after this edit, the network still satisfies properties operators already care about but rarely state formally.`},
+      {t:'ul',items:[`Reachability contracts: these endpoints must reach each other, and these must never.`,`Isolation: tenants, zones, and PCI boundaries stay separate under every path.`,`No transient loops or blackholes, including under the link failures you expect.`,`Bounded blast radius: no single change or failure partitions the fabric.`,`Compliance posture: the controls an auditor will ask about, checked continuously.`]},
+      {t:'p',x:`Those invariants are a type signature for the network. Once they exist, a change either type-checks against them or it does not, and "does not" comes with a counterexample: the exact flow, rule, and line that breaks the contract.`},
+      {t:'q',x:`The unit of trust should not be the engineer who wrote the change. It should be the proof that travels with it.`},
+      {t:'h2',x:`Soundness was never the blocker. Speed was.`},
+      {t:'p',x:`Here is the part people miss. The math to verify these properties has existed in the literature for years, from Batfish to Minesweeper. It did not change behavior because it ran at the cadence of a quarterly audit, long after changes shipped. The thing that turns a guarantee into a habit is latency. Verification that returns in milliseconds sits inside the pull request, next to the linter, and gets run on every change because running it is free. That is the whole unlock: not a new proof, but a fast enough one.`},
     ]},
-    {date:'February 24, 2026',cat:'Industry',author:'Optimesh',title:`The Outage Math No One Puts in the Budget`,deck:`A bad push is nonlinear: hours of downtime, most of it diagnosis, and a cost nobody budgets because it is the outage you didn't have. The economics make verification the easiest yes in infrastructure.`,body:[
-      {t:'p',x:`After enough conversations with infrastructure teams, the shape of a bad day becomes painfully familiar. A routine change goes out, dashboards stay green for ninety seconds, and then a region falls off the map. The cost of that moment is not the engineering hour it takes to revert. It is everything in between.`},
-      {t:'h2',x:`The cost curve bends`},
-      {t:'p',x:`At small scale an outage is an annoyance. At large scale the curve bends sharply. Industry surveys now put a single hour of downtime above three hundred thousand dollars for the large majority of enterprises, and a meaningful share put it between one and five million an hour. A single configuration push has taken down service for hundreds of millions of users, again and again, from social platforms to national carriers to a long line of BGP route-leak incidents. The common root cause is the same: a change no one had proved was safe.`},
+    {date:'February 24, 2026',cat:'Industry',author:'Optimesh',title:`The Outage Math No One Puts in the Budget`,deck:`A bad push is nonlinear. Most of the downtime is spent finding the one line that broke, and the cost lands in a budget line nobody keeps: the outage you didn't prevent.`,body:[
+      {t:'p',x:`On October 4, 2021, a routine maintenance command withdrew the BGP routes to Facebook's DNS, and a company most of the planet uses went dark for roughly six hours. In July 2022, a maintenance change that removed a routing filter took Rogers offline across Canada for most of a day and took 911 with it. Different companies, different gear, one shape: a change that looked fine in the diff, and a very long night finding it.`},
+      {t:'h2',x:`The cost curve bends the wrong way`},
+      {t:'p',x:`At small scale an outage is an annoyance. At scale it is nonlinear. The Uptime Institute's outage surveys now put a majority of serious outages above 100,000 dollars, with a significant share past a million, and configuration change is consistently among the leading causes. The dollars are not the revert. They are the incident bridge, the SLA credits, the customers who quietly leave, and the engineering quarter that gets eaten by the postmortem.`},
       {t:'h2',x:`You pay for the find, not the fix`},
-      {t:'p',x:`Most of the recovery time in those incidents is diagnosis, not repair. The change that broke things usually looks obviously fine in the diff. The team ends up bisecting configuration across a fabric, hop by hop, under pressure, while the clock runs. The fix is one line. Finding the line is the night.`},
-      {t:'q',x:`Nobody budgets for the outage they didn't have. That is exactly why verification was underfunded, and exactly why that is flipping.`},
-      {t:'h2',x:`Prevention is absurdly cheap`},
-      {t:'p',x:`Catching a bad change before it merges costs milliseconds of compute. Catching it in production costs an incident bridge, a postmortem, and a dent in customer trust. As a trade it is not close: you exchange a rare, catastrophic, unbudgeted cost for a constant, tiny, predictable one. Finance understands that instantly once you put it in those terms.`},
-      {t:'h2',x:`CI for networks is the unlock`},
-      {t:'p',x:`Verification used to be slow and heavy, so it lived outside the workflow. When it becomes fast and scriptable, it moves into the pipeline. Every proposed change gets a reachability and segmentation check before a human approves it, the same way every code change gets a test run. That is the whole game.`},
+      {t:'p',x:`Pull the mean-time-to-recovery apart and the repair is almost never the expensive part. The fix is usually one line. The expense is localization: bisecting configuration across a fabric, hop by hop, under pressure, at 3am, trying to find which of a hundred plausible changes actually broke reachability. Verification attacks exactly that cost. It localizes the fault before the change ships, naming the flow and the rule, so the night you were going to spend searching never happens.`},
+      {t:'q',x:`The fix is one line. Finding the line is the outage. Verification pays for itself by deleting the search.`},
+      {t:'h2',x:`Why the easiest yes in infrastructure went unfunded`},
+      {t:'p',x:`Catching a bad change before merge costs milliseconds of compute. Catching it in production costs a war room. You are trading a rare, catastrophic, unbudgeted expense for a constant, tiny, predictable one, which is the trade insurance is built on. It stayed underfunded for one reason: nobody keeps a budget line for the outage they didn't have. That is the line that is finally getting funded, because AI is about to push changes faster than any review can read them.`},
     ]},
-    {date:'December 4, 2025',cat:'Research',author:'Optimesh Research',title:`Probing Tests Your Imagination. Verification Tests Your Network.`,deck:`Pings and traceroutes sample the paths you thought to try. The outage lives in the paths you didn't. Here is why we reason over the whole packet space instead of probing it.`,body:[
-      {t:'p',x:`There is a distinction at the heart of our approach that is easy to miss and, once seen, hard to unsee: the difference between observing a network and reasoning about it. Most of the tooling our industry has built does the former. We are investing in the latter.`},
-      {t:'h2',x:`Probing samples; verification covers`},
-      {t:'p',x:`Pings, traceroutes, and synthetic probes test the specific paths you happen to try. But the space of possible packets, every source, destination, port, and header combination, is astronomically large. Sampling cannot cover it. And the failures that matter tend to live in exactly the part of that space you did not think to sample.`},
-      {t:'q',x:`If you can only check the packets you thought to send, you're testing your imagination, not your network.`},
+    {date:'December 4, 2025',cat:'Research',author:'Optimesh Research',title:`Probing Tests Your Imagination. Verification Tests Your Network.`,deck:`A ping proves a path exists. Nothing you can ping proves a path is absent. That asymmetry is why monitoring cannot find the leak, and why we reason over the whole packet space instead of sampling it.`,body:[
+      {t:'p',x:`There is a distinction at the center of how we build, easy to miss and hard to unsee once you have: observing a network is not the same as reasoning about it. A probe answers "did this packet get through?" Verification answers "can any packet get through that shouldn't?" Those are different questions, and only one of them catches the segmentation leak before an attacker does.`},
+      {t:'h2',x:`The asymmetry that breaks monitoring`},
+      {t:'p',x:`You can send a ping to confirm a path exists. There is no ping for the absence of a path. To prove that the guest network can never reach the cardholder database, you would have to test every source, destination, port, and protocol combination, and the header space of a 5-tuple is astronomically large. Sampling a space that size is testing your imagination: you check the flows you thought to check, and the breach lives in the flow you didn't.`},
+      {t:'q',x:`Monitoring can prove a path is there. Only verification can prove a path is not.`},
       {t:'h2',x:`The configuration already contains the answer`},
-      {t:'p',x:`You do not need a live device to know how it will forward a packet. The configuration, the topology, and the protocols in play determine the routing and forwarding tables. Reconstruct the forwarding plane faithfully from those inputs and you can answer reachability for all packets at once, analytically, rather than one probe at a time.`},
-      {t:'h2',x:`Reasoning about sets of packets`},
-      {t:'p',x:`This is where formal methods meet networking. Instead of reasoning about individual packets, we reason about equivalence classes of them, sets of headers the network treats identically, using symbolic representations such as binary decision diagrams. A decade of academic work, from header-space analysis to SMT-based control-plane verification, showed how to compute reachability over the entire packet space instead of the handful of probes a human happened to send.`},
-      {t:'h2',x:`Offline, deterministic, repeatable`},
-      {t:'p',x:`Working from a model rather than a live device buys three things live probing cannot: determinism, so the same input always yields the same answer; differential analysis, so you can diff two snapshots and see exactly what a change did; and hypotheticals, so you can ask what happens if this link fails without breaking anything to find out. Monitoring watches the present. Verification guarantees the future. Our industry spent twenty years building one and skipping the other.`},
+      {t:'p',x:`You do not need a live packet to know how a device will forward one. The configuration, the topology, and the protocols determine the forwarding tables completely. Reconstruct that forwarding plane faithfully and you can answer reachability for every packet at once, analytically, instead of one probe at a time. This is the line of work that runs from Header Space Analysis (Kazemian et al., NSDI 2012) through Veriflow and Batfish: represent sets of packets symbolically, then compute what the network does to all of them together.`},
+      {t:'h2',x:`Reasoning about sets, not samples`},
+      {t:'p',x:`Instead of tracing individual packets, you group headers the network treats identically into equivalence classes and carry them with structures like binary decision diagrams. One pass then covers the entire space. Working from a model rather than a live device buys three things probing structurally cannot: determinism, so the same inputs always yield the same verdict; differential analysis, so you can diff two snapshots and see exactly what a change did; and hypotheticals, so you can ask what happens if this link fails without failing it to find out. Monitoring watches the present. Verification reasons about every future the configuration allows.`},
     ]},
-    {date:'October 9, 2025',cat:'Vision',author:'Optimesh Research',title:`We Automated the Wrong Half of the Network`,deck:`For a decade we optimized how fast we push changes. We never optimized the check. Now AI pushes at machine speed, and the missing verifier is the whole ballgame.`,body:[
-      {t:'p',x:`Networks have always been governed by human judgment, encoded into configuration one line at a time. We are now entering an era in which models propose those changes, and increasingly execute them. That is genuinely exciting. It is also arriving faster than the trust model we have to govern it.`},
-      {t:'h2',x:`We optimized the actuator`},
-      {t:'p',x:`For a decade, automation in networking mostly meant pushing changes faster: controllers, infrastructure-as-code, orchestration. We optimized the actuator. We did not, to nearly the same degree, optimize the check. The result is a system that can now make mistakes at machine speed and machine scale, which is not obviously progress.`},
-      {t:'h2',x:`Usually right is not a guarantee`},
-      {t:'p',x:`Machine-learning approaches optimize for average-case correctness. But networks fail in the tail. A change that is fine ninety-nine percent of the time can still blackhole a region or breach an isolation boundary the other one percent. Probabilistic confidence from a model is a different kind of object than a guarantee about reachability, and conflating the two is how you get confident outages.`},
+    {date:'October 9, 2025',cat:'Vision',author:'Optimesh Research',title:`We Automated the Wrong Half of the Network`,deck:`For a decade we made the actuator faster: controllers, IaC, orchestration. We never built the sensor that checks what the actuator did. Now AI drives the actuator at machine speed, and the missing check is the whole game.`,body:[
+      {t:'p',x:`Every control system has two halves: something that acts, and something that measures whether the action was safe. Networking spent a decade building the first half and almost none of the second. Controllers, infrastructure-as-code, and orchestration all made it faster to push a change. Very little made it faster to know whether the change was correct. We built a powerful actuator and wired it to no sensor.`},
+      {t:'h2',x:`Fast actuator, no feedback, now with an AI at the wheel`},
+      {t:'p',x:`That imbalance was survivable while a human typed each change and a human reviewed it. Slowness was the safety mechanism. Remove the human from the loop and hand the actuator to a model, and you have a system that can make mistakes at machine speed and machine scale. Speed without a check is not automation. It is an unguided missile with good telemetry.`},
+      {t:'h2',x:`"Usually right" is a different object than "guaranteed"`},
+      {t:'p',x:`Models optimize average-case correctness. Networks fail in the tail. A change that is fine 99% of the time can still blackhole a region or open an isolation boundary the other 1%, and at machine scale you reach that 1% quickly. A probability from a model and a guarantee about reachability are not the same kind of thing, and treating the first as if it were the second is the precise mechanism that produces confident outages.`},
       {t:'q',x:`Autonomy in networking will be bounded by what we can verify, not by what we can generate.`},
       {t:'h2',x:`Don't trust the generator. Check the artifact.`},
-      {t:'p',x:`The principle we borrow from formal methods is simple: do not trust the generator, check the artifact. A compiler can be wildly sophisticated, and the type checker that vets its output does not have to trust any of that sophistication. A verifier that can deterministically answer whether a configuration preserves a set of invariants is what lets us safely hand more authority to automation.`},
-      {t:'h2',x:`The research bet`},
-      {t:'p',x:`The bet is to make this verification both sound and fast enough to sit directly in the path of change. Slow verification degrades into a quarterly audit that catches problems long after they ship. Verification that runs in milliseconds becomes a guardrail on every single change. We are not building a smarter autopilot. We are building the instrument that tells the autopilot the truth.`},
+      {t:'p',x:`The move is the oldest one in formal methods: do not trust the generator, check the artifact. A compiler can be arbitrarily clever, and the type checker that vets its output trusts none of that cleverness. The generator can be a large model, a script, or a nervous human at 2am; the verifier does not care. It asks one question deterministically, over the whole packet space: does this configuration still satisfy the invariants? That is the sensor we skipped, and it is what lets us safely hand more authority to automation.`},
+      {t:'h2',x:`The bet`},
+      {t:'p',x:`Sound is not enough and fast is not enough; it has to be both, in the path of change. That is the engineering problem we chose: reconstruct a network's forwarding behavior with better than 99.9% fidelity to the industry reference, and do it hundreds of times faster, so the check fits inside a pull request instead of a quarterly audit. We are not building a smarter autopilot. We are building the instrument that tells the autopilot the truth.`},
     ]},
   ];
 
@@ -1955,8 +2056,8 @@
       carrier:{x:600,y:662,r:19,lab:'carrier-x'} };
     const BE=[['CORE','A1'],['CORE','A2'],['CORE','A3'],['A1','checkout'],['A1','billing'],['A2','billing'],['A2','api'],['A2','auth'],['A3','auth'],['A3','db']];
     const AFF=new Set(['billing','api','auth']);
-    const brTitles=[[0,'Blast radius, beyond the checkbox'],[0.20,'One change ripples outward'],[0.44,'Not just IPs — apps and revenue'],[0.63,"The backup path isn't independent"],[0.83,'A verdict you can act on']];
-    const brCaps=[[0,'One change. See everything it can break — before it ships.'],[0.20,'The blast radius spreads through every downstream path in a single pass.'],[0.44,'You see the applications and revenue at risk, not a list of IP addresses.'],[0.63,'It flags "independent" paths that secretly share a carrier, power feed, or region.'],[0.83,'Blocked, with the exact routes and rules behind the answer — evidence you can act on.']];
+    const brTitles=[[0,'Blast radius, beyond the checkbox'],[0.20,'One change ripples outward'],[0.44,'Not just IPs, but apps and revenue'],[0.63,"The backup path isn't independent"],[0.83,'A verdict you can act on']];
+    const brCaps=[[0,'One change. See everything it can break, before it ships.'],[0.20,'The blast radius spreads through every downstream path in a single pass.'],[0.44,'You see the applications and revenue at risk, not a list of IP addresses.'],[0.63,'It flags "independent" paths that secretly share a carrier, power feed, or region.'],[0.83,'Blocked, with the exact routes and rules behind the answer. Evidence you can act on.']];
     const pick=(arr,p)=>{ let v=arr[0][1]; for(const [th,x] of arr){ if(p>=th) v=x; } return v; };
     function brResize(){ const dpr=Math.min(devicePixelRatio||1,2); brW=brC.clientWidth; brH=brC.clientHeight; brC.width=Math.round(brW*dpr); brC.height=Math.round(brH*dpr); brx.setTransform(dpr,0,0,dpr,0,0); }
     function brProg(){ const r=brStage.getBoundingClientRect(); return clamp(-r.top/(r.height-innerHeight),0,1); }
