@@ -274,6 +274,22 @@
   .nv-note{ font-family:ui-monospace,Menlo,monospace; font-size:11.5px; color:color-mix(in srgb,var(--ink) 55%,transparent); }
   @media(max-width:640px){ .nv-note{ display:none; } }
   @media(max-width:720px){ .netviz{ overflow-x:auto; padding-left:20px; padding-right:20px; } .netviz svg{ min-width:600px; } .nv-legend{ min-width:600px; } }
+  /* pricing */
+  .pricing{ display:grid; grid-template-columns:repeat(4,1fr); gap:18px; margin-top:46px; align-items:stretch; }
+  @media(max-width:1040px){ .pricing{ grid-template-columns:repeat(2,1fr); } }
+  @media(max-width:620px){ .pricing{ grid-template-columns:1fr; } }
+  .ptier{ background:var(--panel); border:1px solid var(--hair); border-radius:18px; padding:26px 24px 28px; display:flex; flex-direction:column; box-shadow:0 24px 50px -38px rgba(10,26,63,0.3); }
+  .ptier-pop{ border:1.5px solid var(--accent); box-shadow:0 34px 74px -40px color-mix(in srgb,var(--accent) 55%,transparent); position:relative; }
+  .ptier-pop::before{ content:"Most popular"; position:absolute; top:-11px; left:22px; background:var(--accent); color:#fff; font-size:10.5px; font-weight:700; letter-spacing:.04em; text-transform:uppercase; padding:4px 11px; border-radius:999px; }
+  .pt-name{ font-size:1.45rem; font-weight:800; letter-spacing:-0.02em; color:var(--ink); }
+  .pt-desc{ color:var(--muted); font-size:13px; margin:8px 0 0; line-height:1.5; min-height:38px; }
+  .pt-price{ margin-top:20px; font-size:2.1rem; font-weight:800; letter-spacing:-0.02em; color:var(--ink); font-variant-numeric:tabular-nums; }
+  .pt-price small{ font-size:0.82rem; font-weight:500; color:var(--muted); letter-spacing:0; }
+  .pt-cta{ margin-top:16px; } .pt-cta .btn{ width:100%; justify-content:center; cursor:pointer; }
+  .pt-feats{ list-style:none; margin:22px 0 0; padding:20px 0 0; border-top:1px solid var(--hair); display:flex; flex-direction:column; gap:11px; }
+  .pt-feats .fh{ font-size:12.5px; color:var(--muted); font-weight:600; }
+  .pt-feats li{ display:flex; gap:9px; font-size:13.5px; line-height:1.42; color:var(--ink); }
+  .pt-feats li svg{ width:15px; height:15px; color:var(--green); flex:none; margin-top:2px; }
 
   section.blk{ padding:100px 0; scroll-margin-top:78px; }
   [id]{ scroll-margin-top:78px; }
@@ -533,7 +549,7 @@
         <div class="megafoot"><span>One deterministic engine behind all of it.</span><a data-nav="platform">Explore the platform →</a></div>
       </div></div>
     </div>
-    <a data-nav="platform">Platform</a><a data-nav="why">Why us</a><a data-nav="insights">Insights</a><a data-nav="company">Company</a><a data-nav="contact">Contact</a></div>
+    <a data-nav="platform">Platform</a><a data-nav="pricing">Pricing</a><a data-nav="why">Why us</a><a data-nav="insights">Insights</a><a data-nav="company">Company</a><a data-nav="contact">Contact</a></div>
   <div class="spacer"></div><a class="btn ghost" href="https://optimesh-ai.github.io/RuleHawk/" target="_blank" rel="noopener">Try RuleHawk</a><a class="btn primary" data-request>Request access</a>
   <button class="navtoggle" id="navToggle" aria-label="Open menu" aria-expanded="false" aria-controls="navMobile"><span></span><span></span><span></span></button>
 </div>
@@ -544,6 +560,7 @@
   <a data-nav="rulehawk">RuleHawk</a>
   <div class="mlabel">Company</div>
   <a data-nav="platform">Platform</a>
+  <a data-nav="pricing">Pricing</a>
   <a data-nav="why">Why us</a>
   <a data-nav="insights">Insights</a>
   <a data-nav="company">Company</a>
@@ -1026,6 +1043,75 @@
     <div class="scard"><h3>Compliance gaps</h3><p>Missing deny-all defaults and logging gaps.</p></div>
     <div class="scard"><h3>Unused rules</h3><p>Zero-hit candidates for cleanup.</p></div>
   </div>
+</div></section>
+
+<!-- pricing page -->
+<section class="blk" data-page="pricing" style="padding-top:118px"><div class="wrap">
+  <div class="center reveal"><h2 class="h2" style="margin:0 auto">From your laptop to your whole network.</h2><p class="lead" style="margin:14px auto 0">Start free and verify a change today. Add your team when you're ready, and your org when you need AI remediation and air-gap.</p></div>
+  <div class="pricing reveal">
+    <div class="ptier">
+      <div class="pt-name">Free</div>
+      <p class="pt-desc">For the engineer getting started with verified change.</p>
+      <div class="pt-price">$0</div>
+      <div class="pt-cta"><a class="btn ghost" href="https://optimesh-ai.github.io/RuleHawk/" target="_blank" rel="noopener">Start free</a></div>
+      <ul class="pt-feats">
+        <li class="fh">Includes:</li>
+        <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12l5 5L20 6"/></svg> RuleHawk firewall &amp; segmentation audit</li>
+        <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12l5 5L20 6"/></svg> Verify up to 25 changes / month</li>
+        <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12l5 5L20 6"/></svg> Reachability &amp; path checks</li>
+        <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12l5 5L20 6"/></svg> Every major vendor</li>
+        <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12l5 5L20 6"/></svg> CLI &amp; single binary</li>
+        <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12l5 5L20 6"/></svg> Community support</li>
+      </ul>
+    </div>
+    <div class="ptier ptier-pop">
+      <div class="pt-name">Pro</div>
+      <p class="pt-desc">For the engineer who ships changes daily.</p>
+      <div class="pt-price">$39 <small>/ engineer / mo</small></div>
+      <div class="pt-cta"><a class="btn primary" data-request>Get started</a></div>
+      <ul class="pt-feats">
+        <li class="fh">Everything in Free, plus:</li>
+        <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12l5 5L20 6"/></svg> Unlimited change verification</li>
+        <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12l5 5L20 6"/></svg> Full blast-radius &amp; reachability diff</li>
+        <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12l5 5L20 6"/></svg> CI checks (GitHub, GitLab)</li>
+        <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12l5 5L20 6"/></svg> Compliance checks (CIS, PCI, STIG)</li>
+        <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12l5 5L20 6"/></svg> 90-day history</li>
+        <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12l5 5L20 6"/></svg> Email support</li>
+      </ul>
+    </div>
+    <div class="ptier">
+      <div class="pt-name">Team</div>
+      <p class="pt-desc">For teams gating change together.</p>
+      <div class="pt-price">$99 <small>/ engineer / mo</small></div>
+      <div class="pt-cta"><a class="btn ghost" data-request>Start 14-day trial</a></div>
+      <ul class="pt-feats">
+        <li class="fh">Everything in Pro, plus:</li>
+        <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12l5 5L20 6"/></svg> Pull-request gating</li>
+        <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12l5 5L20 6"/></svg> Shared topology &amp; snapshots</li>
+        <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12l5 5L20 6"/></svg> Cross-domain: on-prem, cloud, K8s</li>
+        <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12l5 5L20 6"/></svg> Drift detection &amp; alerts</li>
+        <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12l5 5L20 6"/></svg> ServiceNow, Jira, Terraform</li>
+        <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12l5 5L20 6"/></svg> Role-based access &amp; SSO</li>
+        <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12l5 5L20 6"/></svg> Priority support</li>
+      </ul>
+    </div>
+    <div class="ptier">
+      <div class="pt-name">Enterprise</div>
+      <p class="pt-desc">For orgs that need AI remediation and air-gap.</p>
+      <div class="pt-price">Custom</div>
+      <div class="pt-cta"><a class="btn ghost" href="mailto:contact@optimesh.ai?subject=Enterprise%20(Config%20Studio)">Contact sales</a></div>
+      <ul class="pt-feats">
+        <li class="fh">Everything in Team, plus:</li>
+        <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12l5 5L20 6"/></svg> Config Studio: AI diagnosis &amp; verified fixes</li>
+        <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12l5 5L20 6"/></svg> On-prem &amp; air-gapped deployment</li>
+        <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12l5 5L20 6"/></svg> Full audit logs, zero telemetry</li>
+        <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12l5 5L20 6"/></svg> HIPAA / NERC / STIG mapping</li>
+        <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12l5 5L20 6"/></svg> Dedicated deployment engineer</li>
+        <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12l5 5L20 6"/></svg> SLA &amp; 24/7 support</li>
+      </ul>
+    </div>
+  </div>
+  <p class="center reveal" style="color:var(--muted); font-size:13.5px; margin:34px auto 0; max-width:52ch">Every tier runs on your own hardware. Your configs never leave your network — on any plan.</p>
 </div></section>
 
 <!-- contact page -->
