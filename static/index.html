@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="color-scheme" content="light">
 <title>Optimesh Technologies</title>
-<meta name="description" content="x">
+<meta name="description" content="Every network change, proven safe before it ships.">
 </head>
 <body>
 <title>Optimesh Technologies</title>
@@ -1482,7 +1482,8 @@
   const caps=[...document.querySelectorAll('.cap')];
   const N={ S1:{x:430,y:186,r:'spine',lab:'core-01'},S2:{x:770,y:186,r:'spine',lab:'core-02'},L1:{x:265,y:360,r:'leaf',lab:'leaf-01'},L2:{x:470,y:360,r:'leaf',lab:'leaf-02'},L3:{x:730,y:360,r:'leaf',lab:'leaf-03'},L4:{x:935,y:360,r:'leaf',lab:'leaf-04'},
     H1:{x:265,y:534,r:'host',lab:'web'},H2:{x:470,y:534,r:'host',lab:'api'},H3:{x:730,y:534,r:'host',lab:'db'},H4:{x:935,y:534,r:'host',lab:'cache'},NET:{x:1095,y:120,r:'net',lab:'internet'} };
-  const LK=[['L1','S1'],['L1','S2'],['L2','S1'],['L2','S2'],['L3','S1'],['L3','S2'],['L4','S1'],['L4','S2'],['H1','L1'],['H2','L2'],['H3','L3'],['H4','L4'],['S1','S2']];
+  /* clean layered fabric — each leaf to its nearest core, no crisscross tangle */
+  const LK=[['S1','S2'],['L1','S1'],['L2','S1'],['L3','S2'],['L4','S2'],['H1','L1'],['H2','L2'],['H3','L3'],['H4','L4']];
   const goodPath=['H1','L1','S1','L3','H3'], badPath=['H3','L3','S2','NET'];
   const order=['S1','S2','L1','L2','L3','L4','H1','H2','H3','H4','NET']; const delay={}; order.forEach((k,i)=>delay[k]=i/order.length*0.13);
   let W=0,H=0,scale=1,ox=0,oy=0;
