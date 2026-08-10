@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="color-scheme" content="light">
 <title>Optimesh Technologies</title>
-<meta name="description" content="Every network change, proven safe before it ships.">
+<meta name="description" content="x">
 </head>
 <body>
 <title>Optimesh Technologies</title>
@@ -1501,20 +1501,20 @@
     for(const [a,b] of LK){ const pa=px(N[a]),pb=px(N[b]),al=Math.min(arr(a,p),arr(b,p))*lt; if(al<=.01)continue; const tx=lerp(pa.x,pb.x,al),ty=lerp(pa.y,pb.y,al);
       ctx.strokeStyle=A(accent,0.17*al); ctx.lineWidth=1.4*scale; ctx.beginPath(); ctx.moveTo(pa.x,pa.y); ctx.lineTo(tx,ty); ctx.stroke();
       if(al<1){ ctx.save(); ctx.shadowColor=A(soft,0.9); ctx.shadowBlur=14; ctx.fillStyle=soft; ctx.beginPath(); ctx.arc(tx,ty,3*scale,0,7); ctx.fill(); ctx.restore(); }
-      else if(!reduce){ ctx.save(); ctx.setLineDash([2*scale,26*scale]); ctx.lineDashOffset=-(time*46+(pa.x+pa.y))%1000; ctx.strokeStyle=A(soft,0.34); ctx.lineWidth=1.8*scale; ctx.beginPath(); ctx.moveTo(pa.x,pa.y); ctx.lineTo(pb.x,pb.y); ctx.stroke(); ctx.restore(); } }
+      else if(!reduce){ ctx.save(); ctx.setLineDash([2*scale,30*scale]); ctx.lineDashOffset=-(time*44+(pa.x+pa.y))%1000; ctx.strokeStyle=A(soft,0.22); ctx.lineWidth=1.6*scale; ctx.beginPath(); ctx.moveTo(pa.x,pa.y); ctx.lineTo(pb.x,pb.y); ctx.stroke(); ctx.restore(); } }
     { const pa=px(N.S2),pb=px(N.NET),eg=easeOut(clamp((p-0.56)/0.1,0,1)); if(eg>0){ ctx.save(); ctx.setLineDash([6*scale,6*scale]); ctx.strokeStyle=A(bad,0.55*eg); ctx.lineWidth=1.7*scale; ctx.beginPath(); ctx.moveTo(pa.x,pa.y); ctx.lineTo(lerp(pa.x,pb.x,eg),lerp(pa.y,pb.y,eg)); ctx.stroke(); ctx.restore(); } }
     let doTick=null, doCross=null;
-    if(p>0.34){ const t=clamp((p-0.36)/0.20,0,1); ctx.strokeStyle=A(accent,0.95); ctx.lineWidth=3.2*scale; ctx.shadowColor=A(accent,0.55); ctx.shadowBlur=16*scale; poly(goodPath,t); ctx.shadowBlur=0;
+    if(p>0.34){ const t=clamp((p-0.36)/0.20,0,1); ctx.strokeStyle=A(accent,0.95); ctx.lineWidth=3.2*scale; ctx.shadowColor=A(accent,0.4); ctx.shadowBlur=9*scale; poly(goodPath,t); ctx.shadowBlur=0;
       if(t<1){ const d=pp(goodPath,t); dot(d.x,d.y,accent,soft); } else { const e=px(N.H3); doTick={x:e.x,y:e.y-30*scale,a:easeOut(clamp((p-0.50)/0.05,0,1))}; } }
     let showEv=false;
-    if(p>0.57){ const t=clamp((p-0.59)/0.18,0,1),ba=0.66,tt=Math.min(t,ba); ctx.strokeStyle=A(bad,0.95); ctx.lineWidth=3.2*scale; ctx.shadowColor=A(bad,0.55); ctx.shadowBlur=16*scale; poly(badPath,tt); ctx.shadowBlur=0;
+    if(p>0.57){ const t=clamp((p-0.59)/0.18,0,1),ba=0.66,tt=Math.min(t,ba); ctx.strokeStyle=A(bad,0.95); ctx.lineWidth=3.2*scale; ctx.shadowColor=A(bad,0.4); ctx.shadowBlur=9*scale; poly(badPath,tt); ctx.shadowBlur=0;
       const g=pp(badPath,ba); gate(g.x,g.y,accent,bad,easeOut(clamp((p-0.60)/0.08,0,1)),time);
       if(t<ba){ const d=pp(badPath,t); dot(d.x,d.y,bad,bad); } else { doCross={x:g.x,y:g.y,a:easeOut(clamp((t-ba)/0.2,0,1))}; showEv=p<0.99; } }
     for(const k in N){ const ap=arr(k,p); if(ap>.01) drawNode(k,N[k],ap,{accent,soft,bad,good,ink,muted,node},time); }
     /* device labels — reads as a real topology, not abstract dots */
     ctx.textAlign='center'; ctx.textBaseline='middle';
     for(const k in N){ const nn=N[k]; if(!nn.lab) continue; const ap2=arr(k,p); if(ap2<0.55) continue; const ps=px(nn), RR=(nn.r==='spine'?20:nn.r==='leaf'?15:14)*scale;
-      ctx.save(); ctx.globalAlpha=clamp((ap2-0.55)/0.35,0,1)*0.92; ctx.fillStyle=(nn.r==='net')?A(bad,0.85):A(ink,0.55); ctx.font='500 '+(12*scale)+'px ui-monospace,Menlo,monospace'; ctx.fillText(nn.lab, ps.x, ps.y + RR + 17*scale); ctx.restore(); }
+      ctx.save(); ctx.globalAlpha=clamp((ap2-0.55)/0.35,0,1)*0.9; ctx.fillStyle=A(ink,0.5); ctx.font='500 '+(11.5*scale)+'px ui-monospace,Menlo,monospace'; ctx.fillText(nn.lab, ps.x, ps.y + RR + 16*scale); ctx.restore(); }
     ctx.textBaseline='alphabetic';
     /* verdict marks drawn last so nodes never cover them */
     if(doTick) tickBadge(doTick.x,doTick.y,good,doTick.a);
@@ -1528,18 +1528,30 @@
     ctx.strokeStyle='#fff'; ctx.lineWidth=2.6*scale; ctx.lineCap='round'; ctx.lineJoin='round'; ctx.beginPath(); ctx.moveTo(x-5.5*scale,y+0.5*scale); ctx.lineTo(x-1*scale,y+5*scale); ctx.lineTo(x+6*scale,y-4.5*scale); ctx.stroke(); ctx.restore(); }
   function cross(x,y,c,a){ if(a<=0)return; ctx.save(); ctx.globalAlpha=a; ctx.strokeStyle=c; ctx.lineWidth=3.8*scale; ctx.lineCap='round'; const s=8*scale; ctx.beginPath(); ctx.moveTo(x-s,y-s); ctx.lineTo(x+s,y+s); ctx.moveTo(x+s,y-s); ctx.lineTo(x-s,y+s); ctx.stroke(); ctx.restore(); }
   function gate(x,y,ac,bd,a,time){ if(a<=0)return; ctx.save(); ctx.globalAlpha=a; ctx.translate(x,y); const pl=1+0.05*Math.sin(time*4); ctx.scale(pl,pl); const w=17*scale; ctx.fillStyle=A(ac,0.14); ctx.strokeStyle=A(bd,0.95); ctx.lineWidth=2.2*scale; ctx.beginPath(); ctx.moveTo(0,-w); ctx.lineTo(w,-w*0.5); ctx.lineTo(w,w*0.4); ctx.quadraticCurveTo(0,w*1.15,0,w*1.15); ctx.quadraticCurveTo(0,w*1.15,-w,w*0.4); ctx.lineTo(-w,-w*0.5); ctx.closePath(); ctx.fill(); ctx.stroke(); ctx.restore(); }
-  function drawNode(key,n,ap,col,time){ const pos=px(n),eb=easeBack(ap),rise=(1-eb)*30*scale,y=pos.y+rise,x=pos.x,sc=0.6+0.4*eb,al=clamp(ap*1.6,0,1);
-    if(ap>0.02&&ap<1){ const rr2=(n.r==='spine'?20:15)*scale+easeOut(ap)*30*scale; ctx.save(); ctx.globalAlpha=(1-ap)*0.5; ctx.strokeStyle=col.accent; ctx.lineWidth=2*scale; ctx.beginPath(); ctx.arc(x,pos.y,rr2,0,7); ctx.stroke(); ctx.restore(); }
+  function drawNode(key,n,ap,col,time){ const pos=px(n),eb=easeBack(ap),rise=(1-eb)*26*scale,y=pos.y+rise,x=pos.x,sc=0.64+0.36*eb,al=clamp(ap*1.6,0,1);
+    if(ap>0.02&&ap<1){ const rr2=(n.r==='spine'?18:13)*scale+easeOut(ap)*24*scale; ctx.save(); ctx.globalAlpha=(1-ap)*0.30; ctx.strokeStyle=col.accent; ctx.lineWidth=1.4*scale; ctx.beginPath(); ctx.arc(x,pos.y,rr2,0,7); ctx.stroke(); ctx.restore(); }
     ctx.save(); ctx.globalAlpha=al;
-    if(n.r==='net'){ ctx.save(); ctx.shadowColor=A(col.bad,0.45); ctx.shadowBlur=22*scale; ctx.strokeStyle=A(col.bad,0.92); ctx.lineWidth=2.6*scale; ctx.beginPath(); ctx.arc(x,y,17*scale*sc,0,7); ctx.stroke(); ctx.restore(); ctx.strokeStyle=A(col.bad,0.42); ctx.lineWidth=1.4*scale; ctx.beginPath(); ctx.ellipse(x,y,17*scale*sc,7.5*scale*sc,0,0,7); ctx.stroke(); ctx.beginPath(); ctx.moveTo(x,y-17*scale*sc); ctx.lineTo(x,y+17*scale*sc); ctx.stroke(); ctx.restore(); return; }
-    const R=(n.r==='spine'?20:n.r==='leaf'?15:14)*scale*sc;
-    const glow=ctx.createRadialGradient(x,y,0,x,y,R*1.85); glow.addColorStop(0,A(col.accent,0.14)); glow.addColorStop(1,A(col.accent,0)); ctx.fillStyle=glow; ctx.beginPath(); ctx.arc(x,y,R*1.85,0,7); ctx.fill();
-    ctx.shadowColor=A(col.ink,0.30); ctx.shadowBlur=18*scale; ctx.shadowOffsetY=6*scale;
+    const R=(n.r==='spine'?19:n.r==='leaf'?14:14)*scale*sc;
+    if(n.r==='net'){ /* external "internet" — neutral outlined globe, not a clashing accent blob */
+      ctx.save(); ctx.shadowColor=A(col.ink,0.14); ctx.shadowBlur=12*scale; ctx.shadowOffsetY=4*scale;
+      ctx.fillStyle=col.node; ctx.beginPath(); ctx.arc(x,y,R,0,7); ctx.fill(); ctx.shadowBlur=0; ctx.shadowOffsetY=0;
+      ctx.strokeStyle=A(col.muted,0.55); ctx.lineWidth=1.4*scale; ctx.beginPath(); ctx.arc(x,y,R,0,7); ctx.stroke();
+      ctx.strokeStyle=A(col.muted,0.42); ctx.lineWidth=1.1*scale;
+      ctx.beginPath(); ctx.ellipse(x,y,R*0.44,R*0.88,0,0,7); ctx.stroke();
+      ctx.beginPath(); ctx.moveTo(x-R*0.82,y); ctx.lineTo(x+R*0.82,y); ctx.stroke();
+      ctx.restore(); return; }
+    /* device chip: gradient fill + soft depth shadow + crisp rim */
+    ctx.shadowColor=A(col.ink,0.24); ctx.shadowBlur=13*scale; ctx.shadowOffsetY=5*scale;
     const bg=ctx.createLinearGradient(x,y-R,x,y+R); bg.addColorStop(0,col.soft); bg.addColorStop(1,col.accent); ctx.fillStyle=bg;
-    if(n.r==='host'){ rr(x-R,y-R,R*2,R*2,6*scale); ctx.fill(); } else { ctx.beginPath(); ctx.arc(x,y,R,0,7); ctx.fill(); }
-    ctx.shadowBlur=0; ctx.shadowOffsetY=0; ctx.strokeStyle='rgba(255,255,255,0.92)'; ctx.lineWidth=2*scale;
-    if(n.r==='host'){ rr(x-R,y-R,R*2,R*2,6*scale); ctx.stroke(); } else { ctx.beginPath(); ctx.arc(x,y,R,0,7); ctx.stroke(); }
-    const cp=0.82+0.18*(0.5+0.5*Math.sin(time*2.2+n.x*0.03)); ctx.fillStyle=`rgba(255,255,255,${reduce?0.95:cp})`; ctx.beginPath(); ctx.arc(x,y,R*0.3,0,7); ctx.fill();
+    if(n.r==='host'){ rr(x-R,y-R,R*2,R*2,7*scale); ctx.fill(); } else { ctx.beginPath(); ctx.arc(x,y,R,0,7); ctx.fill(); }
+    ctx.shadowBlur=0; ctx.shadowOffsetY=0;
+    ctx.strokeStyle='rgba(255,255,255,0.36)'; ctx.lineWidth=1.2*scale;
+    if(n.r==='host'){ rr(x-R,y-R,R*2,R*2,7*scale); ctx.stroke(); } else { ctx.beginPath(); ctx.arc(x,y,R,0,7); ctx.stroke(); }
+    /* device glyph — core=hub, leaf=switch, host=server stack */
+    ctx.strokeStyle='rgba(255,255,255,0.92)'; ctx.fillStyle='rgba(255,255,255,0.92)'; ctx.lineWidth=1.5*scale; ctx.lineCap='round';
+    if(n.r==='spine'){ ctx.beginPath(); ctx.arc(x,y,R*0.44,0,7); ctx.stroke(); ctx.beginPath(); ctx.arc(x,y,R*0.13,0,7); ctx.fill(); }
+    else if(n.r==='leaf'){ const w2=R*0.46; ctx.beginPath(); ctx.moveTo(x-w2,y); ctx.lineTo(x+w2,y); ctx.stroke(); ctx.beginPath(); ctx.arc(x,y,R*0.12,0,7); ctx.fill(); }
+    else { const w2=R*0.46; for(let i=-1;i<=1;i++){ const yy=y+i*R*0.36; ctx.beginPath(); ctx.moveTo(x-w2,yy); ctx.lineTo(x+w2,yy); ctx.stroke(); } }
     ctx.restore(); }
   function rr(x,y,w,h,r){ ctx.beginPath(); ctx.moveTo(x+r,y); ctx.arcTo(x+w,y,x+w,y+h,r); ctx.arcTo(x+w,y+h,x,y+h,r); ctx.arcTo(x,y+h,x,y,r); ctx.arcTo(x,y,x+w,y,r); ctx.closePath(); }
   const titles=[[0,'Your network, as Optimesh sees it'],[0.36,'A change flows through'],[0.59,'A dangerous change tries to ship'],[0.88,'Proven safe, or blocked']];
