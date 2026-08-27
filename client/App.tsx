@@ -17,6 +17,7 @@ import News from "./pages/News";
 import NewsArticle from "./pages/NewsArticle";
 import Whitepaper from "./pages/Whitepaper";
 import Why from "./pages/Why";
+import Compare from "./pages/Compare";
 import RuleHawk from "./pages/RuleHawk";
 import NotFound from "./pages/NotFound";
 
@@ -43,6 +44,7 @@ export default function App() {
             <Route path="/news/:slug" element={<NewsArticle />} />
             <Route path="/whitepaper" element={<Whitepaper />} />
             <Route path="/why-optimesh" element={<Why />} />
+            <Route path="/compare" element={<Compare />} />
             <Route path="/contact" element={<Contact />} />
             <Route path="/early-access" element={<EarlyAccess />} />
             <Route path="/overview" element={<Navigate to="/features" replace />} />

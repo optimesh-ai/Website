@@ -26,6 +26,7 @@ const products = [
 const navLinks = [
   { to: "/features", label: "Platform" },
   { to: "/why-optimesh", label: "Why us" },
+  { to: "/compare", label: "Compare" },
   { to: "/insights", label: "Insights" },
   { to: "/about", label: "Company" },
   { to: "/contact", label: "Contact" },

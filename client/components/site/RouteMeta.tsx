@@ -43,6 +43,11 @@ const meta: Record<string, { title: string; description: string }> = {
     description:
       "A technical overview of Hammerhead and Config Studio: offline forwarding-plane verification and AI-driven, verified config remediation.",
   },
+  "/compare": {
+    title: "Compare, Optimesh vs. the way it's done today | Optimesh Technologies",
+    description:
+      "Side-by-side: Hammerhead vs. Batfish (same answers, 345× faster), RuleHawk vs. the $46,000 firewall audit (free, one second), Config Studio vs. the digital twin (the fix, not the map) — plus a savings calculator for your network.",
+  },
   "/why-optimesh": {
     title: "Why Optimesh Technologies, The verification layer for the AI-era network",
     description:
