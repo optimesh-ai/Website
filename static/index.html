@@ -13,14 +13,14 @@
   /* Optimesh is a light-first brand — locked to light in every context. */
   :root, :root[data-theme="light"], :root[data-theme="dark"]{
     color-scheme:light;
-    --bg:#f3f7ff; --bg2:#ffffff; --panel:#ffffff; --ink:#0a1a3f; --muted:#566388; --hair:#dbe4f6;
+    --bg:#f8fafc; --bg2:#ffffff; --panel:#ffffff; --ink:#0a1a3f; --muted:#536176; --hair:#dfe5ed;
     --accent:#1a4fd6; --accent2:#5b8bff; --green:#1f8e65; --red:#e0532b; --radius:16px;
   }
 
   *{ box-sizing:border-box; }
   html{ scroll-behavior:smooth; }
   body{ margin:0; color:var(--ink); overflow-x:hidden;
-    background:radial-gradient(60% 45% at 80% 4%, color-mix(in srgb,var(--accent) 5%,transparent), transparent 68%), var(--bg);
+    background:var(--bg);
     font-family:"Helvetica Neue",Helvetica,Arial,ui-sans-serif,system-ui,sans-serif; -webkit-font-smoothing:antialiased; line-height:1.55; }
   .mono{ font-family:ui-monospace,"SF Mono","JetBrains Mono",Menlo,monospace; }
   .wrap{ max-width:1200px; margin:0 auto; padding:0 24px; }
@@ -140,7 +140,7 @@
   .navdrop .md{ font-size:12.5px; color:var(--muted); margin-top:2px; }
   @media (prefers-reduced-motion: reduce){ .reveal{ opacity:1; transform:none; } html{ scroll-behavior:auto; } }
 
-  nav{ position:sticky; top:0; z-index:50; backdrop-filter:blur(12px); background:color-mix(in srgb,var(--bg) 80%,transparent); border-bottom:1px solid var(--hair); }
+  nav{ position:sticky; top:0; z-index:50; backdrop-filter:blur(12px); background:color-mix(in srgb,var(--panel) 94%,transparent); border-bottom:1px solid var(--hair); }
   .nav{ display:flex; align-items:center; gap:22px; height:64px; }
   .brand{ display:flex; align-items:center; gap:10px; font-weight:700; font-size:17px; letter-spacing:-0.01em; }
   .brand .sep{ color:var(--muted); font-weight:400; } .brand .sub{ color:var(--muted); font-weight:500; }
@@ -148,7 +148,7 @@
   .btn{ display:inline-flex; align-items:center; gap:8px; border-radius:999px; font-weight:600; font-size:14px; padding:10px 18px; cursor:pointer; border:1px solid transparent; }
   .btn.primary{ background:var(--accent); color:#fff; box-shadow:0 8px 20px -12px color-mix(in srgb,var(--accent) 42%,transparent); } .btn.primary:hover{ filter:brightness(1.06); }
   .btn.ghost{ color:var(--ink); border-color:var(--hair); background:var(--panel); } .btn.lg{ padding:14px 24px; font-size:15px; }
-  @media(min-width:920px){ .nav .links{ display:flex; } }
+  @media(min-width:921px){ .nav .links{ display:flex; } }
   /* mobile navigation */
   .navtoggle{ display:none; flex-direction:column; gap:5px; width:42px; height:42px; align-items:center; justify-content:center; background:transparent; border:1px solid var(--hair); border-radius:11px; cursor:pointer; flex:none; }
   .navtoggle span{ width:18px; height:2px; background:var(--ink); border-radius:2px; transition:transform .28s cubic-bezier(.4,0,.2,1), opacity .2s; }
@@ -554,6 +554,66 @@
     .btn.lg{ padding:13px 20px; font-size:14px; }
     .hero .actions{ width:100%; } .hero .actions .btn{ flex:1; justify-content:center; }
   }
+
+  /* Photography and restrained refinements to the original layout. */
+  .hero{ min-height:740px; padding:136px 24px 100px; gap:72px; }
+  .hero h1{ font-weight:650; line-height:1.08; letter-spacing:-.045em; }
+  .hero p{ line-height:1.7; }
+  .h2{ font-weight:650; line-height:1.15; letter-spacing:-.035em; }
+  .tk-pill{ background:var(--panel); border-color:var(--hair); color:var(--muted); font-size:13px; padding:8px 16px; }
+  .tk-badge{ width:19px; height:19px; }
+  .tk-arrow{ color:var(--accent); opacity:1; }
+  .btn{ transition:background-color .18s ease, border-color .18s ease, box-shadow .18s ease; }
+  .btn.primary{ box-shadow:0 3px 8px rgba(26,79,214,.12); }
+  .btn.primary:hover{ filter:none; background:#153fae; }
+  .btn.ghost:hover{ border-color:#a6b5cb; background:#f2f5fa; }
+  a:focus-visible, button:focus-visible{ outline:2px solid var(--accent); outline-offset:5px; }
+  .vdash, .chat, .console, .verifyterm, .term{ box-shadow:0 20px 48px -30px rgba(10,26,63,.35); }
+  .feed{ position:relative; flex:0 0 43%; padding-bottom:28px; }
+  .hero-photo{ margin:0; width:100%; aspect-ratio:1/1.06; border-radius:16px; overflow:hidden; background:#202a30; }
+  .hero-photo img{ display:block; width:100%; height:100%; object-fit:cover; object-position:43% center; }
+  .feed .vpanel{ position:absolute; left:-28px; bottom:0; width:calc(100% - 24px); border-radius:12px; background:var(--panel); box-shadow:0 16px 36px -20px rgba(10,26,63,.4); }
+  .feed .vpanel-top{ background:var(--panel); padding:12px 16px; }
+  .feed .vlive{ font-size:10px; letter-spacing:.07em; }
+  .feed .vlive .dot{ animation:none; }
+  .feed .vcount-lbl{ margin-left:auto; font-size:10px; }
+  .feed .vrow{ padding:12px 14px; gap:8px; }
+  .feed .vc, .feed .vs{ font-size:11px; }
+  .feed .vrow:nth-child(n+4){ display:none; }
+  .cta-band.cta-photo{ display:grid; grid-template-columns:1.2fr 1fr; padding:0; border-radius:16px; text-align:left; background:#0b1226; }
+  .cta-copy{ padding:56px; }
+  .cta-photo h2{ max-width:15ch; margin:0; font-weight:650; line-height:1.12; letter-spacing:-.035em; }
+  .cta-photo p{ margin:20px 0 0; line-height:1.7; }
+  .cta-photo .actions{ justify-content:flex-start; }
+  .cta-photo .btn.ghost:hover{ background:rgba(255,255,255,.08); border-color:rgba(255,255,255,.55); }
+  .cta-photo .network-photo{ display:block; width:100%; height:100%; min-height:440px; object-fit:cover; object-position:60% center; }
+  @media(min-width:921px) and (max-width:1160px){
+    .nav{ gap:14px; }
+    .nav .links{ gap:14px; margin-left:0; font-size:13px; }
+    .brand{ font-size:15px; gap:6px; }
+    .nav>.btn{ padding:9px 12px; font-size:12px; white-space:nowrap; }
+  }
+  @media(max-width:980px){
+    .hero{ min-height:auto; padding-top:124px; gap:44px; }
+    .hero h1{ max-width:20ch; }
+    .feed{ display:block; flex:none; width:100%; }
+    .hero-photo{ aspect-ratio:16/9; }
+    .feed .vpanel{ left:24px; max-width:414px; }
+    .cta-copy{ padding:40px; }
+  }
+  @media(max-width:760px){
+    .hero{ padding:60px 20px 56px; gap:36px; }
+    .hero h1{ font-size:clamp(2.15rem,7.7vw,3rem); line-height:1.1; }
+    .hero p{ font-size:17px; }
+    .feed{ padding-bottom:0; }
+    .hero-photo{ aspect-ratio:4/3; border-radius:12px; }
+    .feed .vpanel{ display:none; }
+    section.blk{ padding:64px 0; }
+    .cta-band.cta-photo{ grid-template-columns:1fr; }
+    .cta-copy{ padding:36px 28px; }
+    .cta-photo h2{ font-size:clamp(2rem,7.5vw,2.7rem); }
+    .cta-photo .network-photo{ height:240px; min-height:0; }
+  }
 </style>
 
 <nav><div class="wrap nav">
@@ -618,11 +678,14 @@
     <a class="tk-pill" data-nav="company"><span class="tk-badge"><svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l2.2 6.6L21 9l-5.4 4 2 7-5.6-4.2L6.4 20l2-7L3 9l6.8-.4z"/></svg></span><span class="tk-text" id="tkText"></span><span class="tk-arrow">→</span></a>
     <div class="tk-dots" id="tkDots"></div>
   </div>
-  <div class="feed" id="feed" aria-hidden="true">
-    <div class="vpanel">
+  <div class="feed" id="feed">
+    <figure class="hero-photo">
+      <img src="images/data-center.webp" srcset="images/data-center-600.webp 600w, images/data-center.webp 1200w" sizes="(max-width:760px) calc(100vw - 40px), (max-width:980px) calc(100vw - 48px), 496px" width="1200" height="1272" fetchpriority="high" alt="Network equipment, fiber connections, and status lights inside data-center racks">
+    </figure>
+    <div class="vpanel" aria-hidden="true">
       <div class="vpanel-top">
-        <span class="vlive"><span class="dot"></span>Live</span>
-        <span class="vcount" id="vcount">142,884</span><span class="vcount-lbl">verified today</span>
+        <span class="vlive"><span class="dot"></span>Verification preview</span>
+        <span class="vcount-lbl">Demo</span>
       </div>
       <div id="feedRows"></div>
     </div>
@@ -1274,10 +1337,13 @@
 </div></section>
 
 <!-- CTA -->
-<section class="blk" data-page="global" style="padding-top:0"><div class="wrap reveal"><div class="cta-band"><div class="glow"></div><canvas class="globe" id="globe"></canvas>
+<section class="blk" data-page="global" style="padding-top:0"><div class="wrap reveal"><div class="cta-band cta-photo">
+  <div class="cta-copy">
   <h2>Prove your next change safe.</h2>
   <p>Bring one recurring network incident. We'll diagnose it, patch it, and prove the fix — on your configs, in your environment.</p>
   <div class="actions"><a class="btn primary lg" href="mailto:contact@optimesh.ai?subject=Early%20access%20to%20Config%20Studio">Request access →</a><a class="btn ghost lg" href="mailto:contact@optimesh.ai">Talk to the team</a></div>
+  </div>
+  <img class="network-photo" src="images/network-switch.webp" srcset="images/network-switch-600.webp 600w, images/network-switch.webp 1200w" sizes="(max-width:760px) calc(100vw - 40px), 524px" width="1200" height="798" loading="lazy" decoding="async" alt="Blue Ethernet cables connected to numbered ports on a network switch">
 </div></div></section>
 
 <!-- footer -->
