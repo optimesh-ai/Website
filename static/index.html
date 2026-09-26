@@ -618,6 +618,24 @@
     .cta-photo h2{ font-size:clamp(2rem,7.5vw,2.7rem); }
     .cta-photo .network-photo{ height:240px; min-height:0; }
   }
+
+  /* Hammerhead films: native players, no autoplay anywhere. */
+  .films{ margin-top:96px; scroll-margin-top:92px; }
+  .filmgrid{ display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:16px; margin-top:36px; } @media(max-width:820px){ .filmgrid{ grid-template-columns:minmax(0,1fr); } }
+  .film{ display:flex; flex-direction:column; min-width:0; background:var(--panel); border:1px solid var(--hair); border-radius:var(--radius); overflow:hidden; }
+  .filmvid{ display:block; width:100%; height:auto; aspect-ratio:16/9; background:#0b1226; }
+  .film-body{ display:flex; flex-direction:column; flex:1; padding:20px 22px 22px; }
+  .film-meta{ font-family:ui-monospace,Menlo,monospace; font-size:12px; color:var(--muted); }
+  .film h3{ font-size:18px; letter-spacing:-.02em; margin:6px 0 6px; }
+  .film .for{ font-size:14px; font-weight:600; margin:0; }
+  .film .syn{ color:var(--muted); font-size:14px; margin:8px 0 18px; }
+  .film .scope, .films-foot, .filmteaser .scope{ color:var(--muted); font-size:12.5px; line-height:1.6; }
+  .film .scope{ margin:auto 0 0; padding-top:14px; border-top:1px solid var(--hair); }
+  .films-foot{ max-width:72ch; margin:22px auto 0; text-align:center; }
+  .filmframe{ border-radius:16px; overflow:hidden; background:#0b1226; box-shadow:0 20px 48px -30px rgba(10,26,63,.35); }
+  .filmteaser .actions{ display:flex; gap:12px; flex-wrap:wrap; margin-top:26px; }
+  .filmteaser .scope{ max-width:52ch; margin:18px 0 0; }
+  @media(max-width:760px){ .films{ margin-top:72px; } .film-body{ padding:18px; } }
 </style>
 
 <nav><div class="wrap nav">
@@ -646,6 +664,7 @@
             <a class="megaitem" data-nav="platform#verify"><span class="mi"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9"><path d="M12 3l7 4v5c0 4-3 7-7 9-4-2-7-5-7-9V7z"/><path d="M9 12l2 2 4-4"/></svg></span><span><span class="mt">Change verification</span><span class="md">Prove it before it ships</span></span></a>
             <a class="megaitem" data-nav="platform#brStage"><span class="mi"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9"><circle cx="12" cy="12" r="3"/><path d="M12 2v3M12 19v3M2 12h3M19 12h3"/></svg></span><span><span class="mt">Blast radius</span><span class="md">See what a change touches</span></span></a>
             <a class="megaitem" data-nav="platform#graph"><span class="mi"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9"><circle cx="6" cy="6" r="2"/><circle cx="18" cy="6" r="2"/><circle cx="12" cy="18" r="2"/><path d="M7.6 7.5l3 8.8M16.4 7.5l-3 8.8M8 6h8"/></svg></span><span><span class="mt">Cross-domain graph</span><span class="md">On-prem to cloud to k8s</span></span></a>
+            <a class="megaitem" data-nav="hammerhead#films"><span class="mi"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linejoin="round"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M10 9.5v5l4.5-2.5z"/></svg></span><span><span class="mt">Watch the films</span><span class="md">Hammerhead in three short films</span></span></a>
           </div>
           <div class="megacol">
             <h4>Fits your stack</h4>
@@ -664,6 +683,7 @@
 <div class="navmobile" id="navMobile">
   <div class="mlabel">Products</div>
   <a data-nav="hammerhead">Hammerhead</a>
+  <a data-nav="hammerhead#films">Hammerhead films</a>
   <a data-nav="configstudio">Config Studio</a>
   <a data-nav="rulehawk">RuleHawk</a>
   <div class="mlabel">Company</div>
@@ -1100,6 +1120,24 @@
   <article class="reader-body" id="readerBody"></article>
 </div>
 
+<!-- film teaser -->
+<section class="blk filmteaser" data-page="home"><div class="wrap split">
+  <div class="txt reveal">
+    <div class="kicker">Watch</div>
+    <h2 class="h2">Break it here first.</h2>
+    <p class="lead"><i>01:47</i> is a short film for the engineer holding the change window: a three-line OSPF change that passed peer review, pushed once, then rehearsed with Hammerhead instead.</p>
+    <div class="actions"><a class="btn ghost lg" data-nav="hammerhead#films">All three films →</a></div>
+    <p class="scope">Small synthetic labs. The push at 01:48 is a labelled dramatization, and the Rogers 2022 segment is a reconstruction from the public record, not a claim that the outage would have been prevented.</p>
+  </div>
+  <div class="reveal"><div class="filmframe">
+    <video class="filmvid" controls preload="none" playsinline width="1920" height="1080" poster="films/0147/poster.webp" aria-label="01:47, a film for the engineer holding the change window">
+      <source src="films/0147/video.mp4" type="video/mp4">
+      <track kind="captions" srclang="en" label="English" src="films/0147/captions.vtt">
+      <a href="films/0147/video.mp4">Download 01:47 (MP4)</a>
+    </video>
+  </div></div>
+</div></section>
+
 <!-- testimonials -->
 <section class="blk" data-page="home"><div class="wrap reveal">
   <div class="voices"><div class="voices-in">
@@ -1166,6 +1204,54 @@
     <div class="reveal">
       <div class="term"><div class="tb"><span class="d" style="background:#fb7185"></span><span class="d" style="background:#fbbf24"></span><span class="d" style="background:#34d399"></span><span class="nm">hammerhead</span></div><pre id="hhTerm"></pre></div>
     </div>
+  </div>
+  <div class="films" id="films">
+    <div class="center reveal"><div class="kicker">Films</div><h2 class="h2" style="margin:12px auto 0">Rehearse the change before you push it.</h2><p class="lead">Two short films about one idea, one for the engineer and one for the executive, and a walkthrough of the command line. The terminals show real output from the tool.</p></div>
+    <div class="filmgrid reveal">
+      <article class="film">
+        <video class="filmvid" controls preload="none" playsinline width="1920" height="1080" poster="films/0147/poster.webp" aria-label="01:47, a film for the engineer holding the change window">
+          <source src="films/0147/video.mp4" type="video/mp4">
+          <track kind="captions" srclang="en" label="English" src="films/0147/captions.vtt">
+          <a href="films/0147/video.mp4">Download 01:47 (MP4)</a>
+        </video>
+        <div class="film-body">
+          <div class="film-meta">Film · 3:38</div>
+          <h3>01:47</h3>
+          <p class="for">For the engineer holding the change window.</p>
+          <p class="syn">Thursday, 01:47. A three-line OSPF change that passed peer review, told twice: once pushed, once rehearsed.</p>
+          <p class="scope">The labs are synthetic and small. The push at 01:48 is a labelled dramatization of what the model says would happen. The Rogers 2022 segment is a reconstruction from the public record; the film does not claim Hammerhead would have prevented that outage.</p>
+        </div>
+      </article>
+      <article class="film">
+        <video class="filmvid" controls preload="none" playsinline width="1920" height="1080" poster="films/approved/poster.webp" aria-label="Approved., a film for the executive who signs off on the risk">
+          <source src="films/approved/video.mp4" type="video/mp4">
+          <track kind="captions" srclang="en" label="English" src="films/approved/captions.vtt">
+          <a href="films/approved/video.mp4">Download Approved. (MP4)</a>
+        </video>
+        <div class="film-body">
+          <div class="film-meta">Film · 1:59</div>
+          <h3>Approved.</h3>
+          <p class="for">For the executive who signs off on the risk.</p>
+          <p class="syn">A diff shows what was typed, not what the network does next. Where a pre-change gate fits, without moving the approval chain you already run.</p>
+          <p class="scope">The two incidents are cited from the providers' own reports as examples of change risk. The film does not claim Hammerhead would have prevented them, or that AI caused them. The terminal shows a small synthetic lab.</p>
+        </div>
+      </article>
+      <article class="film">
+        <video class="filmvid" controls preload="none" playsinline width="1920" height="1080" poster="films/thirteen-commands/poster.webp" aria-label="Thirteen commands., a walkthrough of the Hammerhead command line">
+          <source src="films/thirteen-commands/video.mp4" type="video/mp4">
+          <track kind="captions" srclang="en" label="English" src="films/thirteen-commands/captions.vtt">
+          <a href="films/thirteen-commands/video.mp4">Download Thirteen commands. (MP4)</a>
+        </video>
+        <div class="film-body">
+          <div class="film-meta">Walkthrough · 4:08</div>
+          <h3>Thirteen commands.</h3>
+          <p class="for">For the engineer at the keyboard.</p>
+          <p class="syn">One command per chapter, typed and run: what it found in a folder of configs, what it could not read, and what a change does.</p>
+          <p class="scope">Every chapter runs on the small synthetic labs that ship with Hammerhead. The output is real: colour is added, and long output is clipped or excerpted, never edited.</p>
+        </div>
+      </article>
+    </div>
+    <p class="films-foot reveal">Nothing in these films was pushed to a production network. Narration is a synthetic voice; English captions are in each player.</p>
   </div>
   <div class="center reveal" style="margin-top:96px"><div class="kicker">32 CLI subcommands</div><h2 class="h2" style="margin:12px auto 0">One engine. The whole validation loop.</h2></div>
   <div class="capcols reveal">
@@ -1508,6 +1594,11 @@
     navMobile.querySelectorAll('a').forEach(a=>a.addEventListener('click',closeM));
     document.addEventListener('keydown',e=>{ if(e.key==='Escape') closeM(); });
   }
+
+  /* films: one plays at a time, and leaving a page pauses whatever was playing (no autoplay anywhere) */
+  const filmVids=[...document.querySelectorAll('video.filmvid')];
+  filmVids.forEach(v=>v.addEventListener('play',()=>filmVids.forEach(o=>{ if(o!==v && !o.paused) o.pause(); })));
+  document.querySelectorAll('[data-nav]').forEach(a=>a.addEventListener('click',()=>filmVids.forEach(v=>{ if(!v.paused) v.pause(); })));
 
   /* platform verify terminal: reveal the run line-by-line when scrolled into view */
   const vtEl=document.querySelector('.verifyterm');

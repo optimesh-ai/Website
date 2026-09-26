@@ -3,7 +3,33 @@
   command = "echo 'serving static optimesh site'"
   publish = "static"
 
+# SPA fallback. It is not forced (no `force = true`), so Netlify serves any file
+# that exists under static/ first, including static/films/*; only paths with no
+# file behind them fall through to index.html.
 [[redirects]]
   from = "/*"
   to = "/index.html"
   status = 200
+
+# Film encodes, posters and captions. The file names are not versioned, so a
+# day's cache rather than `immutable`: a re-encode reaches visitors within 24h.
+[[headers]]
+  for = "/films/*"
+  [headers.values]
+    Cache-Control = "public, max-age=86400"
+
+# <track> needs text/vtt; state it rather than rely on extension sniffing.
+[[headers]]
+  for = "/films/0147/captions.vtt"
+  [headers.values]
+    Content-Type = "text/vtt; charset=utf-8"
+
+[[headers]]
+  for = "/films/approved/captions.vtt"
+  [headers.values]
+    Content-Type = "text/vtt; charset=utf-8"
+
+[[headers]]
+  for = "/films/thirteen-commands/captions.vtt"
+  [headers.values]
+    Content-Type = "text/vtt; charset=utf-8"
