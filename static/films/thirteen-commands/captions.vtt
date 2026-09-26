@@ -1,0 +1,259 @@
+WEBVTT
+
+00:00:00.600 --> 00:00:02.281
+You've got a change to review,
+
+00:00:02.281 --> 00:00:03.625
+and a folder of configs.
+
+00:00:04.438 --> 00:00:06.619
+Here's what Hammerhead does with them,
+
+00:00:06.619 --> 00:00:07.825
+in thirteen commands.
+
+00:00:08.625 --> 00:00:12.312
+Everything you're about to see runs on the labs that ship in the repo,
+
+00:00:12.312 --> 00:00:13.050
+so type along.
+
+00:00:14.667 --> 00:00:17.279
+Start by pointing it at a directory of configs.
+
+00:00:18.029 --> 00:00:20.597
+The init command tells you what it found:
+
+00:00:20.597 --> 00:00:22.538
+three devices, nine interfaces,
+
+00:00:22.538 --> 00:00:24.292
+and three layer-three links.
+
+00:00:25.092 --> 00:00:27.363
+Check that against what you expected.
+
+00:00:27.363 --> 00:00:29.082
+If a router is missing here,
+
+00:00:29.082 --> 00:00:31.108
+every answer after this is wrong.
+
+00:00:31.108 --> 00:00:32.704
+So fix the snapshot first.
+
+00:00:34.221 --> 00:00:36.421
+Next, find out what it didn't understand.
+
+00:00:37.146 --> 00:00:39.169
+Coverage is reported per device,
+
+00:00:39.169 --> 00:00:42.708
+and this mixed-vendor lab is here to show you a bad one.
+
+00:00:42.708 --> 00:00:44.921
+The Cisco core: forty-four percent.
+
+00:00:45.821 --> 00:00:47.396
+Coverage isn't accuracy.
+
+00:00:47.396 --> 00:00:50.283
+But unparsed lines are where surprises live.
+
+00:00:50.283 --> 00:00:52.908
+So read them before you trust a verdict.
+
+00:00:54.433 --> 00:00:57.606
+Topo shows the links it inferred from the addressing.
+
+00:00:57.606 --> 00:01:00.121
+Three routers, three point-to-point links.
+
+00:01:00.871 --> 00:01:03.691
+The warnings are loopbacks with nothing on the other end,
+
+00:01:03.691 --> 00:01:04.383
+which is fine.
+
+00:01:05.083 --> 00:01:07.169
+Compare this with your own diagram.
+
+00:01:07.169 --> 00:01:09.971
+Inferred links are only as good as the configs.
+
+00:01:11.488 --> 00:01:12.997
+Now ask it a question.
+
+00:01:12.997 --> 00:01:14.850
+Can R1 reach R3's loopback?
+
+00:01:15.662 --> 00:01:19.087
+Yes. One packet, one direction. It's a start.
+
+00:01:19.887 --> 00:01:23.111
+So make it the service you actually care about.
+
+00:01:23.111 --> 00:01:24.825
+SSH, TCP port twenty-two.
+
+00:01:25.575 --> 00:01:27.647
+Traceroute gives you the hop,
+
+00:01:27.647 --> 00:01:30.648
+the egress interface, and the disposition.
+
+00:01:30.648 --> 00:01:33.362
+Delivered, out Gigabit zero slash one.
+
+00:01:34.867 --> 00:01:36.119
+And if you want to know why,
+
+00:01:36.119 --> 00:01:37.729
+the forwarding table is right there.
+
+00:01:38.517 --> 00:01:41.504
+Three-dot-three, via Gig zero slash one,
+
+00:01:41.504 --> 00:01:42.849
+learned from OSPF.
+
+00:01:42.849 --> 00:01:47.554
+This is the line to compare with show IP route on the real box.
+
+00:01:49.079 --> 00:01:50.618
+That's the network as it is.
+
+00:01:50.618 --> 00:01:53.092
+Here's the network as someone wants it to be.
+
+00:01:53.892 --> 00:01:57.335
+Diff takes two snapshots and compares the forwarding,
+
+00:01:57.335 --> 00:01:58.179
+not the text.
+
+00:01:58.929 --> 00:02:03.552
+This candidate moves a leaf's uplinks into the wrong OSPF area.
+
+00:02:03.552 --> 00:02:06.854
+Fifteen routes affected, on all four devices.
+
+00:02:08.367 --> 00:02:10.767
+Same command, different mistake.
+
+00:02:10.767 --> 00:02:13.392
+A remote AS typo on a BGP neighbor.
+
+00:02:14.204 --> 00:02:16.344
+Five routes gone, on two devices.
+
+00:02:16.344 --> 00:02:21.079
+Including the two-oh-three slash sixteen you were learning from upstream.
+
+00:02:22.600 --> 00:02:24.073
+Diff tells you what changes.
+
+00:02:24.073 --> 00:02:26.125
+Preflight tells you whether to ship it.
+
+00:02:26.912 --> 00:02:29.712
+It's armed by default. A blast-radius limit,
+
+00:02:29.712 --> 00:02:32.956
+and a reachability sweep between every device pair,
+
+00:02:32.956 --> 00:02:34.037
+before and after.
+
+00:02:34.942 --> 00:02:36.166
+This one fails on both.
+
+00:02:37.066 --> 00:02:40.003
+Exit code two. So your pipeline stops.
+
+00:02:41.833 --> 00:02:44.175
+Here's what a pass looks like, as JSON.
+
+00:02:44.175 --> 00:02:46.096
+A snapshot compared with itself.
+
+00:02:46.871 --> 00:02:49.883
+Read past the verdict. Gates armed: true.
+
+00:02:49.883 --> 00:02:52.969
+Three endpoints probed, of three required,
+
+00:02:52.969 --> 00:02:54.071
+and no caveats.
+
+00:02:54.958 --> 00:02:58.313
+A run with its gates switched off doesn't get to say pass.
+
+00:02:58.313 --> 00:03:00.106
+Hammerhead calls that advisory,
+
+00:03:00.106 --> 00:03:01.783
+and your pipeline should too.
+
+00:03:03.300 --> 00:03:06.500
+Some requirements shouldn't depend on anyone remembering them.
+
+00:03:07.250 --> 00:03:09.906
+So write them down. Core reachability.
+
+00:03:09.906 --> 00:03:12.142
+A path constraint. A hop budget.
+
+00:03:12.142 --> 00:03:13.400
+An isolation rule.
+
+00:03:14.137 --> 00:03:17.285
+Policy-check runs them all. Six of six here.
+
+00:03:17.285 --> 00:03:18.788
+With the strict flag,
+
+00:03:18.788 --> 00:03:20.862
+one failure is exit code two.
+
+00:03:22.367 --> 00:03:23.451
+Before maintenance,
+
+00:03:23.451 --> 00:03:25.504
+ask what happens if a box goes away.
+
+00:03:26.254 --> 00:03:29.555
+Take R3 down. Four routes lost straight away,
+
+00:03:29.555 --> 00:03:32.342
+and both of the other routers feel it.
+
+00:03:33.867 --> 00:03:36.604
+Or scan every device at once, and rank them.
+
+00:03:37.342 --> 00:03:40.161
+In a triangle, they tie. On a real network,
+
+00:03:40.161 --> 00:03:43.504
+this is the list you take to the redundancy review.
+
+00:03:45.033 --> 00:03:46.446
+That's thirteen commands.
+
+00:03:47.246 --> 00:03:49.502
+Keep the inputs with the change.
+
+00:03:49.502 --> 00:03:52.251
+Both snapshots, the commands, the JSON,
+
+00:03:52.251 --> 00:03:53.308
+the exit codes.
+
+00:03:54.208 --> 00:03:56.926
+Then start small. One site you know well,
+
+00:03:56.926 --> 00:03:57.921
+and one change.
+
+00:03:59.041 --> 00:04:00.118
+Break it here first.

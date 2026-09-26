@@ -1,0 +1,139 @@
+WEBVTT
+
+00:00:00.300 --> 00:00:01.940
+The change was reviewed and approved.
+
+00:00:02.940 --> 00:00:05.260
+You'll find that sentence in a lot of outage reports.
+
+00:00:06.867 --> 00:00:08.710
+In June 2025, at Google Cloud,
+
+00:00:08.710 --> 00:00:12.887
+a policy update with blank fields crashed Service Control worldwide.
+
+00:00:13.687 --> 00:00:15.009
+At Microsoft that October,
+
+00:00:15.009 --> 00:00:18.112
+valid customer configuration changes exposed a latent defect,
+
+00:00:18.112 --> 00:00:20.707
+and Azure Front Door's edge nodes started crashing.
+
+00:00:21.607 --> 00:00:23.127
+Both started as small changes.
+
+00:00:24.533 --> 00:00:26.656
+Changes are also arriving faster now,
+
+00:00:26.656 --> 00:00:28.893
+because an AI can draft one in seconds.
+
+00:00:29.593 --> 00:00:30.675
+Your reviewers are good,
+
+00:00:30.675 --> 00:00:32.253
+but what they're reading is a diff.
+
+00:00:33.003 --> 00:00:34.486
+A diff shows you what was typed.
+
+00:00:34.486 --> 00:00:36.663
+It doesn't show you what the network does next.
+
+00:00:38.067 --> 00:00:39.807
+Hammerhead rehearses the change first.
+
+00:00:40.507 --> 00:00:42.904
+It reads the configurations you already have,
+
+00:00:42.904 --> 00:00:44.982
+builds a working model of your network,
+
+00:00:44.982 --> 00:00:46.367
+and runs the change there.
+
+00:00:47.067 --> 00:00:48.844
+There are no agents to install,
+
+00:00:48.844 --> 00:00:50.507
+and no login on your devices.
+
+00:00:51.933 --> 00:00:54.273
+Here's a three-line routing edit that looks harmless.
+
+00:00:55.073 --> 00:00:56.996
+In the model, fifteen routes change,
+
+00:00:56.996 --> 00:00:58.758
+one device drops off the network,
+
+00:00:58.758 --> 00:00:59.933
+and the gate fails it.
+
+00:01:00.883 --> 00:01:03.149
+The cause wasn't in the lines anyone reviewed.
+
+00:01:03.149 --> 00:01:04.921
+It was at the other end of the link,
+
+00:01:04.921 --> 00:01:06.103
+in a file nobody opened.
+
+00:01:07.003 --> 00:01:08.630
+Your team finds that out at a desk,
+
+00:01:08.630 --> 00:01:10.303
+instead of during the change window.
+
+00:01:12.033 --> 00:01:14.633
+Nothing about how you run changes has to move.
+
+00:01:15.333 --> 00:01:16.883
+Your engineers still approve,
+
+00:01:16.883 --> 00:01:18.593
+and your own tools still deploy.
+
+00:01:19.243 --> 00:01:22.372
+It doesn't matter whether a person or an AI wrote the change.
+
+00:01:22.372 --> 00:01:23.911
+It goes through the same gate,
+
+00:01:23.911 --> 00:01:25.603
+and if it fails, it doesn't ship.
+
+00:01:26.253 --> 00:01:26.781
+Afterwards,
+
+00:01:26.781 --> 00:01:28.653
+Hammerhead checks what actually landed.
+
+00:01:30.067 --> 00:01:32.787
+And when Hammerhead can't be sure, it says so.
+
+00:01:33.637 --> 00:01:36.215
+It has four answers. Pass, fail, advisory,
+
+00:01:36.215 --> 00:01:36.952
+and unknown.
+
+00:01:36.952 --> 00:01:40.758
+Unknown means part of the change is outside what it can model,
+
+00:01:40.758 --> 00:01:42.477
+and it tells you which part.
+
+00:01:44.100 --> 00:01:46.360
+So before your next change window,
+
+00:01:46.360 --> 00:01:48.420
+run one real change through it.
+
+00:01:49.120 --> 00:01:51.477
+Pick the one somebody's a little nervous about.
+
+00:01:51.477 --> 00:01:52.480
+Break it here first.
