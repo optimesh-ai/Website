@@ -1,0 +1,79 @@
+# Check the static site on every pull request, and on main deploy it to
+# Netlify and confirm the live site is the commit that was pushed.
+#
+# Why a build hook: Netlify's own GitHub integration held pushes from
+# contributors it did not recognise as pending approval, so merges to main
+# never reached optimesh.ai. The hook (secret NETLIFY_BUILD_HOOK) builds the
+# head of main, and the verify step waits for /version.txt to name it.
+name: Site
+
+on:
+  pull_request:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: site-${{ github.ref }}
+  cancel-in-progress: ${{ github.event_name == 'pull_request' }}
+
+jobs:
+  check:
+    name: Check static site
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09
+      - name: Check page, references, sizes and netlify.toml
+        run: python3 scripts/check_site.py
+
+  deploy:
+    name: Deploy to Netlify and verify
+    needs: check
+    if: github.event_name != 'pull_request' && github.ref == 'refs/heads/main'
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    concurrency:
+      group: site-deploy
+      cancel-in-progress: false
+    steps:
+      - name: Trigger the Netlify build of main
+        env:
+          HOOK: ${{ secrets.NETLIFY_BUILD_HOOK }}
+        run: |
+          set -euo pipefail
+          if [ -z "${HOOK}" ]; then
+            echo "::error::secret NETLIFY_BUILD_HOOK is not set"
+            exit 1
+          fi
+          curl -fsS -X POST -d '{}' "${HOOK}" > /dev/null
+          echo "build requested for ${GITHUB_SHA}"
+      - name: Wait until optimesh.ai serves this commit
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          set -euo pipefail
+          live=""
+          for i in $(seq 1 90); do
+            live="$(curl -fsS "https://optimesh.ai/version.txt?ci=${GITHUB_RUN_ID}-${i}" 2>/dev/null | head -c 80 | tr -d '[:space:]' || true)"
+            if [ "${live}" = "${GITHUB_SHA}" ]; then
+              echo "optimesh.ai is serving ${GITHUB_SHA}"
+              exit 0
+            fi
+            # A later push already deployed: this commit is superseded, not lost.
+            if [ -n "${live}" ] && [ "${live}" != "unknown" ]; then
+              status="$(curl -fsS -H "Authorization: Bearer ${GH_TOKEN}" \
+                "https://api.github.com/repos/${GITHUB_REPOSITORY}/compare/${GITHUB_SHA}...${live}" \
+                | python3 -c 'import json,sys; print(json.load(sys.stdin).get("status",""))' || true)"
+              if [ "${status}" = "ahead" ]; then
+                echo "optimesh.ai serves ${live}, a later commit than ${GITHUB_SHA}"
+                exit 0
+              fi
+            fi
+            sleep 10
+          done
+          echo "::error::after 15 minutes optimesh.ai still serves '${live:-nothing}', not ${GITHUB_SHA}"
+          exit 1

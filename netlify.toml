@@ -1,6 +1,8 @@
-# Serve the single-file Optimesh site (static prototype). No build step required.
+# Serve the single-file Optimesh site (static prototype). The only build step
+# records which commit was deployed, so CI can confirm the live site is the
+# commit it pushed (GET /version.txt). COMMIT_REF is set by Netlify.
 [build]
-  command = "echo 'serving static optimesh site'"
+  command = "printf '%s\\n' \"${COMMIT_REF:-unknown}\" > static/version.txt"
   publish = "static"
 
 # SPA fallback. It is not forced (no `force = true`), so Netlify serves any file
@@ -33,3 +35,10 @@
   for = "/films/thirteen-commands/captions.vtt"
   [headers.values]
     Content-Type = "text/vtt; charset=utf-8"
+
+# The deployed commit, read by CI after each deploy; never cache it.
+[[headers]]
+  for = "/version.txt"
+  [headers.values]
+    Cache-Control = "no-store"
+    Content-Type = "text/plain; charset=utf-8"

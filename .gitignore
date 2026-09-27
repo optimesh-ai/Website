@@ -25,3 +25,6 @@ dist-ssr
 
 .config/
 !.env
+
+# Written by the Netlify build (netlify.toml); never committed.
+static/version.txt
