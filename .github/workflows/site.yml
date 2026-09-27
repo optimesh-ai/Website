@@ -64,10 +64,10 @@ jobs:
               exit 0
             fi
             # A later push already deployed: this commit is superseded, not lost.
-            if [ -n "${live}" ] && [ "${live}" != "unknown" ]; then
+            if printf '%s' "${live}" | grep -Eq '^[0-9a-f]{40}$'; then
               status="$(curl -fsS -H "Authorization: Bearer ${GH_TOKEN}" \
                 "https://api.github.com/repos/${GITHUB_REPOSITORY}/compare/${GITHUB_SHA}...${live}" \
-                | python3 -c 'import json,sys; print(json.load(sys.stdin).get("status",""))' || true)"
+                | python3 -c 'import json,sys; print(json.load(sys.stdin).get("status",""))' 2>/dev/null || true)"
               if [ "${status}" = "ahead" ]; then
                 echo "optimesh.ai serves ${live}, a later commit than ${GITHUB_SHA}"
                 exit 0
