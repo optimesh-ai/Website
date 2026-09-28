@@ -855,14 +855,14 @@
     <div class="prod"><div class="pk">Hammerhead</div><h3>Offline forwarding-plane simulator</h3>
       <p class="pd">Point it at your configs and ask what a change will do. Reachability and traceroute across every major vendor, answered in milliseconds.</p>
       <ul>
-        <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M4 12l5 5L20 6"/></svg>800× faster than the industry standard, 99.93% FIB parity</li>
+        <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M4 12l5 5L20 6"/></svg>Tested against real routers: 135 of 136 routes match. We re-run it every week.</li>
         <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M4 12l5 5L20 6"/></svg>Memory-safe by construction, deterministic, audit-ready</li>
         <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M4 12l5 5L20 6"/></svg>CLI, Python SDK, REST API, CI integration and Jupyter</li>
       </ul></div>
     <div class="prod"><div class="pk">Config Studio</div><h3>AI diagnosis and verified remediation</h3>
       <p class="pd">When a config breaks, it finds the fault, writes the fix, and proves it safe in simulation — before anyone approves it.</p>
       <ul>
-        <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M4 12l5 5L20 6"/></svg>99.6% diagnostic accuracy, 99% reduction in MTTR</li>
+        <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M4 12l5 5L20 6"/></svg>Every fix is tested on a model of your network, and a human approves it before anything changes.</li>
         <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M4 12l5 5L20 6"/></svg>Small, reviewable diffs — every fix checked before you see it</li>
         <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M4 12l5 5L20 6"/></svg>On-prem and air-gapped — nothing ever leaves your network</li>
       </ul></div>
@@ -1060,7 +1060,7 @@
   <div class="reveal" style="margin-top:84px"><div class="kicker">Where the existing answers fall short</div><h2 class="h2">What other approaches miss.</h2></div>
   <div class="cmp reveal">
     <table>
-      <thead><tr><th>Approach</th><th>Prevents the bad change</th><th>Runs at CI speed</th><th>Verifies AI output</th><th>Runs on your hardware</th></tr></thead>
+      <thead><tr><th>Approach</th><th>Catches the bad change before it ships</th><th>Runs at CI speed</th><th>Verifies AI output</th><th>Runs on your hardware</th></tr></thead>
       <tbody>
         <tr><td>Monitoring &amp; observability</td><td class="no">—</td><td class="no">—</td><td class="no">—</td><td class="part">partial</td></tr>
         <tr><td>Legacy verification tools</td><td class="part">partial</td><td class="no">—</td><td class="no">—</td><td class="part">partial</td></tr>
@@ -1175,7 +1175,7 @@
   <div class="reveal" style="margin-top:88px; text-align:center"><div class="kicker">The climb</div><h2 class="h2" style="margin:12px auto 0">From a hard research bet to the trust layer, and what's next.</h2></div>
   <div class="timeline" id="timeline">
     <div class="tline"></div><div class="tfill" id="tfill"></div>
-    <div class="tnode"><h3>Proved the impossible fast</h3><p>An entire network's forwarding plane, simulated in milliseconds. 99.93% parity with the industry standard, 800× faster, on a laptop.</p></div>
+    <div class="tnode"><h3>Proved the impossible fast</h3><p>Your whole network, simulated in under a second: 976 devices in 0.6s, on one machine.</p></div>
     <div class="tnode"><h3>Put it in production</h3><p>The first network teams run verified change on their own fabrics, on their own hardware. Nothing leaves the building.</p></div>
     <div class="tnode"><h3>Gave the network a brain</h3><p>Config Studio diagnoses the fault, writes the fix, and proves it safe before a human ever approves it.</p></div>
     <div class="tnode"><h3>Backed to go further</h3><p>Operators who have run real networks, angel investors, and NVIDIA's startup program bet on the thesis.</p></div>
@@ -1199,7 +1199,7 @@
       <h1 style="margin:12px 0 0">Know what a change will do, before you make it.</h1>
       <p class="lead" style="margin:18px 0 0">Point it at a directory of router configs. It builds the forwarding tables for every device, runs your reachability query, and tells you the answer, in under a second. Ships as a single binary. Nothing else to install.</p>
       <div style="display:flex; gap:12px; margin-top:26px; flex-wrap:wrap"><a class="btn primary lg" href="mailto:contact@optimesh.ai?subject=Hammerhead%20access">Request access →</a><a class="btn ghost lg" data-nav="why">Read the white paper</a></div>
-      <div class="mono" style="margin-top:16px; font-size:12px; color:var(--muted)">800× faster · 99.93% FIB parity · deterministic · audit-ready</div>
+      <div class="mono" style="margin-top:16px; font-size:12px; color:var(--muted)">135/136 routes match real routers · 134 real outages rebuilt · same answer every run</div>
     </div>
     <div class="reveal">
       <div class="term"><div class="tb"><span class="d" style="background:#fb7185"></span><span class="d" style="background:#fbbf24"></span><span class="d" style="background:#34d399"></span><span class="nm">hammerhead</span></div><pre id="hhTerm"></pre></div>
@@ -1274,7 +1274,7 @@
     <div class="scard"><h3>REST API</h3><p>An axum server with 11 endpoints for wiring into anything.</p></div>
     <div class="scard"><h3>CI pipeline</h3><p>Gate merges on a FIB diff. Fast enough to run on every commit.</p></div>
     <div class="scard"><h3>Jupyter</h3><p>8 tutorial notebooks: BGP analysis, traceroute, change validation, ACL walkthroughs.</p></div>
-    <div class="scard"><h3>vs the standard</h3><p>Matches industry-standard analysis at 99.93%, 800× faster, fully deterministic and diffable.</p></div>
+    <div class="scard"><h3>vs the standard</h3><p>Same answer as Batfish, the open-source standard, on 99.8% of routes across 351 networks. Fast enough to run on every change.</p></div>
   </div>
 </div></section>
 
@@ -2134,7 +2134,7 @@
       {t:'h2',x:`Don't trust the generator. Check the artifact.`},
       {t:'p',x:`The move is the oldest one in formal methods: do not trust the generator, check the artifact. A compiler can be arbitrarily clever, and the type checker that vets its output trusts none of that cleverness. The generator can be a large model, a script, or a nervous human at 2am; the verifier does not care. It asks one question deterministically, over the whole packet space: does this configuration still satisfy the invariants? That is the sensor we skipped, and it is what lets us safely hand more authority to automation.`},
       {t:'h2',x:`The bet`},
-      {t:'p',x:`Sound is not enough and fast is not enough; it has to be both, in the path of change. That is the engineering problem we chose: reconstruct a network's forwarding behavior with better than 99.9% fidelity to the industry reference, and do it hundreds of times faster, so the check fits inside a pull request instead of a quarterly audit. We are not building a smarter autopilot. We are building the instrument that tells the autopilot the truth.`},
+      {t:'p',x:`Sound is not enough and fast is not enough; it has to be both, in the path of change. That is the engineering problem we chose: reconstruct a network's forwarding behavior closely enough that 135 of 136 routes match real routers, and fast enough to run on every pull request instead of a quarterly audit. We are not building a smarter autopilot. We are building the instrument that tells the autopilot the truth.`},
     ]},
   ];
 
@@ -2155,8 +2155,8 @@
     {t:'out',x:'parsed 1,280 devices · auto-detected'},
     {t:'out',x:'built FIB · 798,720 routes · 279ms'},
     {t:'cmd',x:'hammerhead traceroute --from R1 --dst 3.3.3.3'},
-    {t:'out',x:'R1 → R2 → R3   DELIVERED (3 hops)',ok:true},
-    {t:'out',x:'verified against industry-standard analysis · 99.93%'},
+    {t:'out',x:'R1 → R2 → R3   (3 hops)'},
+    {t:'out',x:'Disposition: Delivered',ok:true},
   ];
   let hhTok=0;
   async function runHHTerm(){ const pre=el('hhTerm'); if(!pre) return; const my=++hhTok; pre.innerHTML='';
