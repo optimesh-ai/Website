@@ -18,8 +18,8 @@
 # uses system fonts only, and the access / contact forms post to Netlify Forms
 # with fetch('/'). 'unsafe-inline' stays for script and style because the page
 # is one hand-written file with an inline <script>, an inline <style> and many
-# style="" attributes. External links (RuleHawk, a16z, NVIDIA) are navigations,
-# which the CSP does not govern. frame-ancestors only works as a header.
+# style="" attributes. External links (RuleHawk, GitHub, NVIDIA, Netlify) are
+# navigations, which the CSP does not govern. frame-ancestors only works as a header.
 [[headers]]
   for = "/*"
   [headers.values]

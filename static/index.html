@@ -4,22 +4,26 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="color-scheme" content="light">
-<title>Optimesh Technologies</title>
-<meta name="description" content="Know what your network change breaks, before you push it.">
+<title>Optimesh Technologies: know what your network change breaks</title>
+<meta name="description" content="Hammerhead rehearses a network change on a model built from your configs and tells you what breaks, or says 'unknown' and names what it couldn't check. Runs on your own hardware.">
 <link rel="canonical" href="https://optimesh.ai/">
+<link rel="icon" type="image/svg+xml" href="/favicon.svg">
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="Optimesh Technologies">
+<meta property="og:locale" content="en_US">
 <meta property="og:title" content="Know what your network change breaks, before you push it.">
-<meta property="og:description" content="Know what your network change breaks, before you push it.">
+<meta property="og:description" content="Hammerhead rehearses a network change on a model built from your configs and tells you what breaks, or says 'unknown' and names what it couldn't check. Runs on your own hardware.">
 <meta property="og:url" content="https://optimesh.ai/">
 <meta property="og:image" content="https://optimesh.ai/og.png">
+<meta property="og:image:type" content="image/png">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
 <meta property="og:image:alt" content="Hammerhead in a terminal: a preflight check on a proposed network change returns VERDICT: FAIL and names the flows it would break.">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="Know what your network change breaks, before you push it.">
-<meta name="twitter:description" content="Know what your network change breaks, before you push it.">
+<meta name="twitter:description" content="Hammerhead rehearses a network change on a model built from your configs and tells you what breaks, or says 'unknown' and names what it couldn't check.">
 <meta name="twitter:image" content="https://optimesh.ai/og.png">
+<meta name="twitter:image:alt" content="Hammerhead in a terminal: a preflight check on a proposed network change returns VERDICT: FAIL and names the flows it would break.">
 </head>
 <body>
 <style>
@@ -116,6 +120,14 @@
   .cxmail{ font-size:13.5px; color:var(--muted); text-decoration:none; }
   .cxmail b{ color:var(--accent); font-weight:600; text-decoration:underline; text-underline-offset:2px; }
   .cxmail:hover b{ text-decoration:none; }
+  .cxprod{ border:0; margin:0; padding:0; min-width:0; }
+  .cxprod legend{ padding:0; margin-bottom:8px; font-size:12px; font-weight:600; letter-spacing:.01em; color:var(--muted); }
+  .cxchips{ display:flex; flex-wrap:wrap; gap:8px; }
+  .cxchips label{ position:relative; cursor:pointer; }
+  .cxchips input{ position:absolute; opacity:0; width:1px; height:1px; }
+  .cxchips span{ display:inline-block; padding:8px 14px; border:1px solid var(--hair); border-radius:999px; font-size:13.5px; font-weight:600; color:var(--ink); background:color-mix(in srgb,var(--ink) 3%,var(--panel)); }
+  .cxchips input:checked+span{ border-color:var(--accent); background:color-mix(in srgb,var(--accent) 10%,var(--panel)); color:var(--accent); }
+  .cxchips input:focus-visible+span{ box-shadow:0 0 0 3px color-mix(in srgb,var(--accent) 22%,transparent); }
   .cxerr{ margin:2px 0 0; font-size:13px; color:#d6455a; font-weight:550; }
   .cxdone{ text-align:center; padding:26px 8px 10px; display:flex; flex-direction:column; align-items:center; gap:12px; }
   .cxcheck{ width:52px; height:52px; border-radius:50%; display:grid; place-items:center; font-size:26px; font-weight:700; color:#fff; background:var(--accent); box-shadow:0 10px 24px -12px color-mix(in srgb,var(--accent) 38%,transparent); }
@@ -157,11 +169,12 @@
   .nav{ display:flex; align-items:center; gap:22px; height:64px; }
   .brand{ display:flex; align-items:center; gap:10px; font-weight:700; font-size:17px; letter-spacing:-0.01em; }
   .brand .sep{ color:var(--muted); font-weight:400; } .brand .sub{ color:var(--muted); font-weight:500; }
-  .nav .links{ display:none; gap:22px; margin-left:12px; color:var(--muted); font-size:14px; } .nav .spacer{ flex:1; }
+  .nav .links{ display:none; gap:20px; margin-left:12px; color:var(--muted); font-size:14px; } .nav .spacer{ flex:1; }
+  .brand, .nav .links a, .nav .links .trig, .nav>.btn{ white-space:nowrap; }
   .btn{ display:inline-flex; align-items:center; gap:8px; border-radius:999px; font-weight:600; font-size:14px; padding:10px 18px; cursor:pointer; border:1px solid transparent; }
   .btn.primary{ background:var(--accent); color:#fff; box-shadow:0 8px 20px -12px color-mix(in srgb,var(--accent) 42%,transparent); } .btn.primary:hover{ filter:brightness(1.06); }
   .btn.ghost{ color:var(--ink); border-color:var(--hair); background:var(--panel); } .btn.lg{ padding:14px 24px; font-size:15px; }
-  @media(min-width:921px){ .nav .links{ display:flex; } }
+  @media(min-width:1061px){ .nav .links{ display:flex; } }
   /* mobile navigation */
   .navtoggle{ display:none; flex-direction:column; gap:5px; width:42px; height:42px; align-items:center; justify-content:center; background:transparent; border:1px solid var(--hair); border-radius:11px; cursor:pointer; flex:none; }
   .navtoggle span{ width:18px; height:2px; background:var(--ink); border-radius:2px; transition:transform .28s cubic-bezier(.4,0,.2,1), opacity .2s; }
@@ -169,7 +182,7 @@
   .navtoggle.open span:nth-child(2){ opacity:0; }
   .navtoggle.open span:nth-child(3){ transform:translateY(-7px) rotate(-45deg); }
   .navmobile{ display:none; }
-  @media(max-width:920px){
+  @media(max-width:1060px){
     .navtoggle{ display:flex; }
     .nav>.btn{ display:none; }
     .navmobile{ display:flex; position:absolute; top:100%; left:0; right:0; flex-direction:column; padding:0 20px; gap:0; background:var(--panel); border-bottom:1px solid var(--hair); box-shadow:0 26px 54px -22px rgba(10,26,63,0.34); max-height:0; overflow:hidden; opacity:0; pointer-events:none; transition:max-height .32s cubic-bezier(.4,0,.2,1), opacity .24s ease, padding .32s ease; }
@@ -184,16 +197,6 @@
   /* hero + floating */
   .hero{ position:relative; min-height:90vh; display:flex; align-items:center; gap:clamp(28px,4vw,64px); padding:120px 0 48px; }
   @media(max-width:980px){ .hero{ flex-direction:column; align-items:stretch; padding-top:96px; min-height:auto; } .hero__in{ width:100%; } }
-  .speedrun-announcement{ position:absolute; top:24px; left:24px; right:24px; z-index:6; display:grid; grid-template-columns:auto 1fr auto; align-items:center; gap:24px; max-width:760px; margin:0 auto; padding:18px 24px; border:1px solid var(--hair); border-radius:12px; background:var(--panel); color:var(--ink); font:inherit; text-align:left; cursor:pointer; transition:border-color .18s ease; }
-  .speedrun-announcement:hover{ border-color:#a6b5cb; }
-  .speedrun-mark{ display:flex; flex-direction:column; gap:5px; padding-right:24px; border-right:1px solid var(--hair); font-size:28px; line-height:1; font-weight:700; letter-spacing:-.06em; }
-  .speedrun-mark small{ font-size:13px; font-weight:600; letter-spacing:-.02em; }
-  .speedrun-copy{ display:flex; flex-direction:column; gap:4px; }
-  .speedrun-copy strong{ font-size:18px; line-height:1.3; font-weight:650; letter-spacing:-.025em; }
-  .speedrun-copy small{ font-size:13px; line-height:1.5; color:var(--muted); }
-  .speedrun-link{ display:inline-flex; align-items:center; gap:8px; color:var(--accent); font-size:13px; font-weight:600; white-space:nowrap; }
-  .speedrun-link span{ font-size:18px; }
-  .milestone-link{ display:inline-flex; margin-top:12px; padding:0; border:0; background:none; color:var(--accent); font:inherit; font-size:13px; font-weight:600; cursor:pointer; }
   .milestone-link:hover{ text-decoration:underline; text-underline-offset:3px; }
   .feed{ order:2; flex:0 0 min(414px,45%); z-index:2; pointer-events:none; }
   @media(max-width:980px){ .feed{ display:none; } }
@@ -254,6 +257,7 @@
   h1{ font-size:clamp(2.3rem,4.6vw,3.9rem); font-weight:800; line-height:1.0; letter-spacing:-0.03em; margin:0; text-wrap:balance; }
   .hero p{ font-size:clamp(1rem,1.6vw,1.24rem); color:var(--muted); max-width:44ch; margin:24px 0 0; }
   .hero .actions{ display:flex; gap:12px; margin-top:30px; flex-wrap:wrap; }
+  .hero p.hero-sub{ font-size:14px; line-height:1.55; margin:18px 0 0; max-width:52ch; } .hero-sub a{ color:var(--accent); font-weight:650; margin-right:6px; } .hero-sub span{ display:block; margin-top:4px; }
   .floaters{ position:absolute; inset:0; z-index:1; pointer-events:none; overflow:hidden; }
   .chip{ position:absolute; font-size:12.5px; padding:8px 12px; border-radius:10px; background:color-mix(in srgb,var(--panel) 82%,transparent); backdrop-filter:blur(6px); border:1px solid var(--hair); color:var(--muted); box-shadow:0 14px 34px -16px rgba(10,26,63,0.4); white-space:nowrap; will-change:transform; }
   .chip b{ color:var(--ink); font-weight:600; } .chip .ok{ color:var(--green); } .chip .no{ color:var(--red); }
@@ -431,6 +435,56 @@
   .fgrid{ display:grid; grid-template-columns:repeat(5,1fr); gap:26px; margin-top:56px; } @media(max-width:900px){ .fgrid{ grid-template-columns:repeat(2,1fr); } }
   .fcol h4{ font-size:14px; margin:0 0 4px; padding-top:14px; border-top:1px solid var(--ink); } .fcol a{ display:flex; align-items:center; gap:8px; color:var(--muted); font-size:14px; padding:9px 0; } .fcol a:hover{ color:var(--ink); } .fcol a .fi{ width:16px; height:16px; opacity:.7; }
   .ftag{ font-size:10px; font-weight:700; color:var(--accent); background:color-mix(in srgb,var(--accent) 12%,transparent); border-radius:6px; padding:2px 7px; margin-left:6px; }
+  /* long-form pages: docs, methodology, white paper, security, privacy, terms */
+  section.docblk{ padding:112px 0 72px; }
+  .docpage{ display:grid; grid-template-columns:210px minmax(0,1fr); gap:56px; align-items:start; }
+  .doctoc{ position:sticky; top:96px; display:flex; flex-direction:column; gap:2px; font-size:13.5px; }
+  .doctoc .tl{ font-family:ui-monospace,Menlo,monospace; font-size:10.5px; font-weight:700; letter-spacing:.09em; text-transform:uppercase; color:var(--muted); padding:0 10px 8px; }
+  .doctoc a{ color:var(--muted); padding:6px 10px; border-radius:8px; line-height:1.35; }
+  .doctoc a:hover{ color:var(--ink); background:color-mix(in srgb,var(--accent) 7%,transparent); }
+  .doc{ max-width:800px; min-width:0; color:#26324a; font-size:16px; line-height:1.7; }
+  .doc h1{ font-size:clamp(2rem,4vw,2.8rem); line-height:1.1; letter-spacing:-.035em; margin:0; color:var(--ink); }
+  .doc .dlead{ font-size:1.14rem; color:var(--muted); margin:18px 0 0; max-width:62ch; }
+  .doc .dmeta{ font-family:ui-monospace,Menlo,monospace; font-size:12px; color:var(--muted); margin-top:14px; }
+  .doc h2{ font-size:1.55rem; letter-spacing:-.025em; line-height:1.2; margin:64px 0 0; color:var(--ink); scroll-margin-top:92px; }
+  .doc h3{ font-size:1.1rem; letter-spacing:-.01em; margin:34px 0 0; color:var(--ink); scroll-margin-top:92px; }
+  .doc p{ margin:14px 0 0; } .doc ul, .doc ol{ margin:12px 0 0; padding-left:22px; } .doc li{ margin:6px 0; }
+  .doc a:not(.btn){ color:var(--accent); font-weight:600; text-decoration:underline; text-decoration-thickness:1px; text-underline-offset:3px; cursor:pointer; }
+  .doc code{ font-family:ui-monospace,"SF Mono",Menlo,monospace; font-size:.86em; background:color-mix(in srgb,var(--ink) 6%,transparent); border-radius:5px; padding:1px 5px; overflow-wrap:anywhere; }
+  .doc pre{ margin:14px 0 0; background:#0b1430; color:#d3dcf5; border-radius:12px; padding:16px 18px; overflow-x:auto; font-family:ui-monospace,"SF Mono",Menlo,monospace; font-size:12.5px; line-height:1.65; }
+  .doc pre code{ background:none; padding:0; font-size:inherit; color:inherit; overflow-wrap:normal; }
+  .doc pre .c{ color:#7f8fb8; } .doc pre .ok{ color:#34d399; } .doc pre .no{ color:#fb7185; }
+  .doc .tbl{ margin:16px 0 0; overflow-x:auto; border:1px solid var(--hair); border-radius:12px; background:var(--panel); }
+  .doc table{ width:100%; border-collapse:collapse; font-size:14px; line-height:1.5; }
+  .doc th, .doc td{ text-align:left; vertical-align:top; padding:10px 14px; border-bottom:1px solid var(--hair); }
+  .doc th{ font-size:12px; font-weight:700; color:var(--muted); background:color-mix(in srgb,var(--ink) 3%,var(--panel)); white-space:nowrap; }
+  .doc tr:last-child td{ border-bottom:0; }
+  .doc td code{ white-space:nowrap; overflow-wrap:normal; }
+  .doc td .u{ margin-top:6px; } .doc td .u code{ white-space:normal; overflow-wrap:anywhere; font-size:.78em; color:var(--muted); background:none; padding:0; }
+  .doc .note{ margin:20px 0 0; padding:14px 16px; border-radius:12px; border:1px solid color-mix(in srgb,var(--accent) 26%,transparent); background:color-mix(in srgb,var(--accent) 6%,var(--panel)); font-size:14.5px; line-height:1.6; }
+  .doc .note.warn{ border-color:color-mix(in srgb,#b26a1f 34%,transparent); background:color-mix(in srgb,#b26a1f 7%,var(--panel)); }
+  .doc .note b{ color:var(--ink); }
+  .doc .dactions{ display:flex; gap:12px; flex-wrap:wrap; margin-top:24px; }
+  .doc details{ margin:12px 0 0; border:1px solid var(--hair); border-radius:12px; background:var(--panel); }
+  .doc details summary{ cursor:pointer; padding:12px 16px; font-weight:650; color:var(--ink); list-style-position:inside; }
+  .doc details summary span{ font-weight:500; color:var(--muted); font-size:13px; margin-left:6px; }
+  .doc details .tbl{ margin:0; border:0; border-top:1px solid var(--hair); border-radius:0 0 12px 12px; }
+  .lvl{ display:inline-block; font-family:ui-monospace,Menlo,monospace; font-size:10.5px; font-weight:700; letter-spacing:.05em; text-transform:uppercase; padding:2px 8px; border-radius:999px; white-space:nowrap; }
+  .lvl.l-full{ color:#12704f; background:color-mix(in srgb,var(--green) 13%,transparent); }
+  .lvl.l-prod{ color:#1a4fd6; background:color-mix(in srgb,var(--accent) 11%,transparent); }
+  .lvl.l-part{ color:#8a4d0f; background:color-mix(in srgb,#b26a1f 14%,transparent); }
+  .lvl.l-none{ color:#8a2a12; background:color-mix(in srgb,var(--red) 11%,transparent); }
+  .pfm{ margin-top:36px; }
+  .pfm .doc{ max-width:none; }
+  .pfm .doc h3:first-child{ margin-top:0; }
+  @media(max-width:900px){
+    .docpage{ grid-template-columns:1fr; gap:28px; }
+    .doctoc{ position:static; flex-direction:row; flex-wrap:wrap; gap:6px; }
+    .doctoc .tl{ width:100%; padding-bottom:2px; }
+    .doctoc a{ border:1px solid var(--hair); background:var(--panel); padding:5px 10px; }
+  }
+  @media(max-width:760px){ section.docblk{ padding:88px 0 56px; } .doc{ font-size:15.5px; } .doc h2{ margin-top:48px; } .doc th, .doc td{ padding:9px 11px; } }
+  .flegal a{ color:var(--muted); cursor:pointer; } .flegal a:hover{ color:var(--ink); text-decoration:underline; text-underline-offset:3px; }
   .fbottom{ display:flex; align-items:center; justify-content:space-between; gap:16px; flex-wrap:wrap; border-top:1px solid var(--hair); margin-top:40px; padding:24px 0 40px; color:var(--muted); font-size:12.5px; }
   .disc{ max-width:1000px; margin:0 auto; color:var(--muted); font-size:11.5px; opacity:.85; padding-bottom:50px; }
   .cta-band{ background:var(--ink); color:var(--bg); border-radius:26px; text-align:center; padding:70px 30px; position:relative; overflow:hidden; } .cta-band h2{ font-size:clamp(2rem,4.5vw,3.2rem); font-weight:800; margin:0 auto; max-width:18ch; color:#fff; } .cta-band p{ color:color-mix(in srgb,var(--bg) 70%,transparent); margin:18px auto 0; max-width:46ch; } .cta-band .actions{ margin-top:30px; display:flex; gap:12px; justify-content:center; flex-wrap:wrap; } .cta-band .btn.ghost{ background:transparent; color:#fff; border-color:rgba(255,255,255,.25); } .cta-band .glow{ position:absolute; width:420px; height:420px; border-radius:50%; background:color-mix(in srgb,var(--accent) 40%,transparent); filter:blur(130px); right:-90px; top:-130px; opacity:.28; }
@@ -464,6 +518,11 @@
   .prodgrid{ display:grid; grid-template-columns:1fr 1fr; gap:20px; margin-top:40px; } @media(max-width:820px){ .prodgrid{ grid-template-columns:1fr; } }
   .prod{ background:var(--panel); border:1px solid var(--hair); border-radius:var(--radius); padding:26px; } .prod .pk{ font-size:12px; color:var(--accent); font-weight:700; } .prod h3{ font-size:1.35rem; margin:8px 0 0; } .prod .pd{ color:var(--muted); font-size:14px; margin:12px 0 0; } .prod ul{ margin:16px 0 0; padding:0; list-style:none; display:flex; flex-direction:column; gap:9px; } .prod li{ display:flex; gap:9px; font-size:13.5px; align-items:flex-start; } .prod li svg{ width:15px; height:15px; color:var(--green); flex:none; margin-top:3px; }
   .cmp{ overflow-x:auto; border:1px solid var(--hair); border-radius:var(--radius); background:var(--panel); margin-top:36px; } .cmp table{ width:100%; border-collapse:collapse; min-width:660px; font-size:13.5px; } .cmp th,.cmp td{ padding:14px 16px; text-align:center; border-bottom:1px solid var(--hair); } .cmp th:first-child,.cmp td:first-child{ text-align:left; } .cmp thead th{ font-size:11.5px; color:var(--muted); font-weight:600; } .cmp tbody tr:last-child td{ border-bottom:none; } .cmp .us{ background:color-mix(in srgb,var(--accent) 8%,transparent); font-weight:600; } .cmp .yes{ color:var(--green); font-weight:700; } .cmp .no{ color:var(--muted); opacity:.45; } .cmp .part{ color:#c8842a; }
+  .cmpfair table{ min-width:980px; } .cmpfair th,.cmpfair td{ text-align:left; } .cmpfair td{ vertical-align:top; line-height:1.45; } .cmpfair td:first-child{ font-weight:650; white-space:nowrap; } .cmpfair sup{ font-size:10px; color:var(--muted); margin-left:1px; } .cmpfair code{ font-family:ui-monospace,Menlo,monospace; font-size:12px; }
+  .cmpnotes{ margin-top:22px; } .cmpnotes .scard p{ font-size:14.5px; line-height:1.6; }
+  .cmpsrc{ margin-top:18px; font-size:13px; color:var(--muted); } .cmpsrc summary{ cursor:pointer; font-weight:600; } .cmpsrc ol{ margin:10px 0 0; padding-left:22px; line-height:1.7; }
+  .pfaq{ max-width:760px; margin:84px auto 0; } .pfaq details{ border-bottom:1px solid var(--hair); padding:4px 0; } .pfaq details:first-of-type{ margin-top:28px; border-top:1px solid var(--hair); }
+  .pfaq summary{ cursor:pointer; padding:16px 4px; font-weight:650; color:var(--ink); font-size:16px; } .pfaq p{ margin:0 4px 18px; color:var(--muted); line-height:1.65; font-size:15px; } .pfaq code{ font-family:ui-monospace,Menlo,monospace; font-size:.88em; background:color-mix(in srgb,var(--ink) 6%,transparent); border-radius:5px; padding:1px 5px; }
   .forces{ display:grid; grid-template-columns:repeat(2,1fr); gap:18px; margin-top:36px; } @media(max-width:760px){ .forces{ grid-template-columns:1fr; } } .force{ background:var(--panel); border:1px solid var(--hair); border-radius:14px; padding:20px; } .force .fn{ font-family:ui-monospace,Menlo,monospace; color:var(--accent); font-size:13px; } .force h3{ font-size:16px; margin:8px 0 0; } .force p{ color:var(--muted); font-size:13.5px; margin:8px 0 0; }
   .horizons{ display:grid; grid-template-columns:repeat(3,1fr); gap:16px; margin-top:32px; } @media(max-width:760px){ .horizons{ grid-template-columns:1fr; } } .horizon{ border:1px solid var(--hair); border-radius:14px; padding:20px; background:var(--panel); } .horizon .ht{ font-size:11.5px; font-weight:700; color:var(--accent); text-transform:uppercase; letter-spacing:.06em; } .horizon h3{ margin:8px 0 0; font-size:16px; } .horizon p{ color:var(--muted); font-size:13px; margin:8px 0 0; }
   /* insights — editorial field-notes index */
@@ -600,9 +659,9 @@
   .cta-photo .actions{ justify-content:flex-start; }
   .cta-photo .btn.ghost:hover{ background:rgba(255,255,255,.08); border-color:rgba(255,255,255,.55); }
   .cta-photo .network-photo{ display:block; width:100%; height:100%; min-height:440px; object-fit:cover; object-position:60% center; }
-  @media(min-width:921px) and (max-width:1160px){
-    .nav{ gap:14px; }
-    .nav .links{ gap:14px; margin-left:0; font-size:13px; }
+  @media(min-width:1061px) and (max-width:1200px){
+    .nav{ gap:12px; }
+    .nav .links{ gap:12px; margin-left:0; font-size:13px; }
     .brand{ font-size:15px; gap:6px; }
     .nav>.btn{ padding:9px 12px; font-size:12px; white-space:nowrap; }
   }
@@ -616,11 +675,6 @@
   }
   @media(max-width:760px){
     .hero{ padding:28px 20px 56px; gap:36px; }
-    .speedrun-announcement{ position:static; order:0; width:100%; max-width:none; grid-template-columns:1fr auto; gap:16px; margin:0; padding:18px; }
-    .speedrun-mark{ display:none; }
-    .speedrun-copy strong{ font-size:16px; }
-    .speedrun-link{ font-size:0; gap:0; }
-    .speedrun-link span{ font-size:22px; }
     .hero h1{ font-size:clamp(2.15rem,7.7vw,3rem); line-height:1.1; }
     .hero p{ font-size:17px; }
     .feed{ padding-bottom:0; }
@@ -672,6 +726,7 @@
             <a class="megaitem" data-nav="configstudio"><span class="mi"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9"><path d="M21 15a2 2 0 01-2 2H8l-5 4V5a2 2 0 012-2h14a2 2 0 012 2z"/></svg></span><span><span class="mt">Config Studio</span><span class="md">AI diagnosis &amp; fixes</span></span></a>
             <a class="megaitem" data-nav="rulehawk"><span class="mi"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9"><path d="M12 3l7 4v5c0 4-3 7-7 9-4-2-7-5-7-9V7z"/></svg></span><span><span class="mt">RuleHawk</span><span class="md">Free firewall auditor</span></span></a>
             <a class="megaitem" data-nav="pricing"><span class="mi"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linejoin="round"><path d="M20.6 13.4l-7.2 7.2a1.9 1.9 0 01-2.7 0l-8.1-8.1V3h9.5l8.5 8.5a1.9 1.9 0 010 1.9z"/><circle cx="7.5" cy="7.5" r="1.1"/></svg></span><span><span class="mt">Pricing</span><span class="md">Plans from free to enterprise</span></span></a>
+            <a class="megaitem" data-nav="docs"><span class="mi"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linejoin="round"><path d="M4 4h10l6 6v10H4z"/><path d="M14 4v6h6M8 14h8M8 17.5h5"/></svg></span><span><span class="mt">Docs</span><span class="md">Install, quickstart, CLI, API</span></span></a>
           </div>
           <div class="megacol">
             <h4>Capabilities</h4>
@@ -685,12 +740,13 @@
             <a class="megaitem" data-nav="platform#prgate"><span class="mi"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9"><circle cx="6" cy="6" r="2"/><circle cx="6" cy="18" r="2"/><circle cx="18" cy="9" r="2"/><path d="M6 8v8M6 13h6a4 4 0 004-4"/></svg></span><span><span class="mt">Pull-request gate</span><span class="md">Block the bad merge</span></span></a>
             <a class="megaitem" data-nav="platform#ticketing"><span class="mi"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9"><rect x="3" y="4" width="18" height="16" rx="2"/><path d="M7 9h10M7 13h6"/></svg></span><span><span class="mt">ServiceNow &amp; Jira</span><span class="md">Evidence on the ticket</span></span></a>
             <a class="megaitem" data-nav="platform#iac"><span class="mi"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linejoin="round"><path d="M12 3l8 4.5v9L12 21l-8-4.5v-9z"/><path d="M12 12v9M12 12L4 7.5M12 12l8-4.5"/></svg></span><span><span class="mt">Terraform &amp; CI</span><span class="md">Verify the plan</span></span></a>
+            <a class="megaitem" data-nav="platform#platforms"><span class="mi"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9"><rect x="3" y="4" width="18" height="6" rx="1"/><rect x="3" y="14" width="18" height="6" rx="1"/><path d="M7 7h.01M7 17h.01"/></svg></span><span><span class="mt">Supported platforms</span><span class="md">Vendors, collection, protocols</span></span></a>
           </div>
         </div>
         <div class="megafoot"><span>One deterministic engine behind all of it.</span><a data-nav="platform">Explore the platform →</a></div>
       </div></div>
     </div>
-    <a data-nav="platform">Platform</a><a data-nav="pricing">Pricing</a><a data-nav="why">Why us</a><a data-nav="insights">Insights</a><a data-nav="company">Company</a><a data-nav="contact">Contact</a></div>
+    <a data-nav="platform">Platform</a><a data-nav="pricing">Pricing</a><a data-nav="docs">Docs</a><a data-nav="why">Why us</a><a data-nav="insights">Insights</a><a data-nav="company">Company</a><a data-nav="contact">Contact</a></div>
   <div class="spacer"></div><a class="btn ghost" href="https://optimesh-ai.github.io/RuleHawk/" target="_blank" rel="noopener">Try RuleHawk</a><a class="btn primary" data-request>Request access</a>
   <button class="navtoggle" id="navToggle" aria-label="Open menu" aria-expanded="false" aria-controls="navMobile"><span></span><span></span><span></span></button>
 </div>
@@ -703,6 +759,7 @@
   <div class="mlabel">Company</div>
   <a data-nav="platform">Platform</a>
   <a data-nav="pricing">Pricing</a>
+  <a data-nav="docs">Docs</a>
   <a data-nav="why">Why us</a>
   <a data-nav="insights">Insights</a>
   <a data-nav="company">Company</a>
@@ -712,11 +769,6 @@
 </div></nav>
 
 <section class="hero wrap" data-page="home">
-  <button class="speedrun-announcement" type="button" data-news-article="0" aria-haspopup="dialog" aria-controls="artModal">
-    <span class="speedrun-mark" aria-hidden="true">a16z<small>speedrun</small></span>
-    <span class="speedrun-copy"><strong>Accepted to a16z Speedrun</strong><small>Why we chose our own path.</small></span>
-    <span class="speedrun-link">Read the story <span aria-hidden="true">→</span></span>
-  </button>
   <div class="feed" id="feed">
     <figure class="hero-photo">
       <img src="images/data-center.webp" srcset="images/data-center-600.webp 600w, images/data-center.webp 1200w" sizes="(max-width:760px) calc(100vw - 40px), (max-width:980px) calc(100vw - 48px), 496px" width="1200" height="1272" fetchpriority="high" alt="Network equipment, fiber connections, and status lights inside data-center racks">
@@ -732,7 +784,8 @@
   <div class="hero__in">
     <h1>Know what your change breaks, before you push it.</h1>
     <p>Hammerhead rehearses your change on a model of your whole network and shows you exactly what breaks — or tells you plainly when it can&rsquo;t be sure.</p>
-    <div class="actions"><a class="btn primary lg" href="#stage">See it catch a bad change →</a></div>
+    <div class="actions"><a class="btn primary lg" data-request="hammerhead" href="mailto:contact@optimesh.ai?subject=Hammerhead%20access">Request access →</a><a class="btn ghost lg" href="https://optimesh-ai.github.io/RuleHawk/" target="_blank" rel="noopener">Try RuleHawk free</a></div>
+    <p class="hero-sub"><a href="#stage">Or see it catch a bad change ↓</a> <span>RuleHawk is our free firewall-rule auditor. It runs in your browser, no sign-up.</span></p>
   </div>
 </section>
 
@@ -867,11 +920,11 @@
   <div class="center reveal"><div class="kicker">Two products, one engine</div><h2 class="h2" style="margin:12px auto 0">Simulation you can build on. Remediation you can trust.</h2></div>
   <div class="prodgrid reveal">
     <div class="prod"><div class="pk">Hammerhead</div><h3>Offline forwarding-plane simulator</h3>
-      <p class="pd">Point it at your configs and ask what a change will do. Reachability and traceroute across every major vendor, answered in milliseconds.</p>
+      <p class="pd">Point it at your configs and ask what a change will do. Reachability and traceroute across 15 vendor config formats, answered in milliseconds.</p>
       <ul>
-        <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M4 12l5 5L20 6"/></svg>Checked against real routers, not another simulator: 135 of 136 routes match, re-run every week.</li>
+        <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M4 12l5 5L20 6"/></svg>Checked against real routers, not another simulator: 135 of 136 routes match, re-run every week. <a data-nav="methodology#m-other" style="color:var(--accent);font-weight:600">How</a></li>
         <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M4 12l5 5L20 6"/></svg>Memory-safe by construction, deterministic, audit-ready</li>
-        <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M4 12l5 5L20 6"/></svg>CLI, Python SDK, REST API, CI integration and Jupyter</li>
+        <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M4 12l5 5L20 6"/></svg>CLI, Python SDK, REST API, CI integration and Jupyter. <a data-nav="docs" style="color:var(--accent);font-weight:600">Docs</a></li>
       </ul></div>
     <div class="prod"><div class="pk">Config Studio</div><h3>AI diagnosis and verified remediation</h3>
       <p class="pd">When a config breaks, it finds the fault, writes the fix, and proves it safe in simulation — before anyone approves it.</p>
@@ -916,13 +969,12 @@
       <span class="int" style="border:1px solid var(--hair);padding:9px 13px;border-radius:10px;font-size:13.5px">Azure NSG</span>
       <span class="int" style="border:1px solid var(--hair);padding:9px 13px;border-radius:10px;font-size:13.5px">GCP firewall</span>
       <span class="int" style="border:1px solid var(--hair);padding:9px 13px;border-radius:10px;font-size:13.5px">Kubernetes NetworkPolicy</span>
-      <span class="int" style="border:1px solid var(--hair);padding:9px 13px;border-radius:10px;font-size:13.5px">Istio mesh</span>
     </div>
     <p style="color:var(--muted); font-size:13.5px; margin-top:18px">One graph spans them all. Ask "what can reach my database from the public internet right now," and get a real answer.</p>
   </div>
   <div class="reveal">
     <div class="kicker">One graph, every domain</div><h2 class="h2">On-prem to cloud to cluster</h2>
-    <p class="lead">Reachability is modeled across on-prem, every major cloud, Kubernetes, and the service mesh as a single graph. A change in one domain can't quietly open a hole in another.</p>
+    <p class="lead">Reachability is modeled across on-prem, AWS, Azure, GCP and Kubernetes as a single graph. A change in one domain can't quietly open a hole in another.</p>
     <div class="feat-list">
       <div class="feat"><div class="fi"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M12 3l4 4-4 4-4-4zM12 13l4 4-4 4-4-4z"/></svg></div><div><b>What-if before you touch it.</b> <span>Drain a device, drop a link, withdraw a prefix, preview the impact with zero risk.</span></div></div>
       <div class="feat"><div class="fi"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><circle cx="12" cy="12" r="3"/><path d="M12 2v3M12 19v3M2 12h3M19 12h3"/></svg></div><div><b>Blast radius on every apply.</b> <span>Before-and-after reachability diff, isolated devices, newly unreachable prefixes, gated.</span></div></div>
@@ -1047,18 +1099,10 @@
   </div>
 </div></section>
 
-<!-- security (off platform to declutter) -->
-<section class="blk" data-page="x-off"><div class="wrap center">
-  <div class="kicker reveal">Trust is the product</div><h2 class="h2 reveal" style="margin:12px auto 0">Your configs never leave your network</h2>
-  <p class="lead reveal" style="margin:16px auto 0">Built for the security team that has to sign off. Runs where your network runs, changes nothing without a human.</p>
-  <div class="sgrid reveal">
-    <div class="scard"><div class="si"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9"><rect x="4" y="10" width="16" height="10" rx="2"/><path d="M8 10V7a4 4 0 018 0v3"/></svg></div><h3>In-network, air-gap ready</h3><p>Runs entirely inside your environment. Configs and state stay on your hosts. Works fully offline with a self-hosted model.</p></div>
-    <div class="scard"><div class="si"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9"><path d="M18 11V7a3 3 0 00-6 0M6 11a3 3 0 016 0v2M6 11v6a4 4 0 004 4h3a5 5 0 005-5v-3a2 2 0 00-4 0"/></svg></div><h3>Read-only by default</h3><p>Reads configs; it does not push. Applying is a staged write with a human approval and auto-rollback.</p></div>
-    <div class="scard"><div class="si"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9"><path d="M12 3v18M5 7h14M7 7l-3 6a3 3 0 006 0zM17 7l-3 6a3 3 0 006 0z"/></svg></div><h3>The model sits outside the gate</h3><p>An AI proposes the fix, but a deterministic engine decides if it's safe. The model can never reach "deploy" on its own.</p></div>
-    <div class="scard"><div class="si"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9"><rect x="4" y="3" width="16" height="18" rx="2"/><path d="M8 8h8M8 12h8M8 16h5"/></svg></div><h3>SSO, RBAC, full audit</h3><p>OIDC single sign-on, role-based access, and an audit event with before/after hashes on every apply.</p></div>
-    <div class="scard"><div class="si"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9"><path d="M12 3l7 4v5c0 4-3 7-7 9-4-2-7-5-7-9V7z"/><path d="M9 12l2 2 4-4"/></svg></div><h3>Compliance, continuously</h3><p>Offline checks mapped to STIG, CIS, NERC, HIPAA, and PCI run on every snapshot, no model required.</p></div>
-    <div class="scard"><div class="si"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9"><circle cx="12" cy="12" r="9"/><path d="M12 7l3 5-3 5-3-5z"/></svg></div><h3>Drift and snapshots</h3><p>Baselines your intended state and flags drift the moment a device diverges from the source of truth.</p></div>
-  </div>
+<!-- supported platforms (platform page) -->
+<section class="blk" id="platforms" data-page="platform"><div class="wrap">
+  <div class="reveal"><div class="kicker">Supported platforms</div><h2 class="h2">What Hammerhead reads, and what it models.</h2><p class="lead">The vendors it parses, the ways configs get in, and each protocol with how far the model goes. <a data-nav="docs" style="color:var(--accent);font-weight:600">Docs →</a></p></div>
+  <div class="pfm" data-platforms></div>
 </div></section>
 
 <!-- why us -->
@@ -1071,19 +1115,42 @@
     <div class="force"><div class="fn">04</div><h3>The trust gap is the bottleneck.</h3><p>Enterprises want autonomous operations but won't let AI change things unsupervised. Deterministic verification closes the gap: the agent proposes, the verifier proves.</p></div>
   </div>
 
-  <div class="reveal" style="margin-top:84px"><div class="kicker">Where the existing answers fall short</div><h2 class="h2">What other approaches miss.</h2></div>
-  <div class="cmp reveal">
+  <div class="reveal" id="compare" style="margin-top:84px"><div class="kicker">Named alternatives</div><h2 class="h2">How Hammerhead compares.</h2><p class="lead">What each product says about itself in public material, next to Hammerhead, including where we are behind. &ldquo;None found&rdquo; means we could not find it in public material, not that the product lacks it. We filled in our own row, so treat it as a claim; the evidence is in the <a data-nav="methodology" style="color:var(--accent);font-weight:600">methodology</a>.</p></div>
+  <div class="cmp cmpfair reveal">
     <table>
-      <thead><tr><th>Approach</th><th>Catches the bad change before it ships</th><th>Runs at CI speed</th><th>Verifies AI output</th><th>Runs on your hardware</th></tr></thead>
+      <thead><tr><th>Product</th><th>Works from</th><th>Vendors</th><th>Checks a change before it ships</th><th>Deployment</th><th>Published accuracy evidence</th></tr></thead>
       <tbody>
-        <tr><td>Monitoring &amp; observability</td><td class="no">—</td><td class="no">—</td><td class="no">—</td><td class="part">partial</td></tr>
-        <tr><td>Legacy verification tools</td><td class="part">partial</td><td class="no">—</td><td class="no">—</td><td class="part">partial</td></tr>
-        <tr><td>Intent-based networking</td><td class="part">partial</td><td class="part">partial</td><td class="no">—</td><td class="part">partial</td></tr>
-        <tr><td>AI copilots &amp; config assistants</td><td class="no">—</td><td class="part">partial</td><td class="no">—</td><td class="no">—</td></tr>
-        <tr class="us"><td>Optimesh</td><td class="yes">✓</td><td class="yes">✓</td><td class="yes">✓</td><td class="yes">✓</td></tr>
+        <tr class="us"><td>Hammerhead</td><td>Config files; optional collection over SSH, SNMP, config-manager archives, cloud APIs</td><td>15 config formats parsed; SSH drivers for 6</td><td>Yes: <code>preflight</code>, pass / fail / advisory / unknown</td><td>Your hardware: CLI and self-hosted API</td><td>135 of 136 routes match a 10-router FRR lab; 134 rebuilt outages flagged</td></tr>
+        <tr><td>Forward Networks</td><td>Live collection of config and state <sup>[1]</sup></td><td>&ldquo;30+&rdquo; <sup>[1]</sup></td><td>Yes: Forward Predict, May 2026, for routing, ACL, NAT and firewall <sup>[2][3]</sup></td><td>SaaS or on-prem VM <sup>[4]</sup></td><td>&ldquo;Mathematically accurate&rdquo;; no figure published <sup>[1]</sup></td></tr>
+        <tr><td>IP Fabric</td><td>Live discovery and snapshots <sup>[5]</sup></td><td>42 vendor families <sup>[6]</sup></td><td>Pre- and post-change impact summaries <sup>[5]</sup></td><td>On-prem appliance; needs no internet <sup>[7]</sup></td><td>None found</td></tr>
+        <tr><td>NetBrain</td><td>Live CLI, SNMP and API data <sup>[8]</sup></td><td>&ldquo;Over 400 device types&rdquo; <sup>[8]</sup></td><td>Change agent announced for October 2026; method not published <sup>[9][10]</sup></td><td>On-prem or SaaS <sup>[11]</sup></td><td>&ldquo;90%&rdquo; of real issues handled <sup>[12]</sup></td></tr>
+        <tr><td>Batfish (open source)</td><td>Config files <sup>[13]</sup></td><td>Cisco, Juniper, Arista, Palo Alto, Nokia SR OS and others <sup>[13]</sup></td><td>Yes: differential analysis of candidate configs <sup>[13]</sup></td><td>Library or container <sup>[13]</sup></td><td>None found</td></tr>
+        <tr><td>Cisco Nexus Dashboard</td><td>Live telemetry from Cisco fabrics <sup>[14]</sup></td><td>Cisco only <sup>[15]</sup></td><td>Pre-change analysis, ACI only <sup>[14]</sup></td><td>On-prem <sup>[15]</sup></td><td>None found</td></tr>
       </tbody>
     </table>
   </div>
+  <div class="sgrid cmpnotes reveal">
+    <div class="scard"><h3>Where Hammerhead is ahead</h3><p>It checks a change from configs alone, before anything is collected or pushed; of the products above, only Batfish also works that way. It answers &ldquo;unknown&rdquo; and names what it couldn&rsquo;t check instead of passing. It runs entirely on your machines.</p></div>
+    <div class="scard"><h3>Where Hammerhead is behind</h3><p>The others were built on continuous collection across 30 to 400+ platforms; Hammerhead parses 15 config formats. They model what the network is doing; Hammerhead models what the configs say. Its console is far simpler than products refined for years.</p></div>
+    <div class="scard"><h3>Where it is early</h3><p>One release so far, 0.1.0. No public customer references and no third-party evaluation yet. Real-router checks so far run in container labs, not on production hardware.</p></div>
+  </div>
+  <details class="cmpsrc reveal"><summary>Sources, all accessed September 26, 2026</summary><ol>
+    <li>Forward Networks, &ldquo;Why Forward&rdquo; (forwardnetworks.com/why-forward)</li>
+    <li>Forward Predict datasheet V04, May 19, 2026</li>
+    <li>Help Net Security, &ldquo;Forward launches Predict&rdquo;, May 21, 2026</li>
+    <li>Forward Networks integrations page and ServiceNow blog, August 26, 2025</li>
+    <li>GlobeNewswire, IP Fabric v8.1, September 23, 2026</li>
+    <li>IP Fabric support matrix 8.0.0 (matrix.ipfabric.io)</li>
+    <li>IP Fabric documentation FAQ and network-verification product page</li>
+    <li>NetBrain multivendor product page (netbrain.com/product/multivendor)</li>
+    <li>Business Wire, NetBrain agentic NetOps agents, September 22, 2026</li>
+    <li>Converge Digest, NetBrain change and assessment agents, September 2026</li>
+    <li>NetBrain product FAQ</li>
+    <li>Network World, NetBrain R12.3, 2026</li>
+    <li>github.com/batfish/batfish, release v2026.08.27</li>
+    <li>Cisco, Nexus Dashboard 4.2.1: Analyzing and Troubleshooting, updated June 24, 2026</li>
+    <li>Cisco blog, Cisco Nexus One, July 2, 2026</li>
+  </ol></details>
 
   <div class="reveal" style="margin-top:84px"><div class="kicker">What we're building</div><h2 class="h2">A platform for autonomous networking, in horizons.</h2></div>
   <div class="horizons reveal">
@@ -1144,7 +1211,7 @@
     <p class="scope">Small synthetic labs. The push at 01:48 is a labelled dramatization, and the Rogers 2022 segment is a reconstruction from the public record, not a claim that the outage would have been prevented.</p>
   </div>
   <div class="reveal"><div class="filmframe">
-    <video class="filmvid" controls preload="none" playsinline width="1920" height="1080" poster="films/0147/poster.webp" aria-label="Demo: catching a bad change before it ships">
+    <video class="filmvid" controls preload="none" playsinline width="1920" height="1080" data-poster="films/0147/poster.webp" aria-label="Demo: catching a bad change before it ships">
       <source src="films/0147/video.mp4" type="video/mp4">
       <track kind="captions" srclang="en" label="English" src="films/0147/captions.vtt">
       <a href="films/0147/video.mp4">Download the demo (MP4)</a>
@@ -1154,9 +1221,9 @@
 
 <!-- real outages -->
 <section class="blk" data-page="home"><div class="wrap">
-  <div class="center reveal"><div class="kicker">Real outages</div><h2 class="h2" style="margin:12px auto 0">Rogers,&nbsp;2022. Facebook,&nbsp;2021.</h2><p class="lead">134 outages like them, rebuilt from the public record. Hammerhead flags the cause of every one.</p>
+  <div class="center reveal"><div class="kicker">Real outages</div><h2 class="h2" style="margin:12px auto 0">Rogers,&nbsp;2022. Facebook,&nbsp;2021.</h2><p class="lead">134 outages like them, rebuilt from the public record. Hammerhead flags the cause of every one. <a data-nav="methodology" style="color:var(--accent);font-weight:600">How we measured →</a></p>
     <div style="display:flex; gap:12px; margin-top:26px; flex-wrap:wrap; justify-content:center"><a class="btn ghost lg" data-nav="hammerhead#films">Watch the demos →</a></div>
-    <p class="films-foot">Reconstructions from public reports, not the operators&rsquo; own configurations. For Microsoft&rsquo;s 2023 WAN outage the cause was a command, and Microsoft never named the vendor or the command, so we assumed them. Flagging the cause is not a claim that any outage would have been prevented.</p>
+    <p class="films-foot">Reconstructions from public reports, not the operators&rsquo; own configurations. For Microsoft&rsquo;s 2023 WAN outage the cause was a command, and Microsoft never named the vendor or the command, so we assumed them. Flagging the cause is not a claim that any outage would have been prevented. We fixed Hammerhead until it caught each one, so this is a regression suite, not a blind test, and we have not yet measured how often it fails a healthy change.</p>
     <p class="films-foot">The Uptime Institute's outage surveys now put a majority of serious outages above 100,000 dollars, with a significant share past a million.</p>
   </div>
 </div></section>
@@ -1185,7 +1252,7 @@
 <section class="blk" id="company" data-page="company"><div class="wrap">
   <div class="company-top">
   <div class="reveal"><div class="kicker">Company</div><h2 class="h2">Bring certainty to the networks that run the world.</h2><p class="lead">Optimesh builds offline intelligence so the engineers routing the world's traffic know exactly what a change will do before they make it.</p></div>
-  <div class="reveal cnews">
+  <div class="reveal cnews" id="newsroom">
     <div class="cnews-eyebrow">Newsroom</div>
     <a class="cnews-card" id="cnewsCard" role="button" tabindex="0">
       <span class="cnews-cat" id="cnewsCat"></span>
@@ -1211,8 +1278,7 @@
     <div class="tnode"><h3>Proved the impossible fast</h3><p>Your entire network, rehearsed in under a second (976 devices in 0.6s). Fast enough to check every change, not just the scary ones.</p></div>
     <div class="tnode"><h3>Next: in production</h3><p>Next, network teams running verified change on their own fabrics, on their own hardware. Nothing leaves the building.</p></div>
     <div class="tnode"><h3>Gave the network a brain</h3><p>Config Studio diagnoses the fault, writes the fix, and proves it safe before a human ever approves it.</p></div>
-    <div class="tnode"><h3>Backed to go further</h3><p>Operators who have run real networks, angel investors, and NVIDIA's startup program bet on the thesis.</p></div>
-    <div class="tnode"><h3>Accepted to a16z Speedrun</h3><p>Selected for the program. We chose to keep building independently, focused on shipping the platform.</p><button class="milestone-link" type="button" data-news-article="0" aria-haspopup="dialog" aria-controls="artModal">Read the story →</button></div>
+    <div class="tnode"><h3>Who backs us</h3><p>An angel round from investors including operators who have run production networks. We are also in NVIDIA Inception, NVIDIA&rsquo;s program for startups, which is support, not investment.</p></div>
     <div class="tnode gate"><h3>Building the trust layer</h3><p>Deterministic verification for every AI-driven change to any infrastructure. Software today. Purpose-built hardware next.</p></div>
     <div class="tnode horizon"><span class="htag">On the horizon</span><h3>An autonomous, AI-native IT engineer</h3><p>Verification is the groundwork. Next: an agent that runs your network end to end — diagnosing, fixing, and proving every change safe on its own, with humans only on the calls that matter.</p></div>
   </div>
@@ -1232,8 +1298,9 @@
       <h1 style="margin:12px 0 0">Know what a change will do, before you make it.</h1>
       <p class="lead" style="margin:18px 0 0">Point it at a directory of router configs. It builds the forwarding tables for every device, runs your reachability query, and tells you the answer, in under a second. Ships as a single binary. Nothing else to install.</p>
       <p class="lead" style="margin:14px 0 0; color:var(--ink); font-weight:650">When it can&rsquo;t be sure, it says &lsquo;unknown&rsquo; — and names exactly what it couldn&rsquo;t check. Never a false &lsquo;pass&rsquo;.</p>
-      <div style="display:flex; gap:12px; margin-top:26px; flex-wrap:wrap"><a class="btn primary lg" href="mailto:contact@optimesh.ai?subject=Hammerhead%20access">Request access →</a><a class="btn ghost lg" data-nav="why">Read the white paper</a></div>
-      <div class="mono" style="margin-top:16px; font-size:12px; color:var(--muted)">134 real outages rebuilt · every one flagged · same answer every run</div>
+      <div style="display:flex; gap:12px; margin-top:26px; flex-wrap:wrap"><a class="btn primary lg" data-request="hammerhead" href="mailto:contact@optimesh.ai?subject=Hammerhead%20access">Request Hammerhead access →</a><a class="btn ghost lg" data-nav="docs">Read the docs</a><a class="btn ghost lg" data-nav="whitepaper">Read the white paper</a></div>
+      <p style="margin:14px 0 0; font-size:13.5px; color:var(--muted); max-width:56ch">Hammerhead is private and access-gated: there is no public download or self-serve trial. The <a data-nav="docs" style="color:var(--accent);font-weight:600">docs</a> are public, so you can judge it before you ask.</p>
+      <div class="mono" style="margin-top:16px; font-size:12px; color:var(--muted)"><a data-nav="methodology" style="color:inherit;text-decoration:underline;text-underline-offset:3px">134 public outages rebuilt · every cause flagged · how we measured</a> · same answer every run</div>
     </div>
     <div class="reveal">
       <div class="term"><div class="tb"><span class="d" style="background:#fb7185"></span><span class="d" style="background:#fbbf24"></span><span class="d" style="background:#34d399"></span><span class="nm">hammerhead</span></div><pre id="hhTerm"></pre></div>
@@ -1243,7 +1310,7 @@
     <div class="center reveal"><div class="kicker">Demos</div><h2 class="h2" style="margin:12px auto 0">Rehearse the change before you push it.</h2><p class="lead">A demo for the engineer, an overview for the executive, and a walkthrough of the command line. The terminals show real output from the tool.</p></div>
     <div class="filmgrid reveal">
       <article class="film">
-        <video class="filmvid" controls preload="none" playsinline width="1920" height="1080" poster="films/0147/poster.webp" aria-label="Demo: catching a bad change before it ships">
+        <video class="filmvid" controls preload="none" playsinline width="1920" height="1080" data-poster="films/0147/poster.webp" aria-label="Demo: catching a bad change before it ships">
           <source src="films/0147/video.mp4" type="video/mp4">
           <track kind="captions" srclang="en" label="English" src="films/0147/captions.vtt">
           <a href="films/0147/video.mp4">Download the demo (MP4)</a>
@@ -1257,7 +1324,7 @@
         </div>
       </article>
       <article class="film">
-        <video class="filmvid" controls preload="none" playsinline width="1920" height="1080" poster="films/approved/poster.webp" aria-label="Approved., an overview for the executive who signs off on the risk">
+        <video class="filmvid" controls preload="none" playsinline width="1920" height="1080" data-poster="films/approved/poster.webp" aria-label="Approved., an overview for the executive who signs off on the risk">
           <source src="films/approved/video.mp4" type="video/mp4">
           <track kind="captions" srclang="en" label="English" src="films/approved/captions.vtt">
           <a href="films/approved/video.mp4">Download Approved. (MP4)</a>
@@ -1271,7 +1338,7 @@
         </div>
       </article>
       <article class="film">
-        <video class="filmvid" controls preload="none" playsinline width="1920" height="1080" poster="films/thirteen-commands/poster.webp" aria-label="Thirteen commands., a walkthrough of the Hammerhead command line">
+        <video class="filmvid" controls preload="none" playsinline width="1920" height="1080" data-poster="films/thirteen-commands/poster.webp" aria-label="Thirteen commands., a walkthrough of the Hammerhead command line">
           <source src="films/thirteen-commands/video.mp4" type="video/mp4">
           <track kind="captions" srclang="en" label="English" src="films/thirteen-commands/captions.vtt">
           <a href="films/thirteen-commands/video.mp4">Download Thirteen commands. (MP4)</a>
@@ -1287,28 +1354,24 @@
     </div>
     <p class="films-foot reveal">Nothing in these videos was pushed to a production network. Narration is a synthetic voice; English captions are in each player.</p>
   </div>
-  <div class="center reveal" style="margin-top:96px"><div class="kicker">Tested on real outages</div><h2 class="h2" style="margin:12px auto 0">134 outages, rebuilt from the public record.</h2><p class="lead">We rebuilt 134 real outages, Rogers and Facebook among them, and ran the change behind each one through Hammerhead. It flagged the cause every time. For Microsoft&rsquo;s 2023 WAN outage, the cause was a command, not a config line; Microsoft never said which vendor or command, so we assumed them.</p><p class="films-foot">Reconstructions from public reports, not the operators&rsquo; own configurations. Flagging the cause is not a claim that any outage would have been prevented.</p></div>
-  <div class="center reveal" style="margin-top:96px"><div class="kicker">76 CLI subcommands</div><h2 class="h2" style="margin:12px auto 0">One engine. The whole validation loop.</h2></div>
+  <div class="center reveal" style="margin-top:96px"><div class="kicker">Tested on real outages</div><h2 class="h2" style="margin:12px auto 0">134 outages, rebuilt from the public record.</h2><p class="lead">We rebuilt 134 real outages, Rogers and Facebook among them, and ran the change behind each one through Hammerhead. It flagged the cause every time. For Microsoft&rsquo;s 2023 WAN outage, the cause was a command, not a config line; Microsoft never said which vendor or command, so we assumed them.</p><p class="films-foot">Reconstructions from public reports, not the operators&rsquo; own configurations. Flagging the cause is not a claim that any outage would have been prevented. We fixed Hammerhead until it caught each one, so the 134 are a regression suite, not a blind test; some catches need facts you declare, such as your network boundary; and we have not yet measured how often it fails a healthy change. <a data-nav="methodology" style="color:var(--accent);font-weight:600">How we rebuilt them, and what &ldquo;flagged&rdquo; means →</a></p></div>
+  <div class="center reveal" style="margin-top:96px"><div class="kicker">76 CLI subcommands</div><h2 class="h2" style="margin:12px auto 0">One engine. The whole validation loop.</h2><p class="lead" style="margin:14px auto 0">76 subcommands. <a data-nav="docs#d-cli" style="color:var(--accent);font-weight:600">See every one in the docs →</a></p></div>
   <div class="capcols reveal">
     <div class="capcol"><h3>Parse &amp; simulate</h3><p>Read raw configs, run protocol convergence, build the routing and forwarding tables.</p><div class="cmds"><span class="cmd">parse</span><span class="cmd">simulate</span><span class="cmd">rib</span><span class="cmd">fib</span></div></div>
     <div class="capcol"><h3>Query</h3><p>Ask where a packet goes. Reachability, traceroutes, path joins, IP ownership.</p><div class="cmds"><span class="cmd">reachability</span><span class="cmd">traceroute</span><span class="cmd">find-ip</span></div></div>
     <div class="capcol"><h3>Analyze</h3><p>Diff snapshots, detect loops, scan for single points of failure, audit ACLs.</p><div class="cmds"><span class="cmd">diff</span><span class="cmd">loops</span><span class="cmd">failure-analysis</span></div></div>
     <div class="capcol"><h3>Verify</h3><p>Check configs against a YAML compliance DSL. CIS, PCI, and SOC 2 templates included.</p><div class="cmds"><span class="cmd">policy-check</span><span class="cmd">CIS</span><span class="cmd">PCI</span></div></div>
   </div>
-  <div class="reveal" style="margin-top:90px"><div class="kicker">Protocols &amp; data planes</div><h2 class="h2">Models the network you actually run.</h2></div>
-  <div class="protogrid reveal">
-    <div class="protocard"><h3>Routing protocols</h3><div class="tags"><span class="tg">OSPFv2 / v3</span><span class="tg">BGP-4</span><span class="tg">route reflection</span><span class="tg">EIGRP</span><span class="tg">IS-IS L1/L2</span><span class="tg">RIPv2</span></div></div>
-    <div class="protocard"><h3>Overlays &amp; VPN</h3><div class="tags"><span class="tg">MPLS L3VPN</span><span class="tg">BGP L3VPN</span><span class="tg">EVPN 2/3/5</span><span class="tg">VXLAN</span><span class="tg">GRE &amp; IPSec</span></div></div>
-    <div class="protocard"><h3>Data plane &amp; L2</h3><div class="tags"><span class="tg">NAT / PAT</span><span class="tg">switchport / trunk</span><span class="tg">STP</span><span class="tg">per-VLAN forwarding</span><span class="tg">BDD headerspace</span></div></div>
-  </div>
+  <div class="reveal" style="margin-top:90px"><div class="kicker">Supported platforms</div><h2 class="h2">What it reads, and what it models.</h2><p class="lead">Vendors, how configs get in, and every protocol with how far it goes. &ldquo;Partial&rdquo; means partial.</p></div>
+  <div class="pfm" id="hh-platforms" data-platforms></div>
   <div class="reveal" style="margin-top:90px"><div class="kicker">Surfaces</div><h2 class="h2">Meets you where you already work.</h2></div>
   <div class="sgrid reveal">
-    <div class="scard"><h3>CLI</h3><p>Single static binary. No Docker, no JVM, no server.</p></div>
-    <div class="scard"><h3>Python SDK</h3><p>Notebook-native. <span class="mono" style="font-size:12px">from hammerhead import Hammerhead</span></p></div>
-    <div class="scard"><h3>REST API</h3><p>An axum server with 11 endpoints for wiring into anything.</p></div>
-    <div class="scard"><h3>CI pipeline</h3><p>Gate merges on a FIB diff. Fast enough to run on every commit.</p></div>
-    <div class="scard"><h3>Jupyter</h3><p>8 tutorial notebooks: BGP analysis, traceroute, change validation, ACL walkthroughs.</p></div>
-    <div class="scard"><h3>vs the standard</h3><p>Checked against Batfish, the open-source standard, across 351 networks, and against real routers every week.</p></div>
+    <div class="scard"><h3>CLI</h3><p>A single binary. No Docker, no JVM, no server. <a data-nav="docs#d-cli" style="color:var(--accent);font-weight:600">Reference →</a></p></div>
+    <div class="scard"><h3>Python SDK</h3><p>Notebook-native. <span class="mono" style="font-size:12px">from hammerhead import Hammerhead</span> <a data-nav="docs#d-sdk" style="color:var(--accent);font-weight:600">SDK docs →</a></p></div>
+    <div class="scard"><h3>REST API</h3><p>An HTTP server with 56 routes, JWT auth and three roles, for wiring into anything. <a data-nav="docs#d-api" style="color:var(--accent);font-weight:600">API docs →</a></p></div>
+    <div class="scard"><h3>CI pipeline</h3><p>Gate merges on a before-and-after check. Fast enough to run on every commit. <a data-nav="docs#d-ci" style="color:var(--accent);font-weight:600">CI docs →</a></p></div>
+    <div class="scard"><h3>Jupyter</h3><p>9 tutorial notebooks: BGP analysis, traceroute, change validation, drift, ACL walkthroughs.</p></div>
+    <div class="scard"><h3>vs the standard</h3><p>Checked against Batfish, the open-source standard, across 351 test snapshots, and against real routers every week. <a data-nav="methodology#m-other" style="color:var(--accent);font-weight:600">How →</a></p></div>
   </div>
 </div></section>
 
@@ -1319,7 +1382,7 @@
       <div class="kicker">Config Studio</div>
       <h1 style="margin:12px 0 0">Diagnose config faults and generate verified fixes.</h1>
       <p class="lead" style="margin:18px 0 0">Finds the fault, writes the exact CLI patch, and proves it restores reachability before you approve it. In seconds. On your own hardware.</p>
-      <div style="display:flex; gap:12px; margin-top:26px; flex-wrap:wrap"><a class="btn primary lg" href="mailto:contact@optimesh.ai?subject=Config%20Studio%20access">Request access →</a><a class="btn ghost lg" data-nav="hammerhead">Powered by Hammerhead</a></div>
+      <div style="display:flex; gap:12px; margin-top:26px; flex-wrap:wrap"><a class="btn primary lg" data-request="configstudio" href="mailto:contact@optimesh.ai?subject=Config%20Studio%20access">Request access →</a><a class="btn ghost lg" data-nav="hammerhead">Powered by Hammerhead</a><a class="btn ghost lg" data-nav="docs">Docs</a></div>
     </div>
     <div class="reveal">
       <div class="term"><div class="tb"><span class="d" style="background:#fb7185"></span><span class="d" style="background:#fbbf24"></span><span class="d" style="background:#34d399"></span><span class="nm">config-studio · ~11s</span></div>
@@ -1359,7 +1422,7 @@
       <div class="kicker">RuleHawk · Free</div>
       <h1 style="margin:12px 0 0">Audit your firewall rules in seconds.</h1>
       <p class="lead" style="margin:18px 0 0">Paste your config, get a full report. Shadowed rules, overly permissive access, compliance gaps. No sign-up, no install, runs in your browser.</p>
-      <div style="display:flex; gap:12px; margin-top:26px; flex-wrap:wrap"><a class="btn primary lg" href="https://optimesh-ai.github.io/RuleHawk/" target="_blank" rel="noopener">Launch RuleHawk →</a><a class="btn ghost lg" data-nav="configstudio">Fix with Config Studio</a></div>
+      <div style="display:flex; gap:12px; margin-top:26px; flex-wrap:wrap"><a class="btn primary lg" href="https://optimesh-ai.github.io/RuleHawk/" target="_blank" rel="noopener">Launch RuleHawk →</a><a class="btn ghost lg" data-nav="configstudio">Fix with Config Studio</a><a class="btn ghost lg" href="https://github.com/optimesh-ai/RuleHawk" target="_blank" rel="noopener">Source on GitHub</a></div>
     </div>
     <div class="reveal">
       <div class="panelbox" style="padding:0; overflow:hidden">
@@ -1385,19 +1448,19 @@
 
 <!-- pricing page -->
 <section class="blk" data-page="pricing" style="padding-top:118px"><div class="wrap">
-  <div class="center reveal"><h2 class="h2" style="margin:0 auto">From your laptop to your whole network.</h2><p class="lead" style="margin:14px auto 0">Start free and verify a change today. Add your team when you're ready, and your org when you need AI remediation and air-gap.</p></div>
+  <div class="center reveal"><h2 class="h2" style="margin:0 auto">From your laptop to your whole network.</h2><p class="lead" style="margin:14px auto 0">Start free with RuleHawk today. Hammerhead is private and access-gated: paid plans begin once we have given you access, not with a self-serve signup.</p></div>
   <div class="pricing reveal">
     <div class="ptier">
       <div class="pt-name">Free</div>
       <p class="pt-desc">For the engineer getting started with verified change.</p>
       <div class="pt-price">$0</div>
-      <div class="pt-cta"><a class="btn ghost" href="https://optimesh-ai.github.io/RuleHawk/" target="_blank" rel="noopener">Start free</a></div>
+      <div class="pt-cta"><a class="btn ghost" href="https://optimesh-ai.github.io/RuleHawk/" target="_blank" rel="noopener">Try RuleHawk free</a></div>
       <ul class="pt-feats">
         <li class="fh">Includes:</li>
         <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12l5 5L20 6"/></svg> RuleHawk firewall &amp; segmentation audit</li>
         <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12l5 5L20 6"/></svg> Verify up to 25 changes / month</li>
         <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12l5 5L20 6"/></svg> Reachability &amp; path checks</li>
-        <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12l5 5L20 6"/></svg> Every major vendor</li>
+        <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12l5 5L20 6"/></svg> <a data-nav="platform#platforms" style="color:inherit;text-decoration:underline;text-underline-offset:3px">15 vendor config formats</a></li>
         <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12l5 5L20 6"/></svg> CLI &amp; single binary</li>
         <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12l5 5L20 6"/></svg> Community support</li>
       </ul>
@@ -1406,13 +1469,13 @@
       <div class="pt-name">Pro</div>
       <p class="pt-desc">For the engineer who ships changes daily.</p>
       <div class="pt-price">$39 <small>/ engineer / mo</small></div>
-      <div class="pt-cta"><a class="btn primary" data-request>Get started</a></div>
+      <div class="pt-cta"><a class="btn primary" data-request="hammerhead">Request access</a></div>
       <ul class="pt-feats">
         <li class="fh">Everything in Free, plus:</li>
         <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12l5 5L20 6"/></svg> Unlimited change verification</li>
         <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12l5 5L20 6"/></svg> Full blast-radius &amp; reachability diff</li>
         <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12l5 5L20 6"/></svg> CI checks (GitHub, GitLab)</li>
-        <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12l5 5L20 6"/></svg> Compliance checks (CIS, PCI, STIG)</li>
+        <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12l5 5L20 6"/></svg> Compliance checks (CIS, PCI)</li>
         <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12l5 5L20 6"/></svg> 90-day history</li>
         <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12l5 5L20 6"/></svg> Email support</li>
       </ul>
@@ -1421,7 +1484,7 @@
       <div class="pt-name">Team</div>
       <p class="pt-desc">For teams gating change together.</p>
       <div class="pt-price">$99 <small>/ engineer / mo</small></div>
-      <div class="pt-cta"><a class="btn ghost" data-request>Start 14-day trial</a></div>
+      <div class="pt-cta"><a class="btn ghost" data-request="hammerhead">Request access</a></div>
       <ul class="pt-feats">
         <li class="fh">Everything in Pro, plus:</li>
         <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12l5 5L20 6"/></svg> Pull-request gating</li>
@@ -1437,19 +1500,649 @@
       <div class="pt-name">Enterprise</div>
       <p class="pt-desc">For orgs that need AI remediation and air-gap.</p>
       <div class="pt-price">Custom</div>
-      <div class="pt-cta"><a class="btn ghost" href="mailto:contact@optimesh.ai?subject=Enterprise%20(Config%20Studio)">Contact sales</a></div>
+      <div class="pt-cta"><a class="btn ghost" data-request="configstudio" href="mailto:contact@optimesh.ai?subject=Enterprise%20(Config%20Studio)">Contact sales</a></div>
       <ul class="pt-feats">
         <li class="fh">Everything in Team, plus:</li>
         <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12l5 5L20 6"/></svg> Config Studio: AI diagnosis &amp; verified fixes</li>
         <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12l5 5L20 6"/></svg> On-prem &amp; air-gapped deployment</li>
         <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12l5 5L20 6"/></svg> Full audit logs, zero telemetry</li>
-        <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12l5 5L20 6"/></svg> HIPAA / NERC / STIG mapping</li>
+        <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12l5 5L20 6"/></svg> HIPAA compliance checks</li>
         <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12l5 5L20 6"/></svg> Dedicated deployment engineer</li>
         <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12l5 5L20 6"/></svg> SLA &amp; 24/7 support</li>
       </ul>
     </div>
   </div>
-  <p class="center reveal" style="color:var(--muted); font-size:13.5px; margin:34px auto 0; max-width:52ch">Every tier runs on your own hardware. Your configs never leave your network — on any plan.</p>
+  <p class="center reveal" style="color:var(--muted); font-size:13.5px; margin:34px auto 0; max-width:60ch">Hammerhead runs on your own hardware on every plan that includes it, and RuleHawk analyzes in your browser. Neither sends your configs to us. <a data-nav="security" style="color:var(--accent);font-weight:600">Security →</a></p>
+  <div class="pfaq reveal" id="pricing-faq">
+    <h2 class="h2" style="margin:0 auto; text-align:center">Pricing questions</h2>
+    <details><summary>What do I get on Free today?</summary><p>RuleHawk, with no limit, sign-up or install. The Hammerhead features listed under Free (the CLI and up to 25 verified changes a month) come with access, which we grant on request; there is no self-serve Hammerhead download yet.</p></details>
+    <details><summary>What counts as a &ldquo;change&rdquo; toward the 25 a month?</summary><p>One check of a proposed change: a single <code>preflight</code> comparison of a before and an after set of configs, however many devices or lines it touches. Queries such as <code>reachability</code> or <code>traceroute</code> against one snapshot are not changes.</p></details>
+    <details><summary>What happens at the 26th?</summary><p>Nothing in the software stops you. Hammerhead has no usage meter, license key or phone-home, because a tool that has to call us could not run air-gapped. The 25 is a term of the plan: if you regularly go past it, we will ask you to move to Pro.</p></details>
+    <details><summary>How is per-engineer pricing enforced for a CLI that runs on-prem?</summary><p>By agreement, not by software. The binary does not count seats or report usage. Pro and Team are priced per engineer who runs Hammerhead, and that number is part of your agreement with us.</p></details>
+    <details><summary>Is there a free trial of Pro or Team?</summary><p>Not a self-serve one. <a data-request="hammerhead" style="color:var(--accent);font-weight:600">Request access</a> and tell us what you want to evaluate; the <a data-nav="docs" style="color:var(--accent);font-weight:600">docs</a> are public in the meantime.</p></details>
+  </div>
+</div></section>
+
+<!-- docs -->
+<section class="blk docblk" data-page="docs"><div class="wrap docpage">
+  <aside class="doctoc" aria-label="Docs contents">
+    <div class="tl">Docs</div>
+    <a data-nav="docs#d-access">Access</a>
+    <a data-nav="docs#d-install">Install</a>
+    <a data-nav="docs#d-quickstart">Quickstart</a>
+    <a data-nav="docs#d-cli">CLI reference</a>
+    <a data-nav="docs#d-sdk">Python SDK</a>
+    <a data-nav="docs#d-api">REST API</a>
+    <a data-nav="docs#d-ci">CI integration</a>
+    <a data-nav="docs#d-env">Environment</a>
+    <a data-nav="platform#platforms">Supported platforms</a>
+  </aside>
+  <article class="doc">
+    <h1>Hammerhead docs</h1>
+    <p class="dlead">What you need to judge Hammerhead before you talk to us: how it installs, a five-minute run, all 76 commands, the Python SDK, the REST API and CI. The output on this page is real, from <code>hammerhead 0.1.0</code> on the labs that ship with it.</p>
+    <p class="dmeta">Hammerhead 0.1.0 · page updated September 2026</p>
+
+    <h2 id="d-access">Access</h2>
+    <p>Hammerhead is private. There is no public download, package, container or self-serve trial. We send binaries to teams we have given access. These docs are public so you can decide whether it is worth asking.</p>
+    <div class="dactions"><a class="btn primary" data-request="hammerhead" href="mailto:contact@optimesh.ai?subject=Hammerhead%20access">Request Hammerhead access →</a><a class="btn ghost" data-nav="platform#platforms">Check your vendors first</a></div>
+
+    <h2 id="d-install">Install</h2>
+    <p>Hammerhead is one executable, <code>hammerhead</code>. It needs no JVM, Python runtime, database or server. Each release archive also carries <code>hammerhead-api</code>, the optional REST server.</p>
+    <div class="tbl"><table>
+      <thead><tr><th>Platform</th><th>Target</th><th>Live collection built in</th></tr></thead>
+      <tbody>
+        <tr><td>Linux x86_64 (glibc 2.35+: Ubuntu 22.04+, Debian 12+)</td><td><code>x86_64-unknown-linux-gnu</code></td><td>SSH, SNMP, ICMP, gNMI state polling, REST connectors, cloud fetch</td></tr>
+        <tr><td>Linux arm64 (glibc 2.35+)</td><td><code>aarch64-unknown-linux-gnu</code></td><td>SNMP, REST connectors</td></tr>
+        <tr><td>macOS, Apple silicon</td><td><code>aarch64-apple-darwin</code></td><td>SSH, SNMP, ICMP, gNMI state polling, REST connectors, cloud fetch</td></tr>
+        <tr><td>macOS, Intel</td><td><code>x86_64-apple-darwin</code></td><td>SSH, SNMP, ICMP, gNMI state polling, REST connectors, cloud fetch</td></tr>
+        <tr><td>Windows x86_64</td><td><code>x86_64-pc-windows-msvc</code> (zip)</td><td>SNMP, REST connectors</td></tr>
+      </tbody>
+    </table></div>
+    <p>Analysis of a directory of config files works the same on every platform. The last column only matters if you want Hammerhead to fetch configs itself (see <a data-nav="platform#platforms">how configs get in</a>). A linux/amd64 container image is also available to teams with access.</p>
+<pre><code><span class="c"># after download: check, unpack, run</span>
+shasum -a 256 -c hammerhead-&lt;version&gt;-x86_64-unknown-linux-gnu.tar.gz.sha256
+tar xzf hammerhead-&lt;version&gt;-x86_64-unknown-linux-gnu.tar.gz
+./hammerhead --version
+hammerhead 0.1.0</code></pre>
+    <div class="note warn"><b>Signing.</b> Each archive comes with a SHA-256 checksum file. The archives are not code-signed yet.</div>
+
+    <h2 id="d-quickstart">Quickstart</h2>
+    <p>Five steps. The first four use a three-router OSPF lab that the binary can write for you; the fifth checks a change on a four-router spine-leaf.</p>
+    <h3>1. Point it at a config directory</h3>
+    <p><code>init</code> scans a directory of configs (one file per device), says what it found and suggests next commands. <code>--example</code> seeds the lab first.</p>
+<pre><code>$ hammerhead init ./configs --example
+  <span class="ok">✓</span>  Seeded ./configs with R1/R2/R3 OSPF triangle (2196 bytes)
+  <span class="ok">✓</span>  Found 3 config files (3 cisco_ios)
+  <span class="ok">✓</span>  Discovered 3 devices, 9 interfaces, 3 L3 links
+  <span class="ok">✓</span>  Simulated 18 FIB entries across all devices
+  <span class="ok">✓</span>  Protocols: OSPF (area 0)
+  <span class="ok">✓</span>  Completed in 3ms</code></pre>
+    <p>On your own configs, read the vendor counts <code>init</code> prints. A file it cannot identify is parsed as Cisco IOS, so a surprising count usually means a file it did not recognize.</p>
+    <h3>2. Build the model</h3>
+<pre><code>$ hammerhead simulate ./configs
+== R1 ==
+RIB: 6 entries (3 connected, 0 static, 3 ospf, 0 bgp, 0 eigrp, 0 isis)
+FIB: 6 entries
+OSPF: 2 adjacencies, 3 LSAs across area(s) 0
+<span class="c">… R2 and R3 follow</span></code></pre>
+    <h3>3. Ask a reachability question</h3>
+<pre><code>$ hammerhead reachability ./configs --from R1 --src 1.1.1.1 --dst 3.3.3.3
+Reachable: yes</code></pre>
+    <h3>4. Trace the packet</h3>
+<pre><code>$ hammerhead traceroute ./configs --from R1 --src 1.1.1.1 --dst 3.3.3.3
+Traceroute from R1 (1.1.1.1) to 3.3.3.3 [tcp dst-port 80]
+  1  R1         - -&gt; GigabitEthernet0/1 (R3 GigabitEthernet0/0)   forwarded
+Disposition: Delivered</code></pre>
+    <h3>5. Check a change before you push it</h3>
+    <p><code>preflight</code> compares a before and an after directory. Here the candidate moves LEAF-2 into OSPF area 2. Output trimmed.</p>
+<pre><code>$ hammerhead preflight ./before ./after
+  routes changed:   15 (20.0% of FIB entries)
+  devices impacted: 4 (100.0% of estate) — LEAF-1, LEAF-2, SPINE-1, SPINE-2
+  flows lost:       6 (of 4 of 4 endpoint(s) probed, 0 gained)
+    probed per pair:  tcp/80 http, tcp/22 ssh, tcp/179 bgp, udp/53 dns, icmp echo
+    <span class="no">✗</span> LEAF-1(10.255.1.1) → LEAF-2(10.255.1.2)
+    <span class="c">…</span>
+<span class="no">VERDICT: FAIL</span>
+  <span class="no">✗</span> blast radius 100.0% of devices exceeds --max-blast-radius 5%
+  <span class="no">✗</span> routing adjacencies: 2 lost between devices that are both still present — OSPF LEAF-2 &lt;-&gt; SPINE-1, OSPF LEAF-2 &lt;-&gt; SPINE-2
+  <span class="no">✗</span> reachability regression: 6 endpoint pair(s) delivered before are not delivered after
+$ echo $?
+2</code></pre>
+    <p>A candidate that changes no routes and loses no flows returns <code>VERDICT: PASS</code> and exit 0. The exit code is the contract CI relies on:</p>
+    <div class="tbl"><table>
+      <thead><tr><th>Exit</th><th>Verdict</th><th>Meaning</th></tr></thead>
+      <tbody>
+        <tr><td><code>0</code></td><td>pass or advisory</td><td>No gate failed. Advisory findings are printed but do not fail.</td></tr>
+        <tr><td><code>2</code></td><td>fail</td><td>A gate failed. Each failure is listed with the flows, routes or rules behind it.</td></tr>
+        <tr><td><code>3</code></td><td>unknown</td><td>The change touches something the model does not cover. The blockers are named; it never reports a pass it cannot back.</td></tr>
+        <tr><td><code>1</code></td><td>error</td><td>An operational error, such as a missing directory.</td></tr>
+      </tbody>
+    </table></div>
+
+    <h2 id="d-cli">CLI reference</h2>
+    <p>All 76 subcommands, grouped by job. Each summary is the command's own <code>--help</code> text, with internal references removed. <code>hammerhead help &lt;command&gt;</code> prints every flag.</p>
+    <p>Global options: <code>--format text|json|csv|dot</code> (JSON is stable for scripting; CSV suits tabular output such as <code>fib</code>, <code>rib</code>, <code>reachability</code>; DOT suits <code>traceroute</code>) and <code>-v</code>/<code>-vv</code>/<code>-vvv</code> for logging.</p>
+    <details open><summary>Start here<span>2 commands</span></summary>
+      <div class="tbl"><table>
+        <thead><tr><th>Command</th><th>What it does, and usage</th></tr></thead>
+        <tbody>
+          <tr><td><code>init</code></td><td>Scan a config directory and show what Hammerhead found — vendors, devices, protocols, and suggested next commands. The fastest way to get started<div class="u"><code>hammerhead init [OPTIONS] &lt;CONFIG_DIR&gt;</code></div></td></tr>
+          <tr><td><code>connect</code></td><td>Guided onboarding wizard: point Hammerhead at a system you already run (SolarWinds, ManageEngine, an Ansible repo — or a built-in demo), validate the connection, write a ready-to-use <code>inventory.yaml</code> + secrets env file, and optionally run the first collect + simulate immediately. Interactive on a TTY; fully drivable by flags (secret via <code>HH_CONNECT_SECRET</code>) in CI<div class="u"><code>hammerhead connect [OPTIONS]</code></div></td></tr>
+        </tbody>
+      </table></div>
+    </details>
+    <details><summary>Parse &amp; simulate<span>14 commands</span></summary>
+      <div class="tbl"><table>
+        <thead><tr><th>Command</th><th>What it does, and usage</th></tr></thead>
+        <tbody>
+          <tr><td><code>parse</code></td><td>Parse all configs in a directory and report parse coverage<div class="u"><code>hammerhead parse [OPTIONS] &lt;CONFIG_DIR&gt;</code></div></td></tr>
+          <tr><td><code>parse-coverage</code></td><td>Per-device parse coverage histogram (lines parsed vs unparsed)<div class="u"><code>hammerhead parse-coverage [OPTIONS] &lt;CONFIG_DIR&gt;</code></div></td></tr>
+          <tr><td><code>topo</code></td><td>Discover topology from a config directory<div class="u"><code>hammerhead topo [OPTIONS] &lt;CONFIG_DIR&gt;</code></div></td></tr>
+          <tr><td><code>simulate</code></td><td>Run the full simulation pipeline (parse → topo → OSPF → FIB)<div class="u"><code>hammerhead simulate [OPTIONS] &lt;CONFIG_DIR&gt;</code></div></td></tr>
+          <tr><td><code>rib</code></td><td>Show the per-device RIB<div class="u"><code>hammerhead rib [OPTIONS] --device &lt;DEVICE&gt; &lt;CONFIG_DIR&gt;</code></div></td></tr>
+          <tr><td><code>fib</code></td><td>Show the per-device FIB<div class="u"><code>hammerhead fib [OPTIONS] --device &lt;DEVICE&gt; &lt;CONFIG_DIR&gt;</code></div></td></tr>
+          <tr><td><code>init-issues</code></td><td>Pybatfish-parity init report: severity-tagged init issues plus defined / referenced named structures<div class="u"><code>hammerhead init-issues [OPTIONS] &lt;CONFIG_DIR&gt;</code></div></td></tr>
+          <tr><td><code>sessions</code></td><td>Report BGP / OSPF session compatibility and adjacency edges<div class="u"><code>hammerhead sessions [OPTIONS] --protocol &lt;PROTOCOL&gt; &lt;CONFIG_DIR&gt;</code></div></td></tr>
+          <tr><td><code>snapshot</code></td><td>Emit static snapshot-input reports (ip-owners, subnets, FHRP, L1/L2 edges) or multipath consistency reports<div class="u"><code>hammerhead snapshot [OPTIONS] --report &lt;REPORT&gt; &lt;CONFIG_DIR&gt;</code></div></td></tr>
+          <tr><td><code>ipsec-status</code></td><td>Report IPSec crypto-map session compatibility per Batfish <code>ipsecSessionStatus</code><div class="u"><code>hammerhead ipsec-status [OPTIONS] &lt;CONFIG_DIR&gt;</code></div></td></tr>
+          <tr><td><code>vxlan-vnis</code></td><td>Emit VXLAN VNI properties per Batfish <code>vxlanVniProperties</code><div class="u"><code>hammerhead vxlan-vnis [OPTIONS] &lt;CONFIG_DIR&gt;</code></div></td></tr>
+          <tr><td><code>vxlan-edges</code></td><td>Emit overlay VTEP→VTEP edges per Batfish <code>vxlanEdges</code><div class="u"><code>hammerhead vxlan-edges [OPTIONS] &lt;CONFIG_DIR&gt;</code></div></td></tr>
+          <tr><td><code>profile</code></td><td>Per-phase wall-clock profile of the simulation pipeline<div class="u"><code>hammerhead profile [OPTIONS] &lt;CONFIG_DIR&gt;</code></div></td></tr>
+          <tr><td><code>reconverge</code></td><td>Incrementally reconverge a snapshot after a single-file config edit.<div class="u"><code>hammerhead reconverge [OPTIONS] &lt;CONFIG_DIR&gt;</code></div></td></tr>
+        </tbody>
+      </table></div>
+    </details>
+    <details><summary>Query<span>19 commands</span></summary>
+      <div class="tbl"><table>
+        <thead><tr><th>Command</th><th>What it does, and usage</th></tr></thead>
+        <tbody>
+          <tr><td><code>traceroute</code></td><td>Trace a packet through the simulated network<div class="u"><code>hammerhead traceroute [OPTIONS] --from &lt;FROM&gt; --src &lt;SRC&gt; --dst &lt;DST&gt; &lt;CONFIG_DIR&gt;</code></div></td></tr>
+          <tr><td><code>reachability</code></td><td>Yes/no reachability check between two IPs<div class="u"><code>hammerhead reachability [OPTIONS] --from &lt;FROM&gt; --src &lt;SRC&gt; --dst &lt;DST&gt; [CONFIG_DIR]</code></div></td></tr>
+          <tr><td><code>loops</code></td><td>Scan the forwarding plane for packets that would circulate indefinitely. Also available under the alias <code>detect-loops</code> [aliases: detect-loops]<div class="u"><code>hammerhead loops [OPTIONS] &lt;CONFIG_DIR&gt;</code></div></td></tr>
+          <tr><td><code>symbolic-reach</code></td><td>BDD-based symbolic reachability between two devices, with an optional differential mode against a second snapshot. CAVEAT: the BDD engine does not yet model NAT header rewrites — on estates with NAT rules, prefer <code>nat-aware-traceroute</code> for flows that cross a translating device; the command warns when it detects NAT in the snapshot<div class="u"><code>hammerhead symbolic-reach [OPTIONS] --from &lt;FROM&gt; --to &lt;TO&gt; &lt;CONFIG_DIR&gt;</code></div></td></tr>
+          <tr><td><code>bidirectional-reach</code></td><td>BDD-based bidirectional reachability (A→B ∩ B→A)<div class="u"><code>hammerhead bidirectional-reach [OPTIONS] --from &lt;FROM&gt; --to &lt;TO&gt; &lt;CONFIG_DIR&gt;</code></div></td></tr>
+          <tr><td><code>bidirectional-trace</code></td><td>Forward + reverse traceroute with an asymmetry flag<div class="u"><code>hammerhead bidirectional-trace [OPTIONS] --from &lt;FROM&gt; --src &lt;SRC&gt; --to &lt;TO&gt; --dst &lt;DST&gt; &lt;CONFIG_DIR&gt;</code></div></td></tr>
+          <tr><td><code>search-filters</code></td><td>Find every ACL line overlapping a symbolic packet constraint<div class="u"><code>hammerhead search-filters [OPTIONS] &lt;CONFIG_DIR&gt;</code></div></td></tr>
+          <tr><td><code>test-filters</code></td><td>Evaluate every ACL against one concrete packet<div class="u"><code>hammerhead test-filters [OPTIONS] --src &lt;SRC&gt; --dst &lt;DST&gt; &lt;CONFIG_DIR&gt;</code></div></td></tr>
+          <tr><td><code>nqe-routes</code></td><td>Ad-hoc route query with protocol / prefix / ECMP / device filters, optionally aggregated via <code>--group-by</code><div class="u"><code>hammerhead nqe-routes [OPTIONS] --config-dir &lt;CONFIG_DIR&gt;</code></div></td></tr>
+          <tr><td><code>nqe-devices</code></td><td>Ad-hoc device query with protocol / route-count filters, sortable by name / routes / links<div class="u"><code>hammerhead nqe-devices [OPTIONS] --config-dir &lt;CONFIG_DIR&gt;</code></div></td></tr>
+          <tr><td><code>nqe-paths</code></td><td>Ad-hoc path-traversal query. Returns all (src, dst) pairs matching the filter with their hop-by-hop paths<div class="u"><code>hammerhead nqe-paths [OPTIONS] --config-dir &lt;CONFIG_DIR&gt;</code></div></td></tr>
+          <tr><td><code>nql</code></td><td>Cypher-subset ad-hoc graph query over the simulated topology. Speaks a read-only subset of Cypher (MATCH / WHERE / RETURN with aggregation, ORDER BY, LIMIT, DISTINCT, variable-length paths)<div class="u"><code>hammerhead nql [OPTIONS] &lt;CONFIG_DIR&gt; &lt;QUERY&gt;</code></div></td></tr>
+          <tr><td><code>search</code></td><td>Global free-text search across the simulated snapshot. One box resolves any IP, MAC, hostname, prefix, ACL line, VLAN, BGP / OSPF neighbour, NAT rule, VRF, EVPN VNI, MPLS label, or FIB next-hop into a ranked hit list<div class="u"><code>hammerhead search [OPTIONS] --query &lt;QUERY&gt; &lt;CONFIG_DIR&gt;</code></div></td></tr>
+          <tr><td><code>mpls-trace</code></td><td>MPLS LFIB / LDP label-stack walker. Synthesises an LDP-DU distribution from loopback /32 prefixes and walks the label stack. RSVP-TE is a follow-up<div class="u"><code>hammerhead mpls-trace [OPTIONS] --from &lt;FROM&gt; --to &lt;TO&gt; &lt;CONFIG_DIR&gt;</code></div></td></tr>
+          <tr><td><code>sr-trace</code></td><td>Segment Routing path / policy walker. Without <code>--policy</code>, dumps every device&#x27;s prefix-SID label table. With <code>--policy &lt;headend&gt;:&lt;color&gt;:&lt;endpoint&gt;</code>, prints the policy&#x27;s candidate paths and which one would be active<div class="u"><code>hammerhead sr-trace [OPTIONS] &lt;CONFIG_DIR&gt;</code></div></td></tr>
+          <tr><td><code>all-paths</code></td><td>Enumerate every forwarding path from a source device to a destination IP, including every ECMP branch.<div class="u"><code>hammerhead all-paths [OPTIONS] --from &lt;FROM&gt; --src &lt;SRC&gt; --dst &lt;DST&gt; [CONFIG_DIR]</code></div></td></tr>
+          <tr><td><code>ask</code></td><td>Ask a question in plain English, offline. The question is matched against a fixed grammar and resolved to ONE existing command, whose exact command line is printed before it runs in-process. A question that is not understood, is ambiguous, or names a device, interface or address that is not in the snapshot is REFUSED (exit 1) with the supported forms listed; it is never guessed at<div class="u"><code>hammerhead ask [OPTIONS] &lt;CONFIG_DIR&gt; &lt;QUESTION&gt;</code></div></td></tr>
+          <tr><td><code>nat-aware-traceroute</code></td><td>Traceroute that follows NAT translations hop by hop.<div class="u"><code>hammerhead nat-aware-traceroute [OPTIONS] --from &lt;FROM&gt; --src &lt;SRC&gt; --dst &lt;DST&gt; [CONFIG_DIR]</code></div></td></tr>
+          <tr><td><code>reachability-matrix</code></td><td>All-pairs reachability across the estate. Probes every ordered endpoint pair with a TCP/80 packet and renders the result as a matrix. Endpoints default to one address per device (loopback first); constrain them with <code>--endpoints</code> / <code>--endpoints-file</code><div class="u"><code>hammerhead reachability-matrix [OPTIONS] [CONFIG_DIR]</code></div></td></tr>
+        </tbody>
+      </table></div>
+    </details>
+    <details><summary>Change validation<span>5 commands</span></summary>
+      <div class="tbl"><table>
+        <thead><tr><th>Command</th><th>What it does, and usage</th></tr></thead>
+        <tbody>
+          <tr><td><code>diff</code></td><td>Diff FIBs between two config directories<div class="u"><code>hammerhead diff [OPTIONS] &lt;BEFORE_DIR&gt; &lt;AFTER_DIR&gt;</code></div></td></tr>
+          <tr><td><code>diff-routes</code></td><td>Per-(device, prefix) RIB delta between two snapshots<div class="u"><code>hammerhead diff-routes [OPTIONS] &lt;BEFORE_DIR&gt; &lt;AFTER_DIR&gt;</code></div></td></tr>
+          <tr><td><code>diff-acls</code></td><td>ACL line-level delta between two snapshots<div class="u"><code>hammerhead diff-acls [OPTIONS] &lt;BEFORE_DIR&gt; &lt;AFTER_DIR&gt;</code></div></td></tr>
+          <tr><td><code>failure-analysis</code></td><td>Simulate a device/interface failure (or scan every device) and report pre-convergence blast radius<div class="u"><code>hammerhead failure-analysis [OPTIONS] --config-dir &lt;CONFIG_DIR&gt;</code></div></td></tr>
+          <tr><td><code>preflight</code></td><td>Pre-change blast-radius gate: diff a before/after config pair, score blast radius against thresholds (and optionally a policy file), and exit non-zero on gate failure so CI / Ansible <code>pre_tasks</code> can halt a rollout before it touches devices<div class="u"><code>hammerhead preflight [OPTIONS] &lt;BEFORE_DIR&gt; &lt;AFTER_DIR&gt;</code></div></td></tr>
+        </tbody>
+      </table></div>
+    </details>
+    <details><summary>Audit &amp; compliance<span>15 commands</span></summary>
+      <div class="tbl"><table>
+        <thead><tr><th>Command</th><th>What it does, and usage</th></tr></thead>
+        <tbody>
+          <tr><td><code>acl-audit</code></td><td>Find shadowed and unused ACL entries<div class="u"><code>hammerhead acl-audit [OPTIONS] &lt;CONFIG_DIR&gt;</code></div></td></tr>
+          <tr><td><code>audit-config</code></td><td>Audit named-structure references: undefined refs, unused structures, parse warnings<div class="u"><code>hammerhead audit-config [OPTIONS] &lt;CONFIG_DIR&gt;</code></div></td></tr>
+          <tr><td><code>policy-check</code></td><td>Verify a YAML policy file against the simulated network and report per-policy pass/fail with severity<div class="u"><code>hammerhead policy-check [OPTIONS] --config-dir &lt;CONFIG_DIR&gt; --policies &lt;POLICIES&gt;</code></div></td></tr>
+          <tr><td><code>nqe-library</code></td><td>Run the bundled NQE library of intent checks (or list its catalog).<div class="u"><code>hammerhead nqe-library [OPTIONS]</code></div></td></tr>
+          <tr><td><code>pbr-audit</code></td><td>Walk every interface bound to <code>ip policy route-map ...</code>, list the route-map clauses (match + set), and flag every clause whose <code>set ip next-hop</code> may bypass an inbound ACL bound on the same device.<div class="u"><code>hammerhead pbr-audit [OPTIONS] &lt;CONFIG_DIR&gt;</code></div></td></tr>
+          <tr><td><code>wccp-audit</code></td><td>List WCCPv2 service groups and per-interface redirect bindings recovered from lines the parser did not model.<div class="u"><code>hammerhead wccp-audit [OPTIONS] &lt;CONFIG_DIR&gt;</code></div></td></tr>
+          <tr><td><code>qos-audit</code></td><td>Surface Cisco MQC class-map / policy-map / service-policy declarations from lines the parser did not model. MVP scope: classification + marking only — scheduler, queue depth, and starvation analysis are not modeled<div class="u"><code>hammerhead qos-audit [OPTIONS] &lt;CONFIG_DIR&gt;</code></div></td></tr>
+          <tr><td><code>ip-sla-audit</code></td><td>List per-device IP SLA probes (recovered from lines the parser did not model) and <code>track &lt;id&gt;</code> objects (parsed). Cross-references each track id against any static route that names it via <code>track &lt;id&gt;</code><div class="u"><code>hammerhead ip-sla-audit [OPTIONS] &lt;CONFIG_DIR&gt;</code></div></td></tr>
+          <tr><td><code>drift</code></td><td>Config-vs-golden semantic drift detector. Runs across a paired set of golden + observed config directories and emits one row per finding<div class="u"><code>hammerhead drift [OPTIONS] --golden &lt;GOLDEN&gt; --observed &lt;OBSERVED&gt;</code></div></td></tr>
+          <tr><td><code>rpki-audit</code></td><td>Audit a network&#x27;s ROAs against what it announces: a ROA whose maxLength authorises more-specifics the AS does not announce lets a forged-origin announcement validate Valid (RFC 9319). Exit 2 on a loose ROA, 3 when a ROA for this snapshot&#x27;s ASes could not be judged or none was<div class="u"><code>hammerhead rpki-audit [OPTIONS] --roas &lt;FILE&gt; &lt;CONFIG_DIR&gt;</code></div></td></tr>
+          <tr><td><code>fhrp-audit</code></td><td>HSRP / VRRP / GLBP standby-group consistency audit. Discovers every speaker, runs the FHRP election engine, and reports per-group active/standby roles plus structural warnings<div class="u"><code>hammerhead fhrp-audit [OPTIONS] &lt;CONFIG_DIR&gt;</code></div></td></tr>
+          <tr><td><code>cve-audit</code></td><td>Join a NIST NVD JSON or Tenable <code>.nessus</code> XML vulnerability feed against the parsed device inventory and report every (CVE, device) pair that fires. Exits non-zero when any finding&#x27;s severity meets <code>--severity-floor</code> (default <code>medium</code>)<div class="u"><code>hammerhead cve-audit [OPTIONS] --feed &lt;FEED&gt; &lt;CONFIG_DIR&gt;</code></div></td></tr>
+          <tr><td><code>mlag-audit</code></td><td>Audit MLAG / vPC / CLAG configuration consistency across the snapshot. Surfaces five finding kinds (missing peer, keepalive subnet mismatch, member port mismatch, orphan member, peer-link missing). Exits non-zero when any finding ≥ <code>--severity-floor</code> (default <code>high</code>) fires, so the command is wirable as a CI gate ahead of a vPC / MLAG roll<div class="u"><code>hammerhead mlag-audit [OPTIONS] &lt;CONFIG_DIR&gt;</code></div></td></tr>
+          <tr><td><code>convergence-audit</code></td><td>Pre-event correctness checks for fast-reroute, uRPF, and CoPP.<div class="u"><code>hammerhead convergence-audit [OPTIONS] --config-dir &lt;CONFIG_DIR&gt;</code></div></td></tr>
+          <tr><td><code>exec-report</code></td><td>Produce a self-contained executive HTML exposure report — headline RAG verdict, SPOF chokepoints, segmentation exposure, compliance rollup, and a remediation appendix — from a single config directory<div class="u"><code>hammerhead exec-report [OPTIONS] &lt;CONFIG_DIR&gt;</code></div></td></tr>
+        </tbody>
+      </table></div>
+    </details>
+    <details><summary>Segmentation<span>4 commands</span></summary>
+      <div class="tbl"><table>
+        <thead><tr><th>Command</th><th>What it does, and usage</th></tr></thead>
+        <tbody>
+          <tr><td><code>segmentation-audit</code></td><td>Audit a YAML segmentation intent against the simulated network and classify each cross-zone flow as allowed, isolated, leaked, or missing connectivity<div class="u"><code>hammerhead segmentation-audit [OPTIONS] --config-dir &lt;CONFIG_DIR&gt; --intent &lt;INTENT&gt;</code></div></td></tr>
+          <tr><td><code>segmentation-infer</code></td><td>Auto-derive a YAML segmentation intent from a set of observed 5-tuple flows plus the live topology. Output is the same YAML shape <code>segmentation-audit</code> consumes, so the observation → derive → audit loop closes in one hop<div class="u"><code>hammerhead segmentation-infer [OPTIONS] --flows &lt;FLOWS&gt; --config-dir &lt;CONFIG_DIR&gt;</code></div></td></tr>
+          <tr><td><code>segmentation-recommend</code></td><td>Generate vendor-neutral ACL rule recommendations from a segmentation audit (or zero-trust baseline from intent alone)<div class="u"><code>hammerhead segmentation-recommend [OPTIONS] --config-dir &lt;CONFIG_DIR&gt; --intent &lt;INTENT&gt;</code></div></td></tr>
+          <tr><td><code>segments</code></td><td>Per-segment rollup: devices, policy violations, segmentation leaks, unparsed forwarding-relevant lines and a red / unknown / yellow / green status for each segment (intent zones, or derived zones)<div class="u"><code>hammerhead segments [OPTIONS] &lt;CONFIG_DIR&gt;</code></div></td></tr>
+        </tbody>
+      </table></div>
+    </details>
+    <details><summary>Cloud &amp; Kubernetes<span>3 commands</span></summary>
+      <div class="tbl"><table>
+        <thead><tr><th>Command</th><th>What it does, and usage</th></tr></thead>
+        <tbody>
+          <tr><td><code>k8s-reach</code></td><td>Kubernetes pod-to-pod reachability verdict against the snapshot&#x27;s NetworkPolicies (v1, Calico GlobalNetworkPolicy, Cilium CiliumNetworkPolicy)<div class="u"><code>hammerhead k8s-reach [OPTIONS] --config-dir &lt;CONFIG_DIR&gt; --src-pod &lt;SRC_POD&gt; --dst-pod &lt;DST_POD&gt; --port &lt;PORT&gt;</code></div></td></tr>
+          <tr><td><code>cloud-fetch</code></td><td>Fetch a live cloud snapshot (AWS / K8s via their SDKs; Azure ARM and GCP Compute over REST, all or nothing) and write the JSON files that <code>simulate</code> already consumes<div class="u"><code>hammerhead cloud-fetch [OPTIONS] --provider &lt;PROVIDER&gt; --output &lt;OUTPUT&gt;</code></div></td></tr>
+          <tr><td><code>cloud-cost</code></td><td>Annotate an AWS pseudo-topology path with per-GB egress-cost estimates at every billing boundary (internet egress, NAT GW, TGW, inter-AZ) plus a monthly projection. Rates are documented defaults, overridable via <code>--pricing-file</code><div class="u"><code>hammerhead cloud-cost [OPTIONS] --config-dir &lt;CONFIG_DIR&gt; --src &lt;SRC&gt; --dst &lt;DST&gt;</code></div></td></tr>
+        </tbody>
+      </table></div>
+    </details>
+    <details><summary>Collection &amp; operations<span>8 commands</span></summary>
+      <div class="tbl"><table>
+        <thead><tr><th>Command</th><th>What it does, and usage</th></tr></thead>
+        <tbody>
+          <tr><td><code>watch</code></td><td>Watch a config directory and emit a JSON-Lines event stream<div class="u"><code>hammerhead watch [OPTIONS] [CONFIG_DIR]</code></div></td></tr>
+          <tr><td><code>collect</code></td><td>Collect running-configs from a YAML inventory of devices and write them into an on-disk snapshot directory that <code>simulate</code> can ingest. SSH (<code>--features ssh</code>) and SNMP (<code>--features snmp</code>) reach real devices; a build without them refuses those rows by name, and gNMI / NETCONF config collection is not implemented. An SSH row&#x27;s <code>vendor:</code> picks its driver: <code>nxos</code>, <code>eos</code>, <code>junos</code>, <code>fortios</code>, <code>panos</code> and <code>frr</code> / <code>cumulus</code> (or their parser labels and Ansible <code>ansible_network_os</code> names) take their own transcript; <code>ios</code>, <code>iosxr</code>, <code>asa</code>, <code>a10</code> or no <code>vendor:</code> get the generic <code>show running-config</code>; any other value is refused by name<div class="u"><code>hammerhead collect [OPTIONS] --inventory &lt;INVENTORY&gt; --out &lt;OUT&gt;</code></div></td></tr>
+          <tr><td><code>endpoints</code></td><td>Endpoint attribution: merge ARP / CAM / LLDP JSON dumps and emit one <code>(mac, ips, switch, port, vlan, is_lldp?)</code> row per endpoint<div class="u"><code>hammerhead endpoints [OPTIONS] --arp &lt;ARP&gt; --cam &lt;CAM&gt;</code></div></td></tr>
+          <tr><td><code>snapshot-prune</code></td><td>Apply a YAML TTL policy to a snapshot store. <code>--dry-run</code> computes the same plan without mutating the store<div class="u"><code>hammerhead snapshot-prune [OPTIONS] --root &lt;ROOT&gt; --ttl-policy &lt;TTL_POLICY&gt;</code></div></td></tr>
+          <tr><td><code>alerts</code></td><td>Operator surface for the alert lifecycle engine: list / show / ack / silence / resolve / watch (SSE) / history over the API (<code>--api-url</code> or <code>HAMMERHEAD_API_URL</code>, bearer via <code>HAMMERHEAD_API_TOKEN</code>). <code>list --fail-on-firing</code> exits 2 when any alert is firing — the CI contract<div class="u"><code>hammerhead alerts [OPTIONS] &lt;COMMAND&gt;</code></div></td></tr>
+          <tr><td><code>monitor</code></td><td>Long-running scheduler daemon: fires cron jobs (collect / snapshot / policy / drift / observe / runbook) from a schedule YAML with a crash-safe journal, and POSTs job outcomes to the API&#x27;s <code>/ingest/observations</code> when <code>--api-url</code> is set. <code>--once</code> evaluates a single tick; <code>--dry-run</code> prints the plan without executing<div class="u"><code>hammerhead monitor [OPTIONS] --schedule &lt;SCHEDULE&gt;</code></div></td></tr>
+          <tr><td><code>observe</code></td><td>One operational-state poll cycle over the inventory (per-row <code>observe:</code> transports: TCP/ICMP/SNMP/gNMI/controller REST), emitting observation events locally (<code>--format json</code> is the ingest wire format) or pushing them via <code>--push-url</code><div class="u"><code>hammerhead observe [OPTIONS] --inventory &lt;INVENTORY&gt;</code></div></td></tr>
+          <tr><td><code>remediate</code></td><td>Air-gapped manual remediation loop: <code>emit-request</code> builds a Config Studio request from an event, <code>gate</code> runs the strict preflight + gate-under-failure on a candidate (exit 2 on fail), <code>verify</code> checks drift-clean + alert-cleared (exit 2 when not verified)<div class="u"><code>hammerhead remediate [OPTIONS] &lt;COMMAND&gt;</code></div></td></tr>
+        </tbody>
+      </table></div>
+    </details>
+    <details><summary>Integrations &amp; automation<span>6 commands</span></summary>
+      <div class="tbl"><table>
+        <thead><tr><th>Command</th><th>What it does, and usage</th></tr></thead>
+        <tbody>
+          <tr><td><code>mcp-serve</code></td><td>Serve the simulated network as a Model Context Protocol (MCP) endpoint over stdio so an AI agent (Claude, Cursor, …) can answer questions grounded in the digital twin<div class="u"><code>hammerhead mcp-serve [OPTIONS] --config-dir &lt;CONFIG_DIR&gt;</code></div></td></tr>
+          <tr><td><code>hooks-validate</code></td><td>Validate a hooks YAML file: warns on missing endpoints, missing secret_ref where required, or bad regex in trigger conditions<div class="u"><code>hammerhead hooks-validate [OPTIONS] --hooks &lt;HOOKS&gt;</code></div></td></tr>
+          <tr><td><code>hooks-plan</code></td><td>Compute the dispatch plan for a set of canned events without firing any HTTP/SMTP traffic. Useful for previewing what would be sent to ServiceNow / PagerDuty / Slack on a real failure<div class="u"><code>hammerhead hooks-plan [OPTIONS] --hooks &lt;HOOKS&gt;</code></div></td></tr>
+          <tr><td><code>hooks-fire</code></td><td>Fire a dispatch plan against live endpoints. Defaults to dry-run unless the binary was built with <code>--features hooks-live</code> (HTTP) or <code>--features hooks-live-smtp</code> (SMTP) on hammerhead-cli<div class="u"><code>hammerhead hooks-fire [OPTIONS] --hooks &lt;HOOKS&gt;</code></div></td></tr>
+          <tr><td><code>runbook-run</code></td><td>Execute an event-driven runbook YAML. Walks the steps in order, shells out to <code>hammerhead</code> for each verb, captures stdout, substitutes <code>$VAR</code> references, and emits a single <code>RunbookExecution</code> record. MVP: sequential only, no parallel fan-out / no retries / no state persistence<div class="u"><code>hammerhead runbook-run [OPTIONS] --runbook &lt;RUNBOOK_PATH&gt;</code></div></td></tr>
+          <tr><td><code>runbook-validate</code></td><td>Validate a runbook YAML — checks step kinds, duplicate names, and <code>$VAR</code> resolution. Exits non-zero on issues so the command is wirable as a CI gate<div class="u"><code>hammerhead runbook-validate [OPTIONS] --runbook &lt;RUNBOOK_PATH&gt;</code></div></td></tr>
+        </tbody>
+      </table></div>
+    </details>
+
+    <h2 id="d-sdk">Python SDK</h2>
+    <p>The <code>hammerhead</code> Python package (Python 3.9+, uses pandas) comes with access as a source distribution. It is not on PyPI.</p>
+<pre><code>pip install ./hammerhead-python</code></pre>
+    <p>The SDK drives the <code>hammerhead</code> binary and reads its JSON output, so a notebook and the CLI always give the same answer. It finds the binary on your <code>PATH</code>, or you pass <code>Hammerhead(binary="/path/to/hammerhead")</code>.</p>
+<pre><code>from hammerhead import Hammerhead
+
+hh = Hammerhead().load_snapshot("configs/")
+hh.reachability("R1", "1.1.1.1", "3.3.3.3")   <span class="c"># True</span>
+hh.traceroute("R1", "1.1.1.1", "3.3.3.3")     <span class="c"># TracerouteResult: Delivered, 1 hop</span>
+hh.routes(device="R1")                         <span class="c"># DataFrame: device, prefix, protocol, next_hop_ip, egress_interface</span></code></pre>
+    <p>Methods: <code>load_snapshot</code>, <code>simulate</code>, <code>routes</code>, <code>traceroute</code>, <code>reachability</code>, <code>diff</code>, <code>diff_routes</code>, <code>loops</code>, <code>failure_analysis</code>, <code>spof_scan</code>, <code>policy_check</code>, <code>nqe_routes</code>, <code>nqe_devices</code>, <code>nqe_paths</code>, <code>acl_audit</code>.</p>
+    <h3>Jupyter tutorials</h3>
+    <p>Nine notebooks come with the SDK: Getting started · Pandas essentials for network analysis · Route analysis · BGP analysis · Traceroute and reachability · Change validation · Detecting configuration drift · ACL and firewall analysis · SDK cookbook.</p>
+
+    <h2 id="d-api">REST API</h2>
+    <p><code>hammerhead-api</code> serves the same engine over HTTP. It binds to <code>127.0.0.1:8080</code> by default and will not start until you name the config directories it may read (<code>HAMMERHEAD_API_ALLOWED_ROOTS</code>). Request bodies are capped at 2 MB.</p>
+    <h3>Authentication</h3>
+    <p>Protected routes take a bearer JWT from your identity provider. Configure the issuer and audience (<code>HAMMERHEAD_AUTH_JWT_ISSUER</code>, <code>HAMMERHEAD_AUTH_JWT_AUDIENCE</code>) and exactly one key source: an HS256 secret, an RS256 public key file, or a JWKS URL. Tokens map to three roles, <code>viewer</code> &lt; <code>operator</code> &lt; <code>admin</code>. With no JWT settings, every protected route returns 401. There is no OIDC discovery and no native SAML or SCIM; use an identity bridge such as Keycloak or Auth0 for those.</p>
+    <h3>Routes</h3>
+    <p>56 routes. Analysis routes are rate-limited.</p>
+    <div class="tbl"><table>
+      <thead><tr><th>Needs</th><th>Routes</th></tr></thead>
+      <tbody>
+        <tr><td>viewer · analysis</td><td><code>POST /parse</code> <code>POST /topo</code> <code>POST /topo/l2</code> <code>POST /device</code> <code>POST /endpoints</code> <code>POST /traceroute</code> <code>POST /traceroute/explain</code> <code>POST /reachability</code> <code>POST /rib</code> <code>POST /fib</code> <code>POST /loops</code> <code>POST /acl-audit</code> <code>POST /audits</code> <code>GET /segments</code></td></tr>
+        <tr><td>operator · analysis</td><td><code>POST /simulate</code> <code>POST /diff</code> <code>POST /preflight</code> <code>POST /search</code> <code>POST /snapshots/route-diff</code></td></tr>
+        <tr><td>viewer</td><td><code>POST /stream/ticket</code> <code>GET /estates</code> <code>GET /alerts</code> <code>GET /alerts/history</code> <code>GET /alerts/:fingerprint</code> <code>GET /observations</code> <code>GET /remediation/cases</code> <code>GET /remediation/cases/:id</code> <code>GET /snapshots</code> <code>GET /snapshots/:id</code> <code>GET /snapshots/:id/devices/:hostname</code> <code>GET /health</code></td></tr>
+        <tr><td>operator</td><td><code>POST /alerts/:fingerprint/ack</code> <code>POST /alerts/:fingerprint/silence</code> <code>POST /alerts/:fingerprint/resolve</code> <code>POST /ingest/alertmanager</code> <code>POST /ingest/observations</code> <code>POST /remediation/cases/:id/approve</code> <code>POST /remediation/cases/:id/verify</code> <code>POST /status</code> <code>POST /snapshots</code> <code>POST /snapshots/diff</code></td></tr>
+        <tr><td>admin</td><td><code>GET /audit</code> <code>GET /audit/verify</code> <code>POST /snapshots/prune</code></td></tr>
+        <tr><td>no token: UI and health</td><td><code>GET /</code> <code>GET /ui</code> <code>GET /ui/assets/:name</code> <code>GET /classic</code> <code>GET /health/live</code> <code>GET /health/ready</code> <code>GET /health/summary</code> <code>GET /status</code></td></tr>
+        <tr><td>stream ticket or token</td><td><code>GET /stream</code> <code>GET /stream-diff</code> <code>GET /alerts/stream</code></td></tr>
+        <tr><td>Config Studio service token</td><td><code>POST /remediation/cases/:id/candidate</code></td></tr>
+      </tbody>
+    </table></div>
+    <p>The UI routes serve the built-in operator console. The streaming routes check a single-use ticket (from <code>POST /stream/ticket</code>) or a bearer token themselves.</p>
+
+    <h2 id="d-ci">CI integration</h2>
+    <p>Hammerhead gates a pipeline through exit codes, so it works in any CI that can run a binary. Keep the base branch's configs in one directory and the proposed ones in another, run <code>preflight</code>, and let a non-zero exit fail the job.</p>
+<pre><code><span class="c"># any CI: fail the job unless the change passes</span>
+git worktree add ../base "$BASE_SHA"
+hammerhead preflight ../base/configs ./configs --format json &gt; preflight.json
+
+<span class="c"># optional: your own rules, YAML; --strict exits 2 on a high or critical failure</span>
+hammerhead policy-check --config-dir ./configs --policies network-policy.yaml --strict</code></pre>
+    <p>Teams with access also get:</p>
+    <ul>
+      <li><b>GitHub Action.</b> A composite action that runs <code>preflight</code> on a pull request and posts the verdict as a comment. Inputs include <code>config-dir</code>, <code>base-config-dir</code>, <code>max-blast-radius</code> (default 5%) and <code>policy</code>; outputs include <code>gate-verdict</code>, <code>gate-exit-code</code>, <code>gate-blockers</code>, <code>changed-routes</code> and <code>lost-flow-count</code>. It needs a token that can read the private release.</li>
+      <li><b>GitLab CI template.</b> Fails the pipeline unless the verdict is exactly <code>pass</code>, and can post the result to a ServiceNow change record.</li>
+      <li><b>Ansible.</b> A role for <code>pre_tasks</code> gating, and an Event-Driven Ansible source.</li>
+    </ul>
+    <p>We have no Jenkins example yet; the plain-CLI pattern above works there.</p>
+
+    <h2 id="d-env">Environment</h2>
+    <div class="tbl"><table>
+      <thead><tr><th>Variable</th><th>Used by</th><th>Purpose</th></tr></thead>
+      <tbody>
+        <tr><td><code>HAMMERHEAD_API_BIND</code></td><td>hammerhead-api</td><td>Listen address; default <code>127.0.0.1:8080</code></td></tr>
+        <tr><td><code>HAMMERHEAD_API_ALLOWED_ROOTS</code></td><td>hammerhead-api</td><td>Config directories the server may read; required</td></tr>
+        <tr><td><code>HAMMERHEAD_AUTH_JWT_*</code></td><td>hammerhead-api</td><td>Issuer, audience and key source for bearer tokens</td></tr>
+        <tr><td><code>HAMMERHEAD_AUDIT_DIR</code></td><td>hammerhead-api</td><td>Turns on the hash-chained audit trail (see <a data-nav="security#s-audit">Security</a>)</td></tr>
+        <tr><td><code>HAMMERHEAD_API_URL</code>, <code>HAMMERHEAD_API_TOKEN</code></td><td>CLI <code>alerts</code>, <code>observe</code></td><td>Where the CLI reaches your API server, and its token</td></tr>
+        <tr><td><code>HH_CONNECT_SECRET</code></td><td>CLI <code>connect</code></td><td>Secret for the onboarding wizard when run non-interactively in CI</td></tr>
+      </tbody>
+    </table></div>
+    <p>Questions these docs don't answer: <a data-nav="contact">ask us</a>, and we will add the answer here.</p>
+  </article>
+</div></section>
+<!-- methodology: the 134 replayed outages -->
+<section class="blk docblk" data-page="methodology"><div class="wrap docpage">
+  <aside class="doctoc" aria-label="Methodology contents">
+    <div class="tl">Methodology</div>
+    <a data-nav="methodology#m-claim">The claim</a>
+    <a data-nav="methodology#m-select">Which outages</a>
+    <a data-nav="methodology#m-build">How we rebuild one</a>
+    <a data-nav="methodology#m-flag">What "flagged" means</a>
+    <a data-nav="methodology#m-limits">What it doesn't show</a>
+    <a data-nav="methodology#m-fp">False positives</a>
+    <a data-nav="methodology#m-families">The 134, by family</a>
+    <a data-nav="methodology#m-other">Our other numbers</a>
+  </aside>
+  <article class="doc">
+    <h1>How we rebuilt 134 outages, and what "flagged" means</h1>
+    <p class="dlead">We say Hammerhead flags the cause of 134 outages rebuilt from the public record. This page says how the rebuilds were made, what counts as a flag, and what the number does not show.</p>
+    <p class="dmeta">Methodology · September 2026</p>
+
+    <h2 id="m-claim">The claim, exactly</h2>
+    <p>We rebuilt 134 network outages from public reports. For each, we ran the change behind it through Hammerhead. Every one ends in a failing verdict or an audit finding whose stated reason is the cause the public record gives, some only once you declare facts about your network, as described below.</p>
+    <p>Three things the claim is not:</p>
+    <ul>
+      <li>It is not the operators' configurations. None of them is public. Every rebuild is our reconstruction.</li>
+      <li>It is not a claim that Hammerhead would have prevented any of these outages.</li>
+      <li>It is not a blind test. See <a data-nav="methodology#m-limits">what it doesn't show</a>.</li>
+    </ul>
+
+    <h2 id="m-select">Which outages</h2>
+    <p>Four literature searches produced 314 incidents. We sorted each by whether its cause lives where Hammerhead looks, in device configuration or a command run against it: 73 were in scope, 88 partly in scope and 153 out of scope. Of the 161 in or partly in scope, we rebuilt 134 and excluded 27, each exclusion with a written reason.</p>
+    <p>Each incident carries a search-confidence grade for how well its public record supports the facts we used. For the 134: 72 high, 56 medium, 6 low. Not every entry has been re-checked against its sources since it was first catalogued.</p>
+
+    <h2 id="m-build">How we rebuild one</h2>
+    <ol>
+      <li><b>Facts.</b> A write-up of the public record, quoted and cited, with our own choices kept apart under a separate heading of assumptions. 125 of the 134 list their sources in the catalog; the other 9, built by hand, cite them in their own write-ups.</li>
+      <li><b>The smallest network with the same failure.</b> Usually a <em>before</em> and an <em>after</em> directory of configs, often with a control case beside it. Topology and syntax are ours. Where many incidents share a mechanism, such as route leaks, the networks are generated from a template for that family.</li>
+      <li><b>The change.</b> The difference between before and after. One exception: Microsoft's 2023 WAN outage was caused by a command, not a config line, so that rebuild feeds Hammerhead the command. Microsoft never named the vendor or the command, so we assumed both.</li>
+    </ol>
+    <p>No outside party has checked that our rebuilds match the public reports. The full catalog, with each incident's sources and assumptions, is available to evaluators on request.</p>
+
+    <h2 id="m-flag">What "flagged the cause" means</h2>
+    <p>A flag is a failing result where the check that fired names the reason the network actually broke. A failure for some other reason does not count. Automated tests pin both the verdict and the text of the reason for every one of the 134, and they run on every change to Hammerhead, on Linux and macOS.</p>
+    <p>Four kinds of run count:</p>
+    <div class="tbl"><table>
+      <thead><tr><th>Run</th><th>What fires</th></tr></thead>
+      <tbody>
+        <tr><td><code>preflight</code> on the change</td><td>A <code>fail</code> verdict (exit 2) naming the lost flow, route, adjacency or rule.</td></tr>
+        <tr><td>Intent-check library audit</td><td>A finding on the configuration itself.</td></tr>
+        <tr><td><code>rpki-audit</code></td><td>A route origin authorization that lets a forged origin validate.</td></tr>
+        <tr><td><code>drift</code></td><td>A semantic difference from the golden config.</td></tr>
+      </tbody>
+    </table></div>
+    <p>Details that matter:</p>
+    <ul>
+      <li><b>30 of the 134 are flagged by auditing the configuration, not by a verdict on a change.</b> These are the accepting-network (18), layer-2 (8) and redundancy (4) families.</li>
+      <li><b>The size gate never counts.</b> Every replay runs with the blast-radius gate turned off (<code>--max-blast-radius 100</code>). On a four-router lab almost any change exceeds the default 5% of devices, which would "catch" everything for the wrong reason.</li>
+      <li><b>Some catches need facts you supply.</b> Several families are caught only once you declare your network boundary, your ROAs or your link capacities. Of 28 route mis-originations, 17 pass with a caveat when checked from the originating router with nothing declared. Microsoft 2023 is caught only when the command is listed; the same command on Cisco IOS returns <code>unknown</code>.</li>
+    </ul>
+
+    <h2 id="m-limits">What the number doesn't show</h2>
+    <p><b>The 134 were caught after fixes.</b> On the first run, many verdicts were <code>pass</code>. We changed Hammerhead until each was caught, and every fix started as a failing test. The 134 are a regression suite we built the tool against, not a sample it had never seen. They show Hammerhead can represent and flag these failure modes. They do not estimate how often it would catch the next outage.</p>
+    <p>Some causes sit partly outside any configuration, and the public record says so:</p>
+    <ul>
+      <li><b>Facebook, 2021.</b> The withdrawal of the DNS servers' routes came from software reacting to a health check. It is in no config.</li>
+      <li><b>CenturyLink, 2020.</b> The Flowspec rule was injected over BGP by a DDoS-mitigation system, not written into a device config.</li>
+      <li><b>Microsoft WAN, 2023.</b> Vendor and command assumed, as above. The timing of the resulting storm is not modeled.</li>
+      <li><b>AS 7007, 1997.</b> We rebuilt the mechanism usually taught, which has not been confirmed.</li>
+      <li><b>OVH, 2021.</b> The mechanism is our assumption.</li>
+    </ul>
+
+    <h2 id="m-fp">False positives on healthy configs</h2>
+    <p><b>We have not measured a false-positive rate.</b> We have no measurement of how often Hammerhead fails a healthy change, and we won't quote one until we do.</p>
+    <p>What exists instead:</p>
+    <ul>
+      <li>The replay tests pin 52 passing results, 46 of them from <code>preflight</code>. Among them are 11 intended changes that keep required flows, 4 healthy redundancy variants and 3 RPKI controls. Others are known misses, such as the 17 mis-originations above, not controls. We wrote all of them alongside the replays, so they are expectations, not a sample of real changes.</li>
+      <li>Known false failures, written down and not yet fixed: a description-only edit on a BGP neighbor still fails a gate, and the default blast-radius gate trips on almost any change to a small network.</li>
+    </ul>
+    <p>Until we have measured it on real change histories, treat the rate at which Hammerhead fails a healthy change as unknown.</p>
+
+    <h2 id="m-families">The 134, by family</h2>
+    <div class="tbl"><table>
+      <thead><tr><th>Family</th><th>Count</th></tr></thead>
+      <tbody>
+        <tr><td>BGP mis-origination</td><td>28</td></tr>
+        <tr><td>Individual rebuilds</td><td>23</td></tr>
+        <tr><td>Route leaks</td><td>20</td></tr>
+        <tr><td>Accepting network</td><td>18</td></tr>
+        <tr><td>Built by hand</td><td>15</td></tr>
+        <tr><td>Required flow</td><td>13</td></tr>
+        <tr><td>Layer 2</td><td>8</td></tr>
+        <tr><td>Redundancy</td><td>4</td></tr>
+        <tr><td>RPKI drift</td><td>3</td></tr>
+        <tr><td>Other: Cloudflare 2013 (Flowspec), F-root 2011 (IPv6)</td><td>2</td></tr>
+        <tr><td><b>Total</b></td><td><b>134</b></td></tr>
+      </tbody>
+    </table></div>
+    <p>The accepting-network, layer-2 and redundancy families are flagged by auditing the configuration. The rest are flagged by <code>preflight</code>, <code>rpki-audit</code> or <code>drift</code> on the change.</p>
+
+    <h2 id="m-other">Our other numbers</h2>
+    <h3>135 of 136 routes match real routers</h3>
+    <p>A lab of 10 routers running FRR 10.7.1 in containers, with the image pinned. We wait until every adjacency is up and every routing table has been unchanged for 60 seconds, then compare 136 route entries with Hammerhead's: every prefix matches, and 135 of 136 next hops. The lab is re-run every week and compared against the committed result; it does not gate merges. It is one topology on one routing stack, not production hardware, and not the other vendors we parse.</p>
+    <h3>Checked against Batfish across 351 test snapshots</h3>
+    <p>351 snapshots (2,040 devices) drawn from our test corpora, demos and generated topologies, not customer networks. Batfish and Hammerhead agree on 94.41% of prefixes and 99.80% of egress interfaces, for IPv4 in the default VRF. It is a comparison with another model, not with routers, and it runs weekly as a report. We quote no speed comparison with Batfish.</p>
+    <p class="note">Questions about any of this, or want to run a replay yourself? <a data-request="hammerhead">Request access</a> and ask for the catalog.</p>
+  </article>
+</div></section>
+
+<!-- white paper -->
+<section class="blk docblk" data-page="whitepaper"><div class="wrap docpage">
+  <aside class="doctoc" aria-label="White paper contents">
+    <div class="tl">White paper</div>
+    <a data-nav="whitepaper#w-problem">1. The problem</a>
+    <a data-nav="whitepaper#w-why">2. Why testing misses it</a>
+    <a data-nav="whitepaper#w-approach">3. The approach</a>
+    <a data-nav="whitepaper#w-verdict">4. Four verdicts</a>
+    <a data-nav="whitepaper#w-evidence">5. Evidence</a>
+    <a data-nav="whitepaper#w-fit">6. Where it fits</a>
+    <a data-nav="whitepaper#w-limits">7. Limits</a>
+  </aside>
+  <article class="doc">
+    <h1>Checking network changes before they ship</h1>
+    <p class="dlead">A short white paper on what Hammerhead does, why it works from configuration rather than probes, how we measure it, and where it stops.</p>
+    <p class="dmeta">Optimesh Technologies · version 1 · September 2026 · about 8 minutes</p>
+
+    <h2 id="w-problem">1. The problem</h2>
+    <p>A network change ships as a diff a colleague has read. The test is production. When the diff is wrong, the outage follows a familiar shape: Facebook in 2021, when a maintenance command withdrew the routes to its DNS servers, and Rogers in 2022, when a change that removed a routing filter took a national network down for most of a day. Different companies and equipment; the same pattern of a change that looked fine in review.</p>
+    <p>Most of the cost of such a night is not the fix, which is often one line. It is finding that line across a fabric, hop by hop, under pressure. And the rate of change is rising as automation, and now AI agents, propose changes faster than people can read them.</p>
+
+    <h2 id="w-why">2. Why testing the live network misses it</h2>
+    <p>A probe proves a path exists. Nothing you can send proves a path is absent. To show that a guest network can never reach a payment database, you would have to try every source, destination, port and protocol, a space far too large to sample. Monitoring checks the flows you thought of; the leak lives in the one you didn't.</p>
+    <p>The configuration already holds the answer. Configs, topology and routing protocols determine each device's forwarding table. Rebuild those tables faithfully and you can answer reachability for every packet from the model, before the change is applied, with no traffic sent. This is the line of work that runs from header space analysis through Veriflow and Batfish.</p>
+
+    <h2 id="w-approach">3. The approach</h2>
+    <p>Hammerhead is a single binary that reads a directory of device configs, discovers the topology, runs the routing protocols to convergence and builds every device's forwarding table. Queries run against that model: reachability, traceroute, every ECMP path, ACL and NAT behavior, and a before-and-after comparison of two config sets.</p>
+    <ul>
+      <li><b>Deterministic.</b> The same inputs give the same answer and the same evidence every run.</li>
+      <li><b>Offline.</b> It needs only the config files. It runs on your hardware and sends nothing out.</li>
+      <li><b>Fast enough for every change.</b> On a 976-device synthetic enterprise network, building the full model takes about 0.6 seconds on our benchmark machine, which is what lets it sit in a pull request instead of a quarterly audit.</li>
+    </ul>
+    <p>A language model can write the change; Hammerhead doesn't trust it. The check that decides is deterministic and never sees the model's confidence, so an AI-proposed change is held to the same test as a human one.</p>
+
+    <h2 id="w-verdict">4. Four verdicts, and a list of what wasn't checked</h2>
+    <p>The <code>preflight</code> check compares the network before and after a change and returns one of four verdicts: <b>pass</b>, <b>advisory</b> (findings to read, nothing failed), <b>fail</b> (with the lost flows, routes, adjacencies or rules named) or <b>unknown</b>. Unknown matters most. When a change touches something the model does not cover, Hammerhead says so and names it, rather than reporting a pass it cannot back. Each verdict carries a ledger of what was and was not measured.</p>
+
+    <h2 id="w-evidence">5. How we measure it</h2>
+    <ul>
+      <li><b>Against real routers.</b> In a 10-router FRR lab, Hammerhead's routes agree with the routers' on every prefix and on 135 of 136 next hops. The lab re-runs weekly.</li>
+      <li><b>Against Batfish.</b> Across 351 test snapshots (2,040 devices), the two agree on 94.41% of prefixes and 99.80% of egress interfaces, for IPv4 in the default VRF. This compares two models, not a model with routers.</li>
+      <li><b>Against the public record.</b> We rebuilt 134 outages from public reports, and Hammerhead flags the cause of each. These were caught after we fixed the tool to catch them, so they are a regression suite, not a blind test, and we have not yet measured how often Hammerhead fails a healthy change. The <a data-nav="methodology">methodology</a> has the details.</li>
+    </ul>
+
+    <h2 id="w-fit">6. Where it fits</h2>
+    <ul>
+      <li><b>In CI.</b> Run <code>preflight</code> on every pull request that touches config. A non-zero exit stops the merge.</li>
+      <li><b>In the change ticket.</b> The verdict and its reasons travel with the change, so the approver decides on evidence.</li>
+      <li><b>In front of automation.</b> Ansible and AI agents propose; the gate decides before anything reaches a device.</li>
+    </ul>
+
+    <h2 id="w-limits">7. Limits</h2>
+    <p>Hammerhead models what the configs say, not what the network is doing right now. It reads 15 vendor formats, at different depths; some protocols and features are partial or not modeled, and the <a data-nav="platform#platforms">supported platforms</a> table lists each. It has been checked against real routers in container labs only, not on production hardware. We have no public customer references yet.</p>
+    <div class="dactions"><a class="btn primary" data-request="hammerhead" href="mailto:contact@optimesh.ai?subject=Hammerhead%20access">Request Hammerhead access →</a><a class="btn ghost" data-nav="docs">Read the docs</a></div>
+  </article>
+</div></section>
+
+<!-- security -->
+<section class="blk docblk" data-page="security"><div class="wrap docpage">
+  <aside class="doctoc" aria-label="Security contents">
+    <div class="tl">Security</div>
+    <a data-nav="security#s-where">Where it runs</a>
+    <a data-nav="security#s-writes">Changes to devices</a>
+    <a data-nav="security#s-access">SSO and roles</a>
+    <a data-nav="security#s-audit">Audit trail</a>
+    <a data-nav="security#s-compliance">Compliance checks</a>
+    <a data-nav="security#s-build">The software itself</a>
+    <a data-nav="security#s-rulehawk">RuleHawk</a>
+    <a data-nav="security#s-site">This website</a>
+    <a data-nav="security#s-report">Report a vulnerability</a>
+  </aside>
+  <article class="doc">
+    <h1>Security</h1>
+    <p class="dlead">Where Hammerhead runs, what it touches, who can use it, what it records, and what it does not do yet. This page covers Hammerhead, RuleHawk and this website.</p>
+    <p class="dmeta">Last updated September 28, 2026</p>
+    <div class="note"><b>Config Studio is not covered here yet.</b> Its AI step uses a large language model. Before you evaluate it, <a data-request="configstudio">ask us</a> where it runs and where your data goes, and we will answer in writing.</div>
+
+    <h2 id="s-where">Where it runs</h2>
+    <ul>
+      <li><b>On your machines.</b> The <code>hammerhead</code> CLI and the optional <code>hammerhead-api</code> server run on hosts you control. Your configs stay there.</li>
+      <li><b>Nothing phones home.</b> There is no telemetry, license check or update check. Hammerhead makes a network call only when you turn on a feature that needs one: collecting configs over SSH or SNMP, pulling from a cloud API or your config manager, fetching your identity provider's signing keys, or sending webhooks you configured.</li>
+      <li><b>Air-gap ready.</b> Analysis needs only the config files. To install on an isolated network, copy the binary across.</li>
+      <li><b>Private by default.</b> The API server listens on <code>127.0.0.1</code> unless you bind it elsewhere, and reads only the config directories you allow.</li>
+    </ul>
+
+    <h2 id="s-writes">Changes to your devices</h2>
+    <p>Hammerhead reads configs. It never pushes configuration to a device and holds no device write credentials. SSH collection runs read commands such as <code>show running-config</code>.</p>
+    <p>When Hammerhead proposes a fix, it hands a gated change plus a rollback file to your own automation, as an Ansible bundle for your AWX or Ansible to run. A human approves by default. Rollback is a file you apply, not an automatic action.</p>
+
+    <h2 id="s-access">SSO and roles</h2>
+    <ul>
+      <li><b>The API server</b> accepts bearer JWTs issued by your identity provider. You set the issuer, the audience and one key source: an HS256 secret, an RS256 public key, or a JWKS URL.</li>
+      <li><b>Three roles</b>, <code>viewer</code>, <code>operator</code> and <code>admin</code>, are enforced route by route (see the <a data-nav="docs#d-api">API docs</a>). With no token settings, every protected route refuses access.</li>
+      <li><b>Not built in:</b> OIDC discovery, SAML and SCIM. Teams use an identity bridge such as Keycloak or Auth0 for those.</li>
+      <li><b>The CLI has no roles.</b> It runs as the operating-system user and reads what that user can read. Control it with OS and file permissions.</li>
+    </ul>
+
+    <h2 id="s-audit">Audit trail</h2>
+    <p>Set <code>HAMMERHEAD_AUDIT_DIR</code> and the API server keeps an append-only audit log:</p>
+    <ul>
+      <li>Every request that changes state, with who made it, what it asked for and the outcome, plus every denied request (401 and 403).</li>
+      <li>Each entry carries the SHA-256 hash of the one before it. Editing or deleting an entry breaks the chain, and <code>GET /audit/verify</code> (admin) reports where.</li>
+      <li>It never records authorization headers, query strings or request bodies. Each tenant gets its own chain.</li>
+    </ul>
+    <p>Limits: a hash chain cannot show that the newest entries were cut off, so copy the latest hash somewhere you control. The trail covers work done through the Hammerhead server, not CLI runs on a laptop. It is off until you set the directory, except on multi-tenant servers, where it is required.</p>
+
+    <h2 id="s-compliance">Compliance checks</h2>
+    <p>Hammerhead ships rule packs that approximate these frameworks, checked offline against the model of your network with no AI model involved:</p>
+    <p>CIS (network devices, level 1) · PCI DSS (DMZ) · SOC 2 (change control) · HIPAA · ISO/IEC 27001 · NIST CSF 2.0 · DORA · NIS2</p>
+    <p>Each pack lists the controls it does not cover. They are checks labeled with control IDs, not certified mappings: passing one is evidence you can hand an auditor, not a certification. There are no DISA STIG or NERC CIP packs yet. You can write your own rules in the same YAML format with <code>policy-check</code>.</p>
+
+    <h2 id="s-build">The software itself</h2>
+    <ul>
+      <li>Hammerhead is written in Rust, and the compiler forbids <code>unsafe</code> code in the product. The only unsafe blocks are in test and benchmark tooling.</li>
+      <li>Release archives come with SHA-256 checksums. They are not code-signed yet, and neither is the container image.</li>
+    </ul>
+
+    <h2 id="s-rulehawk">RuleHawk</h2>
+    <p>RuleHawk analyzes your rules inside your browser, in a background worker running Python compiled to WebAssembly (Pyodide). The config you paste is not sent anywhere; the code that does this is public on <a href="https://github.com/optimesh-ai/RuleHawk" target="_blank" rel="noopener">GitHub</a> under the Apache 2.0 license. The page is hosted on GitHub Pages and loads fonts from Google Fonts and Pyodide from the jsDelivr CDN, so those services see that you loaded it. To keep everything on your own machine, run the RuleHawk command line or its GitHub Action instead.</p>
+
+    <h2 id="s-site">This website</h2>
+    <p>No analytics, advertising or tracking scripts, and no cookies. The page loads only files from optimesh.ai, enforced by a Content-Security-Policy header. The request and message forms post to our host, Netlify. Details in the <a data-nav="privacy">privacy notice</a>.</p>
+
+    <h2 id="s-report">Report a vulnerability</h2>
+    <p>Email <a href="mailto:eng@optimesh.ai?subject=SECURITY%3A%20">eng@optimesh.ai</a> with a subject starting <code>SECURITY:</code>. If you hear nothing, escalate to <a href="mailto:hello@optimesh.ai">hello@optimesh.ai</a>. We don't publish a PGP key yet; if you need an encrypted channel, send a first email with the subject <code>SECURITY: request encrypted channel</code> and nothing sensitive in it, and we will set one up.</p>
+    <div class="tbl"><table>
+      <thead><tr><th>Step</th><th>Target</th></tr></thead>
+      <tbody>
+        <tr><td>A person acknowledges your report</td><td>2 business days</td></tr>
+        <tr><td>Reproduced or not, severity assigned</td><td>5 business days</td></tr>
+        <tr><td>Status updates while open</td><td>at least every 10 business days</td></tr>
+        <tr><td>Fix or documented mitigation, critical</td><td>14 days from triage</td></tr>
+        <tr><td>Fix or documented mitigation, high</td><td>30 days from triage</td></tr>
+        <tr><td>Medium and low</td><td>next scheduled release</td></tr>
+      </tbody>
+    </table></div>
+    <p>Please redact real device configs before sending anything: hostnames, public addresses, ASNs, keys and secrets.</p>
+  </article>
+</div></section>
+
+<!-- privacy -->
+<section class="blk docblk" data-page="privacy"><div class="wrap docpage">
+  <aside class="doctoc" aria-label="Privacy contents">
+    <div class="tl">Privacy</div>
+    <a data-nav="privacy#p-site">This website</a>
+    <a data-nav="privacy#p-use">How we use it</a>
+    <a data-nav="privacy#p-products">Our products</a>
+    <a data-nav="privacy#p-choices">Your choices</a>
+  </aside>
+  <article class="doc">
+    <h1>Privacy notice</h1>
+    <p class="dlead">What we collect when you use optimesh.ai or our tools, and what we do with it. The short version: only what you type into our forms, plus the request logs our host keeps.</p>
+    <p class="dmeta">Last updated September 28, 2026</p>
+    <p>"We" means Optimesh Technologies. Questions go to <a href="mailto:contact@optimesh.ai">contact@optimesh.ai</a>.</p>
+
+    <h2 id="p-site">What this website collects</h2>
+    <ul>
+      <li><b>What you send us.</b> The request-access form asks for your name, work email, company, network size, the product you're asking about and a message. The message form asks for your name, email, a subject and a message. Both are stored by our host, Netlify, and delivered to our team. If the form can't reach Netlify, your browser opens an email to us instead.</li>
+      <li><b>Request logs.</b> Netlify serves this site and, like any web host, logs requests: IP address, browser, the page requested and when. Netlify handles these under <a href="https://www.netlify.com/privacy/" target="_blank" rel="noopener">its privacy policy</a>.</li>
+      <li><b>Nothing else.</b> No analytics, advertising or tracking scripts, and no cookies. The site loads no files from other domains.</li>
+    </ul>
+
+    <h2 id="p-use">How we use it</h2>
+    <p>We use what you send to reply to you and to handle your request for access. We don't sell it, and we don't share it with anyone for their marketing. We keep it while we are talking with you and for as long as any relationship that follows needs it. Ask us and we will delete it.</p>
+
+    <h2 id="p-products">Our products</h2>
+    <ul>
+      <li><b>Hammerhead</b> runs on your machines and sends us nothing: no telemetry, no usage data, no configs. See <a data-nav="security#s-where">Security</a>.</li>
+      <li><b>RuleHawk</b> analyzes your rules inside your browser; the config you paste is not sent to us or anyone else. The page is hosted on GitHub Pages and loads fonts from Google Fonts and code from the jsDelivr CDN, so GitHub, Google and jsDelivr see that you loaded it, under their own policies.</li>
+      <li><b>Config Studio</b> is set up per engagement. We describe its data flows in writing before you evaluate it.</li>
+    </ul>
+
+    <h2 id="p-choices">Your choices</h2>
+    <p>You can ask us what we hold about you, correct it, or have it deleted, by emailing <a href="mailto:contact@optimesh.ai">contact@optimesh.ai</a>. Links to other sites, such as GitHub or NVIDIA, are governed by those sites' own policies. If this notice changes, we will update the date at the top.</p>
+  </article>
+</div></section>
+
+<!-- terms -->
+<section class="blk docblk" data-page="terms"><div class="wrap docpage">
+  <aside class="doctoc" aria-label="Terms contents">
+    <div class="tl">Terms</div>
+    <a data-nav="terms#t-scope">What these cover</a>
+    <a data-nav="terms#t-content">Site content</a>
+    <a data-nav="terms#t-rulehawk">RuleHawk</a>
+    <a data-nav="terms#t-use">Using the site</a>
+    <a data-nav="terms#t-liability">No warranty</a>
+  </aside>
+  <article class="doc">
+    <h1>Terms of use</h1>
+    <p class="dlead">The terms for using optimesh.ai.</p>
+    <p class="dmeta">Last updated September 28, 2026</p>
+
+    <h2 id="t-scope">What these terms cover</h2>
+    <p>These terms cover your use of this website, run by Optimesh Technologies ("we"). Hammerhead, Config Studio and other Optimesh software are licensed only under a separate written agreement with us. Nothing on this site grants a license to them.</p>
+
+    <h2 id="t-content">Site content</h2>
+    <p>The site describes our products and research for information. We work to keep it accurate and say how our figures were measured (see the <a data-nav="methodology">methodology</a>), but products change and the site may lag behind. Demos run on small synthetic labs, as each one says. Nothing here is a promise of results on your network.</p>
+    <p>The site's text, design and our product names and logos belong to us. Other names and logos belong to their owners and are used only to identify them.</p>
+
+    <h2 id="t-rulehawk">RuleHawk</h2>
+    <p>RuleHawk is free and open source under the <a href="https://github.com/optimesh-ai/RuleHawk/blob/main/LICENSE" target="_blank" rel="noopener">Apache License 2.0</a>, which governs its use and says it comes without warranty. Its findings help you review rules; they don't replace your own review before you change a firewall.</p>
+
+    <h2 id="t-use">Using the site</h2>
+    <p>Please don't attempt to disrupt or break into the site, and don't send us, through our forms, other people's personal information without their permission, or anything malicious. If you find a security problem, report it as described on the <a data-nav="security#s-report">Security</a> page.</p>
+
+    <h2 id="t-liability">No warranty</h2>
+    <p>The site is provided as is, without warranties of any kind. To the extent the law allows, we are not liable for any loss arising from your use of the site or reliance on its content.</p>
+    <p>If these terms change, we will update the date at the top. Questions: <a href="mailto:contact@optimesh.ai">contact@optimesh.ai</a>.</p>
+  </article>
 </div></section>
 
 <!-- contact page -->
@@ -1458,7 +2151,7 @@
   <h2 class="h2" style="margin:12px auto 0">Get in touch.</h2>
   <p class="lead" style="margin:16px auto 0">Questions about Optimesh, your network, or partnering with us? Reach out and you'll get a real person on the founding team, usually within a business day.</p>
   <div style="display:flex; gap:12px; justify-content:center; margin-top:28px; flex-wrap:wrap">
-    <a class="btn primary lg" href="mailto:contact@optimesh.ai?subject=Early%20access%20to%20Config%20Studio">Request access →</a>
+    <a class="btn primary lg" data-request href="mailto:contact@optimesh.ai?subject=Request%20access">Request access →</a>
     <a class="btn ghost lg" href="mailto:contact@optimesh.ai">Email the team</a>
   </div>
 </div></section>
@@ -1468,23 +2161,93 @@
   <div class="cta-copy">
   <h2>Prove your next change safe.</h2>
   <p>Bring one recurring network incident. We'll diagnose it, patch it, and prove the fix — on your configs, in your environment.</p>
-  <div class="actions"><a class="btn primary lg" href="mailto:contact@optimesh.ai?subject=Early%20access%20to%20Config%20Studio">Request access →</a><a class="btn ghost lg" href="mailto:contact@optimesh.ai">Talk to the team</a></div>
+  <div class="actions"><a class="btn primary lg" data-request href="mailto:contact@optimesh.ai?subject=Request%20access">Request access →</a><a class="btn ghost lg" href="mailto:contact@optimesh.ai">Talk to the team</a></div>
   </div>
   <img class="network-photo" src="images/network-switch.webp" srcset="images/network-switch-600.webp 600w, images/network-switch.webp 1200w" sizes="(max-width:760px) calc(100vw - 40px), 524px" width="1200" height="798" loading="lazy" decoding="async" alt="Blue Ethernet cables connected to numbered ports on a network switch">
 </div></div></section>
 
 <!-- footer -->
 <div class="wrap fcta" id="contact">
-  <div class="fcta-top"><div><h2>The trust layer for<br>autonomous infrastructure.</h2><p>Deterministic verification for every AI-driven infrastructure change.</p></div><div class="fbtns"><a class="btn ghost" data-nav="platform">Platform</a><a class="btn primary" href="mailto:contact@optimesh.ai?subject=Early%20access">Request access →</a></div></div>
+  <div class="fcta-top"><div><h2>The trust layer for<br>autonomous infrastructure.</h2><p>Deterministic verification for every AI-driven infrastructure change.</p></div><div class="fbtns"><a class="btn ghost" data-nav="platform">Platform</a><a class="btn primary" data-request href="mailto:contact@optimesh.ai?subject=Request%20access">Request access →</a></div></div>
   <div class="fgrid">
-    <div class="fcol"><h4>Contact</h4><a href="mailto:contact@optimesh.ai">Contact us</a><a data-request>Request access</a><a href="https://optimesh-ai.github.io/RuleHawk/" target="_blank" rel="noopener">Try RuleHawk free</a><a href="mailto:contact@optimesh.ai" style="color:var(--accent)">contact@optimesh.ai</a></div>
-    <div class="fcol"><h4>Products</h4><a data-nav="hammerhead">Hammerhead</a><a data-nav="configstudio">Config Studio</a><a data-nav="rulehawk">RuleHawk</a><a data-nav="platform">Platform overview</a></div>
-    <div class="fcol"><h4>Resources</h4><a data-nav="why">White paper</a><a data-nav="insights">Insights</a><a data-nav="insights">Newsroom</a><a data-nav="why">Why Optimesh</a></div>
-    <div class="fcol"><h4>Company</h4><a data-nav="company">About</a><a href="mailto:contact@optimesh.ai">Contact</a></div>
-    <div class="fcol"><h4>Get started</h4><a data-request>Request early access</a><a href="mailto:contact@optimesh.ai">Talk to the team</a></div>
+    <div class="fcol"><h4>Contact</h4><a data-nav="contact">Contact us</a><a data-request>Request access</a><a href="https://optimesh-ai.github.io/RuleHawk/" target="_blank" rel="noopener">Try RuleHawk free</a><a href="mailto:contact@optimesh.ai" style="color:var(--accent)">contact@optimesh.ai</a></div>
+    <div class="fcol"><h4>Products</h4><a data-nav="hammerhead">Hammerhead</a><a data-nav="configstudio">Config Studio</a><a data-nav="rulehawk">RuleHawk</a><a data-nav="platform">Platform overview</a><a data-nav="platform#platforms">Supported platforms</a><a data-nav="pricing">Pricing</a></div>
+    <div class="fcol"><h4>Resources</h4><a data-nav="docs">Docs</a><a data-nav="whitepaper">White paper</a><a data-nav="methodology">Outage replay methodology</a><a data-nav="insights">Insights</a><a data-nav="why">Why Optimesh</a></div>
+    <div class="fcol"><h4>Company</h4><a data-nav="company">About</a><a data-nav="company#newsroom">Newsroom</a><a data-nav="security">Security</a><a data-nav="contact">Contact</a></div>
+    <div class="fcol"><h4>Get started</h4><a data-request>Request access</a><a href="mailto:contact@optimesh.ai">Talk to the team</a></div>
   </div>
-  <div class="fbottom"><span>© 2026 Optimesh Technologies. All rights reserved.</span><span>Privacy · Terms · Security</span></div>
+  <div class="fbottom"><span>© 2026 Optimesh Technologies. All rights reserved.</span><span class="flegal"><a data-nav="privacy">Privacy</a> · <a data-nav="terms">Terms</a> · <a data-nav="security">Security</a></span></div>
 </div>
+
+<!-- supported platforms: one copy here, cloned into each [data-platforms] slot by the script -->
+<template id="platformsTpl">
+  <div class="doc">
+    <h3>Config formats Hammerhead reads</h3>
+    <p>15 vendor formats, detected from each file's contents. Depth is the level Hammerhead's own capability matrix gives each parser: <span class="lvl l-full">full</span> <span class="lvl l-prod">production</span> <span class="lvl l-part">partial</span> <span class="lvl l-none">scaffold</span>.</p>
+    <div class="tbl"><table>
+      <thead><tr><th>Vendor / OS</th><th>Depth</th><th>Notes</th></tr></thead>
+      <tbody>
+        <tr><td>Cisco IOS / IOS-XE</td><td><span class="lvl l-full">full</span></td><td>Also the fallback: a file Hammerhead can't identify is parsed as IOS, so check the counts <code>init</code> prints.</td></tr>
+        <tr><td>Cisco NX-OS</td><td><span class="lvl l-full">full</span></td><td>Includes VXLAN.</td></tr>
+        <tr><td>Arista EOS</td><td><span class="lvl l-full">full</span></td><td>VXLAN is not read.</td></tr>
+        <tr><td>Juniper Junos</td><td><span class="lvl l-full">full</span></td><td>Brace or <code>set</code> form. No IS-IS, no VXLAN; route-reflector cluster-id is dropped.</td></tr>
+        <tr><td>FRR / Cumulus</td><td><span class="lvl l-full">full</span></td><td></td></tr>
+        <tr><td>Cisco IOS-XR</td><td><span class="lvl l-prod">production</span></td><td>Some address families are left unparsed.</td></tr>
+        <tr><td>Cisco ASA</td><td><span class="lvl l-prod">production</span></td><td>Production for forwarding; partial for security policy.</td></tr>
+        <tr><td>Palo Alto PAN-OS</td><td><span class="lvl l-prod">production</span></td><td></td></tr>
+        <tr><td>Fortinet FortiOS</td><td><span class="lvl l-prod">production</span></td><td></td></tr>
+        <tr><td>SONiC</td><td><span class="lvl l-prod">production</span></td><td>JSON config; includes VXLAN.</td></tr>
+        <tr><td>F5 BIG-IP</td><td><span class="lvl l-prod">production</span></td><td></td></tr>
+        <tr><td>A10 ACOS</td><td><span class="lvl l-prod">production</span></td><td></td></tr>
+        <tr><td>Linux iptables</td><td><span class="lvl l-prod">production</span></td><td><code>iptables-save</code> output. Name the file <code>.cfg</code>, <code>.conf</code> or <code>.txt</code>; <code>init</code> skips other extensions.</td></tr>
+        <tr><td>MikroTik RouterOS</td><td><span class="lvl l-part">partial</span></td><td></td></tr>
+        <tr><td>Check Point Gaia</td><td><span class="lvl l-none">scaffold</span></td><td>Interfaces only. The rulebase is not parsed.</td></tr>
+        <tr><td>Nokia SR OS, Huawei VRP, Aruba CX, Extreme, Meraki</td><td><span class="lvl l-none">not read</span></td><td>No parser.</td></tr>
+      </tbody>
+    </table></div>
+    <p>Cloud and Kubernetes snapshots are read alongside device configs: AWS (VPCs, security groups), Azure (NSGs), GCP (firewall rules) and Kubernetes NetworkPolicy. For Kubernetes, v1 NetworkPolicy is read in full, Calico GlobalNetworkPolicy with simple selectors (complex ones are refused, not guessed), and Cilium policy at L4 only. Service meshes such as Istio are out of scope.</p>
+
+    <h3>How configs get in</h3>
+    <div class="tbl"><table>
+      <thead><tr><th>Method</th><th>Status</th><th>Notes</th></tr></thead>
+      <tbody>
+        <tr><td>A directory of config files</td><td><span class="lvl l-full">every build</span></td><td>The default. Export running configs however you do today, one file per device, and point Hammerhead at the folder. Nothing touches a device.</td></tr>
+        <tr><td>SSH (<code>collect</code>)</td><td><span class="lvl l-prod">available</span></td><td>Dedicated drivers for NX-OS, EOS, Junos, FortiOS, PAN-OS and FRR/Cumulus; a generic <code>show running-config</code> for IOS, IOS-XR, ASA and A10. Other vendors are refused by name. In the Linux x86_64 and macOS builds.</td></tr>
+        <tr><td>SolarWinds NCM, ManageEngine NCM</td><td><span class="lvl l-prod">available</span></td><td><code>connect</code> reads the newest archived running config from the NCM's API. It never touches a device. Tested against mock NCM servers.</td></tr>
+        <tr><td>Ansible inventory or repo</td><td><span class="lvl l-prod">available</span></td><td>Via <code>connect</code>.</td></tr>
+        <tr><td>Cloud APIs (<code>cloud-fetch</code>)</td><td><span class="lvl l-part">partial</span></td><td>AWS and Kubernetes through their SDKs; Azure and GCP over REST, tested only against recorded API responses, never a live account. In the Linux x86_64 and macOS builds.</td></tr>
+        <tr><td>SNMP v2c</td><td><span class="lvl l-part">partial</span></td><td>Builds an approximate config from interface and address tables. It cannot fetch the running config, and you must opt in to using a synthesized config.</td></tr>
+        <tr><td>NetBox / Nautobot sync</td><td><span class="lvl l-none">not built</span></td><td>No integration exists.</td></tr>
+        <tr><td>NETCONF or gNMI config collection</td><td><span class="lvl l-none">not built</span></td><td>gNMI is used only to poll operational state (<code>observe</code>), not to fetch configs.</td></tr>
+      </tbody>
+    </table></div>
+
+    <h3>Routing protocols and data plane</h3>
+    <div class="tbl"><table>
+      <thead><tr><th>Feature</th><th>Status</th><th>Scope</th></tr></thead>
+      <tbody>
+        <tr><td>OSPFv2</td><td><span class="lvl l-full">modeled</span></td><td>9 parsers. Checked by <code>preflight</code>.</td></tr>
+        <tr><td>BGP-4, route reflection</td><td><span class="lvl l-full">modeled</span></td><td>9 parsers.</td></tr>
+        <tr><td>Static, connected, redistribution</td><td><span class="lvl l-full">modeled</span></td><td></td></tr>
+        <tr><td>ACLs and firewall policy</td><td><span class="lvl l-full">modeled</span></td><td>Flow-level permit/deny on the path; shadowed and unused rules with <code>acl-audit</code>.</td></tr>
+        <tr><td>IS-IS L1/L2</td><td><span class="lvl l-prod">modeled</span></td><td>IOS, IOS-XR and FRR. Not Junos.</td></tr>
+        <tr><td>EIGRP</td><td><span class="lvl l-prod">modeled</span></td><td>IPv4 on IOS and FRR. Distance-vector computation, not full DUAL.</td></tr>
+        <tr><td>RIPv2</td><td><span class="lvl l-prod">modeled</span></td><td>IOS and FRR. No RIPng.</td></tr>
+        <tr><td>NAT</td><td><span class="lvl l-part">partial</span></td><td>Static NAT modeled; PAT and dynamic pools partial. Symbolic reachability ignores NAT, so use <code>nat-aware-traceroute</code> across translating devices.</td></tr>
+        <tr><td>OSPFv3</td><td><span class="lvl l-part">partial</span></td><td>IOS only, feeding the IPv6 FIB.</td></tr>
+        <tr><td>VRFs and BGP L3VPN</td><td><span class="lvl l-part">partial</span></td><td>Route targets and VPNv4 handled; L3VPN across a route reflector is not modeled.</td></tr>
+        <tr><td>EVPN</td><td><span class="lvl l-part">partial</span></td><td>Type 3 and Type 5 routes originated and processed; Type 2 carried only. One hop; no iBGP reflection.</td></tr>
+        <tr><td>VXLAN</td><td><span class="lvl l-part">partial</span></td><td>NX-OS and SONiC configs only.</td></tr>
+        <tr><td>GRE and IPsec</td><td><span class="lvl l-part">partial</span></td><td>Tunnel and crypto-map session checks (<code>ipsec-status</code>); the underlay is not modeled.</td></tr>
+        <tr><td>Switchport, VLANs, STP</td><td><span class="lvl l-part">partial</span></td><td>Per-VLAN 802.1D-style election; no RSTP or MST. L2 links are inferred from L3 addressing, not LLDP/CDP.</td></tr>
+        <tr><td>MPLS / LDP, Segment Routing</td><td><span class="lvl l-part">trace only</span></td><td>Label walks with <code>mpls-trace</code> and <code>sr-trace</code>. Not in the FIB.</td></tr>
+        <tr><td>Symbolic (BDD) reachability</td><td><span class="lvl l-prod">available</span></td><td><code>symbolic-reach</code> covers whole header spaces. Not part of <code>simulate</code> or <code>preflight</code>.</td></tr>
+        <tr><td>Not modeled</td><td><span class="lvl l-none">no</span></td><td>Policy-based routing in forwarding (<code>pbr-audit</code> reports it), HSRP/VRRP virtual gateways as destinations, MTU, QoS scheduling, multicast forwarding, service meshes.</td></tr>
+      </tbody>
+    </table></div>
+    <p>When a change touches something the model does not cover, <code>preflight</code> returns <code>unknown</code> and names it, instead of passing it. Full command list in the <a data-nav="docs#d-cli">docs</a>.</p>
+  </div>
+</template>
 
 <div class="artscrim" id="artScrim" aria-hidden="true"></div>
 <div class="artmodal" id="artModal" role="dialog" aria-modal="true" aria-labelledby="artTitle" aria-hidden="true">
@@ -1499,7 +2262,7 @@
     <p class="artmodal-dek" id="artDek"></p>
     <hr class="artmodal-rule">
     <div id="artProse"></div>
-    <a class="artmodal-link" id="artLink" target="_blank" rel="noopener"><span id="artLinkLabel"></span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12h15M13 6l6 6-6 6"/></svg></a>
+    <a class="artmodal-link" id="artLink" target="_blank" rel="noopener" hidden><span id="artLinkLabel"></span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12h15M13 6l6 6-6 6"/></svg></a>
   </div>
 </div>
 
@@ -1510,6 +2273,7 @@
   <input type="email" name="email">
   <input type="text" name="company">
   <input type="text" name="size">
+  <input type="text" name="product">
   <input type="text" name="subject">
   <input type="text" name="kind">
   <textarea name="message"></textarea>
@@ -1525,7 +2289,7 @@
   </div>
   <div class="artmodal-body">
     <h2 class="artmodal-title" id="cxTitle">Let's put Optimesh on your network.</h2>
-    <p class="artmodal-dek">Tell us a little about your environment and a founder will get back to you, usually within a business day.</p>
+    <p class="artmodal-dek">Hammerhead and Config Studio are private and access-gated. Tell us a little about your environment and a founder will get back to you, usually within a business day.</p>
     <form class="cxform" id="cxForm" novalidate>
       <input type="hidden" name="form-name" value="request-access">
       <input type="hidden" name="kind" value="Request access">
@@ -1544,6 +2308,15 @@
           <option>5,000+ devices</option>
         </select></label>
       </div>
+      <fieldset class="cxprod">
+        <legend>Which product are you asking about?</legend>
+        <div class="cxchips">
+          <label><input type="radio" name="product" value="Hammerhead"><span>Hammerhead</span></label>
+          <label><input type="radio" name="product" value="Config Studio"><span>Config Studio</span></label>
+          <label><input type="radio" name="product" value="RuleHawk"><span>RuleHawk</span></label>
+          <label><input type="radio" name="product" value="Not sure yet"><span>Not sure yet</span></label>
+        </div>
+      </fieldset>
       <label class="cxfield"><span>What are you trying to solve?</span><textarea name="message" rows="3" placeholder="e.g. we push config changes daily and want to prove them safe before they ship"></textarea></label>
       <p class="cxerr" id="cxErr" hidden></p>
       <div class="cxactions">
@@ -1600,8 +2373,22 @@
   const rio=new IntersectionObserver(es=>es.forEach(e=>{ if(e.isIntersecting){ e.target.classList.add('in'); rio.unobserve(e.target);} }),{threshold:.15});
   document.querySelectorAll('.reveal').forEach(n=>rio.observe(n));
 
+  /* supported-platforms matrix: one copy in a <template>, cloned into each slot (hammerhead, platform) */
+  const pfTpl=el('platformsTpl');
+  if(pfTpl) document.querySelectorAll('[data-platforms]').forEach(slot=>slot.appendChild(pfTpl.content.cloneNode(true)));
+
+  /* every in-site link gets a real href (#page or #page/anchor), so it is focusable, can open in a new tab,
+     and is visible to crawlers; the click handler below still routes it without a page load.
+     Request-access triggers with no href fall back to email. */
+  document.querySelectorAll('a[data-nav]').forEach(a=>{ const [pg,an]=(a.dataset.nav||'').split('#'); a.setAttribute('href', pg==='home' && !an ? '/' : '#'+pg+(an ? '/'+an : '')); });
+  document.querySelectorAll('a[data-request]:not([href])').forEach(a=>a.setAttribute('href','mailto:contact@optimesh.ai?subject=Request%20access'));
+  document.querySelectorAll('span[data-nav]').forEach(t=>{ t.setAttribute('role','link'); t.setAttribute('tabindex','0'); t.addEventListener('keydown',e=>{ if(e.key==='Enter') t.click(); }); });
+
   /* ===== tab pages (restore the site's real IA) ===== */
   const pages=[...document.querySelectorAll('[data-page]')];
+  const TITLES={ home:'Optimesh Technologies: know what your network change breaks', hammerhead:'Hammerhead', configstudio:'Config Studio', rulehawk:'RuleHawk, free firewall rule audit',
+    platform:'Platform', pricing:'Pricing', docs:'Hammerhead docs', why:'Why Optimesh', insights:'Insights', company:'Company', contact:'Contact',
+    methodology:'Outage replay methodology', whitepaper:'White paper', security:'Security', privacy:'Privacy notice', terms:'Terms of use' };
   function showPage(name, anchor){
     pages.forEach(s=>{ const p=s.dataset.page; s.hidden = !(p===name || p==='global'); });
     document.querySelectorAll('[data-nav]').forEach(a=>a.classList.toggle('navon', (a.dataset.nav||'').split('#')[0]===name));
@@ -1617,6 +2404,7 @@
     }
     if(name==='home'){ requestAnimationFrame(()=>{ try{ resize(); }catch(e){} }); }
     if(name==='hammerhead'){ try{ runHHTerm(); }catch(e){} }
+    document.title = name==='home' ? TITLES.home : (TITLES[name]||'Optimesh')+' · Optimesh Technologies';
     syncHash(name, anchor);
   }
   /* deep links: the URL names the page shown, as #page or #page/anchor (home alone has no hash).
@@ -1636,7 +2424,8 @@
     const t=document.getElementById(raw), sec=t && t.closest('[data-page]');
     return (sec && PAGE_NAMES.has(sec.dataset.page)) ? { name:sec.dataset.page, anchor:raw } : null;
   }
-  document.querySelectorAll('[data-nav]').forEach(a=>a.addEventListener('click',e=>{ e.preventDefault(); const parts=(a.dataset.nav||'').split('#'); showPage(parts[0], parts[1]); }));
+  document.querySelectorAll('[data-nav]').forEach(a=>a.addEventListener('click',e=>{ if(e.metaKey||e.ctrlKey||e.shiftKey||e.altKey) return; /* let the browser open a new tab or window */
+    e.preventDefault(); const parts=(a.dataset.nav||'').split('#'); showPage(parts[0], parts[1]); }));
   const initialRoute=pageFromHash(); /* read before showPage('home') clears the hash; opened at the end of this script */
   showPage('home');
 
@@ -1651,6 +2440,9 @@
 
   /* films: one plays at a time, and leaving a page pauses whatever was playing (no autoplay anywhere) */
   const filmVids=[...document.querySelectorAll('video.filmvid')];
+  /* posters load only when their film is near the viewport; films sit on pages that are hidden at load */
+  const posterIO=('IntersectionObserver' in window) ? new IntersectionObserver((es,ob)=>es.forEach(e=>{ if(!e.isIntersecting) return; const v=e.target; if(v.dataset.poster){ v.poster=v.dataset.poster; } ob.unobserve(v); }),{rootMargin:'600px 0px'}) : null;
+  filmVids.forEach(v=>{ if(!v.dataset.poster) return; if(posterIO) posterIO.observe(v); else v.poster=v.dataset.poster; });
   filmVids.forEach(v=>v.addEventListener('play',()=>filmVids.forEach(o=>{ if(o!==v && !o.paused) o.pause(); })));
   document.querySelectorAll('[data-nav]').forEach(a=>a.addEventListener('click',()=>filmVids.forEach(v=>{ if(!v.paused) v.pause(); })));
 
@@ -1660,14 +2452,6 @@
 
   /* ===== company news and featured acceptance story ===== */
   const news=[
-    {t:'Accepted to a16z Speedrun — and why we chose our own path', c:'Program', d:'Selected by one of the sharpest accelerators, and grateful for it. Here is why we chose to keep our own pace.',
-     date:'May 2026',
-     body:[
-       'When the offer came, we were heads-down on the work that defines this stage of the company: shipping the first version of the platform, opening conversations with the operators who will use it, and recruiting the team that will scale it. A structured program, however good, would have meant changing operating mode at exactly the wrong moment.',
-       'Speedrun itself is excellent. The team, the cohort, and the process were all exceptional, and we want to be clear that the decision had nothing to do with the program. The fit for where Optimesh is right now turned out to be different from what we expected when we applied.',
-       'We are grateful to the a16z team for their time, their conviction, and one of the cleanest, most respectful processes we have been through as founders. The bar they set is the bar we want to hold ourselves to.',
-       'We will keep building. If you operate a network and want to put Optimesh to work in your environment, we would like to hear from you.',
-     ], link:{label:'Learn more about a16z Speedrun', href:'https://a16z.com/speedrun/'}},
     {t:'Optimesh joins the NVIDIA Inception program', c:'Program', d:"Into NVIDIA's program for AI-first startups: technical resources, GTM support, and a community building the future.",
      date:'April 2026',
      body:[
@@ -1742,8 +2526,8 @@
       el('artProse').innerHTML=(n.body||[]).map(p=>'<p></p>').join('');
       [...el('artProse').children].forEach((p,k)=>{ p.textContent=n.body[k]; });
       const link=el('artLink');
-      if(n.link){ link.href=n.link.href; el('artLinkLabel').textContent=n.link.label; link.style.display='inline-flex'; }
-      else link.style.display='none';
+      if(n.link){ link.href=n.link.href; el('artLinkLabel').textContent=n.link.label; link.hidden=false; link.style.display='inline-flex'; }
+      else { link.hidden=true; link.style.display='none'; }
       if(scroll) scroll.scrollTop=0;
       lastFocus=document.activeElement;
       scrim.classList.add('on'); scrim.setAttribute('aria-hidden','false');
@@ -1799,8 +2583,12 @@
       modal.style.left=Math.max(12,(window.innerWidth-w)/2)+'px';
       modal.style.top=Math.max(12,(window.innerHeight-h)/2)+'px'; }
     function reset(){ form.hidden=false; done.hidden=true; errBox.hidden=true; form.reset(); }
-    function open(){
+    /* product: pre-selects the interest chip, e.g. data-request="hammerhead" */
+    const PRODUCTS={ hammerhead:'Hammerhead', configstudio:'Config Studio', rulehawk:'RuleHawk' };
+    function open(product){
       reset(); lastFocus=document.activeElement;
+      const want=PRODUCTS[(product||'').toLowerCase()];
+      if(want){ const r=form.querySelector('input[name=product][value="'+want+'"]'); if(r) r.checked=true; }
       scrim.classList.add('on'); scrim.setAttribute('aria-hidden','false');
       modal.setAttribute('aria-hidden','false'); modal.style.transform=''; center();
       requestAnimationFrame(()=>modal.classList.add('on'));
@@ -1835,7 +2623,7 @@
         finish();
       }catch(err){
         const subj=encodeURIComponent('Request access — '+((f.get('company')||'').toString().trim()||name));
-        const bodyt=encodeURIComponent('Name: '+name+'\nWork email: '+email+'\nCompany: '+(f.get('company')||'')+'\nNetwork size: '+(f.get('size')||'')+'\n\n'+(f.get('message')||''));
+        const bodyt=encodeURIComponent('Name: '+name+'\nWork email: '+email+'\nCompany: '+(f.get('company')||'')+'\nNetwork size: '+(f.get('size')||'')+'\nProduct: '+(f.get('product')||'')+'\n\n'+(f.get('message')||''));
         window.location.href='mailto:chandler@optimesh.ai?subject='+subj+'&body='+bodyt;
         finish();
       }
@@ -1865,7 +2653,7 @@
       const a=e.target.closest('a,button'); if(!a) return;
       if(a.closest('#cxModal')||a.closest('#artModal')||a.closest('#emModal')) return;
       const txt=(a.textContent||'').trim().toLowerCase();
-      if(a.hasAttribute('data-request')||txt.startsWith('request access')||txt.startsWith('request early access')){ e.preventDefault(); open(); }
+      if(a.hasAttribute('data-request')||txt.startsWith('request access')||txt.startsWith('request early access')){ e.preventDefault(); open(a.getAttribute('data-request')); }
     });
   })();
 
