@@ -13,6 +13,22 @@
   to = "/index.html"
   status = 200
 
+# Security headers for every response. The CSP is the tightest policy the page
+# satisfies: everything it loads is same-origin (images, films, captions), it
+# uses system fonts only, and the access / contact forms post to Netlify Forms
+# with fetch('/'). 'unsafe-inline' stays for script and style because the page
+# is one hand-written file with an inline <script>, an inline <style> and many
+# style="" attributes. External links (RuleHawk, a16z, NVIDIA) are navigations,
+# which the CSP does not govern. frame-ancestors only works as a header.
+[[headers]]
+  for = "/*"
+  [headers.values]
+    Content-Security-Policy = "default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline'; img-src 'self'; media-src 'self'; font-src 'self'; connect-src 'self'; form-action 'self'; frame-ancestors 'none'; base-uri 'self'; object-src 'none'"
+    X-Content-Type-Options = "nosniff"
+    Referrer-Policy = "strict-origin-when-cross-origin"
+    X-Frame-Options = "DENY"
+    Permissions-Policy = "camera=(), microphone=(), geolocation=()"
+
 # Film encodes, posters and captions. The file names are not versioned, so a
 # day's cache rather than `immutable`: a re-encode reaches visitors within 24h.
 [[headers]]
