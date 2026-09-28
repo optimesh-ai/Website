@@ -1598,8 +1598,27 @@
     }
     if(name==='home'){ requestAnimationFrame(()=>{ try{ resize(); }catch(e){} }); }
     if(name==='hammerhead'){ try{ runHHTerm(); }catch(e){} }
+    syncHash(name, anchor);
+  }
+  /* deep links: the URL names the page shown, as #page or #page/anchor (home alone has no hash).
+     replaceState, so switching pages adds no history entries and fires no hashchange. */
+  const PAGE_NAMES=new Set(pages.map(s=>s.dataset.page).filter(p=>p!=='global' && p!=='x-off'));
+  function syncHash(name, anchor){
+    const h=(name==='home' && !anchor) ? '' : '#'+name+(anchor ? '/'+anchor : '');
+    if(location.hash===h) return;
+    try{ history.replaceState(history.state, '', h || location.pathname+location.search); }catch(e){}
+  }
+  function pageFromHash(){
+    let raw=location.hash.slice(1); try{ raw=decodeURIComponent(raw); }catch(e){}
+    if(!raw) return null;
+    const [name, anchor]=raw.split('/');
+    if(PAGE_NAMES.has(name)) return { name, anchor };
+    /* an older in-page link (#films, #stage): open the page that holds that section */
+    const t=document.getElementById(raw), sec=t && t.closest('[data-page]');
+    return (sec && PAGE_NAMES.has(sec.dataset.page)) ? { name:sec.dataset.page, anchor:raw } : null;
   }
   document.querySelectorAll('[data-nav]').forEach(a=>a.addEventListener('click',e=>{ e.preventDefault(); const parts=(a.dataset.nav||'').split('#'); showPage(parts[0], parts[1]); }));
+  const initialRoute=pageFromHash(); /* read before showPage('home') clears the hash; opened at the end of this script */
   showPage('home');
 
   /* mobile menu toggle */
@@ -2273,6 +2292,14 @@
     brResize(); brP=brProg(); brUpdate(brP);
     if(reduce){ brRender(0.9,0); } else requestAnimationFrame(brFrame);
   }
+
+  /* open the page the URL names, once everything above is defined */
+  if(initialRoute) showPage(initialRoute.name, initialRoute.anchor);
+  addEventListener('hashchange',()=>{
+    const r=pageFromHash(); if(r){ showPage(r.name, r.anchor); return; }
+    const shown=pages.find(s=>!s.hidden && s.dataset.page!=='global');
+    if(!location.hash && shown && shown.dataset.page!=='home') showPage('home');
+  });
 
 })();
 </script>
