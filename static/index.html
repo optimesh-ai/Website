@@ -1231,8 +1231,9 @@
       <div class="kicker">Hammerhead</div>
       <h1 style="margin:12px 0 0">Know what a change will do, before you make it.</h1>
       <p class="lead" style="margin:18px 0 0">Point it at a directory of router configs. It builds the forwarding tables for every device, runs your reachability query, and tells you the answer, in under a second. Ships as a single binary. Nothing else to install.</p>
+      <p class="lead" style="margin:14px 0 0; color:var(--ink); font-weight:650">When it can&rsquo;t be sure, it says &lsquo;unknown&rsquo; — never &lsquo;pass&rsquo;.</p>
       <div style="display:flex; gap:12px; margin-top:26px; flex-wrap:wrap"><a class="btn primary lg" href="mailto:contact@optimesh.ai?subject=Hammerhead%20access">Request access →</a><a class="btn ghost lg" data-nav="why">Read the white paper</a></div>
-      <div class="mono" style="margin-top:16px; font-size:12px; color:var(--muted)">135/136 routes match real routers · 134 real outages rebuilt · same answer every run</div>
+      <div class="mono" style="margin-top:16px; font-size:12px; color:var(--muted)">134 real outages rebuilt · every one flagged · same answer every run</div>
     </div>
     <div class="reveal">
       <div class="term"><div class="tb"><span class="d" style="background:#fb7185"></span><span class="d" style="background:#fbbf24"></span><span class="d" style="background:#34d399"></span><span class="nm">hammerhead</span></div><pre id="hhTerm"></pre></div>
@@ -1307,7 +1308,7 @@
     <div class="scard"><h3>REST API</h3><p>An axum server with 11 endpoints for wiring into anything.</p></div>
     <div class="scard"><h3>CI pipeline</h3><p>Gate merges on a FIB diff. Fast enough to run on every commit.</p></div>
     <div class="scard"><h3>Jupyter</h3><p>8 tutorial notebooks: BGP analysis, traceroute, change validation, ACL walkthroughs.</p></div>
-    <div class="scard"><h3>vs the standard</h3><p>Where both have a route, the same exit interface as Batfish, the open-source standard, 99.8% of the time, across 351 test networks. Fast enough to run on every change.</p></div>
+    <div class="scard"><h3>vs the standard</h3><p>Checked against Batfish, the open-source standard, across 351 networks, and against real routers every week.</p></div>
   </div>
 </div></section>
 
