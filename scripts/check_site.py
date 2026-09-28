@@ -3,7 +3,10 @@
 
 Fails, naming each problem, when:
   * static/index.html does not parse into balanced tags (void elements aside);
-  * a local file the page references (src, href, poster, srcset) is missing;
+  * a local file the page references (src, href, poster, data-poster, srcset) is missing;
+  * an in-site link is dead: a data-nav="page#anchor" or href="#..." names a page
+    (data-page) or element id that does not exist, or an <a> has nothing behind
+    it (no href, data-nav, data-request, data-article or role, and not hidden);
   * a file under static/ is larger than Netlify serves comfortably (MAX_BYTES);
   * netlify.toml does not parse, or publishes a directory other than static/.
 
@@ -25,7 +28,10 @@ VOID = {
     "area", "base", "br", "col", "embed", "hr", "img", "input", "link", "meta",
     "param", "source", "track", "wbr",
 }
-REF_ATTRS = {"src", "href", "poster", "srcset"}
+REF_ATTRS = {"src", "href", "poster", "data-poster", "srcset"}
+# attributes that make an <a> without href do something (the page script routes them),
+# or keep it out of sight until the script gives it a destination (hidden)
+ACTION_ATTRS = {"href", "data-nav", "data-request", "data-article", "data-news-article", "role", "hidden"}
 
 
 class Page(HTMLParser):
@@ -36,8 +42,25 @@ class Page(HTMLParser):
         self.stack: list[tuple[str, int]] = []
         self.errors: list[str] = []
         self.refs: set[str] = set()
+        self.ids: set[str] = set()
+        self.pages: set[str] = {"home"}
+        self.navs: list[tuple[str, int]] = []
+        self.hashes: list[tuple[str, int]] = []
+        self.inert: list[int] = []
 
     def handle_starttag(self, tag, attrs):
+        a = dict(attrs)
+        line = self.getpos()[0]
+        if a.get("id"):
+            self.ids.add(a["id"])
+        if a.get("data-page"):
+            self.pages.add(a["data-page"])
+        if a.get("data-nav"):
+            self.navs.append((a["data-nav"], line))
+        if (a.get("href") or "").startswith("#"):
+            self.hashes.append((a["href"], line))
+        if tag == "a" and not ACTION_ATTRS & set(a):
+            self.inert.append(line)
         for name, value in attrs:
             if name in REF_ATTRS and value:
                 for part in value.split(",") if name == "srcset" else [value]:
@@ -91,6 +114,21 @@ def main() -> int:
     problems += page.errors
     problems += [f"<{t}> opened at line {line} is never closed" for t, line in page.stack]
 
+    def target_ok(pg: str, anchor: str | None) -> bool:
+        return pg in page.pages and (not anchor or anchor in page.ids)
+
+    for nav, line in page.navs:
+        pg, _, anchor = nav.partition("#")
+        if not target_ok(pg, anchor or None):
+            problems.append(f"data-nav={nav!r} at line {line} names a page or anchor that does not exist")
+    for href, line in page.hashes:
+        frag = href[1:]
+        pg, _, anchor = frag.partition("/")
+        if frag and not (target_ok(pg, anchor or None) or frag in page.ids):
+            problems.append(f"href={href!r} at line {line} names a page or anchor that does not exist")
+    for line in page.inert:
+        problems.append(f"<a> at line {line} has no href, data-nav, data-request, data-article or role: it does nothing")
+
     for ref in sorted(page.refs):
         target = local_path(ref)
         if target is not None and not target.is_file():
@@ -104,7 +142,8 @@ def main() -> int:
     for p in problems:
         print(f"::error::{p}")
     checked = sum(1 for r in page.refs if local_path(r) is not None)
-    print(f"checked index.html, {checked} local references, {sum(1 for f in STATIC.rglob('*') if f.is_file())} files")
+    print(f"checked index.html, {checked} local references, {len(page.navs) + len(page.hashes)} in-site links, "
+          f"{sum(1 for f in STATIC.rglob('*') if f.is_file())} files")
     return 1 if problems else 0
 
 
