@@ -7,6 +7,7 @@ Fails, naming each problem, when:
   * an in-site link is dead: a data-nav="page#anchor" or href="#..." names a page
     (data-page) or element id that does not exist, or an <a> has nothing behind
     it (no href, data-nav, data-request, data-article or role, and not hidden);
+  * the page shows a command the product does not have (FAKE_COMMANDS);
   * a file under static/ is larger than Netlify serves comfortably (MAX_BYTES);
   * netlify.toml does not parse, or publishes a directory other than static/.
 
@@ -29,6 +30,13 @@ VOID = {
     "param", "source", "track", "wbr",
 }
 REF_ATTRS = {"src", "href", "poster", "data-poster", "srcset"}
+# Commands that have appeared in marketing mockups but do not exist. The CLI is
+# `hammerhead`; the pre-change check is `hammerhead preflight`.
+FAKE_COMMANDS = {
+    "optimesh verify": "there is no `optimesh` CLI; the pre-change check is `hammerhead preflight`",
+    "$ optimesh ": "there is no `optimesh` CLI; the binary is `hammerhead`",
+    "--plan tf.plan": "preflight compares two config directories; it does not read a Terraform plan",
+}
 # attributes that make an <a> without href do something (the page script routes them),
 # or keep it out of sight until the script gives it a destination (hidden)
 ACTION_ATTRS = {"href", "data-nav", "data-request", "data-article", "data-news-article", "role", "hidden"}
@@ -108,8 +116,13 @@ def main() -> int:
     if publish != "static":
         problems.append(f"netlify.toml publishes {publish!r}, expected 'static'")
 
+    html = (STATIC / "index.html").read_text()
+    for text, why in FAKE_COMMANDS.items():
+        if text in html:
+            problems.append(f"index.html shows {text.strip()!r}: {why}")
+
     page = Page()
-    page.feed((STATIC / "index.html").read_text())
+    page.feed(html)
     page.close()
     problems += page.errors
     problems += [f"<{t}> opened at line {line} is never closed" for t, line in page.stack]

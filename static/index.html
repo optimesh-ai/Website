@@ -569,6 +569,7 @@
   .reader-body h2{ font-size:1.5rem; font-weight:750; margin:42px 0 0; letter-spacing:-0.02em; }
   .reader-body p{ font-size:1.08rem; line-height:1.75; margin:18px 0 0; }
   .reader-body ul{ margin:18px 0 0; padding-left:22px; } .reader-body li{ margin:9px 0; line-height:1.6; }
+  .reader-body .rsrc{ font-size:.9rem; color:var(--muted); } .reader-body .rsrc a{ color:var(--accent); font-weight:600; }
   .reader-body blockquote{ margin:34px 0 0; padding:8px 0 8px 22px; border-left:3px solid var(--accent); font-size:1.3rem; font-weight:600; line-height:1.5; }
   .phero{ display:grid; grid-template-columns:1.05fr 1fr; gap:48px; align-items:center; padding-top:16px; } @media(max-width:900px){ .phero{ grid-template-columns:1fr; gap:32px; } }
   .phero h1{ font-size:clamp(2.2rem,4.6vw,3.6rem); font-weight:800; letter-spacing:-0.03em; }
@@ -900,19 +901,19 @@
 <section class="blk" id="platflow" data-page="platform" style="padding-top:104px"><div class="wrap">
   <div class="reveal" style="max-width:720px">
     <h2 class="h2" style="margin:0">Change anything. Break nothing.</h2>
-    <p class="lead" style="margin:16px 0 0">Every change to your network runs the gate first: simulated on your live topology, proven safe or blocked, before it ships. Here is a real run.</p>
+    <p class="lead" style="margin:16px 0 0">Every change to your network runs the gate first: simulated on your live topology, proven safe or blocked, before it ships. Here is a real run, on a three-router lab.</p>
   </div>
   <div class="verifyterm">
-    <div class="vt-bar"><span class="d" style="background:#fb7185"></span><span class="d" style="background:#fbbf24"></span><span class="d" style="background:#34d399"></span><span class="nm"><b>optimesh</b> · verify --pr 482</span><span class="st">blocked</span></div>
+    <div class="vt-bar"><span class="d" style="background:#fb7185"></span><span class="d" style="background:#fbbf24"></span><span class="d" style="background:#34d399"></span><span class="nm"><b>hammerhead</b> · preflight</span><span class="st">fail</span></div>
     <div class="vt-body">
-      <div class="vt-line"><span class="vt-cmd">$ optimesh verify --pr 482</span></div>
-      <div class="vt-line"><span class="vt-stage">ingest</span><span class="vt-dim">3 files changed · core-sw-02, edge-fw, k8s/netpol</span></div>
-      <div class="vt-line"><span class="vt-stage">diagnose</span><span>ACL drift on Vlan40 — guest VLAN can reach finance</span></div>
-      <div class="vt-line"><span class="vt-stage">simulate</span><span>12,481 paths on live topology&nbsp; <span class="vt-ok">✓ 41ms</span></span></div>
-      <div class="vt-line"><span class="vt-stage">checks</span><span>reachability <span class="vt-ok">8/8</span> · isolation <span class="vt-ok">✓</span> · loops <span class="vt-ok">✓</span> · acl <span class="vt-no">✗</span></span></div>
-      <div class="vt-verdict"><span class="vi">✗</span><span><b>BLOCKED.</b> app-sg → 0.0.0.0/0 opens on line 42. The merge is stopped and the exact rule is cited — nothing ships until it's proven safe.</span></div>
+      <div class="vt-line"><span class="vt-cmd">$ hammerhead preflight ./before ./after</span></div>
+      <div class="vt-line"><span class="vt-dim">routes changed:</span><span>0 (0.0% of FIB entries)</span></div>
+      <div class="vt-line"><span class="vt-dim">ACL line changes:</span><span class="vt-no">1</span></div>
+      <div class="vt-line"><span class="vt-dim">flows lost:</span><span>0 (of 3 of 3 endpoint(s) probed, <span class="vt-no">1 gained, 1 on the management plane</span>)</span></div>
+      <div class="vt-verdict"><span class="vi">✗</span><span><b>VERDICT: FAIL</b><br>✗ ACL change gate: 1 packet-filter (ACL) line change(s) and 0 interface binding change(s) — flow disposition may differ even where routes are identical<br>✗ management-plane access GAINED: 1 endpoint pair(s) can newly reach a management or routing-control service (SSH, BGP) that they could not reach before — R1(1.1.1.1) → R3(3.3.3.3)</span></div>
     </div>
   </div>
+  <p class="films-foot" style="max-width:940px;margin:14px auto 0">Real output from <code>hammerhead 0.1.0</code> on a three-router lab, trimmed. The change widens an egress ACL on R1 from <code>permit tcp any host 3.3.3.3 eq 443</code> to <code>permit ip any any</code>; no route moves, and the gate still fails it. <a data-nav="docs#d-quickstart" style="color:var(--accent);font-weight:600">Run the quickstart →</a></p>
 </div></section>
 
 <!-- two products -->
@@ -946,15 +947,17 @@
       <div class="feat"><div class="fi"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M4 6h16M4 12h10M4 18h7"/></svg></div><div><b>Evidence, line by line.</b> <span>Every verdict cites the exact FIB entries, routes, and ACL lines that produced it.</span></div></div>
     </div>
   </div>
-  <div class="panelbox reveal">
-    <div class="mono" style="font-size:12.5px; color:var(--muted); margin-bottom:12px">verdict.json</div>
-    <div class="diff" style="border-color:var(--hair)">
-      <div class="ln ctx" style="color:var(--green)">  "status": "BLOCKED",</div>
-      <div class="ln ctx">  "reason": "ACL flow disposition changed",</div>
-      <div class="ln ctx">  "flow": "app-sg → 0.0.0.0/0",</div>
-      <div class="ln ctx">  "rule": "permit ip any any (line 42)",</div>
-      <div class="ln ctx">  "reachability": "8/8 preserved",</div>
-      <div class="ln ctx" style="color:var(--red)">  "safe_to_deploy": false</div>
+  <div class="panelbox reveal" style="min-width:0">
+    <div class="mono" style="font-size:12.5px; color:var(--muted); margin-bottom:12px">hammerhead preflight ./before ./after --format json <span style="opacity:.7">(excerpt)</span></div>
+    <div class="diff" style="border-color:var(--hair); overflow-x:auto">
+      <div class="ln ctx" style="color:var(--red)">  "verdict": "fail",</div>
+      <div class="ln ctx">  "reasons": [</div>
+      <div class="ln ctx">    "ACL change gate: 1 packet-filter (ACL) line change(s) …",</div>
+      <div class="ln ctx">    "management-plane access GAINED: … R1(1.1.1.1) → R3(3.3.3.3) …"</div>
+      <div class="ln ctx">  ],</div>
+      <div class="ln ctx">  "changed_routes": 0,</div>
+      <div class="ln ctx">  "acl_changes": 1,</div>
+      <div class="ln ctx" style="color:var(--red)">  "reachability": { "lost": [], "gained": 1, … }</div>
     </div>
   </div>
 </div></section>
@@ -1048,8 +1051,8 @@
     <div class="mono" style="display:flex;align-items:center;gap:9px;font-size:13px;padding:6px 0;color:var(--ink)"><span style="color:var(--green);font-weight:800">✓</span> build</div>
     <div class="mono" style="display:flex;align-items:center;gap:9px;font-size:13px;padding:6px 0;color:var(--ink)"><span style="color:var(--green);font-weight:800">✓</span> lint</div>
     <div class="mono" style="display:flex;align-items:center;gap:9px;font-size:13px;padding:6px 0;color:var(--ink)"><span style="color:var(--green);font-weight:800">✓</span> unit tests</div>
-    <div class="mono" style="display:flex;align-items:center;gap:9px;font-size:13px;padding:6px 0;color:var(--ink);border-top:1px solid var(--hair);margin-top:6px;padding-top:12px"><span style="color:var(--red);font-weight:800">✗</span> optimesh / verify</div>
-    <div class="mono" style="font-size:12px;color:#b23a12;margin:6px 0 0 25px;line-height:1.5">Blocked: app-sg → 0.0.0.0/0 opens · rule: permit ip any any (line 42)</div>
+    <div class="mono" style="display:flex;align-items:center;gap:9px;font-size:13px;padding:6px 0;color:var(--ink);border-top:1px solid var(--hair);margin-top:6px;padding-top:12px"><span style="color:var(--red);font-weight:800">✗</span> hammerhead preflight</div>
+    <div class="mono" style="font-size:12px;color:#b23a12;margin:6px 0 0 25px;line-height:1.5">VERDICT: FAIL (exit 2) · management-plane access GAINED: R1(1.1.1.1) → R3(3.3.3.3)</div>
     <div style="margin-top:14px;padding:10px 13px;border-radius:9px;background:color-mix(in srgb,var(--red) 6%,transparent);border:1px solid color-mix(in srgb,var(--red) 24%,transparent);font-size:13px;color:#b23a12;font-weight:600">Merging is blocked until all checks pass</div>
   </div>
 </div></section>
@@ -1061,7 +1064,7 @@
     <div style="display:flex;flex-direction:column;gap:11px;font-size:13.5px">
       <div style="display:flex;justify-content:space-between;gap:12px"><span style="color:var(--muted)">Risk assessment</span><span style="font-weight:600;color:var(--ink)">Optimesh, automated</span></div>
       <div style="display:flex;justify-content:space-between;gap:12px"><span style="color:var(--muted)">Reachability</span><span class="mono" style="font-weight:600;color:var(--ink)">8 / 8 preserved, 1 new exposure</span></div>
-      <div style="display:flex;justify-content:space-between;gap:12px"><span style="color:var(--muted)">Attached evidence</span><span class="mono" style="font-weight:600;color:var(--accent)">verdict.json</span></div>
+      <div style="display:flex;justify-content:space-between;gap:12px"><span style="color:var(--muted)">Attached evidence</span><span class="mono" style="font-weight:600;color:var(--accent)">preflight.json</span></div>
       <div style="display:flex;justify-content:space-between;gap:12px"><span style="color:var(--muted)">Recommendation</span><span style="font-weight:700;color:#b23a12">Do not deploy</span></div>
     </div>
   </div>
@@ -1086,15 +1089,16 @@
     </div>
   </div>
   <div class="panelbox reveal">
-    <div class="mono" style="font-size:12.5px;color:var(--muted);margin-bottom:12px">ci · verify step</div>
-    <div class="mono" style="font-size:12.5px;line-height:1.85;color:var(--ink)">
-      <div style="color:var(--muted)">$ terraform plan -out tf.plan</div>
-      <div style="color:var(--muted)">$ optimesh verify --plan tf.plan</div>
-      <div><span style="color:var(--green)">✓</span> parse configs <span style="color:var(--muted)">· 14 devices</span></div>
-      <div><span style="color:var(--green)">✓</span> simulate on live FIB</div>
-      <div><span style="color:var(--green)">✓</span> reachability probes <span style="color:var(--muted)">· 8/8 preserved</span></div>
-      <div><span style="color:var(--red)">✗</span> acl flow-safety <span style="color:#b23a12">· app-sg → 0.0.0.0/0</span></div>
-      <div style="color:#b23a12;font-weight:700;margin-top:4px">optimesh: change blocked (exit 1)</div>
+    <div class="mono" style="font-size:12.5px;color:var(--muted);margin-bottom:12px">ci · preflight step</div>
+    <div class="mono" style="font-size:12.5px;line-height:1.85;color:var(--ink);overflow-x:auto">
+      <div style="color:var(--muted)">$ hammerhead preflight ./configs-main ./configs-pr</div>
+      <div>routes changed: <span style="color:var(--green)">0</span></div>
+      <div>ACL line changes: <span style="color:#b23a12">1</span></div>
+      <div>flows lost: 0 <span style="color:var(--muted)">·</span> <span style="color:#b23a12">1 gained, 1 on the management plane</span></div>
+      <div style="color:#b23a12;font-weight:700;margin-top:4px">VERDICT: FAIL</div>
+      <div><span style="color:var(--red)">✗</span> management-plane access GAINED <span style="color:#b23a12">· R1(1.1.1.1) → R3(3.3.3.3)</span></div>
+      <div style="color:var(--muted)">$ echo $?</div>
+      <div style="color:#b23a12;font-weight:700">2</div>
     </div>
   </div>
 </div></section>
@@ -1109,7 +1113,7 @@
 <section class="blk" id="why" data-page="why"><div class="wrap">
   <div class="reveal"><div class="kicker">Why now</div><h2 class="h2">Four forces are remaking how networks get changed.</h2><p class="lead">Each one alone would justify a new category of tooling. Arriving together, they make verification non-optional.</p></div>
   <div class="forces reveal">
-    <div class="force"><div class="fn">01</div><h3>AI agents are managing production infrastructure.</h3><p>Cisco reports 165,000+ agentic workflow executions monthly. AI is no longer drafting suggestions, it's executing changes on live networks, clusters, and clouds.</p></div>
+    <div class="force"><div class="fn">01</div><h3>AI agents are managing production infrastructure.</h3><p>Cisco reported more than 165,000 executions of its Agentic Workflows in production over a 30-day period (<a href="https://blogs.cisco.com/news/agenticops-and-the-rise-of-ai-in-the-loop" target="_blank" rel="noopener" style="color:var(--accent);font-weight:600">Cisco</a>). AI is no longer drafting suggestions, it's executing changes on live networks, clusters, and clouds.</p></div>
     <div class="force"><div class="fn">02</div><h3>Nobody is verifying what agents do.</h3><p>Every major AI agent ships without a deterministic verifier between the model and production. We built the platform that proves an AI-proposed change is safe before it executes.</p></div>
     <div class="force"><div class="fn">03</div><h3>Regulation now requires it.</h3><p>The EU AI Act, effective August 2026, mandates auditability and human oversight for high-risk AI. Infrastructure agents fall squarely in scope.</p></div>
     <div class="force"><div class="fn">04</div><h3>The trust gap is the bottleneck.</h3><p>Enterprises want autonomous operations but won't let AI change things unsupervised. Deterministic verification closes the gap: the agent proposes, the verifier proves.</p></div>
@@ -1224,7 +1228,7 @@
   <div class="center reveal"><div class="kicker">Real outages</div><h2 class="h2" style="margin:12px auto 0">Rogers,&nbsp;2022. Facebook,&nbsp;2021.</h2><p class="lead">134 outages like them, rebuilt from the public record. Hammerhead flags the cause of every one. <a data-nav="methodology" style="color:var(--accent);font-weight:600">How we measured →</a></p>
     <div style="display:flex; gap:12px; margin-top:26px; flex-wrap:wrap; justify-content:center"><a class="btn ghost lg" data-nav="hammerhead#films">Watch the demos →</a></div>
     <p class="films-foot">Reconstructions from public reports, not the operators&rsquo; own configurations. For Microsoft&rsquo;s 2023 WAN outage the cause was a command, and Microsoft never named the vendor or the command, so we assumed them. Flagging the cause is not a claim that any outage would have been prevented. We fixed Hammerhead until it caught each one, so this is a regression suite, not a blind test, and we have not yet measured how often it fails a healthy change.</p>
-    <p class="films-foot">The Uptime Institute's outage surveys now put a majority of serious outages above 100,000 dollars, with a significant share past a million.</p>
+    <p class="films-foot">In Uptime Institute&rsquo;s 2025 survey, 57% of respondents said their most recent major outage cost more than $100,000, and one in five said more than $1 million (<a href="https://uptimeinstitute.com/about-ui/press-releases/uptime-announces-annual-outage-analysis-report-2026" target="_blank" rel="noopener" style="color:var(--accent);font-weight:600">Annual Outage Analysis 2026</a>).</p>
   </div>
 </div></section>
 
@@ -2390,6 +2394,9 @@ hammerhead policy-check --config-dir ./configs --policies network-policy.yaml --
     platform:'Platform', pricing:'Pricing', docs:'Hammerhead docs', why:'Why Optimesh', insights:'Insights', company:'Company', contact:'Contact',
     methodology:'Outage replay methodology', whitepaper:'White paper', security:'Security', privacy:'Privacy notice', terms:'Terms of use' };
   function showPage(name, anchor){
+    /* a route change always lands on the page itself: close the Insights reader and any open dialog */
+    if(window.closeReader) window.closeReader();
+    document.querySelectorAll('.artmodal.on .artmodal-x').forEach(x=>x.click());
     pages.forEach(s=>{ const p=s.dataset.page; s.hidden = !(p===name || p==='global'); });
     document.querySelectorAll('[data-nav]').forEach(a=>a.classList.toggle('navon', (a.dataset.nav||'').split('#')[0]===name));
     if(anchor){
@@ -2948,7 +2955,8 @@ hammerhead policy-check --config-dir ./configs --policies network-policy.yaml --
     {date:'February 24, 2026',cat:'Industry',author:'Optimesh',title:`The Outage Math No One Puts in the Budget`,deck:`A bad push is nonlinear. Most of the downtime is spent finding the one line that broke, and the cost lands in a budget line nobody keeps: the outage you didn't prevent.`,body:[
       {t:'p',x:`On October 4, 2021, a routine maintenance command withdrew the BGP routes to Facebook's DNS, and a company most of the planet uses went dark for roughly six hours. In July 2022, a maintenance change that removed a routing filter took Rogers offline across Canada for most of a day and took 911 with it. Different companies, different gear, one shape: a change that looked fine in the diff, and a very long night finding it.`},
       {t:'h2',x:`The cost curve bends the wrong way`},
-      {t:'p',x:`At small scale an outage is an annoyance. At scale it is nonlinear. The Uptime Institute's outage surveys now put a majority of serious outages above 100,000 dollars, with a significant share past a million, and configuration change is consistently among the leading causes. The dollars are not the revert. They are the incident bridge, the SLA credits, the customers who quietly leave, and the engineering quarter that gets eaten by the postmortem.`},
+      {t:'p',x:`At small scale an outage is an annoyance. At scale it is nonlinear. In Uptime Institute's 2025 survey, 57% of respondents said their most recent major outage cost more than 100,000 dollars, and one in five said more than a million. The dollars are not the revert. They are the incident bridge, the SLA credits, the customers who quietly leave, and the engineering quarter that gets eaten by the postmortem.`},
+      {t:'src',x:`Uptime Institute, Annual Outage Analysis 2026 (press release, May 13, 2026)`,href:`https://uptimeinstitute.com/about-ui/press-releases/uptime-announces-annual-outage-analysis-report-2026`},
       {t:'h2',x:`You pay for the find, not the fix`},
       {t:'p',x:`Pull the mean-time-to-recovery apart and the repair is almost never the expensive part. The fix is usually one line. The expense is localization: bisecting configuration across a fabric, hop by hop, under pressure, at 3am, trying to find which of a hundred plausible changes actually broke reachability. Verification attacks exactly that cost. It localizes the fault before the change ships, naming the flow and the rule, so the night you were going to spend searching never happens.`},
       {t:'q',x:`The fix is one line. Finding the line is the outage. Verification pays for itself by deleting the search.`},
@@ -2980,15 +2988,20 @@ hammerhead policy-check --config-dir ./configs --policies network-policy.yaml --
   ];
 
   function esc(s){ return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;'); }
-  function openArticle(i){ const a=ARTICLES[i]; if(!a) return;
+  function openArticle(i, push){ const a=ARTICLES[i]; if(!a) return;
     let h=`<div class="rmeta"><span>${a.date}</span><span class="c">${esc(a.cat)}</span></div><h1>${esc(a.title)}</h1><div class="deck">${esc(a.deck)}</div><div class="rauthor">By ${esc(a.author)}</div>`;
-    for(const bl of a.body){ if(bl.t==='h2') h+=`<h2>${esc(bl.x)}</h2>`; else if(bl.t==='p') h+=`<p>${esc(bl.x)}</p>`; else if(bl.t==='q') h+=`<blockquote>${esc(bl.x)}</blockquote>`; else if(bl.t==='ul') h+=`<ul>${bl.items.map(it=>`<li>${esc(it)}</li>`).join('')}</ul>`; }
-    el('readerBody').innerHTML=h; const rd=el('reader'); rd.hidden=false; rd.scrollTop=0; document.body.style.overflow='hidden'; }
-  function closeArticle(){ el('reader').hidden=true; document.body.style.overflow=''; }
+    for(const bl of a.body){ if(bl.t==='h2') h+=`<h2>${esc(bl.x)}</h2>`; else if(bl.t==='p') h+=`<p>${esc(bl.x)}</p>`; else if(bl.t==='q') h+=`<blockquote>${esc(bl.x)}</blockquote>`; else if(bl.t==='src') h+=`<p class="rsrc">Source: <a href="${esc(bl.href)}" target="_blank" rel="noopener">${esc(bl.x)}</a></p>`; else if(bl.t==='ul') h+=`<ul>${bl.items.map(it=>`<li>${esc(it)}</li>`).join('')}</ul>`; }
+    el('readerBody').innerHTML=h; const rd=el('reader'); rd.hidden=false; rd.scrollTop=0; document.body.style.overflow='hidden';
+    /* the article gets its own history entry, so browser Back closes it instead of leaving the site */
+    if(push!==false){ try{ history.pushState({reader:i}, '', location.href); }catch(e){} } }
+  function closeArticle(){ const rd=el('reader'); if(rd.hidden) return; rd.hidden=true; document.body.style.overflow=''; }
+  window.closeReader=closeArticle;
+  const readerEntry=()=>!!(history.state && history.state.reader!==undefined);
+  addEventListener('popstate',()=>{ if(readerEntry()){ if(!pages.find(s=>!s.hidden && s.dataset.page==='insights')) return; openArticle(history.state.reader, false); } else closeArticle(); });
   document.querySelectorAll('[data-article]').forEach(a2=>{ const go=()=>openArticle(+a2.dataset.article);
     a2.addEventListener('click',go);
     a2.addEventListener('keydown',e=>{ if(e.key==='Enter'||e.key===' '){ e.preventDefault(); go(); } }); });
-  el('readerBack').addEventListener('click',closeArticle);
+  el('readerBack').addEventListener('click',()=>{ if(readerEntry()) history.back(); else closeArticle(); });
 
   /* ===== product-page demos (show, not just tell) ===== */
   const HH_STEPS=[
