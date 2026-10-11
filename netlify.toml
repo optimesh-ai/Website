@@ -5,6 +5,22 @@
   command = "printf '%s\\n' \"${COMMIT_REF:-unknown}\" > static/version.txt"
   publish = "static"
 
+# API aliases. server/index.ts declares its routes as /api/* and the early-access
+# function is documented at /api/early-access; without these rewrites the SPA
+# fallback below answered /api/* with index.html (they were dropped when the
+# static site replaced the SPA on 2026-08-05). Both must come before the fallback.
+[[redirects]]
+  force = true
+  from = "/api/early-access"
+  to = "/.netlify/functions/early-access"
+  status = 200
+
+[[redirects]]
+  force = true
+  from = "/api/*"
+  to = "/.netlify/functions/api/:splat"
+  status = 200
+
 # SPA fallback. It is not forced (no `force = true`), so Netlify serves any file
 # that exists under static/ first, including static/films/*; only paths with no
 # file behind them fall through to index.html.
