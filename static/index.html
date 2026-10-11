@@ -1197,7 +1197,7 @@
   </div>
 </div></section>
 
-<div class="reader" id="reader" hidden>
+<div class="reader" id="reader" role="dialog" aria-modal="true" aria-labelledby="readerTitle" hidden inert>
   <div class="reader-bar"><button class="reader-back" id="readerBack">← Back to Insights</button></div>
   <article class="reader-body" id="readerBody"></article>
 </div>
@@ -1932,7 +1932,7 @@ hammerhead policy-check --config-dir ./configs --policies network-policy.yaml --
     <h3>All 136 prefixes and 135 of 136 next hops match in the FRR lab</h3>
     <p>A lab of 10 routers running FRR 10.7.1 in containers, with the image pinned. We wait until every adjacency is up and every routing table has been unchanged for 60 seconds, then compare 136 route entries with Hammerhead's: every prefix matches, and 135 of 136 next hops. The lab is re-run every week and compared against the committed result; it does not gate merges. It is one topology on one routing stack, not production hardware, and not the other vendors we parse.</p>
     <h3>Checked against Batfish across 351 test snapshots</h3>
-    <p>351 snapshots (2,040 devices) drawn from our test corpora, demos and generated topologies, not customer networks. Batfish and Hammerhead agree on 94.41% of prefixes and 99.80% of egress interfaces, for IPv4 in the default VRF. It is a comparison with another model, not with routers, and it runs weekly as a report. We quote no speed comparison with Batfish.</p>
+    <p>351 snapshots (2,040 devices) drawn from our test corpora, demos and generated topologies, not customer networks. Batfish and Hammerhead agree on 94.41% of prefixes (267,262 of 283,098), and on the egress interface for 99.80% of the prefixes both have a route for (the shared prefixes). Scope: IPv4, default VRF, routing table only. Most disagreements are explained: 12,051 of the 16,359 come from four snapshots whose <code>frr.conf</code> Batfish reads with its IOS grammar, and in the 309 snapshots Batfish parsed fully (98.50% / 99.90%), 3,012 of the 3,585 are two incident replays where Hammerhead enforces a <code>maximum-prefix</code> limit Batfish does not. It is a comparison with another model, not with routers, and it runs weekly as a report. We quote no speed comparison with Batfish.</p>
     <p class="note">Questions about any of this, or want to run a replay yourself? <a data-request="hammerhead">Request access</a> and ask for the catalog.</p>
   </article>
 </div></section>
@@ -1977,7 +1977,7 @@ hammerhead policy-check --config-dir ./configs --policies network-policy.yaml --
     <h2 id="w-evidence">5. How we measure it</h2>
     <ul>
       <li><b>Against real routers.</b> In a 10-router FRR lab, Hammerhead's routes agree with the routers' on every prefix and on 135 of 136 next hops. The lab re-runs weekly.</li>
-      <li><b>Against Batfish.</b> Across 351 test snapshots (2,040 devices), the two agree on 94.41% of prefixes and 99.80% of egress interfaces, for IPv4 in the default VRF. This compares two models, not a model with routers.</li>
+      <li><b>Against Batfish.</b> Across 351 test snapshots (2,040 devices), the two agree on 94.41% of prefixes, and on the egress interface for 99.80% of the shared prefixes, for IPv4 in the default VRF (routing table only). 12,051 of the 16,359 disagreements come from four snapshots whose <code>frr.conf</code> Batfish reads as IOS; most of the rest from a <code>maximum-prefix</code> limit Hammerhead enforces and Batfish does not. This compares two models, not a model with routers.</li>
       <li><b>Against the public record.</b> We rebuilt 134 outages from public reports, and Hammerhead flags the cause of each. These were caught after we fixed the tool to catch them, so they are a regression suite, not a blind test, and we have not yet measured how often Hammerhead fails a healthy change. The <a data-nav="methodology">methodology</a> has the details.</li>
     </ul>
 
@@ -3013,10 +3013,19 @@ hammerhead policy-check --config-dir ./configs --policies network-policy.yaml --
 
   function esc(s){ return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;'); }
   function openArticle(i){ const a=ARTICLES[i]; if(!a) return;
-    let h=`<div class="rmeta"><span>${a.date}</span><span class="c">${esc(a.cat)}</span></div><h1>${esc(a.title)}</h1><div class="deck">${esc(a.deck)}</div><div class="rauthor">By ${esc(a.author)}</div>`;
+    let h=`<div class="rmeta"><span>${a.date}</span><span class="c">${esc(a.cat)}</span></div><h1 id="readerTitle">${esc(a.title)}</h1><div class="deck">${esc(a.deck)}</div><div class="rauthor">By ${esc(a.author)}</div>`;
     for(const bl of a.body){ if(bl.t==='h2') h+=`<h2>${esc(bl.x)}</h2>`; else if(bl.t==='p') h+=`<p>${esc(bl.x)}</p>`; else if(bl.t==='q') h+=`<blockquote>${esc(bl.x)}</blockquote>`; else if(bl.t==='ul') h+=`<ul>${bl.items.map(it=>`<li>${esc(it)}</li>`).join('')}</ul>`; }
-    el('readerBody').innerHTML=h; const rd=el('reader'); rd.hidden=false; rd.scrollTop=0; document.body.style.overflow='hidden'; }
-  function closeArticle(){ el('reader').hidden=true; document.body.style.overflow=''; }
+    el('readerBody').innerHTML=h; const rd=el('reader');
+    readerTrigger=document.activeElement;
+    rd.hidden=false; rd.inert=false; rd.classList.add('on'); rd.scrollTop=0; document.body.style.overflow='hidden';
+    lockBackground(rd,null); el('readerBack').focus(); }
+  /* the reader is a full-screen dialog: focus moves in, Tab stays inside, Escape closes, focus returns */
+  let readerTrigger=null;
+  function closeArticle(){ const rd=el('reader'); if(rd.hidden) return;
+    rd.classList.remove('on'); rd.hidden=true; rd.inert=true; document.body.style.overflow=''; unlockBackground();
+    if(readerTrigger&&document.contains(readerTrigger)) readerTrigger.focus(); readerTrigger=null; }
+  document.addEventListener('keydown',e=>{ const rd=el('reader'); if(rd.hidden) return;
+    if(e.key==='Escape'){ e.preventDefault(); closeArticle(); return; } trapTab(rd,e); });
   document.querySelectorAll('[data-article]').forEach(a2=>{ const go=()=>openArticle(+a2.dataset.article);
     a2.addEventListener('click',go);
     a2.addEventListener('keydown',e=>{ if(e.key==='Enter'||e.key===' '){ e.preventDefault(); go(); } }); });
