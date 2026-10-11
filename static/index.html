@@ -1519,8 +1519,8 @@
     <h2 class="h2" style="margin:0 auto; text-align:center">Pricing questions</h2>
     <details><summary>What do I get on Free today?</summary><p>RuleHawk, with no limit, sign-up or install. The Hammerhead features listed under Free (the CLI and up to 25 verified changes a month) come with access, which we grant on request; there is no self-serve Hammerhead download yet.</p></details>
     <details><summary>What counts as a &ldquo;change&rdquo; toward the 25 a month?</summary><p>One check of a proposed change: a single <code>preflight</code> comparison of a before and an after set of configs, however many devices or lines it touches. Queries such as <code>reachability</code> or <code>traceroute</code> against one snapshot are not changes.</p></details>
-    <details><summary>What happens at the 26th?</summary><p>Nothing in the software stops you. Hammerhead has no usage meter, license key or phone-home, because a tool that has to call us could not run air-gapped. The 25 is a term of the plan: if you regularly go past it, we will ask you to move to Pro.</p></details>
-    <details><summary>How is per-engineer pricing enforced for a CLI that runs on-prem?</summary><p>By agreement, not by software. The binary does not count seats or report usage. Pro and Team are priced per engineer who runs Hammerhead, and that number is part of your agreement with us.</p></details>
+    <details><summary>What happens at the 26th?</summary><p>Nothing in the software stops you. Hammerhead has no usage meter and no phone-home, because a tool that has to call us could not run air-gapped. It does check a signed licence key, offline, against a key built into the binary: that decides who may run it and until when, not how much. The 25 is a term of the plan: if you regularly go past it, we will ask you to move to Pro.</p></details>
+    <details><summary>How is per-engineer pricing enforced for a CLI that runs on-prem?</summary><p>Seats are by agreement, not by software. Every copy of Hammerhead needs a current licence key, which names your organisation, your plan and its end date and is checked offline; the binary does not count seats or report usage. Pro and Team are priced per engineer who runs Hammerhead, and that number is part of your agreement with us.</p></details>
     <details><summary>Is there a free trial of Pro or Team?</summary><p>Not a self-serve one. <a data-request="hammerhead" style="color:var(--accent);font-weight:600">Request access</a> and tell us what you want to evaluate; the <a data-nav="docs" style="color:var(--accent);font-weight:600">docs</a> are public in the meantime.</p></details>
   </div>
 </div></section>
@@ -2420,6 +2420,8 @@ hammerhead policy-check --config-dir ./configs --policies network-policy.yaml --
   function pageFromHash(){
     let raw=location.hash.slice(1); try{ raw=decodeURIComponent(raw); }catch(e){}
     if(!raw) return null;
+    /* #trial (the free audit's "request a trial" link): pricing, with the request form open */
+    if(raw==='trial') return { name:'pricing', request:'hammerhead' };
     const [name, anchor]=raw.split('/');
     if(PAGE_NAMES.has(name)) return { name, anchor };
     /* an older in-page link (#films, #stage): open the page that holds that section */
@@ -2596,6 +2598,7 @@ hammerhead policy-check --config-dir ./configs --policies network-policy.yaml --
       requestAnimationFrame(()=>modal.classList.add('on'));
       const first=form.querySelector('input[name=name]'); if(first) setTimeout(()=>first.focus(),60);
     }
+    window.openRequest=open;
     function close(){
       modal.classList.remove('on'); scrim.classList.remove('on');
       scrim.setAttribute('aria-hidden','true'); modal.setAttribute('aria-hidden','true');
@@ -3103,9 +3106,10 @@ hammerhead policy-check --config-dir ./configs --policies network-policy.yaml --
   }
 
   /* open the page the URL names, once everything above is defined */
-  if(initialRoute) showPage(initialRoute.name, initialRoute.anchor);
+  const route=r=>{ showPage(r.name, r.anchor); if(r.request && window.openRequest) window.openRequest(r.request); };
+  if(initialRoute) route(initialRoute);
   addEventListener('hashchange',()=>{
-    const r=pageFromHash(); if(r){ showPage(r.name, r.anchor); return; }
+    const r=pageFromHash(); if(r){ route(r); return; }
     const shown=pages.find(s=>!s.hidden && s.dataset.page!=='global');
     if(!location.hash && shown && shown.dataset.page!=='home') showPage('home');
   });
