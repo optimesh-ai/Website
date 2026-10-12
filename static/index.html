@@ -4,15 +4,15 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="color-scheme" content="light">
-<title>Optimesh Technologies: verification for autonomous infrastructure</title>
-<meta name="description" content="Optimesh independently verifies proposed network changes before deployment and returns the routes, flows, and rules behind the result.">
+<title>Optimesh: know what a network change will do before you push it</title>
+<meta name="description" content="Optimesh checks a proposed network change against a model of your network before it ships, and shows the routes, flows, and rules behind the verdict.">
 <link rel="canonical" href="https://optimesh.ai/">
 <link rel="icon" type="image/svg+xml" href="/favicon.svg">
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="Optimesh Technologies">
 <meta property="og:locale" content="en_US">
-<meta property="og:title" content="The verification layer for autonomous infrastructure.">
-<meta property="og:description" content="AI can propose the change. Optimesh independently verifies the supported consequences before production.">
+<meta property="og:title" content="Know what a network change will do before you push it.">
+<meta property="og:description" content="Optimesh checks a proposed network change against a model of your network before it ships.">
 <meta property="og:url" content="https://optimesh.ai/">
 <meta property="og:image" content="https://optimesh.ai/og.png">
 <meta property="og:image:type" content="image/png">
@@ -20,8 +20,8 @@
 <meta property="og:image:height" content="630">
 <meta property="og:image:alt" content="Hammerhead in a terminal: a preflight check on a proposed network change returns VERDICT: FAIL and names the flows it would break.">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="The verification layer for autonomous infrastructure.">
-<meta name="twitter:description" content="AI can propose the change. Optimesh independently verifies the supported consequences before production.">
+<meta name="twitter:title" content="Know what a network change will do before you push it.">
+<meta name="twitter:description" content="Optimesh checks a proposed network change against a model of your network before it ships.">
 <meta name="twitter:image" content="https://optimesh.ai/og.png">
 <meta name="twitter:image:alt" content="Hammerhead in a terminal: a preflight check on a proposed network change returns VERDICT: FAIL and names the flows it would break.">
 </head>
@@ -783,16 +783,16 @@
     </div>
   </div>
   <div class="hero__in">
-    <h1>The verification layer for autonomous infrastructure.</h1>
-    <p>AI can draft a network change in seconds. A bad change can still disrupt service or open an unintended path. Optimesh models the resulting network state before the change ships and reports what passed, what needs review, what failed, and what could not be checked.</p>
+    <h1>Know what a network change will do before you push it.</h1>
+    <p>Optimesh models your network from its configs and checks each change before it ships. You get pass, fail, needs review, or unknown, with the reason.</p>
     <div class="actions"><a class="btn primary lg" data-request="hammerhead" href="mailto:contact@optimesh.ai?subject=Hammerhead%20access">Request access →</a><a class="btn ghost lg" href="https://optimesh-ai.github.io/RuleHawk/" target="_blank" rel="noopener">Try RuleHawk free</a></div>
-    <p class="hero-sub"><a href="#stage">See why a change gets blocked ↓</a> <span>RuleHawk is our free firewall-rule auditor. It runs in your browser, no sign-up.</span></p>
+    <p class="hero-sub"><a href="#stage">See why a change gets blocked ↓</a> <span>RuleHawk is free and runs in your browser.</span></p>
   </div>
 </section>
 
 <!-- pinned network story -->
 <section class="blk" id="stage" data-page="home"><div class="wrap">
-  <div class="center reveal"><h2 class="h2" style="margin:0 auto">AI proposes. Optimesh verifies.</h2><p class="lead" style="margin:14px auto 0">Hammerhead builds before-and-after forwarding models from the configurations you provide. It compares routes, flows, and policy outcomes, then returns PASS, ADVISORY, FAIL, or UNKNOWN with the reason.</p></div>
+  <div class="center reveal"><h2 class="h2" style="margin:0 auto">AI proposes. Optimesh verifies.</h2><p class="lead" style="margin:14px auto 0">Hammerhead, our engine, compares the network before and after the change and names what breaks.</p></div>
   <div class="vdash reveal" role="img" aria-label="Optimesh change-review dashboard: a change to edge-fw-01 is blocked before merge because it opens the app tier to the internet.">
     <div class="vd-bar">
       <svg class="vd-mk" viewBox="0 0 40 40" fill="none"><g stroke-width="1.4" stroke-linejoin="round"><polygon points="14.5,10.1 18.9,12.3 18.9,16.7 14.5,18.9 10.1,16.7 10.1,12.3" fill="none" stroke="#1a4fd6"/><polygon points="14.5,21.1 18.9,23.3 18.9,27.7 14.5,29.9 10.1,27.7 10.1,23.3" fill="none" stroke="#1a4fd6"/><polygon points="25.5,21.1 29.9,23.3 29.9,27.7 25.5,29.9 21.1,27.7 21.1,23.3" fill="none" stroke="#1a4fd6"/><polygon points="25.5,10.1 29.9,12.3 29.9,16.7 25.5,18.9 21.1,16.7 21.1,12.3" fill="none" stroke="#1f8e65"/></g><polygon points="20,15.6 24.4,20 20,24.4 15.6,20" fill="#1a4fd6"/></svg>
@@ -841,10 +841,10 @@
   <div class="txt reveal">
     <div class="kicker">Just ask</div>
     <h2 class="h2">Draft and verify a network change in one workflow.</h2>
-    <p class="lead">Describe the intent in plain English. Config Studio drafts a reviewable change. Hammerhead independently evaluates what that change does to the network.</p>
+    <p class="lead">Describe the change in plain English. Config Studio drafts the diff; Hammerhead checks it.</p>
     <div class="feat-list">
-      <div class="feat"><div class="fi"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M4 12l5 5L20 6"/></svg></div><div><b>Reviewable changes.</b> <span>The request becomes a concrete configuration diff with a verdict and the evidence behind it.</span></div></div>
-      <div class="feat"><div class="fi"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M12 3v18M3 12h18"/></svg></div><div><b>Independent checks.</b> <span>Config Studio uses a language model to propose the change. Hammerhead checks the proposed state against its current network model.</span></div></div>
+      <div class="feat"><div class="fi"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M4 12l5 5L20 6"/></svg></div><div><b>Reviewable diffs.</b> <span>A concrete config change, with its verdict and evidence.</span></div></div>
+      <div class="feat"><div class="fi"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M12 3v18M3 12h18"/></svg></div><div><b>An independent check.</b> <span>A language model drafts. Hammerhead verifies, separately.</span></div></div>
     </div>
   </div>
   <div class="reveal">
@@ -859,7 +859,7 @@
 <!-- DASHBOARD -->
 <section class="blk" data-page="home"><div class="wrap center" style="margin-bottom:36px">
   <div class="kicker reveal">Example change review</div>
-  <h2 class="h2 reveal" style="margin-left:auto;margin-right:auto">Review the proposed change and the verification result together.</h2>
+  <h2 class="h2 reveal" style="margin-left:auto;margin-right:auto">The change and its verdict, side by side.</h2>
 </div>
 <div class="wrap reveal"><div class="console">
   <div class="cbar"><span class="cdot" style="background:#fb7185"></span><span class="cdot" style="background:#fbbf24"></span><span class="cdot" style="background:#34d399"></span><span class="title"><b>Config Studio</b> · illustrative workflow</span><span class="env">synthetic demo · read-only</span></div>
@@ -900,8 +900,8 @@
 <!-- platform: opens straight on the product -->
 <section class="blk" id="platflow" data-page="platform" style="padding-top:104px"><div class="wrap">
   <div class="reveal" style="max-width:720px">
-    <h2 class="h2" style="margin:0">See the network impact before deployment.</h2>
-    <p class="lead" style="margin:16px 0 0">Optimesh compares the current and proposed network states before deployment, then returns a reproducible verdict with the routes, flows, and rules behind it.</p>
+    <h2 class="h2" style="margin:0">See the network impact before you deploy.</h2>
+    <p class="lead" style="margin:16px 0 0">Every verdict comes with the routes, flows, and rules behind it. Hammerhead checks what it models and returns UNKNOWN for the rest; the <a data-nav="docs" style="color:var(--accent);font-weight:600">support matrix</a> lists both.</p>
   </div>
   <div class="verifyterm">
     <div class="vt-bar"><span class="d" style="background:#fb7185"></span><span class="d" style="background:#fbbf24"></span><span class="d" style="background:#34d399"></span><span class="nm"><b>optimesh</b> · verify --pr 482</span><span class="st">blocked</span></div>
@@ -909,7 +909,7 @@
       <div class="vt-line"><span class="vt-cmd">$ optimesh verify --pr 482</span></div>
       <div class="vt-line"><span class="vt-stage">ingest</span><span class="vt-dim">3 files changed · core-sw-02, edge-fw, k8s/netpol</span></div>
       <div class="vt-line"><span class="vt-stage">diagnose</span><span>ACL drift on Vlan40 — guest VLAN can reach finance</span></div>
-      <div class="vt-line"><span class="vt-stage">simulate</span><span>supported paths on configuration-derived topology&nbsp; <span class="vt-ok">✓ complete</span></span></div>
+      <div class="vt-line"><span class="vt-stage">simulate</span><span>forwarding model from configs&nbsp; <span class="vt-ok">✓ complete</span></span></div>
       <div class="vt-line"><span class="vt-stage">checks</span><span>reachability <span class="vt-ok">8/8</span> · isolation <span class="vt-ok">✓</span> · loops <span class="vt-ok">✓</span> · acl <span class="vt-no">✗</span></span></div>
       <div class="vt-verdict"><span class="vi">✗</span><span><b>BLOCKED.</b> app-sg → 0.0.0.0/0 opens on line 42. The merge is stopped and the failed check is attached to the review.</span></div>
     </div>
@@ -918,21 +918,21 @@
 
 <!-- two products -->
 <section class="blk" data-page="platform"><div class="wrap">
-  <div class="center reveal"><div class="kicker">Product architecture</div><h2 class="h2" style="margin:12px auto 0">Hammerhead is the verification engine behind each workflow.</h2></div>
+  <div class="center reveal"><div class="kicker">Product architecture</div><h2 class="h2" style="margin:12px auto 0">Hammerhead is the engine behind every workflow.</h2></div>
   <div class="prodgrid reveal">
     <div class="prod"><div class="pk">Verification engine · Hammerhead</div><h3>Deterministic network analysis</h3>
-      <p class="pd">Build current and proposed forwarding models from supported configuration, then compare routes, paths, reachability, and policy behavior.</p>
+      <p class="pd">Builds current and proposed forwarding models from your configs and compares routes, paths, reachability, and policy.</p>
       <ul>
         <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M4 12l5 5L20 6"/></svg>In a pinned 10-router FRR container lab, all 136 prefixes and 135 of 136 next hops matched. <a data-nav="methodology#m-other" style="color:var(--accent);font-weight:600">How</a></li>
-        <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M4 12l5 5L20 6"/></svg>Deterministic output with a reproducible evidence record for each run</li>
-        <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M4 12l5 5L20 6"/></svg>CLI, Python SDK, REST API, CI integration and Jupyter. <a data-nav="docs" style="color:var(--accent);font-weight:600">Docs</a></li>
+        <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M4 12l5 5L20 6"/></svg>Deterministic, with a reproducible evidence record per run</li>
+        <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M4 12l5 5L20 6"/></svg>CLI, Python SDK, REST API, CI and Jupyter. <a data-nav="docs" style="color:var(--accent);font-weight:600">Docs</a></li>
       </ul></div>
     <div class="prod"><div class="pk">Application · Config Studio</div><h3>AI-assisted remediation</h3>
-      <p class="pd">Config Studio uses a language model to diagnose a network issue and draft a candidate diff. Hammerhead checks the resulting state against the behavior it currently models.</p>
+      <p class="pd">A language model diagnoses the issue and drafts a diff. Hammerhead checks the result.</p>
       <ul>
-        <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M4 12l5 5L20 6"/></svg>Generation and verification run as separate steps</li>
-        <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M4 12l5 5L20 6"/></svg>Produces small configuration diffs for human review</li>
-        <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M4 12l5 5L20 6"/></svg>Deployment architecture and model data flows are documented during evaluation</li>
+        <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M4 12l5 5L20 6"/></svg>Drafting and checking are separate steps</li>
+        <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M4 12l5 5L20 6"/></svg>Small diffs, for human review</li>
+        <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M4 12l5 5L20 6"/></svg>Deployment and data flows documented during evaluation</li>
       </ul></div>
   </div>
 </div></section>
@@ -941,10 +941,9 @@
 <section class="blk" id="verify" data-page="platform"><div class="wrap split">
   <div class="txt reveal">
     <div class="kicker">Preflight results</div><h2 class="h2">PASS, ADVISORY, FAIL, or UNKNOWN.</h2>
-    <p class="lead">Hammerhead evaluates supported behavior in the current and proposed models. It returns the routes, flows, rules, and coverage behind each result. If it cannot evaluate a change, it does not guess.</p>
+    <p class="lead">Each result names the routes, flows, rules, and coverage behind it. If Hammerhead can&rsquo;t evaluate part of a change, it says so instead of guessing.</p>
     <div class="feat-list">
-      <div class="feat"><div class="fi"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M12 3l7 4v5c0 4-3 7-7 9-4-2-7-5-7-9V7z"/></svg></div><div><b>Explicit unknowns.</b> <span>Failed invariants block the workflow. Behavior outside the model is identified for review.</span></div></div>
-      <div class="feat"><div class="fi"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M4 6h16M4 12h10M4 18h7"/></svg></div><div><b>Supporting evidence.</b> <span>Results include the relevant FIB entries, routes, flows, and ACL lines available to each check.</span></div></div>
+      <div class="feat"><div class="fi"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M12 3l7 4v5c0 4-3 7-7 9-4-2-7-5-7-9V7z"/></svg></div><div><b>Explicit unknowns.</b> <span>Failed checks block. Anything outside the model is flagged for review.</span></div></div>
     </div>
   </div>
   <div class="panelbox reveal">
@@ -971,21 +970,20 @@
       <span class="int" style="border:1px solid var(--hair);padding:9px 13px;border-radius:10px;font-size:13.5px">GCP firewall</span>
       <span class="int" style="border:1px solid var(--hair);padding:9px 13px;border-radius:10px;font-size:13.5px">Kubernetes NetworkPolicy</span>
     </div>
-    <p style="color:var(--muted); font-size:13.5px; margin-top:18px">One model connects supported on-prem, cloud, and Kubernetes policy. Coverage varies by platform and is disclosed in the support matrix.</p>
+    <p style="color:var(--muted); font-size:13.5px; margin-top:18px">One model across on-prem, cloud, and Kubernetes policy. Coverage per platform is in the support matrix.</p>
   </div>
   <div class="reveal">
     <div class="kicker">Expanding coverage</div><h2 class="h2">Network verification first. Broader infrastructure next.</h2>
-    <p class="lead">Networks are where Optimesh starts. Hammerhead already includes cloud and Kubernetes analysis; the support matrix says exactly how far each model goes today.</p>
+    <p class="lead">Networks come first. Cloud and Kubernetes analysis already ship; the support matrix shows how deep each goes.</p>
     <div class="feat-list">
-      <div class="feat"><div class="fi"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M12 3l4 4-4 4-4-4zM12 13l4 4-4 4-4-4z"/></svg></div><div><b>Failure and maintenance simulation.</b> <span>Drain a modeled device, drop a link, or withdraw a prefix without touching a live device.</span></div></div>
-      <div class="feat"><div class="fi"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><circle cx="12" cy="12" r="3"/><path d="M12 2v3M12 19v3M2 12h3M19 12h3"/></svg></div><div><b>Before-and-after reachability.</b> <span>Compare affected paths, isolated devices, and newly unreachable prefixes.</span></div></div>
+      <div class="feat"><div class="fi"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M12 3l4 4-4 4-4-4zM12 13l4 4-4 4-4-4z"/></svg></div><div><b>Failure and maintenance simulation.</b> <span>Drain a device, drop a link, or withdraw a prefix in the model, not on the network.</span></div></div>
     </div>
   </div>
 </div></section>
 
 <!-- blast-radius: clean SVG impact diagram -->
 <section class="blk" id="brStage" data-page="platform"><div class="wrap">
-  <div class="center reveal"><h2 class="h2" style="margin:0 auto">See the modeled blast radius before deployment.</h2><p class="lead" style="margin:14px auto 0">Trace the supported paths a change puts at risk. Expose a supposedly redundant path that shares the same dependency.</p></div>
+  <div class="center reveal"><h2 class="h2" style="margin:0 auto">See the blast radius before you deploy.</h2><p class="lead" style="margin:14px auto 0">The paths a change puts at risk, including &ldquo;redundant&rdquo; ones that share a dependency.</p></div>
   <div class="netviz reveal">
     <div class="nv-top"><span class="nv-live warn"><span class="dot"></span>Change detected</span><span class="nv-sub">impact · sw-02 · Vlan40</span></div>
     <svg viewBox="0 0 1080 496" role="img" aria-label="Blast radius impact of a change on sw-02" xmlns="http://www.w3.org/2000/svg">
@@ -1038,10 +1036,9 @@
 <section class="blk" id="prgate" data-page="platform"><div class="wrap split">
   <div class="txt reveal">
     <div class="kicker">Pull-request gate</div><h2 class="h2">Block failed changes before merge.</h2>
-    <p class="lead">Add Optimesh to pull requests that touch supported network configuration. A failed verdict returns a non-zero check, cites the reason, and can block the merge.</p>
+    <p class="lead">A failed verdict fails the check, cites the reason, and can block the merge.</p>
     <div class="feat-list">
-      <div class="feat"><div class="fi"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M4 12l5 5L20 6"/></svg></div><div><b>Designed for CI.</b> <span>The generated-fabric benchmark shows that verification can fit into a pull-request workflow. Performance in your environment is measured during evaluation.</span></div></div>
-      <div class="feat"><div class="fi"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M4 6h16M4 12h10M4 18h7"/></svg></div><div><b>Evidence in the pull request.</b> <span>The failing flow and rule appear in a comment alongside the diff.</span></div></div>
+      <div class="feat"><div class="fi"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M4 12l5 5L20 6"/></svg></div><div><b>Built for CI.</b> <span>Fits a pull request on our generated-fabric benchmark; we measure your network during evaluation.</span></div></div>
     </div>
   </div>
   <div class="panelbox reveal">
@@ -1068,10 +1065,9 @@
   </div>
   <div class="reveal">
     <div class="kicker">ServiceNow &amp; Jira</div><h2 class="h2">Evidence on the ticket</h2>
-    <p class="lead">ServiceNow and Jira workflows can write a verdict and its evidence back to the change record. The reviewer sees the reachability diff and cited rules without leaving the ticket.</p>
+    <p class="lead">The verdict and its evidence go back to the change record. Reviewers see the reachability diff and cited rules without leaving the ticket.</p>
     <div class="feat-list">
-      <div class="feat"><div class="fi"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><rect x="3" y="4" width="18" height="16" rx="2"/><path d="M7 9h10M7 13h6"/></svg></div><div><b>Evidence attached to the record.</b> <span>The verdict, reachability diff, and cited rules remain with the change request.</span></div></div>
-      <div class="feat"><div class="fi"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M12 3l7 4v5c0 4-3 7-7 9-4-2-7-5-7-9V7z"/></svg></div><div><b>Informed approvals.</b> <span>The change manager can review modeled impact rather than relying only on the requester&rsquo;s assessment.</span></div></div>
+      <div class="feat"><div class="fi"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M12 3l7 4v5c0 4-3 7-7 9-4-2-7-5-7-9V7z"/></svg></div><div><b>Informed approvals.</b> <span>Approve on modeled impact, not just the requester&rsquo;s word.</span></div></div>
     </div>
   </div>
 </div></section>
@@ -1080,10 +1076,9 @@
 <section class="blk" id="iac" data-page="platform"><div class="wrap split">
   <div class="txt reveal">
     <div class="kicker">Terraform &amp; CI</div><h2 class="h2">Verify the plan, not just the syntax</h2>
-    <p class="lead"><span class="mono">terraform plan</span> tells you what will change. Optimesh evaluates the supported network consequences and checks the resulting model against declared invariants.</p>
+    <p class="lead"><span class="mono">terraform plan</span> says what changes. Optimesh checks what that does to the network, against your declared invariants, in any CI that can run a CLI.</p>
     <div class="feat-list">
-      <div class="feat"><div class="fi"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linejoin="round"><path d="M12 3l8 4.5v9L12 21l-8-4.5v-9z"/><path d="M12 12v9M12 12L4 7.5M12 12l8-4.5"/></svg></div><div><b>Any pipeline.</b> <span>GitHub Actions, GitLab CI, or Jenkins. It is a CLI with an exit code.</span></div></div>
-      <div class="feat"><div class="fi"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M4 12l5 5L20 6"/></svg></div><div><b>Fails closed.</b> <span>A non-zero exit stops the apply before anything reaches the fabric.</span></div></div>
+      <div class="feat"><div class="fi"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M4 12l5 5L20 6"/></svg></div><div><b>Fails closed.</b> <span>A non-zero exit stops the apply.</span></div></div>
     </div>
   </div>
   <div class="panelbox reveal">
@@ -1102,21 +1097,21 @@
 
 <!-- supported platforms (platform page) -->
 <section class="blk" id="platforms" data-page="platform"><div class="wrap">
-  <div class="reveal"><div class="kicker">Supported platforms</div><h2 class="h2">What Hammerhead reads, and what it models.</h2><p class="lead">Review supported configuration formats, collection methods, and the modeling depth for each protocol. <a data-nav="docs" style="color:var(--accent);font-weight:600">Docs →</a></p></div>
+  <div class="reveal"><div class="kicker">Supported platforms</div><h2 class="h2">What Hammerhead reads, and what it models.</h2><p class="lead">Config formats, collection methods, and modeling depth per protocol. <a data-nav="docs" style="color:var(--accent);font-weight:600">Docs →</a></p></div>
   <div class="pfm" data-platforms></div>
 </div></section>
 
 <!-- why us -->
 <section class="blk" id="why" data-page="why"><div class="wrap">
-  <div class="reveal"><div class="kicker">Why now</div><h2 class="h2">Infrastructure can now change faster than humans can review it.</h2><p class="lead">The bottleneck is no longer writing the change. It is knowing what the change will do.</p></div>
+  <div class="reveal"><div class="kicker">Why now</div><h2 class="h2">Infrastructure now changes faster than people can review it.</h2><p class="lead">Writing the change is no longer the bottleneck. Knowing what it will do is.</p></div>
   <div class="forces reveal">
-    <div class="force"><div class="fn">01</div><h3>Infrastructure became code.</h3><p>Cloud APIs, infrastructure-as-code, Kubernetes, CI/CD, and software-defined networks made operational changes addressable through code and APIs.</p></div>
-    <div class="force"><div class="fn">02</div><h3>Agents are entering the change path.</h3><p>They can diagnose incidents, draft configurations, and propose operational changes faster than a human can inspect every command.</p></div>
-    <div class="force"><div class="fn">03</div><h3>Review was not built for machine speed.</h3><p>Peer review evaluates intent. Tickets record authorization. Monitoring observes production. None independently models the consequences before deployment.</p></div>
-    <div class="force"><div class="fn">04</div><h3>Networks make the problem concrete.</h3><p>A local configuration edit can change forwarding behavior several hops away. Independent verification has to work here first.</p></div>
+    <div class="force"><div class="fn">01</div><h3>Infrastructure became code.</h3><p>Cloud APIs, IaC, Kubernetes, and CI/CD put every change behind an API.</p></div>
+    <div class="force"><div class="fn">02</div><h3>Agents are entering the change path.</h3><p>They diagnose, draft, and propose changes faster than anyone can read them.</p></div>
+    <div class="force"><div class="fn">03</div><h3>Review wasn&rsquo;t built for machine speed.</h3><p>Peer review checks intent. Tickets record approval. Monitoring watches production. None models the consequences first.</p></div>
+    <div class="force"><div class="fn">04</div><h3>Networks make it concrete.</h3><p>One local edit can change forwarding several hops away. So verification starts here.</p></div>
   </div>
 
-  <div class="reveal" id="compare" style="margin-top:84px"><div class="kicker">Named alternatives</div><h2 class="h2">How Hammerhead compares.</h2><p class="lead">What each product says about itself in public material, next to Hammerhead, including where we are behind. &ldquo;None found&rdquo; means we could not find it in public material, not that the product lacks it. We filled in our own row, so treat it as a claim; the evidence is in the <a data-nav="methodology" style="color:var(--accent);font-weight:600">methodology</a>.</p></div>
+  <div class="reveal" id="compare" style="margin-top:84px"><div class="kicker">Named alternatives</div><h2 class="h2">How Hammerhead compares.</h2><p class="lead">What each product says publicly, next to Hammerhead, including where we&rsquo;re behind. &ldquo;None found&rdquo; means we couldn&rsquo;t find it publicly, not that it&rsquo;s missing. We wrote our own row, so treat it as a claim; the evidence is in the <a data-nav="methodology" style="color:var(--accent);font-weight:600">methodology</a>.</p></div>
   <div class="cmp cmpfair reveal">
     <table>
       <thead><tr><th>Product</th><th>Works from</th><th>Vendors</th><th>Checks a change before it ships</th><th>Deployment</th><th>Published accuracy evidence</th></tr></thead>
@@ -1131,9 +1126,9 @@
     </table>
   </div>
   <div class="sgrid cmpnotes reveal">
-    <div class="scard"><h3>Where Hammerhead is ahead</h3><p>It checks a change from supplied configurations without requiring live-device telemetry or deploying the change; of the products above, only Batfish also works this way. It returns &ldquo;unknown&rdquo; and names the unsupported behavior instead of passing. It can run entirely on your hardware.</p></div>
-    <div class="scard"><h3>Where Hammerhead is behind</h3><p>The others were built on continuous collection across 30 to 400+ platforms; Hammerhead parses 15 config formats. They model what the network is doing; Hammerhead models what the configs say. Its console is far simpler than products refined for years.</p></div>
-    <div class="scard"><h3>Where it is early</h3><p>One release so far, 0.1.0. No public customer references and no third-party evaluation yet. Real-router checks so far run in container labs, not on production hardware.</p></div>
+    <div class="scard"><h3>Where Hammerhead is ahead</h3><p>It checks a change from configs alone, without live telemetry or deploying it; of the products above, only Batfish also works this way. It returns &ldquo;unknown&rdquo; and names the gap instead of passing. It runs entirely on your hardware.</p></div>
+    <div class="scard"><h3>Where Hammerhead is behind</h3><p>The others collect continuously across 30 to 400+ platforms; Hammerhead parses 15 config formats. They model what the network is doing; Hammerhead models what the configs say. Its console is far simpler.</p></div>
+    <div class="scard"><h3>Where it is early</h3><p>One release so far, 0.1.0. No public customer references or third-party evaluation yet. Real-router checks run in container labs, not production hardware.</p></div>
   </div>
   <details class="cmpsrc reveal"><summary>Sources, all accessed September 26, 2026</summary><ol>
     <li>Forward Networks, &ldquo;Why Forward&rdquo; (forwardnetworks.com/why-forward)</li>
@@ -1155,9 +1150,9 @@
 
   <div class="reveal" style="margin-top:84px"><div class="kicker">What we're building</div><h2 class="h2">Start with networks. Expand where agents act.</h2></div>
   <div class="horizons reveal">
-    <div class="horizon"><div class="ht">Today · Networks</div><h3>Verify supported network changes</h3><p>Hammerhead models network configuration and evaluates proposed changes against declared reachability and policy checks.</p></div>
-    <div class="horizon"><div class="ht">Next · Infrastructure</div><h3>Deepen cloud, Kubernetes, and IaC coverage</h3><p>Expand capability by capability, only where the model can produce useful evidence and disclose its limits.</p></div>
-    <div class="horizon"><div class="ht">Long term · Agents</div><h3>Verify autonomous infrastructure actions</h3><p>Give infrastructure agents an independent verifier across domains. This is the direction, not the current product claim.</p></div>
+    <div class="horizon"><div class="ht">Today · Networks</div><h3>Verify network changes</h3><p>Hammerhead models your configs and checks changes against declared reachability and policy.</p></div>
+    <div class="horizon"><div class="ht">Next · Infrastructure</div><h3>Deepen cloud, Kubernetes, and IaC coverage</h3><p>Capability by capability, only where the model gives useful evidence and states its limits.</p></div>
+    <div class="horizon"><div class="ht">Long term · Agents</div><h3>Verify autonomous infrastructure actions</h3><p>An independent verifier for infrastructure agents. The direction, not today&rsquo;s product.</p></div>
   </div>
 </div></section>
 
@@ -1207,9 +1202,9 @@
   <div class="txt reveal">
     <div class="kicker">Watch</div>
     <h2 class="h2">Peer review reads the diff. Hammerhead reads the network.</h2>
-    <p class="lead">A three-minute demo for the engineer holding the change window: a three-line OSPF change that passed peer review, pushed once, then checked with Hammerhead before it ships.</p>
+    <p class="lead">Three minutes: an OSPF change that passed peer review, run through Hammerhead before it ships.</p>
     <div class="actions"><a class="btn ghost lg" data-nav="hammerhead#films">All three demos →</a></div>
-    <p class="scope">Small synthetic labs. The push at 01:48 is a labelled dramatization, and the Rogers 2022 segment is a reconstruction from the public record, not a claim that the outage would have been prevented.</p>
+    <p class="scope">Synthetic labs. The 01:48 push is a dramatization; the Rogers 2022 segment is a reconstruction, not a claim it would have been prevented.</p>
   </div>
   <div class="reveal"><div class="filmframe">
     <video class="filmvid" controls preload="none" playsinline width="1920" height="1080" data-poster="films/0147/poster.webp" aria-label="Demo: catching a bad change before it ships">
@@ -1222,10 +1217,9 @@
 
 <!-- real outages -->
 <section class="blk" data-page="home"><div class="wrap">
-  <div class="center reveal"><div class="kicker">Real outages</div><h2 class="h2" style="margin:12px auto 0">Rogers,&nbsp;2022. Facebook,&nbsp;2021.</h2><p class="lead">We reconstructed 134 public incidents. In each reconstruction, Hammerhead produces a failing check tied to the reported cause. This is a regression suite, not a blind test. <a data-nav="methodology" style="color:var(--accent);font-weight:600">How we measured →</a></p>
+  <div class="center reveal"><div class="kicker">Real outages</div><h2 class="h2" style="margin:12px auto 0">Rogers,&nbsp;2022. Facebook,&nbsp;2021.</h2><p class="lead">We rebuilt 134 public incidents. In each, Hammerhead fails the change for the reported cause.</p>
     <div style="display:flex; gap:12px; margin-top:26px; flex-wrap:wrap; justify-content:center"><a class="btn ghost lg" data-nav="hammerhead#films">Watch the demos →</a></div>
-    <p class="films-foot">Reconstructions from public reports, not the operators&rsquo; own configurations. For Microsoft&rsquo;s 2023 WAN outage the cause was a command, and Microsoft never named the vendor or the command, so we assumed them. Flagging the cause is not a claim that any outage would have been prevented. We fixed Hammerhead until it caught each one, so this is a regression suite, not a blind test, and we have not yet measured how often it fails a healthy change.</p>
-    <p class="films-foot">The Uptime Institute's outage surveys now put a majority of serious outages above 100,000 dollars, with a significant share past a million.</p>
+    <p class="films-foot">Reconstructions from public reports, not the operators&rsquo; configs (for Microsoft&rsquo;s 2023 WAN outage we assumed the vendor and command). A regression suite, not a blind test: we fixed Hammerhead until it caught each one, and have not yet measured how often it fails a healthy change. Not a claim that any outage would have been prevented. <a data-nav="methodology" style="color:var(--accent);font-weight:600">How we measured →</a></p>
   </div>
 </div></section>
 
@@ -1233,9 +1227,9 @@
 <section class="blk" data-page="home"><div class="wrap">
   <div class="center reveal"><div class="kicker">For the people who sign off</div><h2 class="h2" style="margin:12px auto 0">Approve changes on evidence, not a gut call.</h2></div>
   <div class="sgrid reveal">
-    <div class="scard"><h3>A verdict with supporting evidence</h3><p>Each result is pass, advisory, fail, or unknown, with the reason and any behavior Hammerhead could not evaluate. Your existing approval process remains in place.</p></div>
-    <div class="scard"><h3>A record you can audit</h3><p>Every check and approval made through the Hammerhead server is written to a tamper-evident audit trail.</p></div>
-    <div class="scard"><h3>A concise change summary</h3><p>Show affected routes, flows, and services to reviewers who do not need the full configuration diff.</p></div>
+    <div class="scard"><h3>A verdict with supporting evidence</h3><p>Pass, advisory, fail, or unknown, with the reason. Your approval process stays as it is.</p></div>
+    <div class="scard"><h3>A record you can audit</h3><p>Every check and approval through the Hammerhead server lands in a tamper-evident audit trail.</p></div>
+    <div class="scard"><h3>A concise change summary</h3><p>Affected routes, flows, and services, for reviewers who don&rsquo;t need the full diff.</p></div>
   </div>
 </div></section>
 
@@ -2171,7 +2165,7 @@ hammerhead policy-check --config-dir ./configs --policies network-policy.yaml --
 
 <!-- footer -->
 <div class="wrap fcta" id="contact">
-  <div class="fcta-top"><div><h2>The verification layer for<br>autonomous infrastructure.</h2><p>Independent verification between proposed changes and production.</p></div><div class="fbtns"><a class="btn ghost" data-nav="platform">Platform</a><a class="btn primary" data-request href="mailto:contact@optimesh.ai?subject=Request%20access">Request access →</a></div></div>
+  <div class="fcta-top"><div><h2>Know what a network change will do<br>before you push it.</h2><p>Independent verification between proposed changes and production.</p></div><div class="fbtns"><a class="btn ghost" data-nav="platform">Platform</a><a class="btn primary" data-request href="mailto:contact@optimesh.ai?subject=Request%20access">Request access →</a></div></div>
   <div class="fgrid">
     <div class="fcol"><h4>Contact</h4><a data-nav="contact">Contact us</a><a data-request>Request access</a><a href="https://optimesh-ai.github.io/RuleHawk/" target="_blank" rel="noopener">Try RuleHawk free</a><a href="mailto:contact@optimesh.ai" style="color:var(--accent)">contact@optimesh.ai</a></div>
     <div class="fcol"><h4>Products</h4><a data-nav="hammerhead">Hammerhead</a><a data-nav="configstudio">Config Studio</a><a data-nav="rulehawk">RuleHawk</a><a data-nav="platform">Platform overview</a><a data-nav="platform#platforms">Supported platforms</a><a data-nav="pricing">Pricing</a></div>
