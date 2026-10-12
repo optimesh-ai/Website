@@ -54,9 +54,12 @@
   .navdrop .trig svg{ width:11px; height:11px; transition:transform .2s; }
   .navdrop:hover .trig svg{ transform:rotate(180deg); }
   .navdrop:hover .trig{ color:var(--ink); }
-  .navdrop .menu{ position:absolute; top:100%; left:-24px; width:min(720px,88vw); padding-top:12px; opacity:0; visibility:hidden; transform:translateY(6px); transition:all .18s; z-index:60; }
+  .navdrop .menu{ position:absolute; top:100%; left:-24px; width:min(780px,calc(100vw - 32px)); padding-top:12px; opacity:0; visibility:hidden; transform:translateY(6px); transition:all .18s; z-index:60; }
   .megacard{ background:var(--panel); border:1px solid var(--hair); border-radius:16px; box-shadow:0 30px 70px -30px rgba(10,26,63,0.4); overflow:hidden; }
-  .megagrid{ display:grid; grid-template-columns:1fr 1fr 1fr; gap:6px 18px; padding:18px; }
+  .megagrid{ display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:6px 18px; padding:18px; }
+  /* the menu sits inside .nav .links, whose nowrap made each column as wide as its longest line,
+     so the third column ran past the card and .megacard's overflow:hidden cut it off */
+  .nav .links .navdrop .megaitem, .navdrop .megacol h4{ white-space:normal; overflow-wrap:anywhere; } .navdrop .megaitem > span:last-child{ min-width:0; }
   .megacol h4{ font-size:11px; text-transform:uppercase; letter-spacing:.08em; color:var(--muted); margin:2px 0 6px; padding-left:10px; }
   .megaitem{ display:flex; gap:11px; align-items:center; padding:9px 10px; border-radius:10px; }
   .megaitem:hover{ background:var(--bg); }
