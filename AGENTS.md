@@ -13,6 +13,9 @@ commit that was pushed.
   for a request that was not delivered.
 - `netlify/functions/` (`early-access`, `api` over `server/`) are deployed
   by Netlify from that default directory. `shared/` holds their types.
+- Run the site and the API locally: `pnpm install && pnpm serve:local`
+  (serves `static/` plus `server/` on port 8080). `pnpm typecheck` checks
+  `server/`, `shared/` and `netlify/`.
 
 The React/Vite prototype that used to live in `client/` was never deployed
 and was removed (2026-10-11); it is in git history if anything is wanted

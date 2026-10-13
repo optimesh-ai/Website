@@ -34,7 +34,8 @@
   "include": [
     "server/**/*",
     "shared/**/*",
-    "vite.config.server.ts"
+    "netlify/**/*",
+    "serve.local.mts"
   ],
   "exclude": ["node_modules", "dist"]
 }
