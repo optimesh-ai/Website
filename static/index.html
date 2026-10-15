@@ -720,12 +720,9 @@
   .vx{ font-family:ui-monospace,Menlo,monospace; font-size:12px; color:var(--muted); }
   .grid4{ grid-template-columns:repeat(4,minmax(0,1fr)); } @media(max-width:980px){ .grid4{ grid-template-columns:repeat(2,minmax(0,1fr)); } } @media(max-width:560px){ .grid4{ grid-template-columns:minmax(0,1fr); } }
   .grid4 .scard p code{ font-size:12.5px; overflow-wrap:anywhere; }
-  .pricestrip{ display:flex; align-items:center; justify-content:space-between; gap:32px; flex-wrap:wrap; background:var(--panel); border:1px solid var(--hair); border-radius:var(--radius); padding:40px; }
-  .pricestrip .h2{ margin:0; } .pricestrip .lead{ max-width:56ch; } .pricestrip .actions{ display:flex; gap:12px; flex-wrap:wrap; }
-  #price{ padding-top:0; }
   @media(max-width:980px){ .feed .hterm{ position:relative; left:auto; bottom:auto; width:auto; margin:-56px 18px 0; } }
   @media(max-width:480px){ .hero .actions{ flex-direction:column; } .hero .actions .btn{ width:100%; } }
-  @media(max-width:760px){ .feed .hero-photo{ display:none; } .feed .hterm{ margin:0; } .hterm pre{ font-size:11px; padding:12px 13px 14px; } .pricestrip{ padding:28px 22px; } .pricestrip .actions{ width:100%; } .pricestrip .actions .btn{ flex:1; justify-content:center; } }
+  @media(max-width:760px){ .feed .hero-photo{ display:none; } .feed .hterm{ margin:0; } .hterm pre{ font-size:11px; padding:12px 13px 14px; } }
 
   /* Hammerhead films: native players, no autoplay anywhere. */
   .films{ margin-top:96px; scroll-margin-top:92px; }
@@ -1274,17 +1271,6 @@ summary: 4 devices, 284 lines, 223 classified, 61 unparsed, 78.52% coverage
   </div></div>
 </div></section>
 
-<!-- pricing, shown openly -->
-<section class="blk" id="price" data-page="home"><div class="wrap">
-  <div class="pricestrip reveal">
-    <div>
-      <h2 class="h2">Prices on the page.</h2>
-      <p class="lead">Every plan and its price is on the pricing page. Only Enterprise is a quote. Hammerhead runs offline under a licence key we issue, so every plan starts with a short request.</p>
-    </div>
-    <div class="actions"><a class="btn primary lg" data-request="hammerhead">Request access →</a><a class="btn ghost lg" data-nav="pricing">See pricing</a></div>
-  </div>
-</div></section>
-
 <!-- company -->
 <section class="blk" id="company" data-page="company"><div class="wrap">
   <div class="company-top">
@@ -1488,7 +1474,7 @@ summary: 4 devices, 284 lines, 223 classified, 61 unparsed, 78.52% coverage
 
 <!-- pricing page -->
 <section class="blk" data-page="pricing" style="padding-top:118px"><div class="wrap">
-  <div class="center reveal"><h2 class="h2" style="margin:0 auto">Free to start. Priced per engineer.</h2><p class="lead" style="margin:14px auto 0">RuleHawk is free in your browser today. Hammerhead is on every plan, Free included, and starts with a request, because it runs offline under a licence key we issue.</p></div>
+  <div class="center reveal"><h2 class="h2" style="margin:0 auto">Start with RuleHawk. Evaluate Hammerhead on your network.</h2><p class="lead" style="margin:14px auto 0">RuleHawk is free and runs in the browser. Hammerhead access begins with a technical evaluation.</p></div>
   <div class="pricing reveal">
     <div class="ptier">
       <div class="pt-name">Free</div>
