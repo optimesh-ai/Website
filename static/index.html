@@ -3050,7 +3050,7 @@ hammerhead policy-check --config-dir ./configs --policies network-policy.yaml --
 
   /* ===== product-page demos (show, not just tell) ===== */
   /* real output, character for character: captures/hammerhead-page/ (checked by its verify.py) */
-  const HH_STEPS=[
+  const HH_STEPS=Object.freeze([
     {t:'cmd',x:'hammerhead simulate ./configs'},
     {t:'out',x:''},
     {t:'out',x:'  hammerhead v0.2.0'},
@@ -3067,7 +3067,7 @@ hammerhead policy-check --config-dir ./configs --policies network-policy.yaml --
     {t:'out',x:'Traceroute from R1 (1.1.1.1) to 3.3.3.3 [tcp dst-port 80]'},
     {t:'out',x:'  1  R1         - -> GigabitEthernet0/1 (R3 GigabitEthernet0/0)   forwarded'},
     {t:'out',x:'Disposition: Delivered',ok:true},
-  ];
+  ].map(Object.freeze));
   let hhTok=0;
   async function runHHTerm(){ const pre=el('hhTerm'); if(!pre) return; const my=++hhTok;
     /* hold the finished height so the page below doesn't move while it types */
