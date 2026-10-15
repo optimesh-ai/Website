@@ -880,7 +880,7 @@ Preflight — pre-change blast-radius gate
   <div class="sgrid steps3 reveal">
     <div class="scard"><div class="sn">1</div><h3>Point it at configs</h3><p>A directory of device configs, before and after. 15 vendor formats, detected from each file. From git, a backup or your config manager.</p></div>
     <div class="scard"><div class="sn">2</div><h3>It runs the network</h3><p>OSPF, BGP, IS-IS and EIGRP run to convergence, and every device gets its forwarding table, before and after the change.</p></div>
-    <div class="scard"><div class="sn">3</div><h3>You get a verdict</h3><p>Pass, fail, advisory or unknown, with the flows, routes and rules behind it, and an exit code your pipeline can gate on.</p></div>
+    <div class="scard"><div class="sn">3</div><h3>You get a verdict</h3><p>PASS, FAIL, ADVISORY or UNKNOWN, with the flows, routes and rules behind it, and an exit code your pipeline can gate on.</p></div>
   </div>
   <p class="nothing reveal"><b>Nothing to install on your network.</b> No collector to deploy, no device credentials needed. One binary on your own machine, air-gapped if you need it. Your configs never leave it.</p>
 </div></section>
@@ -890,7 +890,7 @@ Preflight — pre-change blast-radius gate
   <div class="center reveal"><h2 class="h2" style="margin:0 auto">Everyone says &ldquo;validated.&rdquo; Ask them for the numbers.</h2><p class="lead" style="margin:14px auto 0">Ours are published, each with its scope and the run that measured it.</p></div>
   <div class="proofgrid reveal">
     <div class="stat"><div class="sv">137<small> / 138</small></div><div class="sl">route entries match ten real FRR routers</div><div class="ss">Every prefix, and all but one next hop. FRR 10.7.1 in a pinned container lab, run 38645162925.</div></div>
-    <div class="stat"><div class="sv">94.41%</div><div class="sl">of prefixes agree with Batfish</div><div class="ss">351 test snapshots, 2,040 devices; 99.80% of shared prefixes leave by the same interface. IPv4, default VRF.</div></div>
+    <div class="stat"><div class="sv">94.41%</div><div class="sl">of prefixes agree with an independent open-source network model</div><div class="ss">351 test snapshots, 2,040 devices; 99.80% of shared prefixes leave by the same interface. IPv4, default VRF.</div></div>
     <div class="stat"><div class="sv">134</div><div class="sl">public outages, rebuilt as regression tests</div><div class="ss">From the public record, Rogers 2022 and Facebook 2021 among them. Hammerhead flags the cause of every one, and the tests run on every change to Hammerhead.</div></div>
   </div>
   <p class="center reveal" style="margin:30px 0 0"><a data-nav="methodology" style="color:var(--accent);font-weight:650">How we test →</a></p>
@@ -928,7 +928,7 @@ summary: 4 devices, 284 lines, 223 classified, 61 unparsed, 78.52% coverage
 <section class="blk" id="pipeline" data-page="home"><div class="wrap">
   <div class="center reveal"><h2 class="h2" style="margin:0 auto">Gate the change where you already review it.</h2></div>
   <div class="sgrid grid4 reveal">
-    <div class="scard"><h3>The command line</h3><p><code>hammerhead preflight before/ after/</code> exits 0 on a pass, 2 on a fail and 3 on unknown. Any script or CI job can gate on it.</p></div>
+    <div class="scard"><h3>The command line</h3><p><code>hammerhead preflight before/ after/</code> exits 0 on PASS or ADVISORY, 2 on FAIL, 3 on UNKNOWN and 1 on an error. Any script or CI job can gate on it.</p></div>
     <div class="scard"><h3>Pull requests</h3><p>A GitHub Action posts the verdict on the pull request and fails the job when a gate trips, so branch protection can block the merge. A GitLab merge-request stage runs the same gate.</p></div>
     <div class="scard"><h3>Change tickets</h3><p>The verdict, with every reason, goes to the ServiceNow change it belongs to. It never approves the change for you.</p></div>
     <div class="scard"><h3>Ansible</h3><p>A ready-made role asks for the verdict first and halts the play before any device is touched.</p></div>
@@ -981,7 +981,7 @@ summary: 4 devices, 284 lines, 223 classified, 61 unparsed, 78.52% coverage
     <div class="prod"><div class="pk">Verification engine · Hammerhead</div><h3>Deterministic network analysis</h3>
       <p class="pd">Builds current and proposed forwarding models from your configs and compares routes, paths, reachability, and policy.</p>
       <ul>
-        <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M4 12l5 5L20 6"/></svg>In a pinned 10-router FRR container lab, all 138 prefixes and 137 of 138 next hops matched. <a data-nav="methodology#m-other" style="color:var(--accent);font-weight:600">How</a></li>
+        <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M4 12l5 5L20 6"/></svg>In a pinned 10-router FRR container lab, all 138 prefixes and 137 of 138 next hops matched (run 38645162925). <a data-nav="methodology#m-other" style="color:var(--accent);font-weight:600">How</a></li>
         <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M4 12l5 5L20 6"/></svg>Deterministic, with a reproducible evidence record per run</li>
         <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M4 12l5 5L20 6"/></svg>CLI, Python SDK, REST API, CI and Jupyter. <a data-nav="docs" style="color:var(--accent);font-weight:600">Docs</a></li>
       </ul></div>
@@ -1174,7 +1174,7 @@ summary: 4 devices, 284 lines, 223 classified, 61 unparsed, 78.52% coverage
     <table>
       <thead><tr><th>Product</th><th>Works from</th><th>Vendors</th><th>Checks a change before it ships</th><th>Deployment</th><th>Published accuracy evidence</th></tr></thead>
       <tbody>
-        <tr class="us"><td>Hammerhead</td><td>Config files; optional collection over SSH, SNMP, config-manager archives, cloud APIs</td><td>15 config formats parsed; SSH drivers for 6</td><td>Yes: <code>preflight</code>, pass / fail / advisory / unknown</td><td>Your hardware: CLI and self-hosted API</td><td>All 138 prefixes and 137 of 138 next hops matched in a 10-router FRR container lab; 134 public outages, rebuilt from the public record as regression tests; Hammerhead flags every one</td></tr>
+        <tr class="us"><td>Hammerhead</td><td>Config files; optional collection over SSH, SNMP, config-manager archives, cloud APIs</td><td>15 config formats parsed; SSH drivers for 6</td><td>Yes: <code>preflight</code>, PASS / FAIL / ADVISORY / UNKNOWN</td><td>Your hardware: CLI and self-hosted API</td><td>All 138 prefixes and 137 of 138 next hops matched in a 10-router FRR container lab (run 38645162925); 134 public outages, rebuilt from the public record as regression tests; Hammerhead flags every one</td></tr>
         <tr><td>Forward Networks</td><td>Live collection of config and state <sup>[1]</sup></td><td>&ldquo;30+&rdquo; <sup>[1]</sup></td><td>Yes: Forward Predict, May 2026, for routing, ACL, NAT and firewall <sup>[2][3]</sup></td><td>SaaS or on-prem VM <sup>[4]</sup></td><td>&ldquo;Mathematically accurate&rdquo;; no figure published <sup>[1]</sup></td></tr>
         <tr><td>IP Fabric</td><td>Live discovery and snapshots <sup>[5]</sup></td><td>42 vendor families <sup>[6]</sup></td><td>Pre- and post-change impact summaries <sup>[5]</sup></td><td>On-prem appliance; needs no internet <sup>[7]</sup></td><td>None found</td></tr>
         <tr><td>NetBrain</td><td>Live CLI, SNMP and API data <sup>[8]</sup></td><td>&ldquo;Over 400 device types&rdquo; <sup>[8]</sup></td><td>Change agent announced for October 2026; method not published <sup>[9][10]</sup></td><td>On-prem or SaaS <sup>[11]</sup></td><td>&ldquo;90%&rdquo; of real issues handled <sup>[12]</sup></td></tr>
@@ -2216,7 +2216,7 @@ hammerhead policy-check --config-dir ./configs --policies network-policy.yaml --
 <section class="blk" data-page="global" style="padding-top:0"><div class="wrap reveal"><div class="cta-band cta-photo">
   <div class="cta-copy">
   <h2>Run it on your last bad change.</h2>
-  <p>Pick a change that hurt. Run Hammerhead on its configs before and after, on your own machine, and see the verdict, the evidence and anything it couldn&rsquo;t read. You talk to the engineers who built it.</p>
+  <p>Pick a change that hurt. Run Hammerhead on its configs before and after, on your own machine, and see the verdict, the evidence and anything it couldn&rsquo;t read.</p>
   <div class="actions"><a class="btn primary lg" data-request href="mailto:contact@optimesh.ai?subject=Request%20access">Request access →</a><a class="btn ghost lg" href="mailto:contact@optimesh.ai">Talk to the team</a></div>
   </div>
   <img class="network-photo" src="images/network-switch.webp" srcset="images/network-switch-600.webp 600w, images/network-switch.webp 1200w" sizes="(max-width:760px) calc(100vw - 40px), 524px" width="1200" height="798" loading="lazy" decoding="async" alt="Blue Ethernet cables connected to numbered ports on a network switch">
@@ -3005,7 +3005,7 @@ hammerhead policy-check --config-dir ./configs --policies network-policy.yaml --
       {t:'h2',x:`Don't trust the generator. Check the artifact.`},
       {t:'p',x:`The move is the oldest one in formal methods: do not trust the generator, check the artifact. A compiler can be arbitrarily clever, and the type checker that vets its output trusts none of that cleverness. The generator can be a large model, a script, or a nervous human at 2am; the verifier does not care. It asks one question deterministically, over the whole packet space: does this configuration still satisfy the invariants? That is the sensor we skipped, and it is what lets us safely hand more authority to automation.`},
       {t:'h2',x:`The bet`},
-      {t:'p',x:`A sound check that runs after the change is too late, and a check in the path of change that is not sound is theatre. It has to be both. That is the engineering problem we chose: reconstruct network behavior closely enough that all 138 prefixes and 137 of 138 next hops match in our pinned 10-router FRR container lab, and to run in the change path. We are not building a smarter autopilot. We are building the independent instrument that checks its work.`},
+      {t:'p',x:`A sound check that runs after the change is too late, and a check in the path of change that is not sound is theatre. It has to be both. That is the engineering problem we chose: reconstruct network behavior closely enough that all 138 prefixes and 137 of 138 next hops match in our pinned 10-router FRR container lab (run 38645162925), and to run in the change path. We are not building a smarter autopilot. We are building the independent instrument that checks its work.`},
     ]},
   ];
 
