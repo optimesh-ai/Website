@@ -832,7 +832,7 @@ Preflight — pre-change blast-radius gate
   </div>
   <div class="hero__in">
     <h1>Peer review reads the diff. Hammerhead reads the network.</h1>
-    <p>Give it your device configs, before and after a change. It runs the routing protocols to convergence and tells you which routes move, which flows break and why. If part of the change is outside the model, the answer is UNKNOWN, and it names the gap.</p>
+    <p>Give it your device configs, before and after a change. It runs the routing protocols to convergence and tells you which routes move, which flows break and why. Where the change goes beyond the model, it names the gap and never reports a pass it can&rsquo;t back.</p>
     <div class="actions"><a class="btn primary lg" data-request="hammerhead" href="mailto:contact@optimesh.ai?subject=Hammerhead%20access">Run it on your last bad change →</a><a class="btn ghost lg" data-nav="home#watch">Watch the 2&#8209;minute film</a></div>
     <p class="hero-sub"><a href="https://optimesh-ai.github.io/RuleHawk/" target="_blank" rel="noopener">Firewall rules? Audit them free in your browser →</a> <span>RuleHawk uploads nothing.</span></p>
   </div>
@@ -887,11 +887,11 @@ Preflight — pre-change blast-radius gate
 
 <!-- proof -->
 <section class="blk" id="proof" data-page="home"><div class="wrap">
-  <div class="center reveal"><h2 class="h2" style="margin:0 auto">Everyone says &ldquo;validated.&rdquo; Ask them for the error rate.</h2><p class="lead" style="margin:14px auto 0">Ours is published, with the run that measured it.</p></div>
+  <div class="center reveal"><h2 class="h2" style="margin:0 auto">Everyone says &ldquo;validated.&rdquo; Ask them for the numbers.</h2><p class="lead" style="margin:14px auto 0">Ours are published, each with its scope and the run that measured it.</p></div>
   <div class="proofgrid reveal">
     <div class="stat"><div class="sv">137<small> / 138</small></div><div class="sl">route entries match ten real FRR routers</div><div class="ss">Every prefix, and all but one next hop. FRR 10.7.1 in a pinned container lab, run 38645162925.</div></div>
     <div class="stat"><div class="sv">94.41%</div><div class="sl">of prefixes agree with Batfish</div><div class="ss">351 test snapshots, 2,040 devices; 99.80% of shared prefixes leave by the same interface. IPv4, default VRF.</div></div>
-    <div class="stat"><div class="sv">134</div><div class="sl">public outages, rebuilt and flagged</div><div class="ss">Rebuilt from the public record, Rogers 2022 and Facebook 2021 among them. Hammerhead flags the cause of every one.</div></div>
+    <div class="stat"><div class="sv">134</div><div class="sl">public outages, rebuilt as regression tests</div><div class="ss">From the public record, Rogers 2022 and Facebook 2021 among them. Hammerhead flags the cause of every one, and the tests run on every change to Hammerhead.</div></div>
   </div>
   <p class="center reveal" style="margin:30px 0 0"><a data-nav="methodology" style="color:var(--accent);font-weight:650">How we test →</a></p>
 </div></section>
@@ -900,12 +900,12 @@ Preflight — pre-change blast-radius gate
 <section class="blk" id="verdicts" data-page="home"><div class="wrap split">
   <div class="txt reveal">
     <h2 class="h2">A green check you can trust.</h2>
-    <p class="lead">Four answers, the same words here and in your terminal. When an armed check can&rsquo;t be answered soundly, the answer is UNKNOWN, not PASS, and it names the gap.</p>
+    <p class="lead">Four answers, the same words here and in your terminal. An armed check it can&rsquo;t answer soundly never becomes a PASS: the verdict is UNKNOWN unless another gate fails, and the gap is named.</p>
     <div class="vlist">
       <div class="vitem"><span class="vb pass">PASS</span><span class="vx">exit 0</span><p>The armed gates ran, and none failed.</p></div>
       <div class="vitem"><span class="vb fail">FAIL</span><span class="vx">exit 2</span><p>A gate failed. You get the flows, routes or rules behind it.</p></div>
-      <div class="vitem"><span class="vb unk">UNKNOWN</span><span class="vx">exit 3</span><p>Part of the change is outside what is modelled. The gap is named, and disarming gates doesn&rsquo;t waive it.</p></div>
-      <div class="vitem"><span class="vb adv">ADVISORY</span><span class="vx">exit 0</span><p>Every gate was disarmed. Findings print, and the run is never reported as a pass.</p></div>
+      <div class="vitem"><span class="vb unk">UNKNOWN</span><span class="vx">exit 3</span><p>Part of the change is outside what is modelled, and no gate failed. The gap is named, and disarming gates doesn&rsquo;t waive it.</p></div>
+      <div class="vitem"><span class="vb adv">ADVISORY</span><span class="vx">exit 0</span><p>You disarmed the gates and nothing else blocked. Findings print, and the run is never reported as a pass.</p></div>
     </div>
   </div>
   <div class="reveal">
@@ -919,7 +919,8 @@ FORTI-FW                 fortios               108          96        12   88.89
 IOS-CORE                 cisco_ios              66          29        37   43.94%
 JUNOS-DIST               junos                  71          66         5   92.96%
 
-summary: 4 devices, 284 lines, 223 classified, 61 unparsed, 78.52% coverage</pre></div>
+summary: 4 devices, 284 lines, 223 classified, 61 unparsed, 78.52% coverage
+<span class="mut">…</span></pre></div>
   </div>
 </div></section>
 
@@ -927,8 +928,8 @@ summary: 4 devices, 284 lines, 223 classified, 61 unparsed, 78.52% coverage</pre
 <section class="blk" id="pipeline" data-page="home"><div class="wrap">
   <div class="center reveal"><h2 class="h2" style="margin:0 auto">Gate the change where you already review it.</h2></div>
   <div class="sgrid grid4 reveal">
-    <div class="scard"><h3>The command line</h3><p><code>hammerhead preflight before/ after/</code> exits 0, 2 or 3. Any script or CI job can gate on it.</p></div>
-    <div class="scard"><h3>Pull requests</h3><p>A GitHub Action posts the verdict on the pull request and fails the job, so branch protection blocks the merge. A GitLab merge-request stage does the same.</p></div>
+    <div class="scard"><h3>The command line</h3><p><code>hammerhead preflight before/ after/</code> exits 0 on a pass, 2 on a fail and 3 on unknown. Any script or CI job can gate on it.</p></div>
+    <div class="scard"><h3>Pull requests</h3><p>A GitHub Action posts the verdict on the pull request and fails the job when a gate trips, so branch protection can block the merge. A GitLab merge-request stage runs the same gate.</p></div>
     <div class="scard"><h3>Change tickets</h3><p>The verdict, with every reason, goes to the ServiceNow change it belongs to. It never approves the change for you.</p></div>
     <div class="scard"><h3>Ansible</h3><p>A ready-made role asks for the verdict first and halts the play before any device is touched.</p></div>
   </div>
@@ -1173,7 +1174,7 @@ summary: 4 devices, 284 lines, 223 classified, 61 unparsed, 78.52% coverage</pre
     <table>
       <thead><tr><th>Product</th><th>Works from</th><th>Vendors</th><th>Checks a change before it ships</th><th>Deployment</th><th>Published accuracy evidence</th></tr></thead>
       <tbody>
-        <tr class="us"><td>Hammerhead</td><td>Config files; optional collection over SSH, SNMP, config-manager archives, cloud APIs</td><td>15 config formats parsed; SSH drivers for 6</td><td>Yes: <code>preflight</code>, pass / fail / advisory / unknown</td><td>Your hardware: CLI and self-hosted API</td><td>All 138 prefixes and 137 of 138 next hops matched in a 10-router FRR container lab; 134 public outages, rebuilt from the public record; Hammerhead flags every one</td></tr>
+        <tr class="us"><td>Hammerhead</td><td>Config files; optional collection over SSH, SNMP, config-manager archives, cloud APIs</td><td>15 config formats parsed; SSH drivers for 6</td><td>Yes: <code>preflight</code>, pass / fail / advisory / unknown</td><td>Your hardware: CLI and self-hosted API</td><td>All 138 prefixes and 137 of 138 next hops matched in a 10-router FRR container lab; 134 public outages, rebuilt from the public record as regression tests; Hammerhead flags every one</td></tr>
         <tr><td>Forward Networks</td><td>Live collection of config and state <sup>[1]</sup></td><td>&ldquo;30+&rdquo; <sup>[1]</sup></td><td>Yes: Forward Predict, May 2026, for routing, ACL, NAT and firewall <sup>[2][3]</sup></td><td>SaaS or on-prem VM <sup>[4]</sup></td><td>&ldquo;Mathematically accurate&rdquo;; no figure published <sup>[1]</sup></td></tr>
         <tr><td>IP Fabric</td><td>Live discovery and snapshots <sup>[5]</sup></td><td>42 vendor families <sup>[6]</sup></td><td>Pre- and post-change impact summaries <sup>[5]</sup></td><td>On-prem appliance; needs no internet <sup>[7]</sup></td><td>None found</td></tr>
         <tr><td>NetBrain</td><td>Live CLI, SNMP and API data <sup>[8]</sup></td><td>&ldquo;Over 400 device types&rdquo; <sup>[8]</sup></td><td>Change agent announced for October 2026; method not published <sup>[9][10]</sup></td><td>On-prem or SaaS <sup>[11]</sup></td><td>&ldquo;90%&rdquo; of real issues handled <sup>[12]</sup></td></tr>
@@ -1277,7 +1278,7 @@ summary: 4 devices, 284 lines, 223 classified, 61 unparsed, 78.52% coverage</pre
   <div class="pricestrip reveal">
     <div>
       <h2 class="h2">Prices on the page.</h2>
-      <p class="lead">Free, then $39 or $99 per engineer a month, or Enterprise. No quote to wait for. Hammerhead runs offline under a licence key we issue, so every plan starts with a short request.</p>
+      <p class="lead">Free, then $39 or $99 per engineer a month. Only Enterprise is a quote. Hammerhead runs offline under a licence key we issue, so every plan starts with a short request.</p>
     </div>
     <div class="actions"><a class="btn primary lg" data-request="hammerhead">Request access →</a><a class="btn ghost lg" data-nav="pricing">See pricing</a></div>
   </div>
@@ -1486,7 +1487,7 @@ summary: 4 devices, 284 lines, 223 classified, 61 unparsed, 78.52% coverage</pre
 
 <!-- pricing page -->
 <section class="blk" data-page="pricing" style="padding-top:118px"><div class="wrap">
-  <div class="center reveal"><h2 class="h2" style="margin:0 auto">Every price, on the page.</h2><p class="lead" style="margin:14px auto 0">RuleHawk is free in your browser today. Hammerhead is on every plan, Free included, and starts with a request, because it runs offline under a licence key we issue.</p></div>
+  <div class="center reveal"><h2 class="h2" style="margin:0 auto">Free to start. Priced per engineer.</h2><p class="lead" style="margin:14px auto 0">RuleHawk is free in your browser today. Hammerhead is on every plan, Free included, and starts with a request, because it runs offline under a licence key we issue.</p></div>
   <div class="pricing reveal">
     <div class="ptier">
       <div class="pt-name">Free</div>
