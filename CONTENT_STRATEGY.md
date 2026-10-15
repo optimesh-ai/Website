@@ -153,7 +153,7 @@ Optimesh is an independent pre-deployment verification gate.
 Use exact, contextualized evidence:
 
 - A 976-device generated test fabric modeled in about 0.6 seconds on the stated benchmark machine.
-- In a pinned 10-router FRR container lab, all 138 prefixes and 137 of 138 next hops matched.
+- 138 of 138 routes match real FRR on our 10-router lab (run 38685150242). Earlier runs scored 137: one route both sides drop was labelled differently. Same behaviour; we fixed the scorer.
 - Across 351 internal test snapshots, Hammerhead and Batfish agreed on 94.41% of prefixes and 99.80% of egress interfaces for IPv4 in the default VRF.
 - 134 public incidents were reconstructed into a regression suite and used to improve the engine; this was not a blind test and does not estimate future catch rate.
 
@@ -475,9 +475,9 @@ Eyebrow: **Measured, with limits**
 
 To build the model for a 976-device generated test fabric on the documented benchmark machine.
 
-### 137 of 138 next hops
+### 138 of 138 routes
 
-Matched in a pinned 10-router FRR container lab; all 138 prefixes matched. Re-run weekly.
+138 of 138 routes match real FRR on our 10-router lab (run 38685150242). Earlier runs scored 137: one route both sides drop was labelled differently. Same behaviour; we fixed the scorer. Re-run weekly. Lead with the count; never headline it as "100%" (the withdrawn "100% parity" claim makes that read as overclaiming).
 
 ### 351 internal test snapshots
 
@@ -897,7 +897,7 @@ State topology shape, device count, route count, benchmark machine, engine versi
 
 #### FRR container lab
 
-All 138 prefixes matched; 137 of 138 next hops matched in the pinned 10-router lab. Describe convergence criteria and the weekly rerun.
+138 of 138 routes match real FRR on our 10-router lab (run 38685150242). Earlier runs scored 137: one route both sides drop was labelled differently. Same behaviour; we fixed the scorer. Describe convergence criteria, the weekly rerun and the 39 router-local routes that are not compared.
 
 #### Batfish comparison
 
@@ -1164,7 +1164,7 @@ Measurement, network modeling, change safety, AI-agent control boundaries, and w
 | “Nobody is verifying what agents do.” | Universal claim is not substantiated. | “Agent-proposed changes need a verifier independent of the model that generated them.” | Strong without pretending the market has no alternatives. |
 | “Hammerhead verifies network, Kubernetes, and cloud changes … today.” | Depth across non-network domains is not explained with equal rigor. | “Today, Optimesh focuses on network verification. Cloud, Kubernetes, and IaC coverage are expansion areas and should be documented capability by capability.” | Separates current wedge from thesis. |
 | “134 outages … every cause flagged.” | Sounds like blind prevention validation. | “134 public incidents reconstructed into a regression suite used to improve the engine.” | Preserves the work and its real evidentiary value. |
-| “Checked against real routers: 137 of 138 routes match.” | The documented metric is next hops in an FRR container lab; all prefixes matched. | “In a pinned 10-router FRR container lab, all 138 prefixes and 137 of 138 next hops matched.” | Correct denominator, metric, and environment. |
+| “Checked against real routers: 137 of 138 routes match.” | Superseded by run 38685150242: every compared route matches in a pinned FRR container lab. | “138 of 138 routes match real FRR on our 10-router lab (run 38685150242).” | Current figure, denominator and environment; never “100%”. |
 | “99.93% FIB parity.” | Aggregated shorthand is difficult to audit and may obscure metric differences. | Publish the exact prefix and egress/next-hop comparisons with methodology. | More credible and reproducible. |
 | “1,284 proven · 7 blocked” | Looks like customer production activity without attribution. | Remove. Use a clearly labeled static example. | Avoids fabricated traction. |
 | “Trusted by the teams who can’t afford an outage.” | Implies customers or endorsements. | “Built for environments where change failure is expensive.” | Aspirational without false social proof. |
@@ -1185,7 +1185,7 @@ Measurement, network modeling, change safety, AI-agent control boundaries, and w
 | 976 devices in about 0.6 seconds. | White paper and company page describe a generated fabric benchmark. Machine/methodology should remain attached. | Keep, qualify. | “On the documented benchmark machine, Hammerhead built the model for a 976-device generated fabric in about 0.6 seconds.” |
 | 800× faster. | Appears in older marketing but current methodology does not provide a clear current reproducible comparison. | Remove until fully documented. | Publish only the absolute benchmark or a reproducible like-for-like comparison. |
 | 99.93% FIB parity. | Older shorthand; current evidence splits FRR next-hop and Batfish prefix/egress metrics. | Remove / replace. | Use the exact FRR and Batfish measurements separately. |
-| 137 of 138 routes match real routers. | Methodology says all 138 prefixes and 137 of 138 next hops in a 10-router FRR container lab. | Qualify / correct. | “All 138 prefixes and 137 of 138 next hops matched in a pinned 10-router FRR container lab.” |
+| 137 of 138 routes match real routers. | Superseded: Methodology now says 138 of 138 routes, run 38685150242, with the scorer note. | Update. | “138 of 138 routes match real FRR on our 10-router lab (run 38685150242).” |
 | 94.41% prefixes and 99.80% egress-interface agreement with Batfish. | Methodology: 351 internal snapshots, 2,040 devices, IPv4 default VRF, model-to-model. | Keep, qualify. | State the full scope in the same section as the numbers. |
 | 134 outages flagged. | Detailed internal methodology and catalog; reconstructions, used to improve engine, not blind, some audit findings rather than change verdicts. | Keep, heavily qualify. | “134 public incidents reconstructed into a regression suite; the engine was changed until the suite passed.” |
 | Prevented 134 outages. | Explicitly disclaimed by methodology. | Remove. | Never use. |

@@ -890,7 +890,7 @@ Preflight — pre-change blast-radius gate
 <section class="blk" id="proof" data-page="home"><div class="wrap">
   <div class="center reveal"><h2 class="h2" style="margin:0 auto">Everyone says &ldquo;validated.&rdquo; Ask them for the numbers.</h2><p class="lead" style="margin:14px auto 0">Ours are published, each with its scope and the run that measured it.</p></div>
   <div class="proofgrid reveal">
-    <div class="stat"><div class="sv">137<small> / 138</small></div><div class="sl">route entries match ten real FRR routers</div><div class="ss">Every prefix, and all but one next hop. FRR 10.7.1 in a pinned container lab, run 38645162925.</div></div>
+    <div class="stat"><div class="sv">138<small> / 138</small></div><div class="sl">routes match real FRR on our 10-router lab</div><div class="ss">FRR 10.7.1 in a pinned container lab, run 38685150242. Earlier runs scored 137: one route both sides drop was labelled differently. Same behaviour; we fixed the scorer.</div></div>
     <div class="stat"><div class="sv">94.41%</div><div class="sl">of prefixes agree with an independent open-source network model</div><div class="ss">351 test snapshots, 2,040 devices; 99.80% of shared prefixes leave by the same interface. IPv4, default VRF.</div></div>
     <div class="stat"><div class="sv">134</div><div class="sl">public outages, rebuilt as regression tests</div><div class="ss">From the public record, Rogers 2022 and Facebook 2021 among them. Hammerhead flags the cause of every one, and the tests run on every change to Hammerhead.</div></div>
   </div>
@@ -982,7 +982,7 @@ summary: 4 devices, 284 lines, 223 classified, 61 unparsed, 78.52% coverage
     <div class="prod"><div class="pk">Verification engine · Hammerhead</div><h3>Deterministic network analysis</h3>
       <p class="pd">Builds current and proposed forwarding models from your configs and compares routes, paths, reachability, and policy.</p>
       <ul>
-        <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M4 12l5 5L20 6"/></svg>In a pinned 10-router FRR container lab, all 138 prefixes and 137 of 138 next hops matched (run 38645162925). <a data-nav="methodology#m-other" style="color:var(--accent);font-weight:600">How</a></li>
+        <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M4 12l5 5L20 6"/></svg>138 of 138 routes match real FRR on our 10-router lab (run 38685150242). Earlier runs scored 137: one route both sides drop was labelled differently. Same behaviour; we fixed the scorer. <a data-nav="methodology#m-other" style="color:var(--accent);font-weight:600">How</a></li>
         <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M4 12l5 5L20 6"/></svg>Deterministic, with a reproducible evidence record per run</li>
         <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M4 12l5 5L20 6"/></svg>CLI, Python SDK, REST API, CI and Jupyter. <a data-nav="docs" style="color:var(--accent);font-weight:600">Docs</a></li>
       </ul></div>
@@ -1175,7 +1175,7 @@ summary: 4 devices, 284 lines, 223 classified, 61 unparsed, 78.52% coverage
     <table>
       <thead><tr><th>Product</th><th>Works from</th><th>Vendors</th><th>Checks a change before it ships</th><th>Deployment</th><th>Published accuracy evidence</th></tr></thead>
       <tbody>
-        <tr class="us"><td>Hammerhead</td><td>Config files; optional collection over SSH, SNMP, config-manager archives, cloud APIs</td><td>15 config formats parsed; SSH drivers for 6</td><td>Yes: <code>preflight</code>, PASS / FAIL / ADVISORY / UNKNOWN</td><td>Your hardware: CLI and self-hosted API</td><td>All 138 prefixes and 137 of 138 next hops matched in a 10-router FRR container lab (run 38645162925); 134 public outages, rebuilt from the public record as regression tests; Hammerhead flags every one</td></tr>
+        <tr class="us"><td>Hammerhead</td><td>Config files; optional collection over SSH, SNMP, config-manager archives, cloud APIs</td><td>15 config formats parsed; SSH drivers for 6</td><td>Yes: <code>preflight</code>, PASS / FAIL / ADVISORY / UNKNOWN</td><td>Your hardware: CLI and self-hosted API</td><td>138 of 138 routes match real FRR on our 10-router lab (run 38685150242); 134 public outages, rebuilt from the public record as regression tests; Hammerhead flags every one</td></tr>
         <tr><td>Forward Networks</td><td>Live collection of config and state <sup>[1]</sup></td><td>&ldquo;30+&rdquo; <sup>[1]</sup></td><td>Yes: Forward Predict, May 2026, for routing, ACL, NAT and firewall <sup>[2][3]</sup></td><td>SaaS or on-prem VM <sup>[4]</sup></td><td>&ldquo;Mathematically accurate&rdquo;; no figure published <sup>[1]</sup></td></tr>
         <tr><td>IP Fabric</td><td>Live discovery and snapshots <sup>[5]</sup></td><td>42 vendor families <sup>[6]</sup></td><td>Pre- and post-change impact summaries <sup>[5]</sup></td><td>On-prem appliance; needs no internet <sup>[7]</sup></td><td>None found</td></tr>
         <tr><td>NetBrain</td><td>Live CLI, SNMP and API data <sup>[8]</sup></td><td>&ldquo;Over 400 device types&rdquo; <sup>[8]</sup></td><td>Change agent announced for October 2026; method not published <sup>[9][10]</sup></td><td>On-prem or SaaS <sup>[11]</sup></td><td>&ldquo;90%&rdquo; of real issues handled <sup>[12]</sup></td></tr>
@@ -1372,7 +1372,7 @@ summary: 4 devices, 284 lines, 223 classified, 61 unparsed, 78.52% coverage
           <div class="film-meta">Overview · 1:59</div>
           <h3>Approved.</h3>
           <p class="for">For the executive who signs off on the risk.</p>
-          <p class="syn">A diff shows what was typed, not what the network does next. Where a pre-change gate fits, without moving the approval chain you already run.</p>
+          <p class="syn">A change that passed review, what it does to the network, and the gate it goes through first while your engineers still approve and your tools still deploy.</p>
         </div>
       </article>
       <article class="film">
@@ -1383,7 +1383,7 @@ summary: 4 devices, 284 lines, 223 classified, 61 unparsed, 78.52% coverage
           <a href="films/thirteen-commands/video.mp4">Download Thirteen commands. (MP4)</a>
         </video>
         <div class="film-body">
-          <div class="film-meta">Walkthrough · 4:08</div>
+          <div class="film-meta">Walkthrough · 4:09</div>
           <h3>Thirteen commands.</h3>
           <p class="for">For the engineer at the keyboard.</p>
           <p class="syn">One command per chapter, typed and run: what it found in a folder of configs, what it could not read, and what a change does.</p>
@@ -1976,15 +1976,15 @@ hammerhead policy-check --config-dir ./configs --policies network-policy.yaml --
     <p>The accepting-network, layer-2 and redundancy families are flagged by auditing the configuration. The rest are flagged by <code>preflight</code>, <code>rpki-audit</code> or <code>drift</code> on the change.</p>
 
     <h2 id="m-other">Our other numbers</h2>
-    <h3>All 138 prefixes and 137 of 138 next hops match in the FRR lab</h3>
-    <p>A lab of 10 routers running FRR 10.7.1 in containers, with the image pinned. We wait until every adjacency is up and every routing table has been unchanged for 60 seconds, then compare 138 route entries with Hammerhead's: every prefix matches, and 137 of 138 next hops. That is the recorded result of run 38645162925, on Hammerhead build 7249155a. A run fails, unscored, if FRR refuses any line of the lab's configs or if either side's routing table cannot be read; it never scores a table it could not read as empty. The lab is meant to re-run every week against the committed result, and it does not gate merges. The weekly re-run still runs but stops unscored for now: since a later change, Hammerhead declines to score a lab that has config lines it does not model yet, and some of this lab's config lines are still being modelled. Until 14 October 2026 this read 135 of 136: FRR had been refusing two of the lab's config lines, and Hammerhead was not modelling them either. With both lines fixed, the lab gained two routes, and FRR and Hammerhead agree on both. It is one topology on one routing stack, not production hardware, and not the other vendors we parse.</p>
+    <h3>138 of 138 routes match real FRR on our 10-router lab (run 38685150242)</h3>
+    <p>A lab of 10 routers running FRR 10.7.1 in containers, with the image pinned. We wait until every adjacency is up and every routing table has been unchanged for 60 seconds, then compare 138 route entries with Hammerhead's: every prefix, route type and next hop matches. That is the recorded result of run 38685150242, on Hammerhead build fa559f5e. The routers' 39 router-local routes (each router's own addresses) are counted and not compared. Before run 38685150242, the scorer counted R3's area-range summary (10.2.0.0/16) as a miss: FRR installs it as a blackhole, Hammerhead as a null route. Both drop the traffic. The scorer now pairs a blackhole with a null route; nothing scored the other way. A run fails, unscored, if FRR refuses any line of the lab's configs or if either side's routing table cannot be read; it never scores a table it could not read as empty. The lab is meant to re-run every week against the committed result, and it does not gate merges. Until 14 October 2026 this read 135 of 136: FRR had been refusing two of the lab's config lines, and Hammerhead was not modelling them either. With both lines fixed, the lab gained two routes, and FRR and Hammerhead agree on both. It is one topology on one routing stack, not production hardware, and not the other vendors we parse.</p>
     <h3>Checked against Batfish across 351 test snapshots</h3>
     <p>351 snapshots (2,040 devices) drawn from our test corpora, demos and generated topologies, not customer networks. Batfish and Hammerhead agree on 94.41% of prefixes (267,262 of 283,098), and on the egress interface for 99.80% of the prefixes both have a route for (the shared prefixes). Scope: IPv4, default VRF, routing table only. Most disagreements are explained: 12,051 of the 16,359 come from four snapshots whose <code>frr.conf</code> Batfish reads with its IOS grammar, and in the 309 snapshots Batfish parsed fully (98.50% / 99.90%), 3,012 of the 3,585 are two incident replays where Hammerhead enforces a <code>maximum-prefix</code> limit Batfish does not. It is a comparison with another model, not with routers, and it runs weekly as a report. We quote no speed comparison with Batfish.</p>
     <h3>37 of 38 prefixes match Batfish on the corpora checked on each push to main</h3>
     <p>Every push to main runs Hammerhead and Batfish, with Batfish pinned by image digest, over four test corpora (eos, junos, nxos and triangle): 12 devices, each compared on both sides. In the run of 12 October 2026 (parity run 38218573680), they agree on 37 of 38 prefixes; of the 34 matching prefixes that name an egress interface, all 34 agree. The one difference is a prefix only Hammerhead has, on a Junos device. Like the 351-snapshot check, it is a comparison with another model, not with routers, over the devices Batfish answered for, and it does not gate merges.</p>
     <h2 id="m-scope">Demos, speed and where the numbers come from</h2>
     <p>Every number on this site comes from our own labs, test corpora and rebuilds, not from customer networks. There are no public customer references or third-party evaluations of Hammerhead yet.</p>
-    <p>Where the site says a check fits in a pull request, that rests on our generated-fabric benchmark. We publish no speed figures; production performance is something we measure on your network during an evaluation.</p>
+    <p>Our model-build figure, about 0.7 s for a 976-device synthetic enterprise network, comes from our own benchmark on our own machine. We don&rsquo;t publish speed comparisons with other tools; production performance is measured on your network during an evaluation.</p>
     <p>The demo films run on small synthetic labs, and nothing in them was pushed to a production network. In the engineer&rsquo;s demo, the push at 01:48 is dramatized from the model&rsquo;s result and labelled as such, and the Rogers 2022 segment is a rebuild from the public record. <i>Approved.</i> cites two incidents from the providers&rsquo; own reports as examples of change risk, not as outages Hammerhead would have prevented, and not as caused by AI. The terminal output in <i>Thirteen commands.</i> is real, from the labs that ship with Hammerhead, with colour added and long output clipped or excerpted.</p>
     <p class="note">Questions about any of this, or want to run a replay yourself? <a data-request="hammerhead">Request access</a> and ask for the catalog.</p>
   </article>
@@ -2029,7 +2029,7 @@ hammerhead policy-check --config-dir ./configs --policies network-policy.yaml --
 
     <h2 id="w-evidence">5. How we measure it</h2>
     <ul>
-      <li><b>Against real routers.</b> In a 10-router FRR lab, Hammerhead's routes agree with the routers' on every prefix and on 137 of 138 next hops, in run 38645162925. The weekly re-run stops unscored until some of the lab's config lines are modelled.</li>
+      <li><b>Against real routers.</b> 138 of 138 routes match real FRR on our 10-router lab (run 38685150242). Earlier runs scored 137: one route both sides drop was labelled differently. Same behaviour; we fixed the scorer.</li>
       <li><b>Against Batfish.</b> Across 351 test snapshots (2,040 devices), the two agree on 94.41% of prefixes, and on the egress interface for 99.80% of the shared prefixes, for IPv4 in the default VRF (routing table only). 12,051 of the 16,359 disagreements come from four snapshots whose <code>frr.conf</code> Batfish reads as IOS; most of the rest from a <code>maximum-prefix</code> limit Hammerhead enforces and Batfish does not. This compares two models, not a model with routers.</li>
       <li><b>Against the public record.</b> We rebuilt 134 outages from public reports, and Hammerhead flags the cause of each. These were caught after we fixed the tool to catch them, so they are a regression suite, not a blind test, and we have not yet measured how often Hammerhead fails a healthy change. The <a data-nav="methodology">methodology</a> has the details.</li>
     </ul>
@@ -3007,7 +3007,7 @@ hammerhead policy-check --config-dir ./configs --policies network-policy.yaml --
       {t:'h2',x:`Don't trust the generator. Check the artifact.`},
       {t:'p',x:`The move is the oldest one in formal methods: do not trust the generator, check the artifact. A compiler can be arbitrarily clever, and the type checker that vets its output trusts none of that cleverness. The generator can be a large model, a script, or a nervous human at 2am; the verifier does not care. It asks one question deterministically, over the whole packet space: does this configuration still satisfy the invariants? That is the sensor we skipped, and it is what lets us safely hand more authority to automation.`},
       {t:'h2',x:`The bet`},
-      {t:'p',x:`A sound check that runs after the change is too late, and a check in the path of change that is not sound is theatre. It has to be both. That is the engineering problem we chose: reconstruct network behavior closely enough that all 138 prefixes and 137 of 138 next hops match in our pinned 10-router FRR container lab (run 38645162925), and to run in the change path. We are not building a smarter autopilot. We are building the independent instrument that checks its work.`},
+      {t:'p',x:`A sound check that runs after the change is too late, and a check in the path of change that is not sound is theatre. It has to be both. That is the engineering problem we chose: reconstruct network behavior closely enough that 138 of 138 routes match real FRR on our 10-router lab (run 38685150242), and to run in the change path. We are not building a smarter autopilot. We are building the independent instrument that checks its work.`},
     ]},
   ];
 
@@ -3032,20 +3032,33 @@ hammerhead policy-check --config-dir ./configs --policies network-policy.yaml --
   el('readerBack').addEventListener('click',closeArticle);
 
   /* ===== product-page demos (show, not just tell) ===== */
-  const HH_STEPS=[
+  /* real output, character for character: captures/hammerhead-page/ (checked by its verify.py) */
+  const HH_STEPS=Object.freeze([
     {t:'cmd',x:'hammerhead simulate ./configs'},
-    {t:'out',x:'parsed 976 devices · auto-detected'},
-    {t:'out',x:'built FIB · 551,872 routes · 0.7s'},
+    {t:'out',x:''},
+    {t:'out',x:'  hammerhead v0.2.0'},
+    {t:'out',x:''},
+    {t:'out',x:'  ✓  parse       976 devices           55ms'},
+    {t:'out',x:'  ✓  topology    1146 links            1ms'},
+    {t:'out',x:'  ✓  ospf                              15ms'},
+    {t:'out',x:'  ✓  bgp                               564ms'},
+    {t:'out',x:'  ✓  fib         551872 entries        90ms'},
+    {t:'out',x:''},
+    {t:'out',x:'  done 976 devices, 551872 routes in 725ms',ok:true},
+    {t:'out',x:'  …'},
     {t:'cmd',x:'hammerhead traceroute tests/configs/triangle --from R1 --src 1.1.1.1 --dst 3.3.3.3'},
-    {t:'out',x:'1  R1  -> GigabitEthernet0/1 (R3 GigabitEthernet0/0)  forwarded'},
+    {t:'out',x:'Traceroute from R1 (1.1.1.1) to 3.3.3.3 [tcp dst-port 80]'},
+    {t:'out',x:'  1  R1         - -> GigabitEthernet0/1 (R3 GigabitEthernet0/0)   forwarded'},
     {t:'out',x:'Disposition: Delivered',ok:true},
-  ];
+  ].map(Object.freeze));
   let hhTok=0;
-  async function runHHTerm(){ const pre=el('hhTerm'); if(!pre) return; const my=++hhTok; pre.innerHTML='';
+  async function runHHTerm(){ const pre=el('hhTerm'); if(!pre) return; const my=++hhTok;
+    /* hold the finished height so the page below doesn't move while it types */
+    pre.style.minHeight=''; pre.textContent=HH_STEPS.map(s=>(s.t==='cmd'?'$ ':'')+(s.x||' ')).join('\n'); pre.style.minHeight=pre.offsetHeight+'px'; pre.innerHTML='';
     for(const s of HH_STEPS){ if(my!==hhTok) return; const line=document.createElement('div');
       if(s.t==='cmd'){ const pm=document.createElement('span'); pm.className='pmt'; pm.textContent='$ '; const tx=document.createElement('span'); line.appendChild(pm); line.appendChild(tx); pre.appendChild(line);
         for(const ch of s.x){ if(my!==hhTok) return; tx.textContent+=ch; await sleep(22); } await sleep(240); }
-      else { line.className=s.ok?'ok':'mut'; line.textContent=s.x; pre.appendChild(line); await sleep(360); } }
+      else { line.className=s.ok?'ok':'mut'; line.textContent=s.x; if(!s.x) line.appendChild(document.createElement('br')); pre.appendChild(line); await sleep(s.x?360:120); } }
   }
   function countUp(elm){ const raw=elm.dataset.count; const target=parseFloat(raw); const suffix=elm.dataset.suffix||''; const dec=(raw.split('.')[1]||'').length; const t0=performance.now();
     requestAnimationFrame(function step(now){ const k=Math.min(1,(now-t0)/1100); const e=1-Math.pow(1-k,3); elm.textContent=(target*e).toFixed(dec)+suffix; if(k<1) requestAnimationFrame(step); else elm.textContent=target.toFixed(dec)+suffix; }); }
