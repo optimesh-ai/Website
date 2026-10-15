@@ -207,53 +207,53 @@ A path constraint. A hop budget.
 00:03:12.142 --> 00:03:13.400
 An isolation rule.
 
-00:03:14.137 --> 00:03:17.285
+00:03:14.150 --> 00:03:17.258
 Policy-check runs them all. Six of six here.
 
-00:03:17.285 --> 00:03:18.788
+00:03:17.258 --> 00:03:18.742
 With the strict flag,
 
-00:03:18.788 --> 00:03:20.862
-one failure is exit code two.
+00:03:18.742 --> 00:03:21.850
+a high or critical failure is exit code two.
 
-00:03:22.367 --> 00:03:23.451
+00:03:23.367 --> 00:03:24.451
 Before maintenance,
 
-00:03:23.451 --> 00:03:25.504
+00:03:24.451 --> 00:03:26.504
 ask what happens if a box goes away.
 
-00:03:26.254 --> 00:03:29.555
+00:03:27.254 --> 00:03:30.555
 Take R3 down. Four routes lost straight away,
 
-00:03:29.555 --> 00:03:32.342
+00:03:30.555 --> 00:03:33.342
 and both of the other routers feel it.
 
-00:03:33.867 --> 00:03:36.604
+00:03:34.867 --> 00:03:37.604
 Or scan every device at once, and rank them.
 
-00:03:37.342 --> 00:03:40.161
+00:03:38.342 --> 00:03:41.161
 In a triangle, they tie. On a real network,
 
-00:03:40.161 --> 00:03:43.504
+00:03:41.161 --> 00:03:44.504
 this is the list you take to the redundancy review.
 
-00:03:45.033 --> 00:03:46.446
+00:03:46.033 --> 00:03:47.446
 That's thirteen commands.
 
-00:03:47.246 --> 00:03:49.502
+00:03:48.246 --> 00:03:50.502
 Keep the inputs with the change.
 
-00:03:49.502 --> 00:03:52.251
+00:03:50.502 --> 00:03:53.251
 Both snapshots, the commands, the JSON,
 
-00:03:52.251 --> 00:03:53.308
+00:03:53.251 --> 00:03:54.308
 the exit codes.
 
-00:03:54.208 --> 00:03:56.926
+00:03:55.208 --> 00:03:57.926
 Then start small. One site you know well,
 
-00:03:56.926 --> 00:03:57.921
+00:03:57.926 --> 00:03:58.921
 and one change.
 
-00:03:59.041 --> 00:04:00.118
+00:04:00.041 --> 00:04:01.118
 Break it here first.
