@@ -1355,7 +1355,7 @@ summary: 4 devices, 284 lines, 223 classified, 61 unparsed, 78.52% coverage
           <a href="films/0147/video.mp4">Download the demo (MP4)</a>
         </video>
         <div class="film-body">
-          <div class="film-meta">Demo · 3:38</div>
+          <div class="film-meta">Demo · 3:34</div>
           <h3>Catching a bad change before it ships</h3>
           <p class="for">For the engineer holding the change window.</p>
           <p class="syn">A three-line OSPF change that passed peer review. First, what the model says happens if you push it straight. Then the same change, checked with Hammerhead before it ships.</p>
@@ -1580,8 +1580,8 @@ summary: 4 devices, 284 lines, 223 classified, 61 unparsed, 78.52% coverage
   </aside>
   <article class="doc">
     <h1>Hammerhead docs</h1>
-    <p class="dlead">What you need to judge Hammerhead before you talk to us: how it installs, a five-minute run, all 77 commands, the Python SDK, the REST API and CI. The output on this page is real, from <code>hammerhead 0.1.0</code> on the labs that ship with it.</p>
-    <p class="dmeta">Hammerhead 0.1.0 · page updated September 2026</p>
+    <p class="dlead">What you need to judge Hammerhead before you talk to us: how it installs, a five-minute run, all 77 commands, the Python SDK, the REST API and CI. The output on this page is real, from <code>hammerhead 0.2.1</code> on the labs that ship with it.</p>
+    <p class="dmeta">Hammerhead 0.2.1 · page updated October 2026</p>
 
     <h2 id="d-access">Access</h2>
     <p>Hammerhead is private. There is no public download, package, container or self-serve trial. We send binaries to teams we have given access. These docs are public so you can decide whether it is worth asking.</p>
@@ -1604,7 +1604,7 @@ summary: 4 devices, 284 lines, 223 classified, 61 unparsed, 78.52% coverage
 shasum -a 256 -c hammerhead-&lt;version&gt;-x86_64-unknown-linux-gnu.tar.gz.sha256
 tar xzf hammerhead-&lt;version&gt;-x86_64-unknown-linux-gnu.tar.gz
 ./hammerhead-&lt;version&gt;-x86_64-unknown-linux-gnu/hammerhead --version
-hammerhead 0.2.0</code></pre>
+hammerhead 0.2.1</code></pre>
     <div class="note warn"><b>Signing.</b> Each archive comes with a SHA-256 checksum file. The archives are not code-signed yet.</div>
 
     <h2 id="d-licence">Licence key</h2>
@@ -1619,11 +1619,14 @@ hammerhead license status               <span class="c"># licensee, plan, expiry
     <p><code>init</code> scans a directory of configs (one file per device), says what it found and suggests next commands. <code>--example</code> seeds the lab first.</p>
 <pre><code>$ hammerhead init ./configs --example
   <span class="ok">✓</span>  Seeded ./configs with R1/R2/R3 OSPF triangle (2196 bytes)
+
+  hammerhead v0.2.1
+
   <span class="ok">✓</span>  Found 3 config files (3 cisco_ios)
   <span class="ok">✓</span>  Discovered 3 devices, 9 interfaces, 3 L3 links
   <span class="ok">✓</span>  Simulated 18 FIB entries across all devices
   <span class="ok">✓</span>  Protocols: OSPF (area 0)
-  <span class="ok">✓</span>  Completed in 3ms</code></pre>
+  <span class="ok">✓</span>  Completed in 1ms</code></pre>
     <p>On your own configs, read the vendor counts <code>init</code> prints. A file it cannot identify is parsed as Cisco IOS, so a surprising count usually means a file it did not recognize.</p>
     <h3>2. Build the model</h3>
 <pre><code>$ hammerhead simulate ./configs
@@ -1688,9 +1691,9 @@ $ echo $?
           <tr><td><code>topo</code></td><td>Discover topology from a config directory<div class="u"><code>hammerhead topo [OPTIONS] &lt;CONFIG_DIR&gt;</code></div></td></tr>
           <tr><td><code>simulate</code></td><td>Run the full simulation pipeline (parse → topo → OSPF → FIB)<div class="u"><code>hammerhead simulate [OPTIONS] &lt;CONFIG_DIR&gt;</code></div></td></tr>
           <tr><td><code>rib</code></td><td>Show the per-device RIB<div class="u"><code>hammerhead rib [OPTIONS] --device &lt;DEVICE&gt; &lt;CONFIG_DIR&gt;</code></div></td></tr>
-          <tr><td><code>fib</code></td><td>Show the per-device FIB, with preflight&rsquo;s coverage verdict on the snapshot. When coverage is degraded the FIB is still printed, the devices and lines are named on stderr, or in the <code>coverage</code> object with <code>--format json</code>, and it exits 3 (from v0.2.1, releasing soon)<div class="u"><code>hammerhead fib [OPTIONS] --device &lt;DEVICE&gt; &lt;CONFIG_DIR&gt;</code></div></td></tr>
+          <tr><td><code>fib</code></td><td>Show the per-device FIB, with preflight&rsquo;s coverage verdict on the snapshot. When coverage is degraded the FIB is still printed, the devices and lines are named on stderr, or in the <code>coverage</code> object with <code>--format json</code>, and it exits 3 (from v0.2.1)<div class="u"><code>hammerhead fib [OPTIONS] --device &lt;DEVICE&gt; &lt;CONFIG_DIR&gt;</code></div></td></tr>
           <tr><td><code>init-issues</code></td><td>Pybatfish-parity init report: severity-tagged init issues plus defined / referenced named structures<div class="u"><code>hammerhead init-issues [OPTIONS] &lt;CONFIG_DIR&gt;</code></div></td></tr>
-          <tr><td><code>sessions</code></td><td>Report BGP / OSPF session compatibility and adjacency edges. From v0.2.1 (releasing soon), BGP rows in JSON carry <code>ipv4_unicast</code>, and an established session without IPv4 unicast carries a <code>reason</code><div class="u"><code>hammerhead sessions [OPTIONS] --protocol &lt;PROTOCOL&gt; &lt;CONFIG_DIR&gt;</code></div></td></tr>
+          <tr><td><code>sessions</code></td><td>Report BGP / OSPF session compatibility and adjacency edges. From v0.2.1, BGP rows in JSON carry <code>ipv4_unicast</code>, and an established session without IPv4 unicast carries a <code>reason</code><div class="u"><code>hammerhead sessions [OPTIONS] --protocol &lt;PROTOCOL&gt; &lt;CONFIG_DIR&gt;</code></div></td></tr>
           <tr><td><code>snapshot</code></td><td>Emit static snapshot-input reports (ip-owners, subnets, FHRP, L1/L2 edges) or multipath consistency reports<div class="u"><code>hammerhead snapshot [OPTIONS] --report &lt;REPORT&gt; &lt;CONFIG_DIR&gt;</code></div></td></tr>
           <tr><td><code>ipsec-status</code></td><td>Report IPSec crypto-map session compatibility per Batfish <code>ipsecSessionStatus</code><div class="u"><code>hammerhead ipsec-status [OPTIONS] &lt;CONFIG_DIR&gt;</code></div></td></tr>
           <tr><td><code>vxlan-vnis</code></td><td>Emit VXLAN VNI properties per Batfish <code>vxlanVniProperties</code><div class="u"><code>hammerhead vxlan-vnis [OPTIONS] &lt;CONFIG_DIR&gt;</code></div></td></tr>
@@ -1800,7 +1803,7 @@ $ echo $?
       <div class="tbl"><table>
         <thead><tr><th>Command</th><th>What it does, and usage</th></tr></thead>
         <tbody>
-          <tr><td><code>mcp-serve</code></td><td>Serve the simulated network as a Model Context Protocol (MCP) endpoint over stdio so an AI agent (Claude, Cursor, …) can answer questions grounded in the digital twin. Every tool result carries preflight&rsquo;s coverage verdict, as <code>{"coverage": …, "result": …}</code>, with a warning when coverage is degraded (from v0.2.1, releasing soon)<div class="u"><code>hammerhead mcp-serve [OPTIONS] --config-dir &lt;CONFIG_DIR&gt;</code></div></td></tr>
+          <tr><td><code>mcp-serve</code></td><td>Serve the simulated network as a Model Context Protocol (MCP) endpoint over stdio so an AI agent (Claude, Cursor, …) can answer questions grounded in the digital twin. Every tool result carries preflight&rsquo;s coverage verdict, as <code>{"coverage": …, "result": …}</code>, with a warning when coverage is degraded (from v0.2.1)<div class="u"><code>hammerhead mcp-serve [OPTIONS] --config-dir &lt;CONFIG_DIR&gt;</code></div></td></tr>
           <tr><td><code>hooks-validate</code></td><td>Validate a hooks YAML file: warns on missing endpoints, missing secret_ref where required, or bad regex in trigger conditions<div class="u"><code>hammerhead hooks-validate [OPTIONS] --hooks &lt;HOOKS&gt;</code></div></td></tr>
           <tr><td><code>hooks-plan</code></td><td>Compute the dispatch plan for a set of canned events without firing any HTTP/SMTP traffic. Useful for previewing what would be sent to ServiceNow / PagerDuty / Slack on a real failure<div class="u"><code>hammerhead hooks-plan [OPTIONS] --hooks &lt;HOOKS&gt;</code></div></td></tr>
           <tr><td><code>hooks-fire</code></td><td>Fire a dispatch plan against live endpoints. Defaults to dry-run unless the binary was built with <code>--features hooks-live</code> (HTTP) or <code>--features hooks-live-smtp</code> (SMTP) on hammerhead-cli<div class="u"><code>hammerhead hooks-fire [OPTIONS] --hooks &lt;HOOKS&gt;</code></div></td></tr>

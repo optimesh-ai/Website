@@ -108,158 +108,149 @@ and OSPF won't form an adjacency across that.
 00:01:23.900 --> 00:01:26.100
 A fair question is why you'd trust the model.
 
-00:01:26.900 --> 00:01:28.987
+00:01:26.900 --> 00:01:28.981
 So we check it against real routers.
 
-00:01:28.987 --> 00:01:30.437
+00:01:28.981 --> 00:01:30.426
 Ten of them, running FRR,
 
-00:01:30.437 --> 00:01:33.220
+00:01:30.426 --> 00:01:33.200
 in a lab that's rebuilt and run again each week.
 
-00:01:34.020 --> 00:01:37.116
+00:01:34.000 --> 00:01:37.096
 Every route FRR has, the model has too,
 
-00:01:37.116 --> 00:01:39.260
+00:01:37.096 --> 00:01:39.240
 and it doesn't make any up.
 
-00:01:40.060 --> 00:01:42.220
-The one place they differ is a label.
-
-00:01:42.220 --> 00:01:43.855
-Same route, same forwarding,
-
-00:01:43.855 --> 00:01:45.140
-named a different way.
-
-00:01:46.567 --> 00:01:47.952
+00:01:42.767 --> 00:01:44.152
 Being accurate is half of it.
 
-00:01:47.952 --> 00:01:51.106
+00:01:44.152 --> 00:01:47.306
 The other half is catching the kind of change that actually hurts,
 
-00:01:51.106 --> 00:01:52.540
+00:01:47.306 --> 00:01:48.740
 so we test it on real outages.
 
-00:01:52.540 --> 00:01:54.547
+00:01:48.740 --> 00:01:50.747
 There are more than a hundred in the repo.
 
-00:01:55.297 --> 00:01:55.963
+00:01:51.497 --> 00:01:52.163
 In July 2022,
 
-00:01:55.963 --> 00:01:58.728
+00:01:52.163 --> 00:01:54.928
 a maintenance change at Rogers removed a route filter.
 
-00:01:58.728 --> 00:02:01.033
+00:01:54.928 --> 00:01:57.233
 The full routing table flooded into the core,
 
-00:02:01.033 --> 00:02:03.697
+00:01:57.233 --> 00:01:59.897
 and more than twelve million customers lost service.
 
-00:02:04.547 --> 00:02:06.758
+00:02:00.747 --> 00:02:02.958
 We rebuilt that change from the public record,
 
-00:02:06.758 --> 00:02:07.287
+00:02:02.958 --> 00:02:03.487
 and ran it.
 
-00:02:08.700 --> 00:02:11.723
+00:02:04.900 --> 00:02:07.923
 The awkward part of that change is that no flow is lost.
 
-00:02:11.723 --> 00:02:12.965
+00:02:07.923 --> 00:02:09.165
 Every path still works,
 
-00:02:12.965 --> 00:02:14.800
+00:02:09.165 --> 00:02:11.000
 so a reachability check passes it.
 
-00:02:15.700 --> 00:02:18.170
+00:02:11.900 --> 00:02:14.370
 What takes the core down is the size of the table.
 
-00:02:18.170 --> 00:02:22.320
+00:02:14.370 --> 00:02:18.520
 Each core router goes from a hundred and thirteen routes to more than nine thousand.
 
-00:02:23.120 --> 00:02:25.837
+00:02:19.320 --> 00:02:22.037
 So Hammerhead counts the routes landing on each device,
 
-00:02:25.837 --> 00:02:28.208
+00:02:22.037 --> 00:02:24.408
 compares that with the capacity you've declared,
 
-00:02:28.208 --> 00:02:29.640
+00:02:24.408 --> 00:02:25.840
 and fails the change on that.
 
-00:02:31.467 --> 00:02:33.247
+00:02:27.667 --> 00:02:29.447
 And it tells you what it couldn't read.
 
-00:02:33.997 --> 00:02:35.506
+00:02:30.197 --> 00:02:31.706
 This lab mixes four vendors.
 
-00:02:35.506 --> 00:02:36.854
+00:02:31.706 --> 00:02:33.054
 Hammerhead reads fifteen,
 
-00:02:36.854 --> 00:02:40.897
+00:02:33.054 --> 00:02:37.097
 but on this Cisco core it only understood forty-four percent of the config.
 
-00:02:41.697 --> 00:02:44.458
+00:02:37.897 --> 00:02:40.658
 It doesn't average that away into one comfortable number.
 
-00:02:44.458 --> 00:02:46.298
+00:02:40.658 --> 00:02:42.498
 It shows it per device, on the screen,
 
-00:02:46.298 --> 00:02:47.897
+00:02:42.498 --> 00:02:44.097
 so you know what to go and check.
 
-00:02:48.647 --> 00:02:51.416
+00:02:44.847 --> 00:02:47.616
 And if a change touches something it can't model,
 
-00:02:51.416 --> 00:02:53.847
+00:02:47.616 --> 00:02:50.047
 it won't call that a pass. It says unknown.
 
-00:02:55.267 --> 00:02:56.767
+00:02:51.467 --> 00:02:52.967
 And it checks its own work.
 
-00:02:57.517 --> 00:02:58.958
+00:02:53.717 --> 00:02:55.158
 When it finds a policy leak,
 
-00:02:58.958 --> 00:02:59.884
+00:02:55.158 --> 00:02:56.084
 it writes the fix,
 
-00:02:59.884 --> 00:03:01.891
+00:02:56.084 --> 00:02:58.091
 waits for a named person to approve it,
 
-00:03:01.891 --> 00:03:03.538
+00:02:58.091 --> 00:02:59.738
 and hands your Ansible a bundle.
 
-00:03:03.538 --> 00:03:05.957
+00:02:59.738 --> 00:03:02.157
 Then it checks whether the fix actually landed.
 
-00:03:06.757 --> 00:03:09.616
+00:03:02.957 --> 00:03:05.816
 If we give it a snapshot where the change never applied,
 
-00:03:09.616 --> 00:03:11.097
+00:03:05.816 --> 00:03:07.297
 it refuses to close the case.
 
-00:03:11.997 --> 00:03:12.991
+00:03:08.197 --> 00:03:09.191
 That's deliberate.
 
-00:03:12.991 --> 00:03:14.703
+00:03:09.191 --> 00:03:10.903
 If it said verified every time,
 
-00:03:14.703 --> 00:03:16.637
+00:03:10.903 --> 00:03:12.837
 you'd have no reason to believe it.
 
-00:03:18.567 --> 00:03:19.807
+00:03:14.767 --> 00:03:16.007
 Thursday, one fifty-two.
 
-00:03:20.607 --> 00:03:22.847
+00:03:16.807 --> 00:03:19.047
 The change didn't ship, and nobody got paged.
 
-00:03:23.947 --> 00:03:24.997
+00:03:20.147 --> 00:03:21.197
 If you want to try it,
 
-00:03:24.997 --> 00:03:26.239
+00:03:21.197 --> 00:03:22.439
 pick a site you know well,
 
-00:03:26.239 --> 00:03:28.101
+00:03:22.439 --> 00:03:24.301
 and the change you're least sure about.
 
-00:03:28.101 --> 00:03:29.247
+00:03:24.301 --> 00:03:25.447
 And break it here first.
