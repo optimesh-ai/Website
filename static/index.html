@@ -1357,7 +1357,7 @@
     <p class="films-foot reveal">Nothing in these videos was pushed to a production network. Narration is a synthetic voice; English captions are in each player.</p>
   </div>
   <div class="center reveal" style="margin-top:96px"><div class="kicker">Regression coverage from public incidents</div><h2 class="h2" style="margin:12px auto 0">134 incidents, reconstructed and used to improve the engine.</h2><p class="lead">We rebuilt 134 public network incidents and encoded their failure modes as regression cases. Hammerhead now produces a failing check tied to the stated cause in each reconstruction.</p><p class="films-foot">These are our reconstructions, not the operators&rsquo; configurations. We changed Hammerhead until the suite passed, so this is not a blind test and does not estimate how often the next incident will be caught. Some cases depend on assumptions or declared facts, and the healthy-change false-positive rate has not been measured. <a data-nav="methodology" style="color:var(--accent);font-weight:600">Read the complete methodology →</a></p></div>
-  <div class="center reveal" style="margin-top:96px"><div class="kicker">76 CLI subcommands</div><h2 class="h2" style="margin:12px auto 0">Network validation in one CLI.</h2><p class="lead" style="margin:14px auto 0">76 subcommands. <a data-nav="docs#d-cli" style="color:var(--accent);font-weight:600">See every one in the docs →</a></p></div>
+  <div class="center reveal" style="margin-top:96px"><div class="kicker">77 CLI subcommands</div><h2 class="h2" style="margin:12px auto 0">Network validation in one CLI.</h2><p class="lead" style="margin:14px auto 0">76 subcommands. <a data-nav="docs#d-cli" style="color:var(--accent);font-weight:600">See every one in the docs →</a></p></div>
   <div class="capcols reveal">
     <div class="capcol"><h3>Parse &amp; simulate</h3><p>Read raw configs, run protocol convergence, build the routing and forwarding tables.</p><div class="cmds"><span class="cmd">parse</span><span class="cmd">simulate</span><span class="cmd">rib</span><span class="cmd">fib</span></div></div>
     <div class="capcol"><h3>Query</h3><p>Ask where a packet goes. Reachability, traceroutes, path joins, IP ownership.</p><div class="cmds"><span class="cmd">reachability</span><span class="cmd">traceroute</span><span class="cmd">find-ip</span></div></div>
@@ -1533,6 +1533,7 @@
     <div class="tl">Docs</div>
     <a data-nav="docs#d-access">Access</a>
     <a data-nav="docs#d-install">Install</a>
+    <a data-nav="docs#d-licence">Licence key</a>
     <a data-nav="docs#d-quickstart">Quickstart</a>
     <a data-nav="docs#d-cli">CLI reference</a>
     <a data-nav="docs#d-sdk">Python SDK</a>
@@ -1543,7 +1544,7 @@
   </aside>
   <article class="doc">
     <h1>Hammerhead docs</h1>
-    <p class="dlead">What you need to judge Hammerhead before you talk to us: how it installs, a five-minute run, all 76 commands, the Python SDK, the REST API and CI. The output on this page is real, from <code>hammerhead 0.1.0</code> on the labs that ship with it.</p>
+    <p class="dlead">What you need to judge Hammerhead before you talk to us: how it installs, a five-minute run, all 77 commands, the Python SDK, the REST API and CI. The output on this page is real, from <code>hammerhead 0.1.0</code> on the labs that ship with it.</p>
     <p class="dmeta">Hammerhead 0.1.0 · page updated September 2026</p>
 
     <h2 id="d-access">Access</h2>
@@ -1567,11 +1568,17 @@
 shasum -a 256 -c hammerhead-&lt;version&gt;-x86_64-unknown-linux-gnu.tar.gz.sha256
 tar xzf hammerhead-&lt;version&gt;-x86_64-unknown-linux-gnu.tar.gz
 ./hammerhead --version
-hammerhead 0.1.0</code></pre>
+hammerhead 0.2.0</code></pre>
     <div class="note warn"><b>Signing.</b> Each archive comes with a SHA-256 checksum file. The archives are not code-signed yet.</div>
 
+    <h2 id="d-licence">Licence key</h2>
+    <p>Every command except <code>license</code>, <code>--help</code> and <code>--version</code> needs a licence key. Without one, <code>hammerhead</code> exits 1 before doing any work and <code>hammerhead-api</code> exits 1 before binding a socket. We issue the key with access: a signed token (<code>HH1.…</code>) naming your organisation, your plan and its end date. It is checked offline against a public key built into the binary, so nothing is sent anywhere and air-gapped estates work.</p>
+<pre><code>hammerhead license install HH1.eyJ...   <span class="c"># verifies, then saves to ~/.config/hammerhead/license</span>
+hammerhead license status               <span class="c"># licensee, plan, expiry, where it was found</span></code></pre>
+    <p>The binaries look for the key in <code>$HAMMERHEAD_LICENSE</code> (the token itself), then the file named by <code>$HAMMERHEAD_LICENSE_FILE</code>, then <code>~/.config/hammerhead/license</code>. In CI, store the token as a secret and pass it as <code>HAMMERHEAD_LICENSE</code>. In its last week a licence prints a warning on stderr; once expired, it is refused.</p>
+
     <h2 id="d-quickstart">Quickstart</h2>
-    <p>Five steps. The first four use a three-router OSPF lab that the binary can write for you; the fifth checks a change on a four-router spine-leaf.</p>
+    <p>Five steps, once the licence key is installed. The first four use a three-router OSPF lab that the binary can write for you; the fifth checks a change on a four-router spine-leaf.</p>
     <h3>1. Point it at a config directory</h3>
     <p><code>init</code> scans a directory of configs (one file per device), says what it found and suggests next commands. <code>--example</code> seeds the lab first.</p>
 <pre><code>$ hammerhead init ./configs --example
@@ -1624,14 +1631,15 @@ $ echo $?
     </table></div>
 
     <h2 id="d-cli">CLI reference</h2>
-    <p>All 76 subcommands, grouped by job. Each summary is the command's own <code>--help</code> text, with internal references removed. <code>hammerhead help &lt;command&gt;</code> prints every flag.</p>
+    <p>All 77 subcommands, grouped by job. Each summary is the command's own <code>--help</code> text, with internal references removed. <code>hammerhead help &lt;command&gt;</code> prints every flag.</p>
     <p>Global options: <code>--format text|json|csv|dot</code> (JSON is stable for scripting; CSV suits tabular output such as <code>fib</code>, <code>rib</code>, <code>reachability</code>; DOT suits <code>traceroute</code>) and <code>-v</code>/<code>-vv</code>/<code>-vvv</code> for logging.</p>
-    <details open><summary>Start here<span>2 commands</span></summary>
+    <details open><summary>Start here<span>3 commands</span></summary>
       <div class="tbl"><table>
         <thead><tr><th>Command</th><th>What it does, and usage</th></tr></thead>
         <tbody>
           <tr><td><code>init</code></td><td>Scan a config directory and show what Hammerhead found — vendors, devices, protocols, and suggested next commands. The fastest way to get started<div class="u"><code>hammerhead init [OPTIONS] &lt;CONFIG_DIR&gt;</code></div></td></tr>
           <tr><td><code>connect</code></td><td>Guided onboarding wizard: point Hammerhead at a system you already run (SolarWinds, ManageEngine, an Ansible repo — or a built-in demo), validate the connection, write a ready-to-use <code>inventory.yaml</code> + secrets env file, and optionally run the first collect + simulate immediately. Interactive on a TTY; fully drivable by flags (secret via <code>HH_CONNECT_SECRET</code>) in CI<div class="u"><code>hammerhead connect [OPTIONS]</code></div></td></tr>
+                  <tr><td><code>license</code></td><td>Show or install the Hammerhead licence. Every other command needs a valid licence key from Optimesh (issued with every plan that includes Hammerhead); this one runs without one so you can install it<div class="u"><code>hammerhead license [OPTIONS] &lt;COMMAND&gt;</code></div></td></tr>
         </tbody>
       </table></div>
     </details>
@@ -1644,7 +1652,7 @@ $ echo $?
           <tr><td><code>topo</code></td><td>Discover topology from a config directory<div class="u"><code>hammerhead topo [OPTIONS] &lt;CONFIG_DIR&gt;</code></div></td></tr>
           <tr><td><code>simulate</code></td><td>Run the full simulation pipeline (parse → topo → OSPF → FIB)<div class="u"><code>hammerhead simulate [OPTIONS] &lt;CONFIG_DIR&gt;</code></div></td></tr>
           <tr><td><code>rib</code></td><td>Show the per-device RIB<div class="u"><code>hammerhead rib [OPTIONS] --device &lt;DEVICE&gt; &lt;CONFIG_DIR&gt;</code></div></td></tr>
-          <tr><td><code>fib</code></td><td>Show the per-device FIB<div class="u"><code>hammerhead fib [OPTIONS] --device &lt;DEVICE&gt; &lt;CONFIG_DIR&gt;</code></div></td></tr>
+          <tr><td><code>fib</code></td><td>Show the per-device FIB, with preflight&rsquo;s coverage verdict on the snapshot. When coverage is degraded the FIB is still printed, the devices and lines are named on stderr (and in the JSON <code>coverage</code> object), and it exits 3<div class="u"><code>hammerhead fib [OPTIONS] --device &lt;DEVICE&gt; &lt;CONFIG_DIR&gt;</code></div></td></tr>
           <tr><td><code>init-issues</code></td><td>Pybatfish-parity init report: severity-tagged init issues plus defined / referenced named structures<div class="u"><code>hammerhead init-issues [OPTIONS] &lt;CONFIG_DIR&gt;</code></div></td></tr>
           <tr><td><code>sessions</code></td><td>Report BGP / OSPF session compatibility and adjacency edges<div class="u"><code>hammerhead sessions [OPTIONS] --protocol &lt;PROTOCOL&gt; &lt;CONFIG_DIR&gt;</code></div></td></tr>
           <tr><td><code>snapshot</code></td><td>Emit static snapshot-input reports (ip-owners, subnets, FHRP, L1/L2 edges) or multipath consistency reports<div class="u"><code>hammerhead snapshot [OPTIONS] --report &lt;REPORT&gt; &lt;CONFIG_DIR&gt;</code></div></td></tr>
@@ -1756,7 +1764,7 @@ $ echo $?
       <div class="tbl"><table>
         <thead><tr><th>Command</th><th>What it does, and usage</th></tr></thead>
         <tbody>
-          <tr><td><code>mcp-serve</code></td><td>Serve the simulated network as a Model Context Protocol (MCP) endpoint over stdio so an AI agent (Claude, Cursor, …) can answer questions grounded in the digital twin<div class="u"><code>hammerhead mcp-serve [OPTIONS] --config-dir &lt;CONFIG_DIR&gt;</code></div></td></tr>
+          <tr><td><code>mcp-serve</code></td><td>Serve the simulated network as a Model Context Protocol (MCP) endpoint over stdio so an AI agent (Claude, Cursor, …) can answer questions grounded in the digital twin. Every tool result carries preflight&rsquo;s coverage verdict, as <code>{"coverage": …, "result": …}</code>, with a warning when coverage is degraded<div class="u"><code>hammerhead mcp-serve [OPTIONS] --config-dir &lt;CONFIG_DIR&gt;</code></div></td></tr>
           <tr><td><code>hooks-validate</code></td><td>Validate a hooks YAML file: warns on missing endpoints, missing secret_ref where required, or bad regex in trigger conditions<div class="u"><code>hammerhead hooks-validate [OPTIONS] --hooks &lt;HOOKS&gt;</code></div></td></tr>
           <tr><td><code>hooks-plan</code></td><td>Compute the dispatch plan for a set of canned events without firing any HTTP/SMTP traffic. Useful for previewing what would be sent to ServiceNow / PagerDuty / Slack on a real failure<div class="u"><code>hammerhead hooks-plan [OPTIONS] --hooks &lt;HOOKS&gt;</code></div></td></tr>
           <tr><td><code>hooks-fire</code></td><td>Fire a dispatch plan against live endpoints. Defaults to dry-run unless the binary was built with <code>--features hooks-live</code> (HTTP) or <code>--features hooks-live-smtp</code> (SMTP) on hammerhead-cli<div class="u"><code>hammerhead hooks-fire [OPTIONS] --hooks &lt;HOOKS&gt;</code></div></td></tr>
@@ -1811,7 +1819,7 @@ hammerhead preflight ../base/configs ./configs --format json &gt; preflight.json
 hammerhead policy-check --config-dir ./configs --policies network-policy.yaml --strict</code></pre>
     <p>Teams with access also get:</p>
     <ul>
-      <li><b>GitHub Action.</b> A composite action that runs <code>preflight</code> on a pull request and posts the verdict as a comment. Inputs include <code>config-dir</code>, <code>base-config-dir</code>, <code>max-blast-radius</code> (default 5%) and <code>policy</code>; outputs include <code>gate-verdict</code>, <code>gate-exit-code</code>, <code>gate-blockers</code>, <code>changed-routes</code> and <code>lost-flow-count</code>. It needs a token that can read the private release.</li>
+      <li><b>GitHub Action.</b> A composite action that runs <code>preflight</code> on a pull request and posts the verdict as a comment. Inputs include <code>license</code> (your licence key, from a secret), <code>config-dir</code>, <code>base-config-dir</code>, <code>max-blast-radius</code> (default 5%) and <code>policy</code>; outputs include <code>gate-verdict</code>, <code>gate-exit-code</code>, <code>gate-blockers</code>, <code>changed-routes</code> and <code>lost-flow-count</code>. It needs a token that can read the private release.</li>
       <li><b>GitLab CI template.</b> Fails the pipeline unless the verdict is exactly <code>pass</code>, and can post the result to a ServiceNow change record.</li>
       <li><b>Ansible.</b> A role for <code>pre_tasks</code> gating, and an Event-Driven Ansible source.</li>
     </ul>
@@ -1821,6 +1829,7 @@ hammerhead policy-check --config-dir ./configs --policies network-policy.yaml --
     <div class="tbl"><table>
       <thead><tr><th>Variable</th><th>Used by</th><th>Purpose</th></tr></thead>
       <tbody>
+        <tr><td><code>HAMMERHEAD_LICENSE</code>, <code>HAMMERHEAD_LICENSE_FILE</code></td><td>hammerhead, hammerhead-api</td><td>The licence token itself, or the path of a file holding it; otherwise <code>~/.config/hammerhead/license</code> is read</td></tr>
         <tr><td><code>HAMMERHEAD_API_BIND</code></td><td>hammerhead-api</td><td>Listen address; default <code>127.0.0.1:8080</code></td></tr>
         <tr><td><code>HAMMERHEAD_API_ALLOWED_ROOTS</code></td><td>hammerhead-api</td><td>Config directories the server may read; required</td></tr>
         <tr><td><code>HAMMERHEAD_AUTH_JWT_*</code></td><td>hammerhead-api</td><td>Issuer, audience and key source for bearer tokens</td></tr>
