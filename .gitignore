@@ -28,3 +28,6 @@ dist-ssr
 
 # Written by the Netlify build (netlify.toml); never committed.
 static/version.txt
+
+# Local Netlify folder
+.netlify

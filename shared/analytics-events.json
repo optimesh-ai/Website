@@ -1,0 +1,14 @@
+{
+  "places": [
+    "home", "hammerhead", "configstudio", "rulehawk", "platform", "pricing", "docs",
+    "methodology", "whitepaper", "insights", "why", "company", "contact", "security",
+    "privacy", "terms", "global", "header", "footer", "other"
+  ],
+  "cta": [
+    "request_hammerhead", "request_configstudio", "request_rulehawk", "request_any",
+    "email_team", "rulehawk", "rulehawk_source", "packetdojo"
+  ],
+  "nav": ["pricing", "docs", "methodology", "whitepaper", "security", "why"],
+  "films": ["approved", "0147", "thirteen_commands"],
+  "forms": ["request", "message"]
+}

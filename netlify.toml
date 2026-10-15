@@ -5,6 +5,18 @@
   command = "printf '%s\\n' \"${COMMIT_REF:-unknown}\" > static/version.txt"
   publish = "static"
 
+# First-party event counts (described on the privacy page):
+# netlify/functions/event.ts declares the path /api/event itself, with its rate
+# limit. A forced rewrite still wins over a function's path, so without this
+# rule /api/* below sends it to the Express API (404). Rewriting it to itself
+# hands it to the function; Netlify does not evaluate redirects twice.
+# Same-origin, so connect-src 'self' in the CSP below covers it.
+[[redirects]]
+  force = true
+  from = "/api/event"
+  to = "/api/event"
+  status = 200
+
 # API aliases. server/index.ts declares its routes as /api/* and the early-access
 # function is documented at /api/early-access; without these rewrites the SPA
 # fallback below answered /api/* with index.html (they were dropped when the

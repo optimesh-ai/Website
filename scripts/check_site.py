@@ -8,13 +8,18 @@ Fails, naming each problem, when:
     (data-page) or element id that does not exist, or an <a> has nothing behind
     it (no href, data-nav, data-request, data-article or role, and not hidden);
   * a file under static/ is larger than Netlify serves comfortably (MAX_BYTES);
-  * netlify.toml does not parse, or publishes a directory other than static/.
+  * netlify.toml does not parse, or publishes a directory other than static/;
+  * the page can send an event count (/api/event) that the function's allowlist,
+    shared/analytics-events.json, would refuse: a data-page, data-request value or
+    film that is not listed, or a nav destination list that differs from it.
 
 Standard library only, so CI needs nothing installed. Run from the repo root.
 """
 
 from __future__ import annotations
 
+import json
+import re
 import sys
 import tomllib
 from html.parser import HTMLParser
@@ -47,6 +52,9 @@ class Page(HTMLParser):
         self.navs: list[tuple[str, int]] = []
         self.hashes: list[tuple[str, int]] = []
         self.inert: list[int] = []
+        self.requests: set[str] = set()
+        self.films: set[str] = set()
+        self.source = ""
 
     def handle_starttag(self, tag, attrs):
         a = dict(attrs)
@@ -55,6 +63,11 @@ class Page(HTMLParser):
             self.ids.add(a["id"])
         if a.get("data-page"):
             self.pages.add(a["data-page"])
+        if a.get("data-request"):
+            self.requests.add(a["data-request"].lower())
+        if tag == "video" and "filmvid" in (a.get("class") or "").split():
+            parts = (a.get("data-poster") or "").split("/")  # films/<id>/poster.webp
+            self.films.add(parts[1].replace("-", "_") if len(parts) > 2 else "")
         if a.get("data-nav"):
             self.navs.append((a["data-nav"], line))
         if (a.get("href") or "").startswith("#"):
@@ -109,7 +122,8 @@ def main() -> int:
         problems.append(f"netlify.toml publishes {publish!r}, expected 'static'")
 
     page = Page()
-    page.feed((STATIC / "index.html").read_text())
+    page.source = (STATIC / "index.html").read_text()
+    page.feed(page.source)
     page.close()
     problems += page.errors
     problems += [f"<{t}> opened at line {line} is never closed" for t, line in page.stack]
@@ -128,6 +142,18 @@ def main() -> int:
             problems.append(f"href={href!r} at line {line} names a page or anchor that does not exist")
     for line in page.inert:
         problems.append(f"<a> at line {line} has no href, data-nav, data-request, data-article or role: it does nothing")
+
+    allow = json.loads((ROOT / "shared" / "analytics-events.json").read_text())
+    for pg in sorted(page.pages - set(allow["places"])):
+        problems.append(f"data-page={pg!r} is not in shared/analytics-events.json places: its event counts would be refused")
+    for req in sorted(page.requests):
+        if f"request_{req}" not in allow["cta"]:
+            problems.append(f"data-request={req!r} has no request_{req} in shared/analytics-events.json cta")
+    for film in sorted(page.films - set(allow["films"])):
+        problems.append(f"film {film!r} (from a video.filmvid data-poster) is not in shared/analytics-events.json films")
+    nav = re.search(r"const EV_NAV=new Set\(\[([^\]]*)\]\)", page.source)
+    if not nav or sorted(re.findall(r"'([a-z0-9_]+)'", nav.group(1))) != sorted(allow["nav"]):
+        problems.append("EV_NAV in index.html does not list the same pages as shared/analytics-events.json nav")
 
     for ref in sorted(page.refs):
         target = local_path(ref)
