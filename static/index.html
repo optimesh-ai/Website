@@ -1334,7 +1334,7 @@
           <div class="film-meta">Overview · 1:59</div>
           <h3>Approved.</h3>
           <p class="for">For the executive who signs off on the risk.</p>
-          <p class="syn">A diff shows what was typed, not what the network does next. Where a pre-change gate fits, without moving the approval chain you already run.</p>
+          <p class="syn">A change that passed review, what it does to the network, and the gate it goes through first while your engineers still approve and your tools still deploy.</p>
         </div>
       </article>
       <article class="film">
@@ -1946,7 +1946,7 @@ hammerhead policy-check --config-dir ./configs --policies network-policy.yaml --
     <p>Every push to main runs Hammerhead and Batfish, with Batfish pinned by image digest, over four test corpora (eos, junos, nxos and triangle): 12 devices, each compared on both sides. In the run of 12 October 2026 (parity run 38218573680), they agree on 37 of 38 prefixes; of the 34 matching prefixes that name an egress interface, all 34 agree. The one difference is a prefix only Hammerhead has, on a Junos device. Like the 351-snapshot check, it is a comparison with another model, not with routers, over the devices Batfish answered for, and it does not gate merges.</p>
     <h2 id="m-scope">Demos, speed and where the numbers come from</h2>
     <p>Every number on this site comes from our own labs, test corpora and rebuilds, not from customer networks. There are no public customer references or third-party evaluations of Hammerhead yet.</p>
-    <p>Where the site says a check fits in a pull request, that rests on our generated-fabric benchmark. We publish no speed figures; production performance is something we measure on your network during an evaluation.</p>
+    <p>Our model-build figure, about 0.7 s for a 976-device synthetic enterprise network, comes from our own benchmark on our own machine. We don&rsquo;t publish speed comparisons with other tools; production performance is measured on your network during an evaluation.</p>
     <p>The demo films run on small synthetic labs, and nothing in them was pushed to a production network. In the engineer&rsquo;s demo, the push at 01:48 is dramatized from the model&rsquo;s result and labelled as such, and the Rogers 2022 segment is a rebuild from the public record. <i>Approved.</i> cites two incidents from the providers&rsquo; own reports as examples of change risk, not as outages Hammerhead would have prevented, and not as caused by AI. The terminal output in <i>Thirteen commands.</i> is real, from the labs that ship with Hammerhead, with colour added and long output clipped or excerpted.</p>
     <p class="note">Questions about any of this, or want to run a replay yourself? <a data-request="hammerhead">Request access</a> and ask for the catalog.</p>
   </article>
