@@ -3049,20 +3049,33 @@ hammerhead policy-check --config-dir ./configs --policies network-policy.yaml --
   el('readerBack').addEventListener('click',closeArticle);
 
   /* ===== product-page demos (show, not just tell) ===== */
-  const HH_STEPS=[
+  /* real output, character for character: captures/hammerhead-page/ (checked by its verify.py) */
+  const HH_STEPS=Object.freeze([
     {t:'cmd',x:'hammerhead simulate ./configs'},
-    {t:'out',x:'parsed 976 devices · auto-detected'},
-    {t:'out',x:'built FIB · 551,872 routes · 0.7s'},
+    {t:'out',x:''},
+    {t:'out',x:'  hammerhead v0.2.0'},
+    {t:'out',x:''},
+    {t:'out',x:'  ✓  parse       976 devices           55ms'},
+    {t:'out',x:'  ✓  topology    1146 links            1ms'},
+    {t:'out',x:'  ✓  ospf                              15ms'},
+    {t:'out',x:'  ✓  bgp                               564ms'},
+    {t:'out',x:'  ✓  fib         551872 entries        90ms'},
+    {t:'out',x:''},
+    {t:'out',x:'  done 976 devices, 551872 routes in 725ms',ok:true},
+    {t:'out',x:'  …'},
     {t:'cmd',x:'hammerhead traceroute tests/configs/triangle --from R1 --src 1.1.1.1 --dst 3.3.3.3'},
-    {t:'out',x:'1  R1  -> GigabitEthernet0/1 (R3 GigabitEthernet0/0)  forwarded'},
+    {t:'out',x:'Traceroute from R1 (1.1.1.1) to 3.3.3.3 [tcp dst-port 80]'},
+    {t:'out',x:'  1  R1         - -> GigabitEthernet0/1 (R3 GigabitEthernet0/0)   forwarded'},
     {t:'out',x:'Disposition: Delivered',ok:true},
-  ];
+  ].map(Object.freeze));
   let hhTok=0;
-  async function runHHTerm(){ const pre=el('hhTerm'); if(!pre) return; const my=++hhTok; pre.innerHTML='';
+  async function runHHTerm(){ const pre=el('hhTerm'); if(!pre) return; const my=++hhTok;
+    /* hold the finished height so the page below doesn't move while it types */
+    pre.style.minHeight=''; pre.textContent=HH_STEPS.map(s=>(s.t==='cmd'?'$ ':'')+(s.x||' ')).join('\n'); pre.style.minHeight=pre.offsetHeight+'px'; pre.innerHTML='';
     for(const s of HH_STEPS){ if(my!==hhTok) return; const line=document.createElement('div');
       if(s.t==='cmd'){ const pm=document.createElement('span'); pm.className='pmt'; pm.textContent='$ '; const tx=document.createElement('span'); line.appendChild(pm); line.appendChild(tx); pre.appendChild(line);
         for(const ch of s.x){ if(my!==hhTok) return; tx.textContent+=ch; await sleep(22); } await sleep(240); }
-      else { line.className=s.ok?'ok':'mut'; line.textContent=s.x; pre.appendChild(line); await sleep(360); } }
+      else { line.className=s.ok?'ok':'mut'; line.textContent=s.x; if(!s.x) line.appendChild(document.createElement('br')); pre.appendChild(line); await sleep(s.x?360:120); } }
   }
   function countUp(elm){ const raw=elm.dataset.count; const target=parseFloat(raw); const suffix=elm.dataset.suffix||''; const dec=(raw.split('.')[1]||'').length; const t0=performance.now();
     requestAnimationFrame(function step(now){ const k=Math.min(1,(now-t0)/1100); const e=1-Math.pow(1-k,3); elm.textContent=(target*e).toFixed(dec)+suffix; if(k<1) requestAnimationFrame(step); else elm.textContent=target.toFixed(dec)+suffix; }); }
