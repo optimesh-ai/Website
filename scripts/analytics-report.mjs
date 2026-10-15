@@ -55,15 +55,13 @@ const store = getStore({ name: "events", siteID: SITE_ID, token });
 const byDay = {};
 for (let i = days - 1; i >= 0; i--) {
   const day = new Date(Date.now() - i * 86400000).toISOString().slice(0, 10);
-  const counts = {
-    ...((await store.get(`day/${day}`, { type: "json" })) ?? {}),
-  };
-  // Events written on their own because the day's totals were contended.
-  const { blobs } = await store.list({ prefix: `extra/${day}/` });
+  // A day's totals are split across shard blobs, day/<day>/<shard>: add them up.
+  const counts = {};
+  const { blobs } = await store.list({ prefix: `day/${day}/` });
   for (const { key } of blobs) {
-    const [, , e, k] = key.split("/"); // extra/<day>/<e>/<k>/<random>
-    const field = `${e} ${k}`;
-    counts[field] = (counts[field] ?? 0) + 1;
+    const doc = await store.get(key, { type: "json" });
+    for (const [field, n] of Object.entries(doc?.counts ?? {}))
+      counts[field] = (counts[field] ?? 0) + n;
   }
   if (!flag("--all")) delete counts[SELFTEST];
   if (Object.keys(counts).length) byDay[day] = counts;

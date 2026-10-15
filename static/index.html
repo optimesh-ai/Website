@@ -2071,7 +2071,7 @@ hammerhead policy-check --config-dir ./configs --policies network-policy.yaml --
     <p>RuleHawk analyzes your rules inside your browser, in a background worker running Python compiled to WebAssembly (Pyodide). The config you paste is not sent anywhere; the code that does this is public on <a href="https://github.com/optimesh-ai/RuleHawk" target="_blank" rel="noopener">GitHub</a> under the Apache 2.0 license. The page is hosted on GitHub Pages and loads fonts from Google Fonts and Pyodide from the jsDelivr CDN, so those services see that you loaded it. To keep everything on your own machine, run the RuleHawk command line or its GitHub Action instead.</p>
 
     <h2 id="s-site">This website</h2>
-    <p>No third-party analytics, advertising or tracking scripts, and no cookies. The page loads files only from optimesh.ai and sends data only to optimesh.ai, both enforced by a Content-Security-Policy header. It counts a few actions, such as button clicks and film plays, as anonymous daily totals with no identifiers, and counts nothing when your browser sends Global Privacy Control or Do Not Track. The request and message forms post to our host, Netlify. Details in the <a data-nav="privacy">privacy notice</a>.</p>
+    <p>No third-party analytics, advertising or tracking scripts, and no cookies. The page loads files only from optimesh.ai and sends data only to optimesh.ai, both enforced by a Content-Security-Policy header. It counts a few actions, such as button clicks and film plays, as anonymous daily totals that identify no one, and counts nothing when your browser sends Global Privacy Control or Do Not Track. The request and message forms post to our host, Netlify. Details in the <a data-nav="privacy">privacy notice</a>.</p>
 
     <h2 id="s-report">Report a vulnerability</h2>
     <p>Email <a href="mailto:eng@optimesh.ai?subject=SECURITY%3A%20">eng@optimesh.ai</a> with a subject starting <code>SECURITY:</code>. If you hear nothing, escalate to <a href="mailto:hello@optimesh.ai">hello@optimesh.ai</a>. We don't publish a PGP key yet; if you need an encrypted channel, send a first email with the subject <code>SECURITY: request encrypted channel</code> and nothing sensitive in it, and we will set one up.</p>
@@ -2108,8 +2108,8 @@ hammerhead policy-check --config-dir ./configs --policies network-policy.yaml --
     <h2 id="p-site">What this website collects</h2>
     <ul>
       <li><b>What you send us.</b> The request-access form asks for your name, work email, company, network size, the product you're asking about and a message. The message form asks for your name, email, a subject and a message. Both are stored by our host, Netlify, and delivered to our team. If the form can't reach Netlify, your browser opens an email to us instead.</li>
-      <li><b>Request logs.</b> Netlify serves this site and, like any web host, logs requests: IP address, browser, the page requested and when. Netlify handles these under <a href="https://www.netlify.com/privacy/" target="_blank" rel="noopener">its privacy policy</a>, and can give us page-view totals from them; we see only the totals, never individual visits.</li>
-      <li><b>Counts of what visitors click.</b> The page tells our server, as an anonymous count, when someone clicks a request-access, email, RuleHawk or PacketDojo button; follows a link to pricing, the docs, the methodology, the white paper, Security or Why Optimesh; starts or finishes a film; or starts or sends a form (never anything typed into it). Each count notes the page it happened on. We store only a total for each per day: no cookies, no identifiers, no IP address or browser details. Nothing is counted when your browser sends Global Privacy Control or Do Not Track.</li>
+      <li><b>Request logs.</b> Netlify serves this site and, like any web host, logs requests: IP address, browser, the page requested and when. Netlify handles these under <a href="https://www.netlify.com/privacy/" target="_blank" rel="noopener">its privacy policy</a>, and can also give us page-view totals from them.</li>
+      <li><b>Counts of what visitors click.</b> The page tells our server, as an anonymous count, when someone clicks a request-access, email, RuleHawk or PacketDojo button; follows a link to pricing, the docs, the methodology, the white paper, Security or Why Optimesh; starts or finishes a film; or starts or sends a form (never anything typed into it). Click and film counts also note where on the site they happened, such as the page or the header. We store only a total for each per day, with nothing that could identify you: no cookies, no IP address, no browser details. Nothing is counted when your browser sends Global Privacy Control or Do Not Track.</li>
       <li><b>Nothing else.</b> No third-party analytics, advertising or tracking scripts, and no cookies. The site loads no files from other domains.</li>
     </ul>
 
@@ -3165,6 +3165,7 @@ hammerhead policy-check --config-dir ./configs --policies network-policy.yaml --
   function ev(e,k){ if(evOff) return; const b=JSON.stringify({e,k});
     try{ if(navigator.sendBeacon && navigator.sendBeacon('/api/event',b)) return; }catch(_){}
     try{ fetch('/api/event',{ method:'POST', body:b, keepalive:true, credentials:'omit' }).catch(()=>{}); }catch(_){} }
+  /* where a click or film was: its page, or the header, footer or the band shown on every page ('global') */
   const evPlace=n=>{ const s=n.closest('[data-page]'); if(s) return s.dataset.page;
     return n.closest('nav,#navMobile') ? 'header' : n.closest('.fcta') ? 'footer' : 'other'; };
   const EV_NAV=new Set(['pricing','docs','methodology','whitepaper','security','why']);
@@ -3182,8 +3183,10 @@ hammerhead policy-check --config-dir ./configs --policies network-policy.yaml --
   filmVids.forEach(v=>{ const id=((v.dataset.poster||'').split('/')[1]||'').replace(/-/g,'_'); let played=false;
     v.addEventListener('play',()=>{ if(played) return; played=true; ev('film_play', evPlace(v)+'.'+id); });
     v.addEventListener('ended',()=>{ played=false; ev('film_complete', evPlace(v)+'.'+id); }); });
+  /* a form start counts once per opening: each modal resets its form when it opens */
   const evStarted=new Set();
   [['cxForm','request'],['emForm','message']].forEach(([id,k])=>{ const f=el(id); if(!f) return;
+    f.addEventListener('reset',()=>evStarted.delete(k));
     f.addEventListener('input',()=>{ if(evStarted.has(k)) return; evStarted.add(k); ev('form_start',k); }); });
   function evSent(k){ try{ evStarted.delete(k); ev('form_send',k); }catch(_){} } /* called by the forms' success paths; must never throw into them */
 

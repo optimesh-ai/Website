@@ -2,59 +2,63 @@
 import assert from "node:assert/strict";
 import { test } from "node:test";
 
-import { createHandler, type CountStore } from "../netlify/functions/event.ts";
+import {
+  bump,
+  createHandler,
+  SHARDS,
+  type CountStore,
+} from "../netlify/functions/event.ts";
 
-/* An in-memory store with the same conditional-write rules as Netlify Blobs. */
+const tick = () => new Promise((r) => setImmediate(r));
+
+/* An in-memory store with Netlify Blobs' conditional-write rules (ETag match,
+   create-only), plus switches that reproduce the failures the real client hides. */
 class MemoryStore implements CountStore {
   blobs = new Map<string, { data: string; etag: string }>();
   version = 0;
-  /* Writes to "day/" keys that fail on purpose, to exercise the fallback. */
-  failDayWrites = 0;
-  async getWithMetadata(key: string) {
-    await new Promise((r) => setImmediate(r));
+  /* Commit the next N writes but report a conflict, as when the client retries
+     a PUT that landed but whose response was lost. */
+  loseResponses = 0;
+  /* Fail the next N writes outright, as a persistent 5xx would. */
+  failWrites = 0;
+  async read(key: string) {
+    await tick();
     const b = this.blobs.get(key);
     return b ? { data: JSON.parse(b.data), etag: b.etag } : null;
   }
-  async setJSON(
+  async write(
     key: string,
     data: unknown,
-    options: { onlyIfMatch?: string; onlyIfNew?: boolean },
+    condition: { onlyIfMatch: string } | { onlyIfNew: true },
   ) {
-    await new Promise((r) => setImmediate(r));
-    return this.write(key, JSON.stringify(data), options);
-  }
-  async set(key: string, data: string, options: { onlyIfNew?: boolean }) {
-    return this.write(key, data, options);
-  }
-  write(
-    key: string,
-    data: string,
-    options: { onlyIfMatch?: string; onlyIfNew?: boolean },
-  ) {
-    if (key.startsWith("day/") && this.failDayWrites > 0) {
-      this.failDayWrites--;
-      return { modified: false };
+    await tick();
+    if (this.failWrites > 0) {
+      this.failWrites--;
+      throw new Error("event: Blobs PUT answered 500");
     }
     const cur = this.blobs.get(key);
-    if (options.onlyIfNew && cur) return { modified: false };
-    if (options.onlyIfMatch !== undefined && cur?.etag !== options.onlyIfMatch)
-      return { modified: false };
-    this.blobs.set(key, { data, etag: `"${++this.version}"` });
-    return { modified: true };
+    if ("onlyIfNew" in condition && cur) return "conflict" as const;
+    if ("onlyIfMatch" in condition && cur?.etag !== condition.onlyIfMatch)
+      return "conflict" as const;
+    this.blobs.set(key, {
+      data: JSON.stringify(data),
+      etag: `"${++this.version}"`,
+    });
+    if (this.loseResponses > 0) {
+      this.loseResponses--;
+      return "conflict" as const;
+    }
+    return "ok" as const;
   }
-  /* Totals the way scripts/analytics-report.mjs adds them up. */
+  /* Totals the way scripts/analytics-report.mjs adds them up: every shard of a day. */
   totals(): Record<string, number> {
     const out: Record<string, number> = {};
     for (const [key, b] of this.blobs) {
-      if (key.startsWith("day/")) {
-        for (const [f, n] of Object.entries(
-          JSON.parse(b.data) as Record<string, number>,
-        ))
-          out[f] = (out[f] ?? 0) + n;
-      } else if (key.startsWith("extra/")) {
-        const [, , e, k] = key.split("/");
-        out[`${e} ${k}`] = (out[`${e} ${k}`] ?? 0) + 1;
-      }
+      assert.match(key, /^day\/\d{4}-\d{2}-\d{2}\/\d+$/);
+      const { counts } = JSON.parse(b.data) as {
+        counts: Record<string, number>;
+      };
+      for (const [f, n] of Object.entries(counts)) out[f] = (out[f] ?? 0) + n;
     }
     return out;
   }
@@ -74,7 +78,7 @@ function post(body: unknown, headers: Record<string, string> = {}) {
   });
 }
 
-test("counts an allowed event and stores nothing else", async () => {
+test("counts an allowed event and stores nothing about the request", async () => {
   const store = new MemoryStore();
   const handle = createHandler(() => store);
   const res = await handle(
@@ -172,41 +176,61 @@ test("answers but does not count Global Privacy Control or Do Not Track", async 
   assert.equal(store.blobs.size, 0);
 });
 
-test("concurrent increments are not lost", async () => {
+test("concurrent increments are neither lost nor refused", async () => {
   const store = new MemoryStore();
   const handle = createHandler(() => store);
-  const n = 60;
+  const n = 200;
   const res = await Promise.all(
     Array.from({ length: n }, (_, i) =>
       handle(post({ e: "nav", k: i % 2 ? "header.docs" : "home.pricing" })),
     ),
   );
-  assert.ok(res.every((r) => r.status === 204));
+  assert.deepEqual([...new Set(res.map((r) => r.status))], [204]);
   const t = store.totals();
   assert.equal(t["nav header.docs"] + t["nav home.pricing"], n);
+  assert.ok(store.blobs.size <= SHARDS);
 });
 
-test("a key that stays contended falls back to its own blob", async () => {
+test("a write that landed but reported a conflict is counted once", async () => {
   const store = new MemoryStore();
-  store.failDayWrites = 1000;
-  const handle = createHandler(() => store);
-  assert.equal(
-    (await handle(post({ e: "form_send", k: "request" }))).status,
-    204,
-  );
+  store.loseResponses = 1;
+  await bump(store, "2026-10-14", "form_send request", "aaaaaaaaaaaa", 0);
   assert.deepEqual(store.totals(), { "form_send request": 1 });
-  assert.ok([...store.blobs.keys()].every((k) => k.startsWith("extra/")));
+  // and again with another writer landing in between
+  store.loseResponses = 1;
+  const p = bump(store, "2026-10-14", "form_send request", "bbbbbbbbbbbb", 0);
+  await bump(store, "2026-10-14", "form_send request", "cccccccccccc", 0);
+  await p;
+  assert.deepEqual(store.totals(), { "form_send request": 3 });
 });
 
-test("a store failure is a 503, not a silent success", async () => {
-  const handle = createHandler(() => {
-    throw new Error("blobs unavailable");
-  });
+test("only the last 64 write tokens are kept", async () => {
+  const store = new MemoryStore();
+  for (let i = 0; i < 100; i++)
+    await bump(store, "2026-10-14", "nav header.docs", `t${i}`, 0);
+  const doc = JSON.parse(store.blobs.get("day/2026-10-14/0")!.data);
+  assert.equal(doc.counts["nav header.docs"], 100);
+  assert.equal(doc.recent.length, 64);
+  assert.equal(doc.recent.at(-1), "t99");
+});
+
+test("a failed write is a 503, never a silent success", async () => {
+  const store = new MemoryStore();
+  store.failWrites = 1;
+  const handle = createHandler(() => store);
   const err = console.error;
   console.error = () => {};
   try {
     assert.equal(
       (await handle(post({ e: "nav", k: "header.docs" }))).status,
+      503,
+    );
+    assert.equal(store.blobs.size, 0);
+    const broken = createHandler(() => {
+      throw new Error("blobs unavailable");
+    });
+    assert.equal(
+      (await broken(post({ e: "nav", k: "header.docs" }))).status,
       503,
     );
   } finally {

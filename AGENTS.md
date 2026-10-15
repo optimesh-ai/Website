@@ -22,7 +22,7 @@ commit that was pushed.
 The page counts a few actions as anonymous daily totals: request-access,
 email, RuleHawk and PacketDojo clicks, links to pricing/docs/methodology/white
 paper/security/why, film plays and finishes, and form starts and sends, each
-with the page it happened on. The Privacy and Security pages say exactly
+with where on the site it happened. The Privacy and Security pages say exactly
 this; change them in the same commit as anything that changes what is counted.
 
 - Client: the "event counts" block near the end of the script in
@@ -30,12 +30,19 @@ this; change them in the same commit as anything that changes what is counted.
   (`data-request`, `data-nav`, the RuleHawk/PacketDojo links, film posters),
   so new CTAs are counted without extra attributes. It sends nothing when the
   browser sends Global Privacy Control or Do Not Track.
-- Server: `netlify/functions/event.ts`, at `/api/event` (rewrite in
-  `netlify.toml`). It accepts only what `shared/analytics-events.json`
-  allows (400 otherwise, 413 over 512 bytes), stores no IP, user agent,
-  referrer or identifier, and adds one to `day/YYYY-MM-DD` in the Netlify
-  Blobs store `events` with a compare-and-swap. `pnpm test` covers it,
-  including concurrent increments.
+- Server: `netlify/functions/event.ts`, which declares the path
+  `/api/event` itself (functions with a path run before `netlify.toml`'s
+  `/api/*` rewrite) and a Netlify rate limit of 60 a minute per IP. It accepts
+  only what `shared/analytics-events.json` allows (400 otherwise, 413 over 512
+  bytes, 403 from other sites), stores no IP, user agent, referrer or
+  identifier, and adds one to a random shard of `day/YYYY-MM-DD/<0-7>` in the
+  Netlify Blobs store `events` with a compare-and-swap. A random write token
+  (the last 64 per shard) keeps a retried write from counting twice. A write
+  that fails is a 503, never a silent success. `pnpm test` covers it, including
+  concurrent increments, lost responses and the real Blobs client. Under
+  `netlify dev` the local Blobs server sends no ETags, so after the first
+  count in each shard the function answers 503 locally; deployed, it counts
+  exactly (40 concurrent posts to a draft deploy: 40 counted).
 - Adding a page, a `data-request` product or a film: add it to
   `shared/analytics-events.json`; `scripts/check_site.py` fails until you do.
 - Read the counts: `pnpm analytics` (last 30 days; `--days N`, `--json`,

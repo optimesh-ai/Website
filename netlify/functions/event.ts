@@ -1,4 +1,5 @@
 import { getStore } from "@netlify/blobs";
+import type { Config } from "@netlify/functions";
 
 import ALLOW from "../../shared/analytics-events.json" with { type: "json" };
 
@@ -9,21 +10,37 @@ import ALLOW from "../../shared/analytics-events.json" with { type: "json" };
  * The page sends {e, k}, such as {"e":"cta_click","k":"home.request_hammerhead"}.
  * This adds one to that day's total for that event and key. Nothing about the
  * request is stored or logged: no IP address, user agent, referrer, cookie or
- * identifier. The only thing written is the count. Requests that carry Global
- * Privacy Control or Do Not Track are answered with 204 and not counted.
+ * identifier. Requests that carry Global Privacy Control or Do Not Track are
+ * answered with 204 and not counted.
  *
- * Totals for a UTC day live in one JSON blob, "day/YYYY-MM-DD", in the site
- * store "events", as {"<e> <k>": n}. Concurrent increments go through a
- * compare-and-swap: read with strong consistency, then write only if the
- * ETag still matches, retrying on conflict. If a key stays contended after
- * every retry, the event is written as its own blob under "extra/<day>/" so
- * it is never dropped. scripts/analytics-report.mjs adds those in when it
- * reads the totals.
+ * Storage (Netlify Blobs, site store "events"): a UTC day's totals are split
+ * across SHARDS blobs, "day/YYYY-MM-DD/<shard>", each
+ * {"counts": {"<e> <k>": n}, "recent": [<write token>, ...]}. An increment
+ * picks a shard at random, reads it with strong consistency and writes it back
+ * only if its ETag still matches (compare-and-swap), retrying on conflict, so
+ * concurrent increments are never lost. Storage is bounded: SHARDS blobs a day,
+ * each with at most one entry per allowlisted key.
+ *
+ * "recent" holds the random tokens of the last RECENT writes to that shard. They
+ * say nothing about who sent anything; they exist because the Blobs client
+ * retries a PUT whose response was lost, and the retry then fails its ETag
+ * check even though the first try landed. Finding our token on re-read means
+ * the write already counted, so it is not counted twice.
  */
 
 export const STORE = "events";
+export const SHARDS = 8;
 export const MAX_BODY = 512;
-const ATTEMPTS = 8;
+const RECENT = 64;
+const ATTEMPTS = 10;
+
+/* Routed here directly: functions with a path run before netlify.toml's
+   /api/* rewrite. Netlify enforces the per-IP limit at its edge; the
+   function never sees or keeps the address. */
+export const config: Config = {
+  path: "/api/event",
+  rateLimit: { windowLimit: 60, windowSize: 60, aggregateBy: ["ip", "domain"] },
+};
 
 type Allow = {
   places: string[];
@@ -72,55 +89,88 @@ export function utcDay(now = new Date()): string {
   return now.toISOString().slice(0, 10);
 }
 
-type Counts = Record<string, number>;
-type WriteResult = { modified: boolean };
-/* The part of a Netlify Blobs store this function uses, so tests can supply one. */
+/* What the function needs from storage, so tests can supply their own. */
 export interface CountStore {
-  getWithMetadata(
-    key: string,
-    options: { type: "json" },
-  ): Promise<{ data: unknown; etag?: string } | null>;
-  setJSON(
+  read(key: string): Promise<{ data: unknown; etag?: string } | null>;
+  /* "ok" if written, "conflict" if the condition failed; throws otherwise. */
+  write(
     key: string,
     data: unknown,
-    options: { onlyIfMatch: string } | { onlyIfNew: boolean },
-  ): Promise<WriteResult>;
-  set(
-    key: string,
-    data: string,
-    options: { onlyIfNew: boolean },
-  ): Promise<WriteResult>;
+    condition: { onlyIfMatch: string } | { onlyIfNew: true },
+  ): Promise<"ok" | "conflict">;
+}
+
+type Doc = { counts: Record<string, number>; recent: string[] };
+function asDoc(data: unknown): Doc {
+  const d = (data ?? {}) as Partial<Doc>;
+  const counts =
+    d.counts && typeof d.counts === "object" && !Array.isArray(d.counts)
+      ? { ...d.counts }
+      : {};
+  const recent = Array.isArray(d.recent) ? [...d.recent] : [];
+  return { counts, recent };
 }
 
 const pause = (ms: number) => new Promise((r) => setTimeout(r, ms));
+const token = () =>
+  Array.from(crypto.getRandomValues(new Uint8Array(6)), (b) =>
+    b.toString(16).padStart(2, "0"),
+  ).join("");
 
-/* Adds one to `field` in the day's totals. Throws only if the store fails. */
+/* Adds one to `field` in the day's totals, exactly once. Throws if it cannot. */
 export async function bump(
   store: CountStore,
   day: string,
   field: string,
+  op = token(),
+  shard = Math.floor(Math.random() * SHARDS),
 ): Promise<void> {
-  const key = `day/${day}`;
+  const key = `day/${day}/${shard}`;
   for (let attempt = 0; attempt < ATTEMPTS; attempt++) {
-    const cur = await store.getWithMetadata(key, { type: "json" });
-    const counts: Counts = { ...((cur?.data as Counts) ?? {}) };
-    counts[field] = (counts[field] ?? 0) + 1;
-    if (cur && !cur.etag) break; // no ETag to compare against: take the fallback
-    const res = cur
-      ? await store.setJSON(key, counts, { onlyIfMatch: cur.etag })
-      : await store.setJSON(key, counts, { onlyIfNew: true });
-    if (res.modified) return;
+    const cur = await store.read(key);
+    const doc = asDoc(cur?.data);
+    if (doc.recent.includes(op)) return; // an earlier try landed; its response was lost
+    if (cur && !cur.etag) throw new Error("event: stored totals have no ETag");
+    doc.counts[field] = (doc.counts[field] ?? 0) + 1;
+    doc.recent = [...doc.recent, op].slice(-RECENT);
+    const res = await store.write(
+      key,
+      doc,
+      cur ? { onlyIfMatch: cur.etag } : { onlyIfNew: true },
+    );
+    if (res === "ok") return;
     await pause(5 + Math.random() * 20 * (attempt + 1));
   }
-  // "extra/<day>/<e>/<k>/<random>": the random part only keeps writes apart.
-  const res = await store.set(
-    `extra/${day}/${field.replace(" ", "/")}/${crypto.randomUUID()}`,
-    "1",
-    {
-      onlyIfNew: true,
+  throw new Error("event: totals still contended after every retry");
+}
+
+/* The Netlify Blobs store. The client reports `modified: true` for a
+   conditional write that ended in any status but 412, including errors, so
+   the status of the final PUT is read from the fetch it makes. */
+export function blobsStore(): CountStore {
+  let lastPut = 0;
+  const spy: typeof fetch = async (input, init) => {
+    const res = await fetch(input, init);
+    if ((init?.method ?? "GET").toUpperCase() === "PUT") lastPut = res.status;
+    return res;
+  };
+  const store = getStore({ name: STORE, consistency: "strong", fetch: spy });
+  return {
+    async read(key) {
+      const cur = await store.getWithMetadata(key, { type: "json" });
+      return cur ? { data: cur.data, etag: cur.etag } : null;
     },
-  );
-  if (!res.modified) throw new Error("event: fallback write was not stored");
+    async write(key, data, condition) {
+      lastPut = 0;
+      await store.setJSON(key, data, condition);
+      if (lastPut >= 200 && lastPut < 300) return "ok";
+      // 412: the ETag no longer matches. 409: Netlify's answer when conditional
+      // writes to one key race. Either way bump() re-reads; its write token
+      // tells it whether this write landed after all.
+      if (lastPut === 412 || lastPut === 409) return "conflict";
+      throw new Error(`event: Blobs PUT answered ${lastPut || "nothing"}`);
+    },
+  };
 }
 
 /* Browsers say where a request came from; refuse ones sent by other sites. */
@@ -166,7 +216,7 @@ export function createHandler(openStore: () => CountStore) {
     } catch (err) {
       console.error(
         "event: count not stored:",
-        err instanceof Error ? err.name : "error",
+        err instanceof Error ? err.message : "error",
       );
       return reply(503);
     }
@@ -174,7 +224,4 @@ export function createHandler(openStore: () => CountStore) {
   };
 }
 
-export default createHandler(
-  () =>
-    getStore({ name: STORE, consistency: "strong" }) as unknown as CountStore,
-);
+export default createHandler(blobsStore);
