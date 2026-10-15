@@ -221,7 +221,7 @@
   .vc{ font-family:ui-monospace,Menlo,monospace; font-size:13px; color:var(--ink); font-weight:500; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
   .vs{ font-family:ui-monospace,Menlo,monospace; font-size:12px; font-weight:600; white-space:nowrap; display:flex; align-items:center; gap:6px; flex:none; }
   .vs .ms{ color:var(--muted); font-weight:500; }
-  .vs.verifying{ color:var(--muted); } .vs.safe{ color:var(--green); } .vs.blocked{ color:var(--red); }
+  .vs.verifying{ color:var(--muted); } .vs.safe{ color:#12704f; } .vs.blocked{ color:#b23a12; }
   .spin{ width:11px; height:11px; border-radius:50%; border:2px solid color-mix(in srgb,var(--accent) 30%,transparent); border-top-color:var(--accent); animation:spin .7s linear infinite; }
   @keyframes spin{ to{ transform:rotate(360deg); } }
   .timeline{ position:relative; max-width:720px; margin:48px auto 0; padding-left:44px; }
@@ -314,7 +314,7 @@
   .vd-grid{ display:grid; grid-template-columns:minmax(0,1.15fr) minmax(0,1fr); gap:16px; padding:18px; }
   .vd-col{ display:flex; flex-direction:column; gap:16px; min-width:0; }
   .vd-card{ background:#fff; border:1px solid var(--hair); border-radius:14px; padding:14px 16px; min-width:0; }
-  .vd-card h5{ margin:0 0 10px; font-size:11px; text-transform:uppercase; letter-spacing:.07em; color:var(--muted); font-weight:700; }
+  .vd-card h3{ margin:0 0 10px; font-size:11px; text-transform:uppercase; letter-spacing:.07em; color:var(--muted); font-weight:700; }
   .vd-intent{ font-size:13.5px; color:var(--ink); margin:0 0 11px; }
   .vd-diff{ font-family:ui-monospace,Menlo,monospace; font-size:12px; line-height:1.75; background:#0f1830; border-radius:10px; padding:11px 13px; overflow-x:auto; white-space:pre; }
   .vd-diff .add{ color:#7ee2b8; } .vd-diff .del{ color:#ff9b86; } .vd-diff .ctx{ color:#8394bd; }
@@ -437,7 +437,7 @@
   /* footer */
   .fcta{ padding:90px 0 30px; } .fcta-top{ display:flex; align-items:flex-start; justify-content:space-between; gap:24px; flex-wrap:wrap; } .fcta h2{ font-size:clamp(1.8rem,3.6vw,2.7rem); font-weight:800; margin:0; line-height:1.1; } .fcta p{ color:var(--muted); margin:10px 0 0; } .fcta .fbtns{ display:flex; gap:10px; }
   .fgrid{ display:grid; grid-template-columns:repeat(5,1fr); gap:26px; margin-top:56px; } @media(max-width:900px){ .fgrid{ grid-template-columns:repeat(2,1fr); } }
-  .fcol h4{ font-size:14px; margin:0 0 4px; padding-top:14px; border-top:1px solid var(--ink); } .fcol a{ display:flex; align-items:center; gap:8px; color:var(--muted); font-size:14px; padding:9px 0; } .fcol a:hover{ color:var(--ink); } .fcol a .fi{ width:16px; height:16px; opacity:.7; }
+  .fcol h3{ font-size:14px; letter-spacing:normal; margin:0 0 4px; padding-top:14px; border-top:1px solid var(--ink); } .fcol a{ display:flex; align-items:center; gap:8px; color:var(--muted); font-size:14px; padding:9px 0; } .fcol a:hover{ color:var(--ink); } .fcol a .fi{ width:16px; height:16px; opacity:.7; }
   .ftag{ font-size:10px; font-weight:700; color:var(--accent); background:color-mix(in srgb,var(--accent) 12%,transparent); border-radius:6px; padding:2px 7px; margin-left:6px; }
   /* long-form pages: docs, methodology, white paper, security, privacy, terms */
   section.docblk{ padding:112px 0 72px; }
@@ -806,7 +806,7 @@
     </div>
     <div class="vd-grid">
       <div class="vd-card">
-        <h5>Verification</h5>
+        <h3>Verification</h3>
         <div class="vck pass" style="--d:.15s"><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l4 4 10-10"/></svg></span><span class="nm">Parse device configs</span><span class="mt">14 devices</span></div>
         <div class="vck pass" style="--d:.27s"><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l4 4 10-10"/></svg></span><span class="nm">Build forwarding model</span></div>
         <div class="vck pass" style="--d:.39s"><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l4 4 10-10"/></svg></span><span class="nm">Build configuration-derived FIB</span></div>
@@ -816,14 +816,14 @@
       </div>
       <div class="vd-col">
         <div class="vd-card">
-          <h5>The change</h5>
+          <h3>The change</h3>
           <p class="vd-intent">Allow <b>app-sg</b> egress to any destination</p>
           <div class="vd-diff"><span class="ctx">  ip access-list extended APP_EGRESS</span>
 <span class="del">-  permit tcp app-sg 10.0.0.0/8 eq 443</span>
 <span class="add">+  permit ip any any</span></div>
         </div>
         <div class="vd-card">
-          <h5>Reachability probes</h5>
+          <h3>Reachability probes</h3>
           <div class="vpr ok" style="--d:.2s"><span>users → db</span><span class="ar">:1521</span><span class="st">preserved</span></div>
           <div class="vpr ok" style="--d:.32s"><span>dmz → web</span><span class="ar">:443</span><span class="st">preserved</span></div>
           <div class="vpr stop" style="--d:.44s"><span>app-sg → 0.0.0.0/0</span><span class="st">new exposure</span></div>
@@ -2186,11 +2186,11 @@ hammerhead policy-check --config-dir ./configs --policies network-policy.yaml --
 <div class="wrap fcta" id="contact">
   <div class="fcta-top"><div><h2>Know what a network change will do<br>before you push it.</h2><p>Independent verification between proposed changes and production.</p></div><div class="fbtns"><a class="btn ghost" data-nav="platform">Platform</a><a class="btn primary" data-request href="mailto:contact@optimesh.ai?subject=Request%20access">Request access →</a></div></div>
   <div class="fgrid">
-    <div class="fcol"><h4>Contact</h4><a data-nav="contact">Contact us</a><a data-request>Request access</a><a href="https://optimesh-ai.github.io/RuleHawk/" target="_blank" rel="noopener">Try RuleHawk free</a><a href="mailto:contact@optimesh.ai" style="color:var(--accent)">contact@optimesh.ai</a></div>
-    <div class="fcol"><h4>Products</h4><a data-nav="hammerhead">Hammerhead</a><a data-nav="configstudio">Config Studio</a><a data-nav="rulehawk">RuleHawk</a><a href="https://packet-dojo.com" target="_blank" rel="noopener">PacketDojo</a><a data-nav="platform">Platform overview</a><a data-nav="platform#platforms">Supported platforms</a><a data-nav="pricing">Pricing</a></div>
-    <div class="fcol"><h4>Resources</h4><a data-nav="docs">Docs</a><a data-nav="whitepaper">White paper</a><a data-nav="methodology">Outage replay methodology</a><a data-nav="insights">Insights</a><a data-nav="why">Why Optimesh</a></div>
-    <div class="fcol"><h4>Company</h4><a data-nav="company">About</a><a data-nav="company#newsroom">Newsroom</a><a data-nav="security">Security</a><a data-nav="contact">Contact</a></div>
-    <div class="fcol"><h4>Get started</h4><a data-request>Request access</a><a href="mailto:contact@optimesh.ai">Talk to the team</a></div>
+    <div class="fcol"><h3>Contact</h3><a data-nav="contact">Contact us</a><a data-request>Request access</a><a href="https://optimesh-ai.github.io/RuleHawk/" target="_blank" rel="noopener">Try RuleHawk free</a><a href="mailto:contact@optimesh.ai" style="color:var(--accent)">contact@optimesh.ai</a></div>
+    <div class="fcol"><h3>Products</h3><a data-nav="hammerhead">Hammerhead</a><a data-nav="configstudio">Config Studio</a><a data-nav="rulehawk">RuleHawk</a><a href="https://packet-dojo.com" target="_blank" rel="noopener">PacketDojo</a><a data-nav="platform">Platform overview</a><a data-nav="platform#platforms">Supported platforms</a><a data-nav="pricing">Pricing</a></div>
+    <div class="fcol"><h3>Resources</h3><a data-nav="docs">Docs</a><a data-nav="whitepaper">White paper</a><a data-nav="methodology">Outage replay methodology</a><a data-nav="insights">Insights</a><a data-nav="why">Why Optimesh</a></div>
+    <div class="fcol"><h3>Company</h3><a data-nav="company">About</a><a data-nav="company#newsroom">Newsroom</a><a data-nav="security">Security</a><a data-nav="contact">Contact</a></div>
+    <div class="fcol"><h3>Get started</h3><a data-request>Request access</a><a href="mailto:contact@optimesh.ai">Talk to the team</a></div>
   </div>
   <div class="fbottom"><span>© 2026 Optimesh Technologies. All rights reserved.</span><span class="flegal"><a data-nav="privacy">Privacy</a> · <a data-nav="terms">Terms</a> · <a data-nav="security">Security</a></span></div>
 </div>
