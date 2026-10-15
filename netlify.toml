@@ -15,6 +15,14 @@
   to = "/.netlify/functions/early-access"
   status = 200
 
+# First-party event counts (netlify/functions/event.ts, described on the
+# privacy page). Same origin, so connect-src 'self' in the CSP already allows it.
+[[redirects]]
+  force = true
+  from = "/api/event"
+  to = "/.netlify/functions/event"
+  status = 200
+
 [[redirects]]
   force = true
   from = "/api/*"

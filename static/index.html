@@ -2024,7 +2024,7 @@ hammerhead policy-check --config-dir ./configs --policies network-policy.yaml --
   <article class="doc">
     <h1>Security</h1>
     <p class="dlead">Where Hammerhead runs, what it touches, who can use it, what it records, and what it does not do yet. This page covers Hammerhead, RuleHawk and this website.</p>
-    <p class="dmeta">Last updated September 28, 2026</p>
+    <p class="dmeta">Last updated October 14, 2026</p>
     <div class="note"><b>Config Studio is not covered here yet.</b> Its AI step uses a large language model. Before you evaluate it, <a data-request="configstudio">ask us</a> where it runs and where your data goes, and we will answer in writing.</div>
 
     <h2 id="s-where">Where it runs</h2>
@@ -2071,7 +2071,7 @@ hammerhead policy-check --config-dir ./configs --policies network-policy.yaml --
     <p>RuleHawk analyzes your rules inside your browser, in a background worker running Python compiled to WebAssembly (Pyodide). The config you paste is not sent anywhere; the code that does this is public on <a href="https://github.com/optimesh-ai/RuleHawk" target="_blank" rel="noopener">GitHub</a> under the Apache 2.0 license. The page is hosted on GitHub Pages and loads fonts from Google Fonts and Pyodide from the jsDelivr CDN, so those services see that you loaded it. To keep everything on your own machine, run the RuleHawk command line or its GitHub Action instead.</p>
 
     <h2 id="s-site">This website</h2>
-    <p>No analytics, advertising or tracking scripts, and no cookies. The page loads only files from optimesh.ai, enforced by a Content-Security-Policy header. The request and message forms post to our host, Netlify. Details in the <a data-nav="privacy">privacy notice</a>.</p>
+    <p>No third-party analytics, advertising or tracking scripts, and no cookies. The page loads files only from optimesh.ai and sends data only to optimesh.ai, both enforced by a Content-Security-Policy header. It counts a few actions, such as button clicks and film plays, as anonymous daily totals with no identifiers, and counts nothing when your browser sends Global Privacy Control or Do Not Track. The request and message forms post to our host, Netlify. Details in the <a data-nav="privacy">privacy notice</a>.</p>
 
     <h2 id="s-report">Report a vulnerability</h2>
     <p>Email <a href="mailto:eng@optimesh.ai?subject=SECURITY%3A%20">eng@optimesh.ai</a> with a subject starting <code>SECURITY:</code>. If you hear nothing, escalate to <a href="mailto:hello@optimesh.ai">hello@optimesh.ai</a>. We don't publish a PGP key yet; if you need an encrypted channel, send a first email with the subject <code>SECURITY: request encrypted channel</code> and nothing sensitive in it, and we will set one up.</p>
@@ -2101,19 +2101,20 @@ hammerhead policy-check --config-dir ./configs --policies network-policy.yaml --
   </aside>
   <article class="doc">
     <h1>Privacy notice</h1>
-    <p class="dlead">What we collect when you use optimesh.ai or our tools, and what we do with it. The short version: only what you type into our forms, plus the request logs our host keeps.</p>
-    <p class="dmeta">Last updated September 28, 2026</p>
+    <p class="dlead">What we collect when you use optimesh.ai or our tools, and what we do with it. The short version: what you type into our forms, the request logs our host keeps, and anonymous daily counts of what visitors click.</p>
+    <p class="dmeta">Last updated October 14, 2026</p>
     <p>"We" means Optimesh Technologies. Questions go to <a href="mailto:contact@optimesh.ai">contact@optimesh.ai</a>.</p>
 
     <h2 id="p-site">What this website collects</h2>
     <ul>
       <li><b>What you send us.</b> The request-access form asks for your name, work email, company, network size, the product you're asking about and a message. The message form asks for your name, email, a subject and a message. Both are stored by our host, Netlify, and delivered to our team. If the form can't reach Netlify, your browser opens an email to us instead.</li>
-      <li><b>Request logs.</b> Netlify serves this site and, like any web host, logs requests: IP address, browser, the page requested and when. Netlify handles these under <a href="https://www.netlify.com/privacy/" target="_blank" rel="noopener">its privacy policy</a>.</li>
-      <li><b>Nothing else.</b> No analytics, advertising or tracking scripts, and no cookies. The site loads no files from other domains.</li>
+      <li><b>Request logs.</b> Netlify serves this site and, like any web host, logs requests: IP address, browser, the page requested and when. Netlify handles these under <a href="https://www.netlify.com/privacy/" target="_blank" rel="noopener">its privacy policy</a>, and can give us page-view totals from them; we see only the totals, never individual visits.</li>
+      <li><b>Counts of what visitors click.</b> The page tells our server, as an anonymous count, when someone clicks a request-access, email, RuleHawk or PacketDojo button; follows a link to pricing, the docs, the methodology, the white paper, Security or Why Optimesh; starts or finishes a film; or starts or sends a form (never anything typed into it). Each count notes the page it happened on. We store only a total for each per day: no cookies, no identifiers, no IP address or browser details. Nothing is counted when your browser sends Global Privacy Control or Do Not Track.</li>
+      <li><b>Nothing else.</b> No third-party analytics, advertising or tracking scripts, and no cookies. The site loads no files from other domains.</li>
     </ul>
 
     <h2 id="p-use">How we use it</h2>
-    <p>We use what you send to reply to you and to handle your request for access. We don't sell it, and we don't share it with anyone for their marketing. We keep it while we are talking with you and for as long as any relationship that follows needs it. Ask us and we will delete it.</p>
+    <p>We use what you send to reply to you and to handle your request for access. We use the counts and page-view totals to see which parts of the site people use. We don't sell it, and we don't share it with anyone for their marketing. We keep it while we are talking with you and for as long as any relationship that follows needs it. Ask us and we will delete it.</p>
 
     <h2 id="p-products">Our products</h2>
     <ul>
@@ -2662,7 +2663,7 @@ hammerhead policy-check --config-dir ./configs --policies network-policy.yaml --
       const btn=form.querySelector('button[type=submit]'); const label=btn?btn.innerHTML:'';
       if(btn){ btn.disabled=true; btn.textContent='Sending…'; }
       const finish=()=>{ el('cxDoneMsg').textContent="Thanks, "+name.split(' ')[0]+" — we've got your request and a founder will reply to "+email+", usually within a business day.";
-        form.hidden=true; done.hidden=false; el('cxAgain').focus(); if(btn){ btn.disabled=false; btn.innerHTML=label; } };
+        form.hidden=true; done.hidden=false; el('cxAgain').focus(); if(btn){ btn.disabled=false; btn.innerHTML=label; } evSent('request'); };
       const subj=encodeURIComponent('Request access — '+((f.get('company')||'').toString().trim()||name));
       const bodyt=encodeURIComponent('Name: '+name+'\nWork email: '+email+'\nCompany: '+(f.get('company')||'')+'\nNetwork size: '+(f.get('size')||'')+'\nProduct: '+(f.get('product')||'')+'\n\n'+(f.get('message')||''));
       const fail=why=>{ if(btn){ btn.disabled=false; btn.innerHTML=label; }
@@ -2745,7 +2746,7 @@ hammerhead policy-check --config-dir ./configs --policies network-policy.yaml --
       const btn=form.querySelector('button[type=submit]'); const label=btn?btn.innerHTML:'';
       if(btn){ btn.disabled=true; btn.textContent='Sending…'; }
       const finish=()=>{ el('emDoneMsg').textContent="Thanks, "+name.split(' ')[0]+" — your message is on its way to the founders. We'll reply to "+email+".";
-        form.hidden=true; done.hidden=false; el('emAgain').focus(); if(btn){ btn.disabled=false; btn.innerHTML=label; } };
+        form.hidden=true; done.hidden=false; el('emAgain').focus(); if(btn){ btn.disabled=false; btn.innerHTML=label; } evSent('message'); };
       const fail=why=>{ if(btn){ btn.disabled=false; btn.innerHTML=label; }
         sendFailed(errBox,why,'mailto:chandler@optimesh.ai?subject='+encodeURIComponent(subject)+'&body='+encodeURIComponent(msg+'\n\n— '+name+' ('+email+')'),'chandler@optimesh.ai'); };
       try{
@@ -3153,6 +3154,38 @@ hammerhead policy-check --config-dir ./configs --policies network-policy.yaml --
     brResize(); brP=brProg(); brUpdate(brP);
     if(reduce){ brRender(0.9,0); } else requestAnimationFrame(brFrame);
   }
+
+  /* ===== event counts: anonymous daily totals, described on the privacy page =====
+     One small POST to /api/event (same origin) per counted action: which CTA, film,
+     form step or docs/pricing link, and the page it was on. No cookies, no stored
+     identifiers, and nothing at all when the browser sends Global Privacy Control or
+     Do Not Track. Allowed values: shared/analytics-events.json (checked by
+     scripts/check_site.py). */
+  const evOff=navigator.globalPrivacyControl===true || navigator.doNotTrack==='1' || window.doNotTrack==='1';
+  function ev(e,k){ if(evOff) return; const b=JSON.stringify({e,k});
+    try{ if(navigator.sendBeacon && navigator.sendBeacon('/api/event',b)) return; }catch(_){}
+    try{ fetch('/api/event',{ method:'POST', body:b, keepalive:true, credentials:'omit' }).catch(()=>{}); }catch(_){} }
+  const evPlace=n=>{ const s=n.closest('[data-page]'); if(s) return s.dataset.page;
+    return n.closest('nav,#navMobile') ? 'header' : n.closest('.fcta') ? 'footer' : 'other'; };
+  const EV_NAV=new Set(['pricing','docs','methodology','whitepaper','security','why']);
+  document.addEventListener('click',e=>{
+    const a=e.target.closest('a,button,[data-nav]'); if(!a || a.closest('#cxModal,#emModal,#artModal')) return;
+    const at=evPlace(a)+'.', txt=(a.textContent||'').trim().toLowerCase(), href=a.getAttribute('href')||'';
+    if(a.hasAttribute('data-request')||txt.startsWith('request access')||txt.startsWith('request early access'))
+      ev('cta_click', at+'request_'+((a.getAttribute('data-request')||'').toLowerCase()||'any'));
+    else if(txt==='email the team'||txt==='talk to the team'||txt==='email us directly') ev('cta_click', at+'email_team');
+    else if(href.startsWith('https://optimesh-ai.github.io/RuleHawk')) ev('cta_click', at+'rulehawk');
+    else if(href.startsWith('https://github.com/optimesh-ai/RuleHawk')) ev('cta_click', at+'rulehawk_source');
+    else if(href.startsWith('https://packet-dojo.com')) ev('cta_click', at+'packetdojo');
+    else { const dest=(a.dataset.nav||'').split('#')[0]; if(EV_NAV.has(dest)) ev('nav', at+dest); }
+  }, true);
+  filmVids.forEach(v=>{ const id=((v.dataset.poster||'').split('/')[1]||'').replace(/-/g,'_'); let played=false;
+    v.addEventListener('play',()=>{ if(played) return; played=true; ev('film_play', evPlace(v)+'.'+id); });
+    v.addEventListener('ended',()=>{ played=false; ev('film_complete', evPlace(v)+'.'+id); }); });
+  const evStarted=new Set();
+  [['cxForm','request'],['emForm','message']].forEach(([id,k])=>{ const f=el(id); if(!f) return;
+    f.addEventListener('input',()=>{ if(evStarted.has(k)) return; evStarted.add(k); ev('form_start',k); }); });
+  function evSent(k){ try{ evStarted.delete(k); ev('form_send',k); }catch(_){} } /* called by the forms' success paths; must never throw into them */
 
   /* open the page the URL names, once everything above is defined */
   const route=r=>{ showPage(r.name, r.anchor); if(r.request && window.openRequest) window.openRequest(r.request); };
