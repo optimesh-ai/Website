@@ -1319,7 +1319,7 @@
           <div class="film-meta">Demo · 3:38</div>
           <h3>Catching a bad change before it ships</h3>
           <p class="for">For the engineer holding the change window.</p>
-          <p class="syn">A three-line OSPF change that passed peer review, shown twice: pushed straight to the network, then checked with Hammerhead first.</p>
+          <p class="syn">A three-line OSPF change that passed peer review. First, what the model says happens if you push it straight. Then the same change, checked with Hammerhead before it ships.</p>
         </div>
       </article>
       <article class="film">
@@ -1850,6 +1850,7 @@ hammerhead policy-check --config-dir ./configs --policies network-policy.yaml --
     <a data-nav="methodology#m-fp">False positives</a>
     <a data-nav="methodology#m-families">The 134, by family</a>
     <a data-nav="methodology#m-other">Our other numbers</a>
+    <a data-nav="methodology#m-scope">Demos and sources</a>
   </aside>
   <article class="doc">
     <h1>How we rebuilt 134 outages, and what "flagged" means</h1>
@@ -1942,6 +1943,10 @@ hammerhead policy-check --config-dir ./configs --policies network-policy.yaml --
     <p>351 snapshots (2,040 devices) drawn from our test corpora, demos and generated topologies, not customer networks. Batfish and Hammerhead agree on 94.41% of prefixes (267,262 of 283,098), and on the egress interface for 99.80% of the prefixes both have a route for (the shared prefixes). Scope: IPv4, default VRF, routing table only. Most disagreements are explained: 12,051 of the 16,359 come from four snapshots whose <code>frr.conf</code> Batfish reads with its IOS grammar, and in the 309 snapshots Batfish parsed fully (98.50% / 99.90%), 3,012 of the 3,585 are two incident replays where Hammerhead enforces a <code>maximum-prefix</code> limit Batfish does not. It is a comparison with another model, not with routers, and it runs weekly as a report. We quote no speed comparison with Batfish.</p>
     <h3>37 of 38 prefixes match Batfish on the corpora checked on each push to main</h3>
     <p>Every push to main runs Hammerhead and Batfish, with Batfish pinned by image digest, over four test corpora (eos, junos, nxos and triangle): 12 devices, each compared on both sides. In the run of 12 October 2026 (parity run 38218573680), they agree on 37 of 38 prefixes and on the egress interface for all 37 prefixes both have a route for. The one difference is a prefix only Hammerhead has, on a Junos device. Like the 351-snapshot check, it is a comparison with another model, not with routers, over the devices Batfish answered for, and it does not gate merges.</p>
+    <h2 id="m-scope">Demos, speed and where the numbers come from</h2>
+    <p>Every number on this site comes from our own labs, test corpora and rebuilds, not from customer networks. There are no public customer references or third-party evaluations of Hammerhead yet.</p>
+    <p>Where the site says a check fits in a pull request, that rests on our generated-fabric benchmark. We publish no speed figures; production performance is something we measure on your network during an evaluation.</p>
+    <p>The demo films run on small synthetic labs, and nothing in them was pushed to a production network. In the engineer&rsquo;s demo, the push at 01:48 is dramatized from the model&rsquo;s result and labelled as such, and the Rogers 2022 segment is a rebuild from the public record. <i>Approved.</i> cites two incidents from the providers&rsquo; own reports as examples of change risk, not as outages Hammerhead would have prevented, and not as caused by AI. The terminal output in <i>Thirteen commands.</i> is real, from the labs that ship with Hammerhead, with colour added and long output clipped or excerpted.</p>
     <p class="note">Questions about any of this, or want to run a replay yourself? <a data-request="hammerhead">Request access</a> and ask for the catalog.</p>
   </article>
 </div></section>
