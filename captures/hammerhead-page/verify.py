@@ -25,7 +25,17 @@ def steps():
     block = re.search(r"const HH_STEPS=\[(.*?)\n  \];", src, re.S)
     if not block:
         sys.exit("HH_STEPS not found in static/index.html")
-    return re.findall(r"\{t:'(cmd|out)',x:'((?:[^'\\]|\\.)*)'", block.group(1))
+    entries = []
+    for line in block.group(1).split("\n"):
+        if not line.strip():
+            continue
+        # one entry per line, in exactly this form, so nothing the animation
+        # renders can slip past the check (no other quoting, no escapes)
+        m = re.fullmatch(r"\s*\{t:'(cmd|out)',x:'([^'\\]*)'(?:,ok:true)?\},?\s*", line)
+        if not m:
+            sys.exit(f"FAIL HH_STEPS entry not in the form verify.py reads: {line.strip()!r}")
+        entries.append((m.group(1), m.group(2)))
+    return entries
 
 
 def check(cmd, shown):
@@ -66,7 +76,10 @@ def check(cmd, shown):
 
 def main():
     problems, cmd, shown, count = [], None, [], 0
-    for kind, x in steps() + [("cmd", None)]:
+    entries = steps()
+    if not entries or entries[0][0] != "cmd":
+        sys.exit("FAIL HH_STEPS must start with a command")
+    for kind, x in entries + [("cmd", None)]:
         if kind == "cmd":
             if cmd is not None:
                 problems += check(cmd, shown)
