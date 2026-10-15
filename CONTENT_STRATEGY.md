@@ -477,7 +477,7 @@ To build the model for a 976-device generated test fabric on the documented benc
 
 ### 138 of 138 routes
 
-138 of 138 routes match real FRR on our 10-router lab (run 38685150242): every prefix, route type and next hop, in a pinned FRR container lab. Earlier runs scored 137: one route both sides drop was labelled differently. Same behaviour; we fixed the scorer. Re-run weekly. Lead with the count; never headline it as "100%" (the withdrawn "100% parity" claim makes that read as overclaiming).
+138 of 138 routes match real FRR on our 10-router lab (run 38685150242). Earlier runs scored 137: one route both sides drop was labelled differently. Same behaviour; we fixed the scorer. Re-run weekly. Lead with the count; never headline it as "100%" (the withdrawn "100% parity" claim makes that read as overclaiming).
 
 ### 351 internal test snapshots
 
