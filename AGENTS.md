@@ -37,7 +37,8 @@ this; change them in the same commit as anything that changes what is counted.
   bytes, 403 from other sites), stores no IP, user agent, referrer or
   identifier, and adds one to a random shard of `day/YYYY-MM-DD/<0-7>` in the
   Netlify Blobs store `events` with a compare-and-swap. A random write token
-  (the last 64 per shard) keeps a retried write from counting twice. A write
+  (the last 64 per shard) and a write counter (`rev`) keep a retried write from
+  counting twice; if it cannot tell, it answers 503 rather than guess. A write
   that fails is a 503, never a silent success. `pnpm test` covers it, including
   concurrent increments, lost responses and the real Blobs client. Under
   `netlify dev` the local Blobs server sends no ETags, so after the first

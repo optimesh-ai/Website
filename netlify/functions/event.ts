@@ -15,7 +15,7 @@ import ALLOW from "../../shared/analytics-events.json" with { type: "json" };
  *
  * Storage (Netlify Blobs, site store "events"): a UTC day's totals are split
  * across SHARDS blobs, "day/YYYY-MM-DD/<shard>", each
- * {"counts": {"<e> <k>": n}, "recent": [<write token>, ...]}. An increment
+ * {"counts": {"<e> <k>": n}, "rev": <writes so far>, "recent": [<token>, ...]}. An increment
  * picks a shard at random, reads it with strong consistency and writes it back
  * only if its ETag still matches (compare-and-swap), retrying on conflict, so
  * concurrent increments are never lost. Storage is bounded: SHARDS blobs a day,
@@ -25,7 +25,10 @@ import ALLOW from "../../shared/analytics-events.json" with { type: "json" };
  * say nothing about who sent anything; they exist because the Blobs client
  * retries a PUT whose response was lost, and the retry then fails its ETag
  * check even though the first try landed. Finding our token on re-read means
- * the write already counted, so it is not counted twice.
+ * the write already counted, so it is not counted twice. A token not found is
+ * proof the write did not land only while fewer than RECENT writes have
+ * followed it ("rev" says how many); past that the function gives up with a
+ * 503 rather than risk counting twice.
  */
 
 export const STORE = "events";
@@ -100,15 +103,16 @@ export interface CountStore {
   ): Promise<"ok" | "conflict">;
 }
 
-type Doc = { counts: Record<string, number>; recent: string[] };
+type Doc = { counts: Record<string, number>; rev: number; recent: string[] };
 function asDoc(data: unknown): Doc {
   const d = (data ?? {}) as Partial<Doc>;
   const counts =
     d.counts && typeof d.counts === "object" && !Array.isArray(d.counts)
       ? { ...d.counts }
       : {};
+  const rev = Number.isInteger(d.rev) ? (d.rev as number) : 0;
   const recent = Array.isArray(d.recent) ? [...d.recent] : [];
-  return { counts, recent };
+  return { counts, rev, recent };
 }
 
 const pause = (ms: number) => new Promise((r) => setTimeout(r, ms));
@@ -126,12 +130,20 @@ export async function bump(
   shard = Math.floor(Math.random() * SHARDS),
 ): Promise<void> {
   const key = `day/${day}/${shard}`;
+  let firstMiss: number | null = null; // rev our first unconfirmed try was based on
   for (let attempt = 0; attempt < ATTEMPTS; attempt++) {
     const cur = await store.read(key);
     const doc = asDoc(cur?.data);
     if (doc.recent.includes(op)) return; // an earlier try landed; its response was lost
+    // An earlier try that landed would have rev firstMiss + 1; its token stays
+    // in "recent" until RECENT more writes follow. Past that, a missing token
+    // proves nothing, so stop rather than risk counting twice.
+    if (firstMiss !== null && doc.rev > firstMiss + RECENT)
+      throw new Error("event: cannot tell whether an earlier try landed");
     if (cur && !cur.etag) throw new Error("event: stored totals have no ETag");
+    const base = doc.rev;
     doc.counts[field] = (doc.counts[field] ?? 0) + 1;
+    doc.rev = base + 1;
     doc.recent = [...doc.recent, op].slice(-RECENT);
     const res = await store.write(
       key,
@@ -139,6 +151,7 @@ export async function bump(
       cur ? { onlyIfMatch: cur.etag } : { onlyIfNew: true },
     );
     if (res === "ok") return;
+    firstMiss ??= base;
     await pause(5 + Math.random() * 20 * (attempt + 1));
   }
   throw new Error("event: totals still contended after every retry");

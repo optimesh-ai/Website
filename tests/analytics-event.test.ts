@@ -21,6 +21,9 @@ class MemoryStore implements CountStore {
   loseResponses = 0;
   /* Fail the next N writes outright, as a persistent 5xx would. */
   failWrites = 0;
+  /* Runs after a lost-response write commits, before the conflict is reported:
+     other writers landing while the client waits to retry. */
+  onLost: (() => Promise<void>) | null = null;
   async read(key: string) {
     await tick();
     const b = this.blobs.get(key);
@@ -46,6 +49,9 @@ class MemoryStore implements CountStore {
     });
     if (this.loseResponses > 0) {
       this.loseResponses--;
+      const others = this.onLost;
+      this.onLost = null;
+      if (others) await others();
       return "conflict" as const;
     }
     return "ok" as const;
@@ -202,6 +208,33 @@ test("a write that landed but reported a conflict is counted once", async () => 
   await bump(store, "2026-10-14", "form_send request", "cccccccccccc", 0);
   await p;
   assert.deepEqual(store.totals(), { "form_send request": 3 });
+});
+
+test("a lost write is still recognised after 63 others, and refused after 64", async () => {
+  for (const [others, expect] of [
+    [63, "ok"],
+    [64, "refused"],
+  ] as const) {
+    const store = new MemoryStore();
+    store.loseResponses = 1;
+    store.onLost = async () => {
+      for (let i = 0; i < others; i++)
+        await bump(store, "2026-10-14", "nav header.docs", `o${i}`, 0);
+    };
+    const outcome = await bump(
+      store,
+      "2026-10-14",
+      "nav header.docs",
+      "mine",
+      0,
+    ).then(
+      () => "ok",
+      () => "refused",
+    );
+    assert.equal(outcome, expect, `${others} writes after ours`);
+    // counted once either way: ours landed, and is never added a second time
+    assert.equal(store.totals()["nav header.docs"], others + 1);
+  }
 });
 
 test("only the last 64 write tokens are kept", async () => {
