@@ -5,7 +5,8 @@ captured output of the command above it, character for character. Lines
 may be an excerpt: contiguous runs of the capture, in order, with a
 "  …" line wherever lines were left out (the films' convention), including
 before the first run or after the last when the excerpt doesn't start or
-end with the capture. Exits 1 and names the line on any mismatch.
+end with the capture. HH_STEPS must be one literal, one entry per line,
+and only read after it is declared. Exits 1 and names the problem.
 """
 import re
 import sys
@@ -22,6 +23,13 @@ CAPTURES = {
 
 def steps():
     src = PAGE.read_text(encoding="utf-8")
+    # HH_STEPS may only be declared once and read: no push, splice, index
+    # assignment or second declaration that could add lines this check skips
+    uses = [m.group(0) for m in re.finditer(r".{0,8}HH_STEPS.{0,8}", src)]
+    allowed = ("const HH_STEPS=[", "HH_STEPS.map(s=>", "of HH_STEPS){")
+    stray = [u for u in uses if not any(a in u for a in allowed)]
+    if stray or sum("const HH_STEPS=[" in u for u in uses) != 1:
+        sys.exit(f"FAIL HH_STEPS is used in a way verify.py doesn't allow: {stray or uses!r}")
     block = re.search(r"const HH_STEPS=\[(.*?)\n  \];", src, re.S)
     if not block:
         sys.exit("HH_STEPS not found in static/index.html")
