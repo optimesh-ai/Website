@@ -5,14 +5,14 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="color-scheme" content="light">
 <meta name="theme-color" content="#03060f">
-<title>Optimesh | Every network change, tested before production</title>
+<title>Optimesh | Know the impact of every network change before deployment</title>
 <meta name="description" content="Optimesh builds a deterministic digital twin of your network from its configurations, so you can see exactly what a change will do before it reaches production.">
 <link rel="canonical" href="https://optimesh.ai/">
 <link rel="icon" type="image/svg+xml" href="/favicon.svg">
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="Optimesh Technologies">
 <meta property="og:locale" content="en_US">
-<meta property="og:title" content="Every network change, tested before production.">
+<meta property="og:title" content="Know the impact of every network change before deployment.">
 <meta property="og:description" content="Optimesh builds a deterministic digital twin of your network from its configurations, so you see what a change will do before it reaches production.">
 <meta property="og:url" content="https://optimesh.ai/">
 <meta property="og:image" content="https://optimesh.ai/og.png">
@@ -21,7 +21,7 @@
 <meta property="og:image:height" content="630">
 <meta property="og:image:alt" content="Hammerhead in a terminal: a preflight check on a proposed network change returns VERDICT: FAIL and names the flows it would break.">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="Every network change, tested before production.">
+<meta name="twitter:title" content="Know the impact of every network change before deployment.">
 <meta name="twitter:description" content="Optimesh builds a deterministic digital twin of your network from its configurations, so you see what a change will do before it reaches production.">
 <meta name="twitter:image" content="https://optimesh.ai/og.png">
 <meta name="twitter:image:alt" content="Hammerhead in a terminal: a preflight check on a proposed network change returns VERDICT: FAIL and names the flows it would break.">
@@ -734,10 +734,6 @@
       radial-gradient(30% 40% at 85% 75%, rgba(124,155,255,.22), transparent 70%),
       radial-gradient(28% 36% at 10% 20%, rgba(185,205,244,.5), transparent 70%);
     filter:blur(40px); pointer-events:none; }
-  .fr-proof{ display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:clamp(20px,3vw,44px); margin:0 0 clamp(96px,13vh,150px); padding:0; }
-  .fr-proof > div{ border-top:1px solid var(--silver); padding-top:20px; }
-  .fr-proof dt{ font-size:clamp(2.2rem,3.8vw,3.2rem); font-weight:500; letter-spacing:-0.045em; line-height:1; font-variant-numeric:tabular-nums; }
-  .fr-proof dd{ margin:10px 0 0; font-size:14.5px; line-height:1.55; color:var(--muted); max-width:32ch; }
   .fr-head{ display:grid; grid-template-columns:minmax(0,1.2fr) minmax(0,1fr); gap:clamp(32px,6vw,96px); align-items:end; }
   .fr-head h2{ margin:0; font-size:clamp(2.1rem,4vw,3.4rem); font-weight:500; line-height:1.04; letter-spacing:-0.045em; max-width:18ch; text-wrap:balance; }
   .fr-head p{ margin:0; font-size:clamp(1.02rem,1.25vw,1.12rem); line-height:1.65; color:var(--muted); max-width:46ch; }
@@ -863,7 +859,6 @@
     .prodpanel{ padding:8px; border-radius:22px; }
     .cta-band.cta-paper, .outages .center{ border-radius:24px; }
     .fr-line{ grid-template-columns:1fr; row-gap:36px; }
-    .fr-proof{ grid-template-columns:1fr; gap:28px; }
     .feed{ display:none; }
     .h2{ font-size:clamp(2rem,8.6vw,2.6rem); }
   }
@@ -945,11 +940,11 @@
 <section class="hero" data-page="home">
   <div class="hz-sky" aria-hidden="true"></div>
   <div class="wrap hz-inner">
-    <h1 class="hero-title">Every network change, tested before production.</h1>
+    <h1 class="hero-title">Know the impact of every network change before deployment.</h1>
     <div class="hz-low">
       <div class="hero-side">
-        <p class="hero-lede">Optimesh is the deterministic digital twin of your network. Know exactly what a change will do before it ships.</p>
-        <div class="actions"><a class="btn primary lg" data-request="hammerhead" href="mailto:contact@optimesh.ai?subject=Hammerhead%20access">Request a demo</a><a class="btn ghost lg" href="https://optimesh-ai.github.io/RuleHawk/" target="_blank" rel="noopener">Free firewall audit</a></div>
+        <p class="hero-lede">Optimesh builds a deterministic digital twin of your network from its configurations and tests every proposed change against it.</p>
+        <div class="actions"><a class="btn primary lg" data-request="hammerhead" href="mailto:contact@optimesh.ai?subject=Hammerhead%20access">Request a demo</a><a class="btn ghost lg" data-nav="platform">Explore the platform</a></div>
       </div>
       <div class="feed" id="feed">
         <div class="vpanel" aria-hidden="true">
@@ -965,12 +960,7 @@
 </section>
 
 <!-- the frontier: how network changes got written, and what is missing -->
-<section class="frontier" id="frontier" data-page="home"><div class="wrap">
-  <dl class="fr-proof reveal">
-    <div><dt>134</dt><dd>public outages rebuilt. Every one caught.</dd></div>
-    <div><dt>15</dt><dd>vendor formats, plus every major cloud.</dd></div>
-    <div><dt>0</dt><dd>changes made to live devices.</dd></div>
-  </dl>
+<section class="parked frontier" id="frontier" data-page="home"><div class="wrap">
   <div class="fr-head reveal">
     <h2>Change is accelerating. Review can&rsquo;t keep up.</h2>
     <p>Automation and AI now write changes faster than any team can review them. Optimesh tests every one first.</p>
@@ -987,10 +977,10 @@
 <section class="blk intro" data-page="home"><div class="wrap">
   <div class="intro-split reveal">
     <div>
-      <h2 class="h2">One platform for safe network change.</h2>
+      <h2 class="h2">The Optimesh platform</h2>
     </div>
     <div class="intro-copy">
-      <p>Hammerhead models your network and tests every change. Config Studio writes changes from plain English. Same input, same answer, every time.</p>
+      <p>Two products, built on one deterministic model of the network.</p>
       <div class="actions"><a class="btn ghost lg" data-nav="platform">Platform overview</a></div>
     </div>
   </div>
@@ -999,7 +989,7 @@
       <div class="prodmedia"><img src="images/soft-delta.webp" srcset="images/soft-delta-900.webp 900w, images/soft-delta.webp 1600w" sizes="(max-width:880px) calc(100vw - 40px), 590px" width="1600" height="1200" loading="lazy" decoding="async" alt=""><span class="prodtag">Network digital twin</span></div>
       <div class="prodbody">
         <h3>Hammerhead</h3>
-        <p>The digital twin of your network. Test any change without touching a device.</p>
+        <p>A deterministic digital twin of your network. Tests any proposed change without access to production devices.</p>
         <span class="prodlink">Explore Hammerhead</span>
       </div>
     </a>
@@ -1007,7 +997,7 @@
       <div class="prodmedia"><img src="images/soft-flock.webp" srcset="images/soft-flock-900.webp 900w, images/soft-flock.webp 1600w" sizes="(max-width:880px) calc(100vw - 40px), 590px" width="1600" height="1200" loading="lazy" decoding="async" alt=""><span class="prodtag">AI-assisted change</span></div>
       <div class="prodbody">
         <h3>Config Studio</h3>
-        <p>Describe a change in plain English. Get a tested, reviewable draft.</p>
+        <p>Generates configuration changes from plain-English requests. Every draft is tested by Hammerhead before review.</p>
         <span class="prodlink">Explore Config Studio</span>
       </div>
     </a>
@@ -1016,7 +1006,7 @@
 
 <!-- pinned network story -->
 <section class="blk" id="stage" data-page="home"><div class="wrap">
-  <div class="center reveal"><h2 class="h2" style="margin:0 auto">Catch risky changes before they merge.</h2><p class="lead" style="margin:14px auto 0">This one-line firewall change passed review. The twin caught it.</p></div>
+  <div class="center reveal"><h2 class="h2" style="margin:0 auto">Every change is tested before it is approved.</h2><p class="lead" style="margin:14px auto 0">A one-line firewall change, blocked before merge.</p></div>
   <div class="vdash reveal" role="img" aria-label="Optimesh change-review dashboard: a change to edge-fw-01 is blocked before merge because it opens the app tier to the internet.">
     <div class="vd-bar">
       <svg class="vd-mk" viewBox="0 0 40 40" fill="none"><g stroke-width="1.4" stroke-linejoin="round"><polygon points="14.5,10.1 18.9,12.3 18.9,16.7 14.5,18.9 10.1,16.7 10.1,12.3" fill="none" stroke="#1a4fd6"/><polygon points="14.5,21.1 18.9,23.3 18.9,27.7 14.5,29.9 10.1,27.7 10.1,23.3" fill="none" stroke="#1a4fd6"/><polygon points="25.5,21.1 29.9,23.3 29.9,27.7 25.5,29.9 21.1,27.7 21.1,23.3" fill="none" stroke="#1a4fd6"/><polygon points="25.5,10.1 29.9,12.3 29.9,16.7 25.5,18.9 21.1,16.7 21.1,12.3" fill="none" stroke="#1f8e65"/></g><polygon points="20,15.6 24.4,20 20,24.4 15.6,20" fill="#1a4fd6"/></svg>
@@ -1061,7 +1051,7 @@
 </div></section>
 
 <!-- CHAT feature -->
-<section class="blk" data-page="home"><div class="wrap split">
+<section class="parked blk" data-page="home"><div class="wrap split">
   <div class="txt reveal">
     <h2 class="h2">Describe it. Config Studio writes it.</h2>
     <p class="lead">Every draft is tested on the twin before an engineer sees it.</p>
@@ -1081,11 +1071,11 @@
 
 <!-- built for enterprise networks: coverage, process, security -->
 <section class="blk" data-page="home"><div class="wrap">
-  <div class="center reveal"><h2 class="h2" style="margin:0 auto">Built for enterprise networks.</h2></div>
+  <div class="center reveal"><h2 class="h2" style="margin:0 auto">Built for the enterprise</h2></div>
   <div class="sgrid reveal">
-    <div class="scard"><h3>Every vendor, every cloud</h3><p>Cisco, Juniper, Arista, Palo Alto, Fortinet, AWS, Azure, GCP, and Kubernetes.</p><a class="scard-link" data-nav="platform#platforms">Supported platforms</a></div>
-    <div class="scard"><h3>Your workflow, unchanged</h3><p>Pull requests, ServiceNow, Jira, and Terraform.</p><a class="scard-link" data-nav="platform#prgate">Integrations</a></div>
-    <div class="scard"><h3>Secure by design</h3><p>Self-hosted. Never touches a live device.</p><a class="scard-link" data-nav="security">Security</a></div>
+    <div class="scard"><h3>Multi-vendor and multi-cloud</h3><p>Cisco, Juniper, Arista, Palo Alto Networks, Fortinet, AWS, Azure, GCP and Kubernetes.</p><a class="scard-link" data-nav="platform#platforms">Supported platforms</a></div>
+    <div class="scard"><h3>Integrated with existing workflows</h3><p>Pull requests, ServiceNow, Jira and Terraform.</p><a class="scard-link" data-nav="platform#prgate">Integrations</a></div>
+    <div class="scard"><h3>Deployed on your infrastructure</h3><p>Self-hosted, with no access to production devices.</p><a class="scard-link" data-nav="security">Security</a></div>
   </div>
 </div></section>
 
@@ -1432,7 +1422,7 @@
 </div>
 
 <!-- film teaser -->
-<section class="blk filmteaser" data-page="home"><div class="wrap split">
+<section class="blk parked filmteaser" data-page="home"><div class="wrap split">
   <div class="txt reveal">
     <h2 class="h2">Review sees the diff. The twin sees the impact.</h2>
     <p class="lead">Two minutes, for the people who approve change.</p>
@@ -1450,13 +1440,13 @@
 
 <!-- real outages -->
 <section class="blk outages" data-page="home"><div class="wrap">
-  <div class="center reveal"><img class="outage-art" src="images/soft-ripple.webp" srcset="images/soft-ripple-900.webp 900w, images/soft-ripple.webp 2200w" sizes="(max-width:1240px) calc(100vw - 40px), 1180px" width="2200" height="1000" loading="lazy" decoding="async" alt=""><div class="outage-copy"><h2 class="h2" style="margin:0 auto">Rogers,&nbsp;2022. Facebook,&nbsp;2021.</h2><p class="lead">We rebuilt 134 public outages. Hammerhead caught every one.</p>
+  <div class="center reveal"><img class="outage-art" src="images/soft-ripple.webp" srcset="images/soft-ripple-900.webp 900w, images/soft-ripple.webp 2200w" sizes="(max-width:1240px) calc(100vw - 40px), 1180px" width="2200" height="1000" loading="lazy" decoding="async" alt=""><div class="outage-copy"><h2 class="h2" style="margin:0 auto">Tested against 134 public outages</h2><p class="lead">Rogers, 2022. Facebook, 2021. Hammerhead detected the cause of every one.</p>
     <div style="display:flex; gap:12px; margin-top:26px; flex-wrap:wrap; justify-content:center"><a class="btn ghost lg" data-nav="methodology">Read the methodology</a></div></div>
 </div>
 </div></section>
 
 <!-- for leaders -->
-<section class="blk" data-page="home"><div class="wrap">
+<section class="blk parked" data-page="home"><div class="wrap">
   <div class="center reveal"><h2 class="h2" style="margin:0 auto">Approve changes on evidence.</h2></div>
   <div class="sgrid reveal">
     <div class="scard"><h3>A clear verdict</h3><p>Pass, fail, advisory, or unknown. Always with evidence.</p></div>
@@ -2333,9 +2323,9 @@ hammerhead policy-check --config-dir ./configs --policies network-policy.yaml --
 <section class="blk closing" data-page="global"><div class="wrap reveal"><div class="cta-band cta-paper">
   <img class="close-art" src="images/soft-aurora.webp" srcset="images/soft-aurora-900.webp 900w, images/soft-aurora.webp 2400w" sizes="(max-width:1240px) calc(100vw - 40px), 1180px" width="2400" height="1100" loading="lazy" decoding="async" alt="">
   <div class="cta-copy">
-  <h2>See it on your network.</h2>
-  <p>Bring one recurring incident. We&rsquo;ll show you what the twin finds.</p>
-  <div class="actions"><a class="btn primary lg" data-request href="mailto:contact@optimesh.ai?subject=Request%20access">Request a demo</a><a class="btn ghost lg" href="https://optimesh-ai.github.io/RuleHawk/" target="_blank" rel="noopener">Free firewall audit</a></div>
+  <h2>See Optimesh on your network.</h2>
+  <p>Request a demo using one of your own recurring incidents.</p>
+  <div class="actions"><a class="btn primary lg" data-request href="mailto:contact@optimesh.ai?subject=Request%20access">Request a demo</a></div>
   <p class="cta-alt">Or email <a href="mailto:contact@optimesh.ai">contact@optimesh.ai</a>.</p>
   </div>
 </div></div></section>
@@ -2343,7 +2333,7 @@ hammerhead policy-check --config-dir ./configs --policies network-policy.yaml --
 
 <!-- footer -->
 <div class="wrap fcta" id="contact">
-  <div class="fcta-top"><div><h2>Every network change,<br>tested before production.</h2></div><div class="fbtns"><a class="btn ghost" data-nav="platform">Platform overview</a><a class="btn primary" data-request href="mailto:contact@optimesh.ai?subject=Request%20access">Request a demo</a></div></div>
+  <div class="fcta-top"><div><h2>Know the impact of every change<br>before deployment.</h2></div><div class="fbtns"><a class="btn ghost" data-nav="platform">Platform overview</a><a class="btn primary" data-request href="mailto:contact@optimesh.ai?subject=Request%20access">Request a demo</a></div></div>
   <div class="fgrid">
     <div class="fcol"><h3>Contact</h3><a data-nav="contact">Contact us</a><a data-request>Request a demo</a><a href="https://optimesh-ai.github.io/RuleHawk/" target="_blank" rel="noopener">Free firewall audit</a><a href="mailto:contact@optimesh.ai" style="color:var(--accent)">contact@optimesh.ai</a></div>
     <div class="fcol"><h3>Products</h3><a data-nav="hammerhead">Hammerhead</a><a data-nav="configstudio">Config Studio</a><a data-nav="rulehawk">RuleHawk</a><a href="https://packet-dojo.com" target="_blank" rel="noopener">PacketDojo</a><a data-nav="platform">Platform overview</a><a data-nav="platform#platforms">Supported platforms</a><a data-nav="pricing">Pricing</a></div>
@@ -2351,7 +2341,7 @@ hammerhead policy-check --config-dir ./configs --policies network-policy.yaml --
     <div class="fcol"><h3>Company</h3><a data-nav="company">About</a><a data-nav="company#newsroom">Newsroom</a><a data-nav="security">Security</a><a data-nav="contact">Contact</a></div>
     <div class="fcol"><h3>Get started</h3><a data-request>Request a demo</a><a href="mailto:contact@optimesh.ai">Talk to an engineer</a></div>
   </div>
-  <div class="fmark"><span class="wordmark">Optimesh</span><span>Every change, tested first.</span></div>
+  <div class="fmark"><span class="wordmark">Optimesh</span><span>Deterministic network assurance.</span></div>
   <div class="fbottom"><span>© 2026 Optimesh Technologies. All rights reserved.</span><span class="flegal"><a data-nav="privacy">Privacy</a> · <a data-nav="terms">Terms</a> · <a data-nav="security">Security</a></span></div>
 </div>
 
@@ -2584,7 +2574,7 @@ hammerhead policy-check --config-dir ./configs --policies network-policy.yaml --
 
   /* ===== tab pages (restore the site's real IA) ===== */
   const pages=[...document.querySelectorAll('[data-page]')];
-  const TITLES={ home:'Optimesh | Every network change, tested before production', hammerhead:'Hammerhead', configstudio:'Config Studio', rulehawk:'RuleHawk, free firewall rule audit',
+  const TITLES={ home:'Optimesh | Know the impact of every network change before deployment', hammerhead:'Hammerhead', configstudio:'Config Studio', rulehawk:'RuleHawk, free firewall rule audit',
     platform:'Platform', pricing:'Pricing', docs:'Hammerhead docs', why:'Why Optimesh', insights:'Insights', company:'Company', contact:'Contact',
     methodology:'Outage replay methodology', whitepaper:'White paper', security:'Security', privacy:'Privacy notice', terms:'Terms of use' };
   function showPage(name, anchor){
