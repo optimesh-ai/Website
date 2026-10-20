@@ -64,6 +64,12 @@
   [headers.values]
     Cache-Control = "public, max-age=86400"
 
+# the self-hosted font never changes under the same name
+[[headers]]
+  for = "/fonts/*"
+  [headers.values]
+    Cache-Control = "public, max-age=31536000, immutable"
+
 # <track> needs text/vtt; state it rather than rely on extension sniffing.
 [[headers]]
   for = "/films/0147/captions.vtt"
